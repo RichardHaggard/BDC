@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:BDC_V1.ViewModels"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         xmlns:local="clr-namespace:BDC_V1"
@@ -11,17 +12,32 @@
     
     <Window.Resources>
         <ResourceDictionary>
+            <vm:ShellViewModel  x:Key="ViewModel"/>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+
     </Window.Resources>
 
-    <Grid>
-        <Button
-            Style="{StaticResource MaterialDesignRaisedAccentButton}"
-            Width="150"
-            Content="Accent Blue"/>
+    <Grid
+        DataContext="{StaticResource ViewModel}">
+
+        <StackPanel
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center">
+            
+            <Label 
+                Margin="5" 
+                Content="{Binding LabelContent}" />
+            
+            <Button
+                Margin="5"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                Width="150"
+                Content="Accent Blue"/>
+        </StackPanel>
 
     </Grid>
 </Window>
