@@ -1,8 +1,11 @@
-﻿<Application x:Class="BDC_V1.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BDC_V1"
-             StartupUri="Views\ShellView.xaml">
+﻿<prism:PrismApplication 
+    x:Class="BDC_V1.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:local="clr-namespace:BDC_V1"
+    >
+    
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,4 +25,4 @@
 
     </Application.Resources>
     
-</Application>
+</prism:PrismApplication>
