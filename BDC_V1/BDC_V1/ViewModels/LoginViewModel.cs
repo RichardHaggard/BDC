@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using CommonServiceLocator;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 
 namespace BDC_V1.ViewModels
 {
-    public class LoginViewModel : BindableBase
+    public class LoginViewModel : ViewModelBase
     {
 
         // **************** Class enumerations ********************************************** //

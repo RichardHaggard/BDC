@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using BDC_V1.Views;
+using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Regions;
 
 namespace BDC_V1.ViewModels
@@ -16,20 +19,28 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public string LabelContent
+        public ICommand CmdExit
         {
-            get { return _LabelContent; }
-            set
-            {
-                if (_LabelContent != value)
-                {
-                    _LabelContent = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            get { return _CmdExit; }
+            set { SetProperty(ref _CmdExit, value); }
         }
-        private string _LabelContent;
+        private ICommand _CmdExit;
 
+
+        public string InventoryTreeContent
+        {
+            get { return _InventoryTreeContent; }
+            set { SetProperty(ref _InventoryTreeContent, value); }
+        }
+        private string _InventoryTreeContent;
+
+
+        public string Title
+        {
+            get { return _Title; }
+            set { SetProperty(ref _Title, value); }
+        }
+        private string _Title;
 
         // **************** Class constructors ********************************************** //
 
@@ -38,8 +49,13 @@ namespace BDC_V1.ViewModels
         /// </summary>
         public ShellViewModel()
         {
-            LabelContent = "Something to confirm ShellViewModel is properly bound.";
+            CmdExit = new DelegateCommand(OnCmdExit);
+            InventoryTreeContent = "Inventory Tree <-> Inspection Tree";
+            Title = @"Builder DC - My Documents\Project\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb";
         }
+
+
+        // **************** INavigationAware interface implementation *********************** //
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
@@ -60,11 +76,13 @@ namespace BDC_V1.ViewModels
         {
         }
 
-        // **************** INavigationAware interface implementation *********************** //
-
 
 
         // **************** Class members *************************************************** //
 
+        public void OnCmdExit()
+        {
+            App.Current.Shutdown();
+        }
     }
 }

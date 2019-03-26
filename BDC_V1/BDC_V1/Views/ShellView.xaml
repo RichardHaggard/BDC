@@ -3,13 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:BDC_V1.ViewModels"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
         Visibility="Collapsed"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        xmlns:local="clr-namespace:BDC_V1"
         mc:Ignorable="d"
-        Title="" Height="450" Width="800">
+        Title="{Binding Title}" 
+        Height="800" Width="1400"
+        d:DesignHeight="450" d:DesignWidth="800">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -23,21 +25,100 @@
     </Window.Resources>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
+        <!--Menu-->
+        <Menu
+            Grid.Row="0">
+            <MenuItem Header="Tools" >
+            </MenuItem>
+
+            <MenuItem Header="Reports" >
+            </MenuItem>
+
+            <MenuItem Header="Help">
+            </MenuItem>
+
+            <MenuItem Header="Exit" Command="{Binding CmdExit}" />
+        </Menu>
+        
+        <!--Toolbar-->
         <StackPanel
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center">
-            
-            <Label 
-                Margin="5" 
-                Content="{Binding LabelContent}" />
-            
-            <Button
-                Margin="5"
-                Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                Width="150"
-                Content="Accent Blue"/>
+            Grid.Row="1"
+            Orientation="Horizontal"
+            >
+            <Button Content="Bluebeam" />
+            <Button Content="Calculators" />
+            <Button Content="Change file/inspector" />
+            <Button Content="View all/auth/assigned Systems" />
+            <Button Content="Inspection Summary" />
+            <Button Content="QA Report" />
         </StackPanel>
+        
+        <!--Inventory tree, the selected Tree item.-->
+        <Label
+            Grid.Row="2"
+            Content="{Binding InventoryTreeContent}" />
+        
+        <!--Primary working area-->
+        <!--A column for a tree, a splitter column and a column for a Tab Control.-->
+        <Grid
+            Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TreeView
+                Grid.Column="0">
+                <TreeViewItem Header="Facility #1">
+                    <TreeViewItem Header="A10 - Foundations">
+                        <TreeViewItem Header="A1010 - Standard Foundations" >
+                            <TreeViewItem Header="A101001 - Wall Foundations" />
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
+                <TreeViewItem />
+                <TreeViewItem />
+            </TreeView>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+
+            <TabControl
+                Grid.Column="2">
+                <TabItem Header="FACILITY">
+                    
+                </TabItem>
+                <TabItem Header="INVENTORY">
+
+                </TabItem>
+
+                <TabItem Header="INSPECTION">
+
+                </TabItem>
+                <TabItem Header="QA - INVENTORY">
+
+                </TabItem>
+                <TabItem Header="QA - INSPECTION">
+
+                </TabItem>
+            </TabControl>
+        </Grid>
+        
+        <!--Bottom status bar-->
+        <StatusBar
+            Grid.Row="4">
+            <Label Content="Lookup.XXXX" />
+            <Label Content="Current Inspector: Last, First" />
+            <Label Content="(Inspected BY: Last, First)" />
+            <Label Content="M/DD/YYY HH:MM AM/PM" />
+        </StatusBar>
 
     </Grid>
 </Window>

@@ -1,8 +1,12 @@
-﻿using Prism.Mvvm;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BDC_V1.ViewModels
 {
-    public class ViewModelBase : BindableBase
+    public class FacilityViewModel : ViewModelBase
     {
         // **************** Class enumerations ********************************************** //
 
@@ -13,7 +17,6 @@ namespace BDC_V1.ViewModels
         // **************** Class constructors ********************************************** //
 
         // **************** Class members *************************************************** //
-
 
     }
 }
