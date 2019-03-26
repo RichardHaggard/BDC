@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:local="clr-namespace:BDC_V1.Views"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Visibility="Collapsed"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -93,21 +94,25 @@
             <TabControl
                 Grid.Column="2">
                 <TabItem Header="FACILITY">
-                    
+                    <local:FacilityView />
                 </TabItem>
+                
                 <TabItem Header="INVENTORY">
-
+                    <local:InspectionView />
                 </TabItem>
 
                 <TabItem Header="INSPECTION">
-
+                    <local:InventoryView />
                 </TabItem>
+                
                 <TabItem Header="QA - INVENTORY">
-
+                    <local:QaInspectionView />
                 </TabItem>
+                
                 <TabItem Header="QA - INSPECTION">
-
+                    <local:QaInventoryView />
                 </TabItem>
+                
             </TabControl>
         </Grid>
         
