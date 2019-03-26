@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using BDC_V1.Events;
-using BDC_V1.Views;
+﻿using System.Windows.Input;
 using CommonServiceLocator;
 using JetBrains.Annotations;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 
 namespace BDC_V1.ViewModels
 {
