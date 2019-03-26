@@ -7,9 +7,166 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d" 
-    d:DesignHeight="450" d:DesignWidth="800"
+    d:DesignHeight="600" d:DesignWidth="800"
     >
-    <Grid>
-        <Label Content="Facility View" />
+
+    <UserControl.Resources>
+        <Style TargetType="Label" x:Key="LabelGray">
+            <Setter Property="Background" Value="LightGray" />
+            <Setter Property="Margin" Value="0,2,10,2" />
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabelBorder">
+            <Setter Property="Margin" Value="0,2,10,2" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabelRJ">
+            <Setter Property="Margin" Value="0,2,10,2" />
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabelBold">
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+    </UserControl.Resources>
+    
+    <Grid
+        Grid.IsSharedSizeScope="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="B"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="C"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="D"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="E"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="F"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="G"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="H"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelBold}"  Content="Identity" />
+        <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="Building ID:" />
+        <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource LabelGray}" Content="ARMRY" />
+        <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="5"  Style="{StaticResource LabelGray}" Content="National Guard Readiness Center" />
+        <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="Building ID:" />
+        <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8" Style="{StaticResource LabelGray}" Content="17180 - ARNG ARMORY" />
+        <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="Const. Type:" />
+        <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Style="{StaticResource LabelGray}" Content="Permanent" />
+        <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="Quantity:" />
+        <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource LabelGray}" Content="87,840.00" />
+        <Label Grid.Row="4" Grid.Column="2" Content="SF" />
+        <Label Grid.Row="4" Grid.Column="3" Style="{StaticResource LabelRJ}" Content="Width:" />
+        <Label Grid.Row="4" Grid.Column="4" Style="{StaticResource LabelBorder}" Content="500.0" />
+        <Label Grid.Row="4" Grid.Column="5" Content="FT" />
+        <Label Grid.Row="4" Grid.Column="6" Style="{StaticResource LabelRJ}" Content="No. Floors:" />
+        <Label Grid.Row="4" Grid.Column="7" Style="{StaticResource LabelGray}" Content="8.0" />
+
+        <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="Year Built:" />
+        <Label Grid.Row="5" Grid.Column="1" Style="{StaticResource LabelGray}" Content="2007" />
+        <Label Grid.Row="5" Grid.Column="3" Style="{StaticResource LabelRJ}" Content="Depth:" />
+        <Label Grid.Row="5" Grid.Column="4" Style="{StaticResource LabelBorder}" Content="175.7" />
+        <Label Grid.Row="5" Grid.Column="5" Content="FT" />
+        <Label Grid.Row="5" Grid.Column="6" Style="{StaticResource LabelRJ}" Content="Floor Height:" />
+        <Label Grid.Row="5" Grid.Column="7" Style="{StaticResource LabelGray}" Content="8.0" />
+        <Label Grid.Row="5" Grid.Column="8" Content="FT" />
+
+        <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="Alternate ID:" />
+        <Label Grid.Row="6" Grid.Column="1" Style="{StaticResource LabelGray}" Content="350939" />
+        <Label Grid.Row="6" Grid.Column="3" Style="{StaticResource LabelRJ}" Content="Alternate ID Source:" />
+        <Label Grid.Row="6" Grid.Column="4" Style="{StaticResource LabelGray}" Content="hqiis" />
+
+        <Grid Grid.Row="9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                Background="LightBlue"
+                BorderBrush="Black"
+                BorderThickness="1"
+                />
+            <TextBox Grid.Row="0" TextWrapping="Wrap" Text="Image" />
+            <TextBox Grid.Row="1" TextWrapping="Wrap" Text="Facility Comment" />
+        </Grid>
+        <TextBox Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="8" VerticalContentAlignment="Top"
+                 Background="BlanchedAlmond">
+            [Brian Rupert 01/08/19 11:38 AM] No A2D and D10 systems present. Could not gain access to Supply RM C342.
+        </TextBox>
+
+        <Grid Grid.Row="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                Background="LightBlue"
+                BorderBrush="Black"
+                BorderThickness="1"
+                />
+            <TextBox Grid.Row="0" TextWrapping="Wrap" Text="Image" />
+            <TextBox Grid.Row="1" TextWrapping="Wrap" Text="Photo(s) Qty: 2" />
+        </Grid>
+        <Border Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="8" 
+                Background="BlanchedAlmond" />
+        <Border Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" 
+                BorderBrush="Black" BorderThickness="1"
+                Background="White" />
+        <TextBox Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" 
+                 TextWrapping="Wrap"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 Text="Thumbnail 1 of Facility Photo"
+                 />
+        <Border Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="2" 
+                BorderBrush="Black" BorderThickness="1"
+                Background="White" />
+        <TextBox Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="2" 
+                 TextWrapping="Wrap"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 Text="Thumbnail 1 of Facility Photo"
+                 />
+
+        <Label Grid.Row="11" Grid.Column="0" Style="{StaticResource LabelBold}" Content="Address" />
+        <Label Grid.Row="12" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="Street:" />
+        <Label Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="4" Style="{StaticResource LabelGray}" Content="4500 Silverado Ranch Blvd" />
+        <Label Grid.Row="13" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="City:" />
+        <Label Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="4" Style="{StaticResource LabelGray}" Content="Las Vegas" />
+        <Label Grid.Row="14" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="State/Prov:" />
+        <Label Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="1" Style="{StaticResource LabelGray}" Content="NV" />
+        <Label Grid.Row="14" Grid.Column="3" Style="{StaticResource LabelRJ}" Content="ZIP/Postal Code:" />
+        <Label Grid.Row="14" Grid.Column="4" Grid.ColumnSpan="1" Style="{StaticResource LabelGray}" Content="89139-8366" />
+
+        <Label Grid.Row="15" Grid.Column="0" Style="{StaticResource LabelBold}" Content="Point of Contact" />
+        <Label Grid.Row="16" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="Name:" />
+        <Label Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="4" Style="{StaticResource LabelGray}" Content="Robert Murphy" />
+        <Label Grid.Row="17" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="Phone:" />
+        <Label Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="4" Style="{StaticResource LabelGray}" Content="555-123-4567 X201" />
+        <Label Grid.Row="18" Grid.Column="0" Style="{StaticResource LabelRJ}" Content="E-Mail:" />
+        <Label Grid.Row="18" Grid.Column="1" Grid.ColumnSpan="4" Style="{StaticResource LabelGray}" Content="robert.murphy@somedomain.mil" />
     </Grid>
 </UserControl>
