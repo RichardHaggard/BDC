@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BDC_V1.Views;
+using Prism.Regions;
 
 namespace BDC_V1.ViewModels
 {
-    public class ShellViewModel : ViewModelBase
+    public class ShellViewModel : ViewModelBase, INavigationAware
     {
         // **************** Class enumerations ********************************************** //
 
@@ -39,8 +41,30 @@ namespace BDC_V1.ViewModels
             LabelContent = "Something to confirm ShellViewModel is properly bound.";
         }
 
-        // **************** Class members *************************************************** //
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            LoginViewModel ViewModel = new LoginViewModel();
+            LoginView view = new LoginView(ViewModel);
+            view.ShowDialog();
 
+            if (!ViewModel.LoginSuccessful)
+                App.Current.Shutdown();
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+        }
+
+        // **************** INavigationAware interface implementation *********************** //
+
+
+
+        // **************** Class members *************************************************** //
 
     }
 }

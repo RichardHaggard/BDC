@@ -26,7 +26,7 @@ namespace BDC_V1
             //if (ViewModel.LoginSuccessful)
             //{
                 base.OnStartup(e);
-                MainWindow.Show();
+                //MainWindow.Show();
             //}
             //else
             //    MainWindow.Close();
