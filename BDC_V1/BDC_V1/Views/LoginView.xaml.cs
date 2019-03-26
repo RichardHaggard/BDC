@@ -17,6 +17,7 @@ using BDC_V1.ViewModels;
 using CommonServiceLocator;
 using JetBrains.Annotations;
 using Prism.Events;
+using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.Views
 {
@@ -25,27 +26,6 @@ namespace BDC_V1.Views
     /// </summary>
     public partial class LoginView
     {
-        [CanBeNull]
-        private IEventAggregator EventAggregator
-        {
-            get
-            {
-                if (_eventAggregator == null)
-                {
-                    try
-                    {
-                        _eventAggregator = ServiceLocator.Current.TryResolve<IEventAggregator>();
-                    }
-                    catch { }
-                }
-
-                return _eventAggregator;
-            }
-        }
-
-        [CanBeNull]
-        private IEventAggregator _eventAggregator;
-
         public LoginView()
         {
             InitializeComponent();
@@ -56,7 +36,7 @@ namespace BDC_V1.Views
         {
             DataContext = viewModel;
 
-            EventAggregator?.GetEvent<PubSubEvent<CloseWindowEvent>>()
+            EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                 .Subscribe((item) =>
                 {
                     if (item?.WindowName==this.GetType().Name)

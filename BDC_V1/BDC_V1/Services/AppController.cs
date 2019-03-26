@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BDC_V1.Interfaces;
+using BDC_V1.Events;
 using CommonServiceLocator;
 using JetBrains.Annotations;
 using Prism.Events;
+using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.Services
 {
@@ -18,33 +20,11 @@ namespace BDC_V1.Services
 
         // **************** Class properties ************************************************ //
 
-        [CanBeNull]
-        private IEventAggregator EventAggregator
-        {
-            get
-            {
-                if (_eventAggregator == null)
-                {
-                    try
-                    {
-                        // ServiceLocator.Current may or may not be set. Wrap in a try/catch
-                        // just in case.
-                        _eventAggregator = ServiceLocator.Current.TryResolve<IEventAggregator>();
-                    }
-                    catch { }
-                }
-                return _eventAggregator;
-            }
-        }
-
-        [CanBeNull]
-        private IEventAggregator _eventAggregator;
-
         // **************** Class constructors ********************************************** //
 
         public AppController()
         {
-            EventAggregator?.GetEvent<PubSubEvent<string>>().Subscribe(OnUserAction);
+            EventAggregator.GetEvent<PubSubEvent<string>>().Subscribe(OnUserAction);
         }
 
         // **************** Class members *************************************************** //

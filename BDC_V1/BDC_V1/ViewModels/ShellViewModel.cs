@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using BDC_V1.Views;
 using Prism.Commands;
@@ -21,10 +23,10 @@ namespace BDC_V1.ViewModels
 
         public ICommand CmdExit
         {
-            get { return _CmdExit; }
-            set { SetProperty(ref _CmdExit, value); }
+            get => _cmdExit;
+            set => SetProperty(ref _cmdExit, value);
         }
-        private ICommand _CmdExit;
+        private ICommand _cmdExit;
 
         public Visibility WindowVisibility
         {
@@ -35,18 +37,17 @@ namespace BDC_V1.ViewModels
 
         public string InventoryTreeContent
         {
-            get { return _InventoryTreeContent; }
-            set { SetProperty(ref _InventoryTreeContent, value); }
+            get => _inventoryTreeContent;
+            set => SetProperty(ref _inventoryTreeContent, value);
         }
-        private string _InventoryTreeContent;
-
+        private string _inventoryTreeContent;
 
         public string Title
         {
-            get { return _Title; }
-            set { SetProperty(ref _Title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
-        private string _Title;
+        private string _title;
 
         // **************** Class constructors ********************************************** //
 
@@ -58,31 +59,13 @@ namespace BDC_V1.ViewModels
             CmdExit = new DelegateCommand(OnCmdExit);
             InventoryTreeContent = "Inventory Tree <-> Inspection Tree";
             Title = @"Builder DC - My Documents\Project\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb";
+
+            // 'this' is your UI element
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+                WindowVisibility = Visibility.Visible;
+            else
+                WindowVisibility = Visibility.Collapsed;
         }
-
-
-        // **************** INavigationAware interface implementation *********************** //
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
-            LoginViewModel ViewModel = new LoginViewModel();
-            LoginView view = new LoginView(ViewModel);
-            view.ShowDialog();
-
-            if (!ViewModel.LoginSuccessful)
-                App.Current.Shutdown();
-        }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
-
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-        }
-
-
 
         // **************** Class members *************************************************** //
 

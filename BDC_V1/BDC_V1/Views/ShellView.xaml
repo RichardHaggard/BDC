@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:local="clr-namespace:BDC_V1.Views"
+        xmlns:vm="clr-namespace:BDC_V1.ViewModels"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Visibility="Collapsed"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         mc:Ignorable="d"
         Title="{Binding Title}" 
-        Height="800" Width="1400"
+        Visibility="{Binding WindowVisibility}"
+        Height="900" Width="1400"
         d:DesignHeight="450" d:DesignWidth="800">
 
     <Window.Resources>

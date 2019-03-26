@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\CloseWindowEvent.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\WindowVisibilityEvent.cs" />
     <Compile Include="Interfaces\IAppController.cs" />
     <Compile Include="Interfaces\IAppModel.cs" />

@@ -17,6 +17,7 @@ using BDC_V1.ViewModels;
 using CommonServiceLocator;
 using JetBrains.Annotations;
 using Prism.Events;
+using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.Views
 {
@@ -25,32 +26,11 @@ namespace BDC_V1.Views
     /// </summary>
     public partial class ShellView
     {
-        [CanBeNull]
-        private IEventAggregator EventAggregator
-        {
-            get
-            {
-                if (_eventAggregator == null)
-                {
-                    try
-                    {
-                        _eventAggregator = ServiceLocator.Current.TryResolve<IEventAggregator>();
-                    }
-                    catch { }
-                }
-
-                return _eventAggregator;
-            }
-        }
-
-        [CanBeNull]
-        private IEventAggregator _eventAggregator;
-
         public ShellView()
         {
             InitializeComponent();
 
-            EventAggregator?.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
+            EventAggregator.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
                 .Subscribe((item) =>
             {
                 if ((item == null) || (item.WindowName != this.GetType().Name)) return;

@@ -1,8 +1,12 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
+using BDC_V1.Events;
+using BDC_V1.Views;
 using CommonServiceLocator;
 using JetBrains.Annotations;
 using Prism.Commands;
 using Prism.Events;
+using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.ViewModels
 {
@@ -68,17 +72,17 @@ namespace BDC_V1.ViewModels
             // published would be an instantiation of an object with various properties
             // filled out. This simple short but is a proof of concept and should be replaced
             // in the real code.
-            EventAggregator?.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
+            EventAggregator.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
 
             //Publish event to close this window
-            EventAggregator?.GetEvent<PubSubEvent<CloseWindowEvent>>()
+            EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                 .Publish(new CloseWindowEvent(typeof(LoginView).Name));
 
             if (! LoginSuccessful) Application.Current.Shutdown(-1);
             else
             {
                 // Publish event to make the shell window visible
-                EventAggregator?.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
+                EventAggregator.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
                     .Publish(new WindowVisibilityEvent(typeof(ShellView).Name,
                         Visibility.Visible));
             }

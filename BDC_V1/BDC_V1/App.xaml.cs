@@ -23,7 +23,7 @@ namespace BDC_V1
             base.ConfigureServiceLocator();
 
             containerRegistry.RegisterInstance<IAppController>(new AppController());
-            containerRegistry.RegisterInstance<IEventAggregator>(new EventAggregator());
+            containerRegistry.RegisterInstance<IEventAggregator>(new Prism.Events.EventAggregator());
         }
 
         protected override Window CreateShell()
