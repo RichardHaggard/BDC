@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using BDC_V1.Events;
+using BDC_V1.Views;
 using CommonServiceLocator;
+using JetBrains.Annotations;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 
 namespace BDC_V1.ViewModels
 {
-    public class LoginViewModel : BindableBase
+    public class LoginViewModel : ViewModelBase
     {
 
         // **************** Class enumerations ********************************************** //
@@ -20,58 +25,46 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdLogin
-        {
-            get { return _CmdLogin; }
-            set { SetProperty(ref _CmdLogin, value); }
-        }
-        private ICommand _CmdLogin;
-
+        [NotNull]
+        public ICommand CmdLogin { get; }
 
         public bool? DialogResultEx
         {
-            get { return _DialogResultEx; }
-            set { SetProperty(ref _DialogResultEx, value); }
+            get => _dialogResultEx;
+            set => SetProperty(ref _dialogResultEx, value);
         }
-        private bool? _DialogResultEx;
-
-
-        private IEventAggregator EventAggregator 
-        { 
-            get
-            {
-                if (_EventAggregator == null)
-                {
-                    try
-                    {
-                        _EventAggregator = ServiceLocator.Current.TryResolve<IEventAggregator>();
-                    }
-                    catch { }
-                }
-                return _EventAggregator;
-            }
-        }
-        private IEventAggregator _EventAggregator;
-
+        private bool? _dialogResultEx;
 
         public string LoginButtonContent
         {
-            get { return _LoginButtonContent; }
-            set { SetProperty(ref _LoginButtonContent, value); }
+            get => _loginButtonContent;
+            set => SetProperty(ref _loginButtonContent, value);
         }
-        private string _LoginButtonContent;
+        private string _loginButtonContent;
 
+        public string LabelContent
+        {
+            get => _labelContent;
+            set => SetProperty(ref _labelContent, value);
+        }
+        private string _labelContent;
 
-        public bool LoginSuccessful { get; set; }
+        public bool LoginSuccessful 
+        {
+            get => _loginSuccessful;
+            set => SetProperty(ref _loginSuccessful, value);
+        }
+        private bool _loginSuccessful;
 
         // **************** Class constructors ********************************************** //
 
         public LoginViewModel()
         {
             LoginButtonContent = "LOG IN";
+            LabelContent = "Something to confirm LoginViewModel is properly bound.";
+
             CmdLogin = new DelegateCommand(OnCmdLogin);
         }
-
 
         // **************** Class members *************************************************** //
 
@@ -83,11 +76,22 @@ namespace BDC_V1.ViewModels
             // Insert a string literal into the Login button clicked event.
             // Normally, the PubSubEvent would be a derived class and the thing being
             // published would be an instantiation of an object with various properties
-            // filled out. This simple shortbut is a proof of concept and should be replaced
+            // filled out. This simple short but is a proof of concept and should be replaced
             // in the real code.
-            if (EventAggregator != null)
-                EventAggregator.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
-        }
+            EventAggregator?.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
 
+            //Publish event to close this window
+            EventAggregator?.GetEvent<PubSubEvent<CloseWindowEvent>>()
+                .Publish(new CloseWindowEvent(typeof(LoginView).Name));
+
+            if (! LoginSuccessful) Application.Current.Shutdown(-1);
+            else
+            {
+                // Publish event to make the shell window visible
+                EventAggregator?.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
+                    .Publish(new WindowVisibilityEvent(typeof(ShellView).Name,
+                        Visibility.Visible));
+            }
+        }
     }
 }

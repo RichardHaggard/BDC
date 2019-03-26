@@ -12,17 +12,54 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BDC_V1.Events;
+using BDC_V1.ViewModels;
+using CommonServiceLocator;
+using JetBrains.Annotations;
+using Prism.Events;
 
 namespace BDC_V1.Views
 {
     /// <summary>
     /// Interaction logic for ShellView.xaml
     /// </summary>
-    public partial class ShellView : Window
+    public partial class ShellView
     {
+        [CanBeNull]
+        private IEventAggregator EventAggregator
+        {
+            get
+            {
+                if (_eventAggregator == null)
+                {
+                    try
+                    {
+                        _eventAggregator = ServiceLocator.Current.TryResolve<IEventAggregator>();
+                    }
+                    catch { }
+                }
+
+                return _eventAggregator;
+            }
+        }
+
+        [CanBeNull]
+        private IEventAggregator _eventAggregator;
+
         public ShellView()
         {
             InitializeComponent();
+
+            EventAggregator?.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
+                .Subscribe((item) =>
+            {
+                if ((item == null) || (item.WindowName != this.GetType().Name)) return;
+                switch (item.WindowVisibility)
+                {
+                    case Visibility.Hidden : Hide(); break;
+                    case Visibility.Visible: Show(); break;
+                }
+            });
         }
     }
 }

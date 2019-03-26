@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using BDC_V1.Views;
 using Prism.Regions;
 
 namespace BDC_V1.ViewModels
 {
-    public class ShellViewModel : ViewModelBase, INavigationAware
+    public class ShellViewModel : ViewModelBase
     {
         // **************** Class enumerations ********************************************** //
 
@@ -18,18 +19,17 @@ namespace BDC_V1.ViewModels
 
         public string LabelContent
         {
-            get { return _LabelContent; }
-            set
-            {
-                if (_LabelContent != value)
-                {
-                    _LabelContent = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            get => _labelContent;
+            set => SetProperty(ref _labelContent, value);
         }
-        private string _LabelContent;
+        private string _labelContent;
 
+        public Visibility WindowVisibility
+        {
+            get => _windowVisibility;
+            set => SetProperty(ref _windowVisibility, value);
+        }
+        private Visibility _windowVisibility;
 
         // **************** Class constructors ********************************************** //
 
@@ -39,30 +39,8 @@ namespace BDC_V1.ViewModels
         public ShellViewModel()
         {
             LabelContent = "Something to confirm ShellViewModel is properly bound.";
+            WindowVisibility = Visibility.Hidden;
         }
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
-            LoginViewModel ViewModel = new LoginViewModel();
-            LoginView view = new LoginView(ViewModel);
-            view.ShowDialog();
-
-            if (!ViewModel.LoginSuccessful)
-                App.Current.Shutdown();
-        }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
-
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-        }
-
-        // **************** INavigationAware interface implementation *********************** //
-
-
 
         // **************** Class members *************************************************** //
 
