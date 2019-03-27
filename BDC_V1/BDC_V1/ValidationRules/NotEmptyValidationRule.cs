@@ -1,15 +1,21 @@
 ﻿using System.Globalization;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace BDC_V1.ValidationRules
 {
-	public class NotEmptyValidationRule : ValidationRule
-	{
-		public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+	public class NotEmptyValidationRule : ValidationRulesBase
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
 		{
 			return string.IsNullOrWhiteSpace((value ?? "").ToString())
-				? new ValidationResult(false, "Field is required.")
+				? new ValidationResult(false, ErrorMessage)
 				: ValidationResult.ValidResult;
 		}
-	}
+
+        public NotEmptyValidationRule()
+        {
+            ErrorMessage = "field cannot be empty";
+        }
+    }
 }

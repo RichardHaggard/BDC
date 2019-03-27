@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
 using BDC_V1.ViewModels;
 using BDC_V1.Views;
 using MaterialDesignThemes.Wpf;
-using Prism.Events;
 using Prism.Ioc;
 using Prism.Unity;
+using Prism.Events;
+using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1
 {
@@ -24,6 +26,7 @@ namespace BDC_V1
 
             containerRegistry.RegisterInstance<IAppController>(new AppController());
             containerRegistry.RegisterInstance<IEventAggregator>(new Prism.Events.EventAggregator());
+            containerRegistry.RegisterInstance<IValidUsers>(new MockValidUsers());
         }
 
         protected override Window CreateShell()
@@ -44,12 +47,26 @@ namespace BDC_V1
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            MainWindow?.Hide();
 
-            var users     = new MockValidUsers();
-            var viewModel = new LoginViewModel(users);
-            var view      = new LoginView(viewModel);
+            if (MainWindow == null) return;
+            MainWindow.Hide();
+
+            var view = new LoginView(new LoginViewModel());
             view.ShowDialog();
+
+            var viewModel = view.DataContext as LoginViewModel;
+            Debug.Assert(viewModel != null);
+
+            if (viewModel.DialogResultEx != true)
+            {
+                Application.Current.Shutdown(-1);
+                return;
+            }
+
+            // Publish event to make the shell window visible
+            MainWindow.Visibility = Visibility.Visible;
+
+            // ??? somehow we need to inject the values gathered by the Login control into the ShellViewModel ???
         }
     }
 

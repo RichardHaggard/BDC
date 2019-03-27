@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -74,12 +75,15 @@
     <Compile Include="Services\AppController.cs" />
     <Compile Include="Services\MockValidUsers.cs" />
     <Compile Include="Utils\DialogCloserExtension.cs" />
+    <Compile Include="Utils\PasswordHelper.cs" />
     <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
+    <Compile Include="ValidationRules\ValidationRulesBase.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="ViewModels\InspectionViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PasswordViewModel.cs" />
     <Compile Include="ViewModels\QaInspectionViewModel.cs" />
     <Compile Include="ViewModels\QaInventoryViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
@@ -95,6 +99,9 @@
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PasswordView.xaml.cs">
+      <DependentUpon>PasswordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\QaInspectionView.xaml.cs">
       <DependentUpon>QaInspectionView.xaml</DependentUpon>
@@ -145,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

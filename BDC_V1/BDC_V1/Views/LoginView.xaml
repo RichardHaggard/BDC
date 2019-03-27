@@ -9,13 +9,14 @@
     xmlns:local="clr-namespace:BDC_V1"
     xmlns:utils="clr-namespace:BDC_V1.Utils"
     xmlns:vm="clr-namespace:BDC_V1.ViewModels"
-    xmlns:validationRules="clr-namespace:BDC_V1.ValidationRules"
+    xmlns:validation="clr-namespace:BDC_V1.ValidationRules"
     prism:ViewModelLocator.AutoWireViewModel="True"
     WindowStyle="None"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d" 
-    Height="450" Width="800"
+    MaxHeight="450" MinHeight="450"
+    MaxWidth="800" MinWidth="500"
     >
 
     <Window.Resources>
@@ -25,7 +26,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Slider.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <!-- <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" /> -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
+                <!-- <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Purple.xaml" /> -->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -74,10 +77,9 @@
                     <Image Width="200" 
                            Source="../Resources/CardnoLogo.bmp"
                            Margin="0 2 0 16"/>
-                    <!--                    <DockPanel Height="100" LastChildFill="False"/>-->
                 </StackPanel>
 
-                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="0 0 0 0">
+                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -93,27 +95,34 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Grid.Column="0" Kind="File" Foreground="{Binding ElementName=NameTextBox, Path=BorderBrush}" />
+                        <materialDesign:PackIcon Grid.Column="0" Kind="File" Foreground="{Binding ElementName=ConfigFileTextBox, Path=BorderBrush}" />
                         <TextBox Grid.Column="1"
                                  x:Name="ConfigFileTextBox"
                                  materialDesign:HintAssist.Hint="&lt; Select configuration file for this BUILDER FCA project &gt;"
                                  BorderThickness="1"
                                  BorderBrush="Black"
                                  VerticalContentAlignment="Center">
+                            <Binding Path="ConfigurationFilename" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <validation:NotEmptyValidationRule 
+                                        ErrorMessage="Configuration file is required." 
+                                        ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
                         </TextBox>
                         <materialDesign:Badged Grid.Column="2"
                                                x:Name="SelectConfigFile"
                                                BadgeColorZoneMode="PrimaryDark">
                             <Button Margin="10 0 0 0"
                                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                Click="{Binding SelectConfigFileButtonOnClick}">
+                                Command="{Binding SelectConfigFileCmd}">
                                 Select...
                             </Button>
                         </materialDesign:Badged>
                     </Grid>
                 </Grid>
 
-                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="0 0 0 0">
+                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -129,20 +138,27 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Grid.Column="0" Kind="FileAccount" Foreground="{Binding ElementName=NameTextBox, Path=BorderBrush}" />
+                        <materialDesign:PackIcon Grid.Column="0" Kind="FileAccount" Foreground="{Binding ElementName=SelectQcFileTextBox, Path=BorderBrush}" />
                         <TextBox Grid.Column="1"
                             x:Name="SelectQcFileTextBox"
                             materialDesign:HintAssist.Hint="&lt; Select your BRED file that you downloaded from BUILDER QC &gt;"
                             BorderThickness="1"
                             BorderBrush="Black"
                             VerticalContentAlignment="Center">
+                            <Binding Path="BredFilename" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <validation:NotEmptyValidationRule 
+                                        ErrorMessage="BRED file is required." 
+                                        ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
                         </TextBox>
                         <materialDesign:Badged Grid.Column="2"
                             x:Name="SelectQcFile"
                             BadgeColorZoneMode="PrimaryDark">
                             <Button Margin="10 0 0 0"
                                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                Click="{Binding SelectQcFileButtonOnClick}">
+                                Command="{Binding SelectQcFileCmd}">
                                 Select...
                             </Button>
                         </materialDesign:Badged>
@@ -165,28 +181,22 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Grid.Column="0" Kind="AccountArrowRightOutline" Foreground="{Binding ElementName=NameTextBox, Path=BorderBrush}" />
-                        <ComboBox Grid.Column="1" 
+                        <materialDesign:PackIcon Grid.Column="0" Kind="AccountArrowRightOutline" Foreground="{Binding ElementName=InspectorComboBox, Path=BorderBrush}" />
+                        <ComboBox Grid.Column="1"  
+                            Name="InspectorComboBox"
                             materialDesign:HintAssist.Hint="&lt; Select your name from the pull-down list (or click More) &gt;"
-                            MinWidth="72"
-                            Margin="0 0 0 0"
-                            VerticalAlignment="Bottom"
+                            Margin="0"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
                             BorderThickness="1"
                             BorderBrush="Black"
                             ItemsSource="{Binding LoginUserList}"
-                            SelectedValue="{Binding SelectedLoginUser}"
+                            SelectedValue="{Binding 
+                                UpdateSourceTrigger=PropertyChanged, 
+                                Path=SelectedLoginUser,
+                                ValidatesOnDataErrors=true, 
+                                NotifyOnValidationError=true}" 
                             >
-                            <ComboBox.SelectedItem>
-                                <Binding
-                                    Path="SelectedLoginUser"
-                                    Mode="TwoWay"
-                                    UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validationRules:NotEmptyValidationRule
-                                            ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedItem> -->
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel />
@@ -198,32 +208,23 @@
                             BadgeColorZoneMode="PrimaryDark">
                             <Button Margin="10 0 0 0"
                                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                Click="{Binding SelectInspectorButtonOnClick}">
+                                Command="{Binding SelectInspectorCmd}">
                                 More...
                             </Button>
                         </materialDesign:Badged>
                     </Grid>
                 </Grid>
 
-                <materialDesign:Badged Grid.Row="8" Grid.Column="1" Margin="0 0 0 0"
+                <materialDesign:Badged Grid.Row="8" Grid.Column="1" Margin="0"
                     x:Name="Login"
-                    BadgeColorZoneMode="PrimaryDark"
                     HorizontalAlignment="Center"
                     >
-                    <Button Margin="10 0 0 0"
+                    <Button Margin="0"
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
-                        Click="{Binding LoginButtonOnClick}"
+                        Command="{Binding LoginCmd}"
                         HorizontalAlignment="Stretch"
                         BorderThickness="1"
-                        BorderBrush="Black"
-                        VerticalContentAlignment="Center">
-                        <Button.Template>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Grid>
-                                    <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                </Grid>
-                            </ControlTemplate>
-                        </Button.Template>
+                        BorderBrush="Black">
                         LOG IN
                     </Button>
                 </materialDesign:Badged>

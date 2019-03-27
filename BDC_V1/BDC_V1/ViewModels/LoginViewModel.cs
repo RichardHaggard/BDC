@@ -27,16 +27,16 @@ namespace BDC_V1.ViewModels
         // **************** Class properties ************************************************ //
 
         [NotNull]
-        public ICommand LoginButtonOnClick { get; }
+        public ICommand LoginCmd { get; }
 
         [NotNull]
-        public ICommand SelectConfigFileButtonOnClick { get; }
+        public ICommand SelectConfigFileCmd { get; }
 
         [NotNull]
-        public ICommand SelectQcFileButtonOnClick { get; }
+        public ICommand SelectQcFileCmd { get; }
 
         [NotNull]
-        public ICommand SelectInspectorButtonOnClick { get; }
+        public ICommand SelectInspectorCmd { get; }
 
         [CanBeNull]
         public bool? DialogResultEx
@@ -67,8 +67,7 @@ namespace BDC_V1.ViewModels
         }
         private bool _loginSuccessful;
 
-        public IReadOnlyCollection<string> LoginUserList => _userName;
-        private readonly List<string> _userName = new List<string>();
+        public IReadOnlyCollection<string> LoginUserList => _validUsers.GetValidUsers();
 
         public string SelectedLoginUser
         {
@@ -81,47 +80,85 @@ namespace BDC_V1.ViewModels
         }
         private string _selectedLoginUser;
 
+        public string ConfigurationFilename
+        {
+            get => _configurationFilename;
+            set => SetProperty(ref _configurationFilename, value);
+        }
+        private string _configurationFilename;
+
+        public string BredFilename
+        {
+            get => _bredFilename;
+            set => SetProperty(ref _bredFilename, value);
+        }
+        private string _bredFilename;
+
+        [NotNull]
+        private readonly IValidUsers _validUsers;
+
         // **************** Class constructors ********************************************** //
 
-        public LoginViewModel(MockValidUsers validUsers)
+        public LoginViewModel()
         {
-            //_validUsers = validUsers;
-            _userName.AddRange(validUsers.GetValidUsers());
+            LoginCmd            = new DelegateCommand(OnCmdLogin  );
+            SelectConfigFileCmd = new DelegateCommand(OnConfigFile);
+            SelectQcFileCmd     = new DelegateCommand(OnQcFile    );
+            SelectInspectorCmd  = new DelegateCommand(OnInspector );
+
+            _validUsers = ServiceLocator.Current.TryResolve<IValidUsers>();
+            if (_validUsers == null)
+            {
+                //Publish event to close this window
+                EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+                    .Publish(new CloseWindowEvent(typeof(LoginView).Name));
+
+                MessageBox.Show("Error Obtaining Valid Users", "System Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                DialogResultEx = false;
+                return;
+            }
 
             LoginButtonContent = "LOG IN";
             LabelContent = "Something to confirm LoginViewModel is properly bound.";
-
-            LoginButtonOnClick            = new DelegateCommand(OnCmdLogin  );
-            SelectConfigFileButtonOnClick = new DelegateCommand(OnConfigFile);
-            SelectQcFileButtonOnClick     = new DelegateCommand(OnQcFile    );
-            SelectInspectorButtonOnClick  = new DelegateCommand(OnInspector );
         }
 
         // **************** Class members *************************************************** //
 
         private void OnCmdLogin()
         {
-            LoginSuccessful = true;
-            DialogResultEx = true;
-
             // Insert a string literal into the Login button clicked event.
             // Normally, the PubSubEvent would be a derived class and the thing being
             // published would be an instantiation of an object with various properties
             // filled out. This simple short but is a proof of concept and should be replaced
             // in the real code.
-            EventAggregator.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
+            //EventAggregator.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
 
-            //Publish event to close this window
-            EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
-                .Publish(new CloseWindowEvent(typeof(LoginView).Name));
+            var view = new PasswordView(new PasswordViewModel());
+            view.ShowDialog();
 
-            if (! LoginSuccessful) Application.Current.Shutdown(-1);
-            else
+            if (!(view.DataContext is PasswordViewModel viewModel)) return;
+            if (viewModel.DialogResultEx != true) return;
+
+            if (_validUsers.ValidateUser(SelectedLoginUser, viewModel.UserPass))
             {
-                // Publish event to make the shell window visible
-                EventAggregator.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
-                    .Publish(new WindowVisibilityEvent(typeof(ShellView).Name,
-                        Visibility.Visible));
+                LoginSuccessful = true;
+                DialogResultEx  = true;
+
+                //Publish event to close this window
+                EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+                    .Publish(new CloseWindowEvent(typeof(LoginView).Name));
+            }
+
+            else if (MessageBox.Show("Invalid User / Password combination", "Cannot Validate",
+                         MessageBoxButton.OKCancel, MessageBoxImage.Hand)
+                     == MessageBoxResult.Cancel)
+            {
+                LoginSuccessful = false;
+                DialogResultEx  = false;
+
+                //Publish event to close this window
+                EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+                    .Publish(new CloseWindowEvent(typeof(LoginView).Name));
             }
         }
 

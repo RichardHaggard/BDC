@@ -10,23 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BDC_V1.Events;
 using BDC_V1.ViewModels;
-using CommonServiceLocator;
-using JetBrains.Annotations;
 using Prism.Events;
 using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for PasswordView.xaml
     /// </summary>
-    public partial class LoginView
+    public partial class PasswordView : Window
     {
-        public LoginView(LoginViewModel viewModel)
+        public PasswordView(PasswordViewModel viewModel)
         {
             DataContext = viewModel;
 
@@ -35,7 +32,7 @@ namespace BDC_V1.Views
             EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                 .Subscribe((item) =>
                 {
-                    if (item?.WindowName==this.GetType().Name)
+                    if (item?.WindowName == this.GetType().Name)
                         Close();
                 });
         }

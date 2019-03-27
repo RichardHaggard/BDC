@@ -30,16 +30,16 @@ namespace BDC_V1.Views
         {
             InitializeComponent();
 
-            EventAggregator.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
-                .Subscribe((item) =>
-            {
-                if ((item == null) || (item.WindowName != this.GetType().Name)) return;
-                switch (item.WindowVisibility)
-                {
-                    case Visibility.Hidden : Hide(); break;
-                    case Visibility.Visible: Show(); break;
-                }
-            });
+            //EventAggregator.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
+            //    .Subscribe((item) =>
+            //{
+            //    if ((item == null) || (item.WindowName != this.GetType().Name)) return;
+            //    switch (item.WindowVisibility)
+            //    {
+            //        case Visibility.Hidden : Hide(); break;
+            //        case Visibility.Visible: Show(); break;
+            //    }
+            //});
         }
     }
 }

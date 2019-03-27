@@ -3,15 +3,21 @@ using System.Windows.Controls;
 
 namespace BDC_V1.ValidationRules
 {
-    public class IsCheckedValidationRule : ValidationRule
+    public class IsCheckedValidationRule : ValidationRulesBase
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if( value is bool b && b)
+            if (value is bool b && b)
             {
                 return ValidationResult.ValidResult;
             }
-            return new ValidationResult(false, "Option must be checked");
+
+            return new ValidationResult(false, ErrorMessage);
+        }
+
+        public IsCheckedValidationRule()
+        {
+            ErrorMessage = "box must be checked";
         }
     }
 }
