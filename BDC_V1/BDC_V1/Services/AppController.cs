@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BDC_V1.Interfaces;
+using BDC_V1.Events;
 using CommonServiceLocator;
+using JetBrains.Annotations;
 using Prism.Events;
+using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.Services
 {
@@ -17,38 +20,17 @@ namespace BDC_V1.Services
 
         // **************** Class properties ************************************************ //
 
-        private IEventAggregator EventAggregator
-        {
-            get
-            {
-                if (_EventAggregator == null)
-                {
-                    try
-                    {
-                        // ServiceLocator.Current may or may not be set. Wrap in a try/catch
-                        // just in case.
-                        _EventAggregator = ServiceLocator.Current.TryResolve<IEventAggregator>();
-                    }
-                    catch { }
-                }
-                return _EventAggregator;
-            }
-        }
-        private IEventAggregator _EventAggregator = null;
-
-
         // **************** Class constructors ********************************************** //
 
         public AppController()
         {
-            if (EventAggregator != null)
-                EventAggregator.GetEvent<PubSubEvent<string>>().Subscribe(OnUserAction);
+            EventAggregator.GetEvent<PubSubEvent<string>>().Subscribe(OnUserAction);
         }
 
         // **************** Class members *************************************************** //
 
 
-        private void OnUserAction( string userAction )
+        private static void OnUserAction( string userAction )
         {
             // Normally, arguments from an external agency should be validated before being
             // utilized. This, however, is just proof of concept and need not have extensive
@@ -57,9 +39,9 @@ namespace BDC_V1.Services
             switch ( userAction )
             {
                 case "Login clicked":
-                    {
-                        break;
-                    }
+                {
+                    break;
+                }
             }
         }
     }

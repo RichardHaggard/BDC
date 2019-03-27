@@ -12,25 +12,32 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BDC_V1.Events;
 using BDC_V1.ViewModels;
+using CommonServiceLocator;
+using JetBrains.Annotations;
+using Prism.Events;
+using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.Views
 {
     /// <summary>
     /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class LoginView
     {
-        public LoginView()
+        public LoginView( LoginViewModel viewModel )
         {
+            DataContext = viewModel;
+
             InitializeComponent();
-        }
 
-
-        public LoginView( LoginViewModel ViewModel )
-            : this()
-        {
-            DataContext = ViewModel;
+            EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+                .Subscribe((item) =>
+                {
+                    if (item?.WindowName==this.GetType().Name)
+                        Close();
+                });
         }
     }
 }

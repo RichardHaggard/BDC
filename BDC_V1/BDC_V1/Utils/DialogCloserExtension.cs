@@ -6,7 +6,7 @@ namespace BDC_V1.Utils
     {
         /// <summary>
         /// This is an extension property. It is added to the Window
-        /// inthe Window's XAML and bound to a property to the Window's
+        /// in the Window's XAML and bound to a property to the Window's
         /// DataContext. When the property changes in the DataContext
         /// that change will be passed back to this property.
         /// </summary>
@@ -27,8 +27,7 @@ namespace BDC_V1.Utils
         /// <param name="e">Contains the value to be written to the Window's DialogResult.</param>
         private static void DialogResultChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
         {
-            var window = d as Window;
-            if (window != null && window.IsVisible)
+            if (d is Window window && window.IsVisible)
             {
                 window.DialogResult = e.NewValue as bool?;
             }

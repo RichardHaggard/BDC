@@ -35,10 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\..\..\..\..\AppData\Local\JetBrains\Installations\ReSharperPlatformVs15_2d485fa2\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,10 +65,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\CloseWindowEvent.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Events\WindowVisibilityEvent.cs" />
     <Compile Include="Interfaces\IAppController.cs" />
     <Compile Include="Interfaces\IAppModel.cs" />
+    <Compile Include="Interfaces\IValidUsers.cs" />
     <Compile Include="Services\AppController.cs" />
+    <Compile Include="Services\MockValidUsers.cs" />
     <Compile Include="Utils\DialogCloserExtension.cs" />
+    <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
+    <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="ViewModels\InspectionViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
@@ -162,13 +171,8 @@
     <PackageReference Include="Prism.Unity" Version="7.1.0.431&#xD;&#xA;" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Events\" />
+    <Resource Include="Resources\CardnoLogo.bmp" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\EditText_Comments.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Photos_cropped.jpg" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

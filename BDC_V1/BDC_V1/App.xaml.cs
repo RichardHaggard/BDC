@@ -1,9 +1,14 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
 using BDC_V1.ViewModels;
 using BDC_V1.Views;
+using MaterialDesignThemes.Wpf;
+using Prism.Events;
 using Prism.Ioc;
+using Prism.Unity;
 
 namespace BDC_V1
 {
@@ -12,6 +17,15 @@ namespace BDC_V1
     /// </summary>
     public partial class App
     {
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            // Previous to Prism version 7, this happened automatically. Not anymore.
+            base.ConfigureServiceLocator();
+
+            containerRegistry.RegisterInstance<IAppController>(new AppController());
+            containerRegistry.RegisterInstance<IEventAggregator>(new Prism.Events.EventAggregator());
+        }
+
         protected override Window CreateShell()
         {
             return Container.Resolve<ShellView>();
@@ -19,25 +33,37 @@ namespace BDC_V1
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //LoginViewModel ViewModel = new LoginViewModel();
-            //LoginView view = new LoginView( ViewModel );
-            //view.ShowDialog();
+            PresentationTraceSources.Refresh();
+            //PresentationTraceSources.DataBindingSource.Listeners.Add(new ConsoleTraceListener());
+            PresentationTraceSources.DataBindingSource.Listeners.Add(new DebugTraceListener());
+            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning | SourceLevels.Error;
 
-            //if (ViewModel.LoginSuccessful)
-            //{
-                base.OnStartup(e);
-                //MainWindow.Show();
-            //}
-            //else
-            //    MainWindow.Close();
+            base.OnStartup(e);
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        protected override void OnInitialized()
         {
-            // Previous to Prism version 7, this happened automatically. Not anymore.
-            base.ConfigureServiceLocator();
+            base.OnInitialized();
+            MainWindow?.Hide();
 
-            containerRegistry.RegisterInstance<IAppController>(new AppController());
+            var users     = new MockValidUsers();
+            var viewModel = new LoginViewModel(users);
+            var view      = new LoginView(viewModel);
+            view.ShowDialog();
+        }
+    }
+
+    public class DebugTraceListener : TraceListener
+    {
+        public override void Write(string message)
+        {
+            Debug.Write(message);
+        }
+
+        public override void WriteLine(string message)
+        {
+            Debug.WriteLine(message);
+            Debugger.Break();
         }
     }
 }

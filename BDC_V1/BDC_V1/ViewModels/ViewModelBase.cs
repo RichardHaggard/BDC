@@ -1,4 +1,7 @@
-﻿using Prism.Mvvm;
+﻿using CommonServiceLocator;
+using JetBrains.Annotations;
+using Prism.Events;
+using Prism.Mvvm;
 
 namespace BDC_V1.ViewModels
 {
@@ -8,12 +11,13 @@ namespace BDC_V1.ViewModels
 
         // **************** Class data members ********************************************** //
 
+        // **************** Class members *************************************************** //
+
         // **************** Class properties ************************************************ //
 
         // **************** Class constructors ********************************************** //
 
         // **************** Class members *************************************************** //
-
 
     }
 }
