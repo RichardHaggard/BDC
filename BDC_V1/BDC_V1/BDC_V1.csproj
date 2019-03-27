@@ -70,8 +70,12 @@
     <Compile Include="Events\WindowVisibilityEvent.cs" />
     <Compile Include="Interfaces\IAppController.cs" />
     <Compile Include="Interfaces\IAppModel.cs" />
+    <Compile Include="Interfaces\IValidUsers.cs" />
     <Compile Include="Services\AppController.cs" />
+    <Compile Include="Services\MockValidUsers.cs" />
     <Compile Include="Utils\DialogCloserExtension.cs" />
+    <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
+    <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="ViewModels\InspectionViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
@@ -165,6 +169,9 @@
       <Version>2.5.0.1205</Version>
     </PackageReference>
     <PackageReference Include="Prism.Unity" Version="7.1.0.431&#xD;&#xA;" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CardnoLogo.bmp" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

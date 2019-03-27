@@ -1,6 +1,10 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using BDC_V1.Events;
+using BDC_V1.Interfaces;
+using BDC_V1.Services;
 using BDC_V1.Views;
 using CommonServiceLocator;
 using JetBrains.Annotations;
@@ -17,11 +21,24 @@ namespace BDC_V1.ViewModels
 
         // **************** Class data members ********************************************** //
 
+        // this causes exceptions within the XamlParser
+        //private readonly IValidUsers _validUsers;
+
         // **************** Class properties ************************************************ //
 
         [NotNull]
-        public ICommand CmdLogin { get; }
+        public ICommand LoginButtonOnClick { get; }
 
+        [NotNull]
+        public ICommand SelectConfigFileButtonOnClick { get; }
+
+        [NotNull]
+        public ICommand SelectQcFileButtonOnClick { get; }
+
+        [NotNull]
+        public ICommand SelectInspectorButtonOnClick { get; }
+
+        [CanBeNull]
         public bool? DialogResultEx
         {
             get => _dialogResultEx;
@@ -50,14 +67,34 @@ namespace BDC_V1.ViewModels
         }
         private bool _loginSuccessful;
 
+        public IReadOnlyCollection<string> LoginUserList => _userName;
+        private readonly List<string> _userName = new List<string>();
+
+        public string SelectedLoginUser
+        {
+            get => _selectedLoginUser;
+            set
+            {
+                if (LoginUserList.Contains(value))
+                    SetProperty(ref _selectedLoginUser, value);
+            }
+        }
+        private string _selectedLoginUser;
+
         // **************** Class constructors ********************************************** //
 
-        public LoginViewModel()
+        public LoginViewModel(MockValidUsers validUsers)
         {
+            //_validUsers = validUsers;
+            _userName.AddRange(validUsers.GetValidUsers());
+
             LoginButtonContent = "LOG IN";
             LabelContent = "Something to confirm LoginViewModel is properly bound.";
 
-            CmdLogin = new DelegateCommand(OnCmdLogin);
+            LoginButtonOnClick            = new DelegateCommand(OnCmdLogin  );
+            SelectConfigFileButtonOnClick = new DelegateCommand(OnConfigFile);
+            SelectQcFileButtonOnClick     = new DelegateCommand(OnQcFile    );
+            SelectInspectorButtonOnClick  = new DelegateCommand(OnInspector );
         }
 
         // **************** Class members *************************************************** //
@@ -87,5 +124,21 @@ namespace BDC_V1.ViewModels
                         Visibility.Visible));
             }
         }
+
+        private void OnConfigFile()
+        {
+            // TO BE IMPLEMENTED
+        }
+
+        private void OnQcFile()
+        {
+            // TO BE IMPLEMENTED
+        }
+
+        private void OnInspector()
+        {
+            MessageBox.Show("To be implemented");
+        }
+
     }
 }

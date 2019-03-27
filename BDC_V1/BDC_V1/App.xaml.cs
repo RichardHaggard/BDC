@@ -46,8 +46,9 @@ namespace BDC_V1
             base.OnInitialized();
             MainWindow?.Hide();
 
-            var viewModel = new LoginViewModel();
-            var view = new LoginView(viewModel);
+            var users     = new MockValidUsers();
+            var viewModel = new LoginViewModel(users);
+            var view      = new LoginView(viewModel);
             view.ShowDialog();
         }
     }

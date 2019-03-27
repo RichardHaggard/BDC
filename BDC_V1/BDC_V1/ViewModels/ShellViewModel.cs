@@ -21,12 +21,7 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdExit
-        {
-            get => _cmdExit;
-            set => SetProperty(ref _cmdExit, value);
-        }
-        private ICommand _cmdExit;
+        public ICommand CmdExit { get; }
 
         public Visibility WindowVisibility
         {

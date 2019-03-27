@@ -17,7 +17,7 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <vm:ShellViewModel x:Key="ViewModel"/>
+            <!--<vm:ShellViewModel x:Key="ViewModel"/>-->
 
             <!--Since this is specified in multiple locations it should go into a common location instead.-->
             <ResourceDictionary.MergedDictionaries>
