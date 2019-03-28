@@ -77,25 +77,6 @@ namespace BDC_V1
             MessageBox.Show("Cannot obtain necessary models", "System Error", MessageBoxButton.OK, MessageBoxImage.Error);
             Application.Current.Shutdown(-1);
         }
-
-        public string SelectedLoginUser
-        {
-            get => _selectedLoginUser;
-            set => SetProperty(ref _selectedLoginUser, value);
-        }
-        private string _selectedLoginUser;
-
-        public string ConfigurationFilename
-        {
-            get => _configurationFilename;
-            set => SetProperty(ref _configurationFilename, value);
-        }
-        private string _configurationFilename;
-
-        public string BredFilename
-
-            // ??? somehow we need to inject the values gathered by the Login control into the ShellViewModel ???
-        }
     }
 
     public class DebugTraceListener : TraceListener
