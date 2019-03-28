@@ -1,5 +1,7 @@
 ﻿// define this to use a password for login
+#if !DEBUG
 #define USE_PASSWORD
+#endif
 
 using System;
 using System.Collections.Generic;
@@ -58,26 +60,26 @@ namespace BDC_V1.ViewModels
         }
         private bool? _dialogResultEx;
 
-        public string LoginButtonContent
-        {
-            get => _loginButtonContent;
-            set => SetProperty(ref _loginButtonContent, value);
-        }
-        private string _loginButtonContent;
+        //public string LoginButtonContent
+        //{
+        //    get => _loginButtonContent;
+        //    set => SetProperty(ref _loginButtonContent, value);
+        //}
+        //private string _loginButtonContent;
 
-        public string LabelContent
-        {
-            get => _labelContent;
-            set => SetProperty(ref _labelContent, value);
-        }
-        private string _labelContent;
+        //public string LabelContent
+        //{
+        //    get => _labelContent;
+        //    set => SetProperty(ref _labelContent, value);
+        //}
+        //private string _labelContent;
 
-        public bool LoginSuccessful 
-        {
-            get => _loginSuccessful;
-            set => SetProperty(ref _loginSuccessful, value);
-        }
-        private bool _loginSuccessful;
+        //public bool LoginSuccessful 
+        //{
+        //    get => _loginSuccessful;
+        //    set => SetProperty(ref _loginSuccessful, value);
+        //}
+        //private bool _loginSuccessful;
 
         public IReadOnlyCollection<string> LoginUserList => _validUsers.GetValidUsers();
 
@@ -132,10 +134,10 @@ namespace BDC_V1.ViewModels
                                            LoginUserList.Contains(SelectedLoginUser));
 
         [NotNull]
-        private readonly IValidUsers _validUsers;
+        public BitmapSource CompanyLogo { get; }
 
         [NotNull]
-        public BitmapSource CompanyLogo { get; }
+        private readonly IValidUsers _validUsers;
 
         // **************** Class constructors ********************************************** //
 
@@ -144,8 +146,8 @@ namespace BDC_V1.ViewModels
             // NOTE: Passing an interface to the constructor causes runtime problems with XamlParser
             //       This is stupid!
 
-            LoginButtonContent = "LOG IN";
-            LabelContent = "Something to confirm LoginViewModel is properly bound.";
+            //LoginButtonContent = "LOG IN";
+            //LabelContent = "Something to confirm LoginViewModel is properly bound.";
 
             // build the button commands
             LoginCmd            = new DelegateCommand(OnCmdLogin  );
@@ -175,13 +177,15 @@ namespace BDC_V1.ViewModels
             _validUsers = ServiceLocator.Current.TryResolve<IValidUsers>();
             if (_validUsers == null)
             {
-                //Publish event to close this window
-                EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
-                    .Publish(new CloseWindowEvent(typeof(LoginView).Name));
-
                 MessageBox.Show("Error Obtaining Valid Users", "System Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                DialogResultEx = false;
+                _validUsers = new MockValidUsers();
             }
+
+        #if DEBUG
+            SelectedLoginUser     = _validUsers?.GetValidUsers().ElementAt(1);
+            ConfigurationFilename = @"My Documents\Project\Subfolder\BRED_HOOD_ABRAMS_E_11057.cfg";
+            BredFilename          = @"My Documents\Project\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb";
+        #endif
         }
 
         // **************** Class members *************************************************** //
@@ -195,7 +199,7 @@ namespace BDC_V1.ViewModels
             // in the real code.
             //EventAggregator.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
 
-            #if USE_PASSWORD
+        #if USE_PASSWORD
             var view = new PasswordView(new PasswordViewModel());
             view.ShowDialog();
 
@@ -204,7 +208,7 @@ namespace BDC_V1.ViewModels
 
             if (_validUsers.ValidateUser(SelectedLoginUser, viewModel.UserPass))
             {
-                LoginSuccessful = true;
+                //LoginSuccessful = true;
                 DialogResultEx  = true;
 
                 //Publish event to close this window
@@ -216,18 +220,20 @@ namespace BDC_V1.ViewModels
                          MessageBoxButton.OKCancel, MessageBoxImage.Hand)
                      == MessageBoxResult.Cancel)
             {
-                LoginSuccessful = false;
+                //LoginSuccessful = false;
                 DialogResultEx  = false;
 
                 //Publish event to close this window
                 EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                     .Publish(new CloseWindowEvent(typeof(LoginView).Name));
             }
-            #else
-                //Publish event to close this window
-                EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
-                    .Publish(new CloseWindowEvent(typeof(LoginView).Name));
-           #endif
+        #else
+            DialogResultEx = true;
+
+            //Publish event to close this window
+            EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+                .Publish(new CloseWindowEvent(typeof(LoginView).Name));
+        #endif
         }
 
         private void OnConfigFile()

@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BDC_V1.Views;
+using JetBrains.Annotations;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -25,48 +26,47 @@ namespace BDC_V1.ViewModels
     {
         // **************** Class enumerations ********************************************** //
 
-        // **************** Class data members ********************************************** //
-
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdExit             { get; }
-        public ICommand CmdAbout            { get; }
-        public ICommand CmdBluebeam         { get; }
-        public ICommand CmdCalculators      { get; }
-        public ICommand CmdSwitchFile       { get; }
-        public ICommand CmdViewAllSystems   { get; }
-        public ICommand CmdInspectionSummary{ get; }
-        public ICommand CmdQaReports        { get; }
-        public ICommand CmdMicOn            { get; }
-        public ICommand CmdMicOff           { get; }
+        // commands are read only to the outside world
+        public ICommand CmdExit                { get; }
+        public ICommand CmdAbout               { get; }
+        public ICommand CmdBluebeam            { get; }
+        public ICommand CmdCalculators         { get; }
+        public ICommand CmdSwitchFile          { get; }
+        public ICommand CmdViewAllSystems      { get; }
+        public ICommand CmdInspectionSummary   { get; }
+        public ICommand CmdQaReports           { get; }
+        public ICommand CmdMicOn               { get; }
+        public ICommand CmdMicOff              { get; }
+        public ICommand CmdTabSelectionChanged { get; }
 
+        // these properties are combinatorial, the components need to raise the property changed for each of these
+        public string Title => @"Builder DC - " + ConfigurationFilename;
+
+        public string StatusLookup => "Lookup: " + LookupField;
+
+        public string StatusInspector => "Current Inspector: " + SelectedLoginUser;
+
+        public string StatusInspectedBy => "(Inspected By: " + InspectedByUser + ")";
+
+        public string StatusDateTimeString =>
+            StatusDateTime.ToShortDateString() + " " + StatusDateTime.ToShortTimeString();
+
+        // these properties all raise their own changed events
         public Visibility WindowVisibility
         {
             get => _windowVisibility;
-            set
-            {
-                if (_windowVisibility != value)
-                {
-                    SetProperty(ref _windowVisibility, value);
-
-                    //if ((_windowVisibility == Visibility.Visible) &&
-                    //    (ViewTabItem is TabItem tabItem))
-                    //{
-                    //    SetToolbarMenuItems(tabItem);
-                    //}
-                }
-            }
+            set => SetProperty(ref _windowVisibility, value);
         }
         private Visibility _windowVisibility;
          
-        public string InventoryTreeContent
+        public string BredFilename
         {
-            get => _inventoryTreeContent;
-            set => SetProperty(ref _inventoryTreeContent, value);
+            get => _bredFilename;
+            set => SetProperty(ref _bredFilename, value);
         }
-        private string _inventoryTreeContent;
-
-        public string Title => @"Builder DC - " + ConfigurationFilename;
+        private string _bredFilename;
 
         public string SelectedLoginUser
         {
@@ -95,22 +95,6 @@ namespace BDC_V1.ViewModels
             }
         }
         private string _configurationFilename;
-
-        public string BredFilename
-        {
-            get => _bredFilename;
-            set => SetProperty(ref _bredFilename, value);
-        }
-        private string _bredFilename;
-
-        public string StatusLookup => "Lookup: " + LookupField;
-
-        public string StatusInspector => "Current Inspector: " + SelectedLoginUser;
-
-        public string StatusInspectedBy => "(Inspected By: " + InspectedByUser + ")";
-
-        public string StatusDateTimeString =>
-            StatusDateTime.ToShortDateString() + " " + StatusDateTime.ToShortTimeString();
 
         public DateTime StatusDateTime   
         {
@@ -154,31 +138,20 @@ namespace BDC_V1.ViewModels
         }
         private string _inspectedByUser;
 
-        // this is OneWayToSource so change shouldn't be notified
-        // set should only come from the UI
-        public int ViewTabIndex { get; set; }
-
-        // this is OneWayToSource so change shouldn't be notified
-        // set should only come from the UI
-        public object ViewTabItem
+        // Used to force the Tab selection internally
+        public int ViewTabIndex
         {
-            get => _viewTabItem;
-            set
-            {
-                if (_viewTabItem != value)
-                {
-                    _viewTabItem = value;
-
-                    if (_viewTabItem is TabItem tabItem)
-                    {
-                        SetToolbarMenuItems(tabItem);
-                    }
-                }
-            }
+            get => _viewTabIndex;
+            set => SetProperty(ref _viewTabIndex, value);
         }
-        private object _viewTabItem;
+        private int _viewTabIndex;
 
-        public ObservableCollection<object> ToolbarMenuItems { get; } = new ObservableCollection<object>();
+        public ObservableCollection<Control> ToolbarMenuItems { get; } = new ObservableCollection<Control>();
+
+        // **************** Class data members ********************************************** //
+
+        private readonly Dictionary<string, IEnumerable<Control>> _toolBarMenuItemsDictionary = 
+            new Dictionary<string, IEnumerable<Control>>();
 
         // **************** Class constructors ********************************************** //
 
@@ -187,18 +160,22 @@ namespace BDC_V1.ViewModels
         /// </summary>
         public ShellViewModel()
         {
-            CmdExit              = new DelegateCommand(OnCmdExit             );
-            CmdAbout             = new DelegateCommand(OnCmdAbout            ); 
-            CmdBluebeam          = new DelegateCommand(OnCmdBluebeam         );
-            CmdCalculators       = new DelegateCommand(OnCmdCalculators      );
-            CmdSwitchFile        = new DelegateCommand(OnCmdSwitchFile       );
-            CmdViewAllSystems    = new DelegateCommand(OnCmdViewAllSystems   );
-            CmdInspectionSummary = new DelegateCommand(OnCmdInspectionSummary);
-            CmdQaReports         = new DelegateCommand(OnCmdQcReport         );
-            CmdMicOn             = new DelegateCommand(OnCmdMicOn            );
-            CmdMicOff            = new DelegateCommand(OnCmdMicOff           );
+            CmdExit                = new DelegateCommand(OnCmdExit             );
+            CmdAbout               = new DelegateCommand(OnCmdAbout            ); 
+            CmdBluebeam            = new DelegateCommand(OnCmdBluebeam         );
+            CmdCalculators         = new DelegateCommand(OnCmdCalculators      );
+            CmdSwitchFile          = new DelegateCommand(OnCmdSwitchFile       );
+            CmdViewAllSystems      = new DelegateCommand(OnCmdViewAllSystems   );
+            CmdInspectionSummary   = new DelegateCommand(OnCmdInspectionSummary);
+            CmdQaReports           = new DelegateCommand(OnCmdQcReport         );
+            CmdMicOn               = new DelegateCommand(OnCmdMicOn            );
+            CmdMicOff              = new DelegateCommand(OnCmdMicOff           );
+            CmdTabSelectionChanged = new DelegateCommand<TabItem>(OnTabSelectionChanged);
 
-            ViewTabIndex = -1;
+            // Setup the toolbar menu items dictionary
+            SetUpToolbarMenuItems();
+
+            ViewTabIndex = 1;   // force a change at initialization time to update the menu items
 
             LookupField     = "XXXX";
             InspectedByUser = "Last, First";
@@ -209,38 +186,6 @@ namespace BDC_V1.ViewModels
                 WindowVisibility = Visibility.Visible;
             else
                 WindowVisibility = Visibility.Collapsed;
-
-            // doesn't do anything here
-            //if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
-            //{
-            //    ToolbarMenuItems.Add(new Button
-            //    {
-            //        Name = "Inv2Insp", 
-            //        Header = "Inv <-> Insp", 
-            //        IsEnabled = true,
-            //        Command = new DelegateCommand(CmdInv2InspFacility)
-            //    });
-
-            //    ToolbarMenuItems.Add(new Separator());
-
-            //    ToolbarMenuItems.Add(new Button
-            //    {
-            //        Name = "AddSystem", 
-            //        Header = "Add System", 
-            //        IsEnabled = true,
-            //        Command = new DelegateCommand(CmdAddSystem)
-            //    });
-
-            //    ToolbarMenuItems.Add(new Separator());
-
-            //    ToolbarMenuItems.Add(new Button
-            //    {
-            //        Name = "DeleteSystem", 
-            //        Header = "Delete System", 
-            //        IsEnabled = true,
-            //        Command = new DelegateCommand(CmdDeleteSystem)
-            //    });
-            //}
         }
 
         // **************** Class members *************************************************** //
@@ -295,297 +240,306 @@ namespace BDC_V1.ViewModels
             Debug.WriteLine("CmdMicOff not implemented");
         }
 
-        private void CmdInv2InspFacility()
+        private void OnCmdInv2InspFacility()
         {
-            Debug.WriteLine("CmdInv2InspFacility not implemented");
+            Debug.WriteLine("OnCmdInv2InspFacility not implemented");
         }
 
-        private void CmdInv2InspInventory()
+        private void OnCmdInv2InspInventory()
         {
-            Debug.WriteLine("CmdInv2InspInventory not implemented");
+            Debug.WriteLine("OnCmdInv2InspInventory not implemented");
         }
 
-        private void CmdInv2InspInspection()
+        private void OnCmdInv2InspInspection()
         {
-            Debug.WriteLine("CmdInv2InspInspection not implemented");
+            Debug.WriteLine("OnCmdInv2InspInspection not implemented");
         }
 
-        private void CmdInv2InspQcInventory()
+        private void OnCmdInv2InspQcInventory()
         {
-            Debug.WriteLine("CmdInv2InspQcInventory not implemented");
+            Debug.WriteLine("OnCmdInv2InspQcInventory not implemented");
         }
 
-        private void CmdInv2InspQcInspection()
+        private void OnCmdInv2InspQcInspection()
         {
-            Debug.WriteLine("CmdInv2InspQcInspection not implemented");
+            Debug.WriteLine("OnCmdInv2InspQcInspection not implemented");
         }
 
-        private void CmdAddSystem()
+        private void OnCmdAddSystem()
         {
-            Debug.WriteLine("CmdAddSystem not implemented");
+            Debug.WriteLine("OnCmdAddSystem not implemented");
         }
 
-        private void CmdDeleteSystem()
+        private void OnCmdDeleteSystem()
         {
-            Debug.WriteLine("CmdDeleteSystem not implemented");
+            Debug.WriteLine("OnCmdDeleteSystem not implemented");
         }
 
-        private void CmdAddComponent()
+        private void OnCmdAddComponent()
         {
-            Debug.WriteLine("CmdAddComponent not implemented");
+            Debug.WriteLine("OnCmdAddComponent not implemented");
         }
 
-        private void CmdAddSection()
+        private void OnCmdAddSection()
         {
-            Debug.WriteLine("CmdAddSection not implemented");
+            Debug.WriteLine("OnCmdAddSection not implemented");
         }
 
-        private void CmdCopySections()
+        private void OnCmdCopySections()
         {
-            Debug.WriteLine("CmdCopySections not implemented");
+            Debug.WriteLine("OnCmdCopySections not implemented");
         }
 
-        private void CmdCopyInventory()
+        private void OnCmdCopyInventory()
         {
-            Debug.WriteLine("CmdCopyInventory not implemented");
+            Debug.WriteLine("OnCmdCopyInventory not implemented");
         }
 
-        private void CmdCopyInspection()
+        private void OnCmdCopyInspection()
         {
-            Debug.WriteLine("CmdCopyInspection not implemented");
+            Debug.WriteLine("OnCmdCopyInspection not implemented");
         }
 
-        //public void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if ((e.Source is TabControl) &&
-        //        (sender is TabControl tabControl) &&
-        //        (tabControl.SelectedIndex >= 0) &&      // -1 for empty tab items
-        //        (tabControl.SelectedItem is TabItem tabItem))
-        //    {
-        //        SetToolbarMenuItems(tabItem);
-        //    }
-        //}
+        private void OnTabSelectionChanged([CanBeNull] TabItem tabItem)
+        {
+            if (tabItem != null)
+            {
+                SetToolbarMenuItems(tabItem);
+            }
+        }
 
-        // ??? I don't understand why this doesn't update on the first window showing ???
-        public void SetToolbarMenuItems(IFrameworkInputElement tabItem)
+        public void SetToolbarMenuItems([NotNull] TabItem tabItem)
         {
             ToolbarMenuItems.Clear();
 
-            var sepStyle = Application.Current.FindResource("MenuSeparatorStyle") as Style;
-            //var separatorStyle = new Style {TargetType = typeof (Separator)};
-            //var setter = new Setter
-            //{
-            //    Property = Margin,
-            //    Value = "0,2,0,2"
-            //};
-            //separatorStyle.Setters.Add(setter);
-
-            // Make a button with both an image and text
-            //    <Button HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" >
-            //      <StackPanel>
-            //          <Image Source="Misc-Settings-icon.png" Height="64" Width="64"/>
-            //          <Label Content="Settings" HorizontalAlignment="Center"/>
-            //      </StackPanel>
-            //    </Button>
-
-            if (tabItem.Name == "Facility")
+            if (_toolBarMenuItemsDictionary.ContainsKey(tabItem.Name))
             {
-                ToolbarMenuItems.Add(new Button
+                ToolbarMenuItems.AddRange(_toolBarMenuItemsDictionary[tabItem.Name]);
+            }
+            else
+            {
+                Debug.WriteLine("Invalid tabItem=\"" + tabItem.Name + "\"");
+            }
+        }
+
+        public void SetUpToolbarMenuItems()
+        {
+            var sepStyle = Application.Current.FindResource("MenuSeparatorStyle") as Style;
+
+            _toolBarMenuItemsDictionary.Clear();
+
+            // ******************************
+            // Facility Menu
+            // ******************************
+            var lFacilityMenuItems = new List<Control>
+            {
+                new Button
                 {
-                    Name = "Inv2Insp", 
-                    ToolTip = "Inv <-> Insp", 
+                    Name = "Inv2Insp",
+                    ToolTip = "Inv <-> Insp",
                     IsEnabled = true,
-                    Command = new DelegateCommand(CmdInv2InspFacility),
+                    Command = new DelegateCommand(OnCmdInv2InspFacility),
                     Content = new System.Windows.Controls.Image
-                    { 
-                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Inventory.png")),
+                    {
+                        Source =
+                            new BitmapImage(new Uri(@"pack://application:,,,/Resources/Inventory.png")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
-                });
-
-                ToolbarMenuItems.Add(new Separator() {Style = sepStyle});
-
-                ToolbarMenuItems.Add(new Button
+                },
+                new Separator() {Style = sepStyle},
+                new Button
                 {
-                    Name = "AddSystem", 
-                    ToolTip = "Add System", 
+                    Name = "AddSystem",
+                    ToolTip = "Add System",
                     IsEnabled = true,
-                    Command = new DelegateCommand(CmdAddSystem),
+                    Command = new DelegateCommand(OnCmdAddSystem),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Add.png")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
-                });
-
-                ToolbarMenuItems.Add(new Separator() {Style = sepStyle});
-
-                ToolbarMenuItems.Add(new Button
+                },
+                new Separator() {Style = sepStyle},
+                new Button
                 {
-                    Name = "DeleteSystem", 
-                    ToolTip = "Delete System", 
+                    Name = "DeleteSystem",
+                    ToolTip = "Delete System",
                     IsEnabled = true,
-                    Command = new DelegateCommand(CmdDeleteSystem),
+                    Command = new DelegateCommand(OnCmdDeleteSystem),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Delete.png")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
-                });
-            }
-            else if (tabItem.Name == "Inventory")
+                }
+            };
+
+            _toolBarMenuItemsDictionary.Add("Facility", lFacilityMenuItems);
+
+            // ******************************
+            // Inventory Menu
+            // ******************************
+            var lInventoryMenuItems = new List<Control>
             {
-                ToolbarMenuItems.Add(new Button
+                new Button
                 {
-                    Name = "Inv2Insp", 
-                    ToolTip = "Inv <-> Insp", 
+                    Name = "Inv2Insp",
+                    ToolTip = "Inv <-> Insp",
                     IsEnabled = true,
-                    Command = new DelegateCommand(CmdInv2InspInventory),
+                    Command = new DelegateCommand(OnCmdInv2InspInventory),
                     Content = new System.Windows.Controls.Image
                     {
-                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Inventory.png")),
+                        Source =
+                            new BitmapImage(new Uri(@"pack://application:,,,/Resources/Inventory.png")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
-                });
-
-                ToolbarMenuItems.Add(new Separator() {Style = sepStyle});
-
-                ToolbarMenuItems.Add(new Button
+                },
+                new Separator() {Style = sepStyle},
+                new Button
                 {
-                    Name = "AddComponent", 
-                    ToolTip = "Add Component", 
+                    Name = "AddComponent",
+                    ToolTip = "Add Component",
                     IsEnabled = true,
-                    Command = new DelegateCommand(CmdAddComponent),
+                    Command = new DelegateCommand(OnCmdAddComponent),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Add.png")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
-                });
-
-                ToolbarMenuItems.Add(new Separator() {Style = sepStyle});
-
-                ToolbarMenuItems.Add(new Button
+                },
+                new Separator() {Style = sepStyle},
+                new Button
                 {
                     Name = "AddSection",
                     ToolTip = "Add Section",
                     IsEnabled = true,
-                    Command = new DelegateCommand(CmdAddSection),
+                    Command = new DelegateCommand(OnCmdAddSection),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Add.png")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
-                });
-
-                ToolbarMenuItems.Add(new Separator() {Style = sepStyle});
-
-                ToolbarMenuItems.Add(new Button
+                },
+                new Separator() {Style = sepStyle},
+                new Button
                 {
                     Name = "CopySections",
                     ToolTip = "Copy Sections",
                     IsEnabled = true,
-                    Command = new DelegateCommand(CmdCopySections),
+                    Command = new DelegateCommand(OnCmdCopySections),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.jpg")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
-                });
-
-                ToolbarMenuItems.Add(new Separator() {Style = sepStyle});
-
-                ToolbarMenuItems.Add(new Button
+                },
+                new Separator() {Style = sepStyle},
+                new Button
                 {
                     Name = "CopyInventory",
                     ToolTip = "Copy Inventory",
                     IsEnabled = true,
-                    Command = new DelegateCommand(CmdCopyInventory),
+                    Command = new DelegateCommand(OnCmdCopyInventory),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.jpg")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
-                });
-            }
-            else if (tabItem.Name == "Inspection")
+                }
+            };
+
+            _toolBarMenuItemsDictionary.Add("Inventory", lInventoryMenuItems);
+
+            // ******************************
+            // Inspection Menu
+            // ******************************
+            var lInspectionMenuItems = new List<Control>
             {
-                ToolbarMenuItems.Add(new Button
+                new Button
                 {
-                    Name = "Inv2Insp", 
-                    ToolTip = "Inv <-> Insp", 
+                    Name = "Inv2Insp",
+                    ToolTip = "Inv <-> Insp",
                     IsEnabled = true,
-                    Command = new DelegateCommand(CmdInv2InspInspection),
+                    Command = new DelegateCommand(OnCmdInv2InspInspection),
                     Content = new System.Windows.Controls.Image
                     {
-                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Inventory.png")),
+                        Source =
+                            new BitmapImage(new Uri(@"pack://application:,,,/Resources/Inventory.png")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
-                });
-
-                ToolbarMenuItems.Add(new Separator() {Style = sepStyle});
-
-                ToolbarMenuItems.Add(new Button
+                },
+                new Separator() {Style = sepStyle},
+                new Button
                 {
-                    Name = "CopyInspection", 
-                    ToolTip = "Copy Inspection", 
+                    Name = "CopyInspection",
+                    ToolTip = "Copy Inspection",
                     IsEnabled = true,
-                    Command = new DelegateCommand(CmdCopyInspection),
+                    Command = new DelegateCommand(OnCmdCopyInspection),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.jpg")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
-                });
-            }
-            else if (tabItem.Name == "QaInventory")
-            {
-                ToolbarMenuItems.Add(new Button
-                {
-                    Name = "Inv2Insp", 
-                    ToolTip = "Inv <-> Insp", 
-                    IsEnabled = true,
-                    Command = new DelegateCommand(CmdInv2InspQcInventory),
-                    Content = new System.Windows.Controls.Image
-                    {
-                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Inventory.png")),
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    }
-                });
-            }
-            else if (tabItem.Name == "QaInspection")
-            {
-                ToolbarMenuItems.Add(new Button
-                {
-                    Name = "Inv2Insp", 
-                    ToolTip = "Inv <-> Insp", 
-                    IsEnabled = true,
-                    Command = new DelegateCommand(CmdInv2InspQcInspection),
-                    Content = new System.Windows.Controls.Image
-                    {
-                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Inventory.png")),
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    }
-                });
-            }
-            else
-            {
-                Debug.WriteLine("Found unknown tab: " + tabItem.Name);
-            }
+                }
+            };
 
-            RaisePropertyChanged(nameof(ToolbarMenuItems));
+            _toolBarMenuItemsDictionary.Add("Inspection", lInspectionMenuItems);
+
+            // ******************************
+            // QaInventory Menu
+            // ******************************
+            var lQaInventoryMenuItems = new List<Control>
+            {
+                new Button
+                {
+                    Name = "Inv2Insp",
+                    ToolTip = "Inv <-> Insp",
+                    IsEnabled = true,
+                    Command = new DelegateCommand(OnCmdInv2InspQcInventory),
+                    Content = new System.Windows.Controls.Image
+                    {
+                        Source =
+                            new BitmapImage(new Uri(@"pack://application:,,,/Resources/Inventory.png")),
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    }
+                }
+            };
+
+            _toolBarMenuItemsDictionary.Add("QaInventory", lQaInventoryMenuItems);
+
+            // ******************************
+            // QaInspection Menu
+            // ******************************
+            var lQaInspectionMenuItems = new List<Control>
+            {
+                new Button
+                {
+                    Name = "Inv2Insp",
+                    ToolTip = "Inv <-> Insp",
+                    IsEnabled = true,
+                    Command = new DelegateCommand(OnCmdInv2InspQcInspection),
+                    Content = new System.Windows.Controls.Image
+                    {
+                        Source =
+                            new BitmapImage(new Uri(@"pack://application:,,,/Resources/Inventory.png")),
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    }
+                }
+            };
+
+            _toolBarMenuItemsDictionary.Add("QaInspection", lQaInspectionMenuItems);
         }
     }
 }
