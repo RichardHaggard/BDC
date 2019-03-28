@@ -54,17 +54,45 @@ namespace BDC_V1
             var view = new LoginView(new LoginViewModel());
             view.ShowDialog();
 
-            var viewModel = view.DataContext as LoginViewModel;
-            Debug.Assert(viewModel != null);
-
-            if (viewModel.DialogResultEx != true)
+            if (view.DataContext is LoginViewModel loginViewModel)
             {
-                Application.Current.Shutdown(-1);
-                return;
+                if (loginViewModel.DialogResultEx != true)
+                {
+                    Application.Current.Shutdown(-1);
+                    return;
+                }
+
+                // Publish event to make the shell window visible
+                MainWindow.Visibility = Visibility.Visible;
+                if (MainWindow.DataContext is ShellViewModel shellViewModel)
+                {
+                    shellViewModel.ConfigurationFilename = loginViewModel.ConfigurationFilename;
+                    shellViewModel.BredFilename          = loginViewModel.BredFilename;
+                    shellViewModel.SelectedLoginUser     = loginViewModel.SelectedLoginUser;
+
+                    return;
+                }
             }
 
-            // Publish event to make the shell window visible
-            MainWindow.Visibility = Visibility.Visible;
+            MessageBox.Show("Cannot obtain necessary models", "System Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Application.Current.Shutdown(-1);
+        }
+
+        public string SelectedLoginUser
+        {
+            get => _selectedLoginUser;
+            set => SetProperty(ref _selectedLoginUser, value);
+        }
+        private string _selectedLoginUser;
+
+        public string ConfigurationFilename
+        {
+            get => _configurationFilename;
+            set => SetProperty(ref _configurationFilename, value);
+        }
+        private string _configurationFilename;
+
+        public string BredFilename
 
             // ??? somehow we need to inject the values gathered by the Login control into the ShellViewModel ???
         }

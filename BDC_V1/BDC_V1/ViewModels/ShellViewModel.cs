@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using BDC_V1.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -37,12 +42,35 @@ namespace BDC_V1.ViewModels
         }
         private string _inventoryTreeContent;
 
-        public string Title
+        public string Title => @"Builder DC - " + ConfigurationFilename;
+
+        public string SelectedLoginUser
         {
-            get => _title;
-            set => SetProperty(ref _title, value);
+            get => _selectedLoginUser;
+            set => SetProperty(ref _selectedLoginUser, value);
         }
-        private string _title;
+        private string _selectedLoginUser;
+
+        public string ConfigurationFilename
+        {
+            get => _configurationFilename;
+            set
+            {
+                if (_configurationFilename != value)
+                {
+                    SetProperty(ref _configurationFilename, value);
+                    RaisePropertyChanged(nameof(Title));
+                }
+            }
+        }
+        private string _configurationFilename;
+
+        public string BredFilename
+        {
+            get => _bredFilename;
+            set => SetProperty(ref _bredFilename, value);
+        }
+        private string _bredFilename;
 
         // **************** Class constructors ********************************************** //
 
@@ -53,7 +81,6 @@ namespace BDC_V1.ViewModels
         {
             CmdExit = new DelegateCommand(OnCmdExit);
             InventoryTreeContent = "Inventory Tree <-> Inspection Tree";
-            Title = @"Builder DC - My Documents\Project\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb";
 
             // 'this' is your UI element
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))

@@ -15,13 +15,26 @@
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d" 
-    MaxHeight="450" MinHeight="450"
-    MaxWidth="800" MinWidth="500"
+    Height="Auto"
+    Width="800"
+    ResizeMode="NoResize"
     >
 
     <Window.Resources>
         <ResourceDictionary>
             <!-- note you only need bring in these extra resource dictionaries when using non-default styles, so only bring them into your controls where the default style is not what you want -->
+            <Style BasedOn="{StaticResource MaterialDesignTitleTextBlock}"
+                   TargetType="TextBlock"
+                   x:Key="TitleTextStyle">
+                <Setter Property="FontSize" Value="30" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignSubheadingTextBlock}"
+                   TargetType="TextBlock"
+                   x:Key="SubheadingTextStyle">
+                <Setter Property="FontSize" Value="24" />
+            </Style>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Slider.xaml" />
@@ -36,21 +49,37 @@
     <Grid>
         <Border Background="{DynamicResource PrimaryHueMidBrush}"/>
 
-        <StackPanel
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Center"
-            Margin="16"
-        >
-            <Grid>
+        <Grid Margin="16 0 16 0"
+              HorizontalAlignment="Stretch" 
+              VerticalAlignment="Center">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Margin="0 0 0 20">
+                <TextBlock Style="{StaticResource TitleTextStyle}"
+                           HorizontalAlignment="Center"
+                           Margin="2">
+                    Builder Data Collector ~ Wireframe 1.0
+                </TextBlock>
+                <TextBlock Style="{StaticResource SubheadingTextStyle}"
+                           HorizontalAlignment="Center"
+                           Margin="2">
+                    Version 1.0
+                </TextBlock>
+                <Image Width="200" 
+                       HorizontalAlignment="Center"
+                       Source="{Binding Path=CompanyLogo}"
+                       Margin="2"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="0 0 0 20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="20"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="20"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -60,33 +89,14 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" 
-                            VerticalAlignment="Top">
-                    <TextBlock
-                        Style="{StaticResource MaterialDesignTitleTextBlock}"
-                        HorizontalAlignment="Center"
-                        Margin="2">
-                        Builder Data Collector ~ Wireframe 1.0
-                    </TextBlock>
-                    <TextBlock
-                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                        HorizontalAlignment="Center"
-                        Margin="2">
-                        Version 1.0
-                    </TextBlock>
-                    <Image Width="200" 
-                           Source="../Resources/CardnoLogo.bmp"
-                           Margin="0 2 0 16"/>
-                </StackPanel>
-
-                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="0">
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="0 20 0 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0"
-                        Style="{StaticResource MaterialDesignSubheadingTextBlock}">
+                        Style="{StaticResource SubheadingTextStyle}">
                         BUILDER project configuration file:
                     </TextBlock>
                     <Grid Grid.Row="1">
@@ -122,14 +132,14 @@
                     </Grid>
                 </Grid>
 
-                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="0">
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Margin="0 20 0 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0"
-                        Style="{StaticResource MaterialDesignSubheadingTextBlock}">
+                        Style="{StaticResource SubheadingTextStyle}">
                         BRED file to use:
                     </TextBlock>
                     <Grid Grid.Row="1">
@@ -140,11 +150,11 @@
                         </Grid.ColumnDefinitions>
                         <materialDesign:PackIcon Grid.Column="0" Kind="FileAccount" Foreground="{Binding ElementName=SelectQcFileTextBox, Path=BorderBrush}" />
                         <TextBox Grid.Column="1"
-                            x:Name="SelectQcFileTextBox"
-                            materialDesign:HintAssist.Hint="&lt; Select your BRED file that you downloaded from BUILDER QC &gt;"
-                            BorderThickness="1"
-                            BorderBrush="Black"
-                            VerticalContentAlignment="Center">
+                                 x:Name="SelectQcFileTextBox"
+                                 materialDesign:HintAssist.Hint="&lt; Select your BRED file that you downloaded from BUILDER QC &gt;"
+                                 BorderThickness="1"
+                                 BorderBrush="Black"
+                                 VerticalContentAlignment="Center">
                             <Binding Path="BredFilename" Mode="TwoWay">
                                 <Binding.ValidationRules>
                                     <validation:NotEmptyValidationRule 
@@ -157,22 +167,22 @@
                             x:Name="SelectQcFile"
                             BadgeColorZoneMode="PrimaryDark">
                             <Button Margin="10 0 0 0"
-                                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                Command="{Binding SelectQcFileCmd}">
+                                    Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                    Command="{Binding SelectQcFileCmd}">
                                 Select...
                             </Button>
                         </materialDesign:Badged>
                     </Grid>
                 </Grid>
 
-                <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="0 0 0 0">
+                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0 20 0 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0"
-                        Style="{StaticResource MaterialDesignSubheadingTextBlock}">
+                        Style="{StaticResource SubheadingTextStyle}">
                         Inspector:
                     </TextBlock>
                     <Grid Grid.Row="1">
@@ -183,20 +193,26 @@
                         </Grid.ColumnDefinitions>
                         <materialDesign:PackIcon Grid.Column="0" Kind="AccountArrowRightOutline" Foreground="{Binding ElementName=InspectorComboBox, Path=BorderBrush}" />
                         <ComboBox Grid.Column="1"  
-                            Name="InspectorComboBox"
-                            materialDesign:HintAssist.Hint="&lt; Select your name from the pull-down list (or click More) &gt;"
-                            Margin="0"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Stretch"
-                            BorderThickness="1"
-                            BorderBrush="Black"
-                            ItemsSource="{Binding LoginUserList}"
-                            SelectedValue="{Binding 
-                                UpdateSourceTrigger=PropertyChanged, 
-                                Path=SelectedLoginUser,
-                                ValidatesOnDataErrors=true, 
-                                NotifyOnValidationError=true}" 
-                            >
+                                  Name="InspectorComboBox"
+                                  materialDesign:HintAssist.Hint="&lt; Select your name from the pull-down list (or click More) &gt;"
+                                  Margin="0"
+                                  VerticalAlignment="Stretch"
+                                  HorizontalAlignment="Stretch"
+                                  BorderThickness="1"
+                                  BorderBrush="Black"
+                                  ItemsSource="{Binding LoginUserList}">
+                            <ComboBox.SelectedValue>
+                                <Binding Path="SelectedLoginUser"
+                                         UpdateSourceTrigger="PropertyChanged"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule 
+                                            ErrorMessage="Inspector is required." 
+                                            ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </ComboBox.SelectedValue>
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel />
@@ -204,8 +220,8 @@
                             </ComboBox.ItemsPanel>
                         </ComboBox>
                         <materialDesign:Badged Grid.Column="2"
-                            x:Name="SelectInspectorMore"
-                            BadgeColorZoneMode="PrimaryDark">
+                                               x:Name="SelectInspectorMore"
+                                               BadgeColorZoneMode="PrimaryDark">
                             <Button Margin="10 0 0 0"
                                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                                 Command="{Binding SelectInspectorCmd}">
@@ -214,24 +230,24 @@
                         </materialDesign:Badged>
                     </Grid>
                 </Grid>
+            </Grid>
 
-                <materialDesign:Badged Grid.Row="8" Grid.Column="1" Margin="0"
-                    x:Name="Login"
-                    HorizontalAlignment="Center"
-                    >
+            <StackPanel Grid.Row="2" Margin="0 20 0 0">
+                <materialDesign:Badged Margin="0"
+                                       x:Name="Login"
+                                       HorizontalAlignment="Center" >
                     <Button Margin="0"
-                        Style="{StaticResource MaterialDesignRaisedLightButton}"
-                        Command="{Binding LoginCmd}"
-                        HorizontalAlignment="Stretch"
-                        BorderThickness="1"
-                        BorderBrush="Black">
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            Command="{Binding LoginCmd}"
+                            HorizontalAlignment="Stretch"
+                            BorderThickness="1"
+                            BorderBrush="Black"
+                            IsEnabled="{Binding LoginButtonEnabled}">
                         LOG IN
                     </Button>
                 </materialDesign:Badged>
-
-            </Grid>
-
-        </StackPanel>
+            </StackPanel>
+        </Grid>
 
     </Grid>
 </Window>

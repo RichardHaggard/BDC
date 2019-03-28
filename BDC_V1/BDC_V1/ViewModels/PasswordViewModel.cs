@@ -21,7 +21,14 @@ namespace BDC_V1.ViewModels
         public string UserPass
         {
             get => _userPass;
-            set => SetProperty(ref _userPass, value);
+            set
+            {
+                if (_userPass != value)
+                {
+                    SetProperty(ref _userPass, value);
+                    RaisePropertyChanged(nameof(ValidateButtonEnabled));
+                }
+            }
         }
         private string _userPass;
 
@@ -32,6 +39,8 @@ namespace BDC_V1.ViewModels
             set => SetProperty(ref _dialogResultEx, value);
         }
         private bool? _dialogResultEx;
+
+        public bool ValidateButtonEnabled => !string.IsNullOrEmpty(UserPass);
 
         public PasswordViewModel()
         {

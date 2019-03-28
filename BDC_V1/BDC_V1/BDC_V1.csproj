@@ -89,8 +89,15 @@
     <Compile Include="Interfaces\IAppController.cs" />
     <Compile Include="Interfaces\IAppModel.cs" />
     <Compile Include="Interfaces\IValidUsers.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\AppController.cs" />
     <Compile Include="Services\MockValidUsers.cs" />
+    <Compile Include="Utils\BitmapExtension.cs" />
+    <Compile Include="Utils\BitmapSourceExtension.cs" />
     <Compile Include="Utils\DialogCloserExtension.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
     <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
@@ -132,11 +139,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -144,6 +146,7 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -201,9 +204,49 @@
     </PackageReference>
     <PackageReference Include="Prism.Unity" Version="7.1.0.431&#xD;&#xA;" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\CardnoLogo.bmp" />
-  </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Add.png" />
+    <Resource Include="Resources\BarcodeScan2.png" />
+    <Resource Include="Resources\Camera.png" />
+    <Resource Include="Resources\Camera_cropped.png" />
+    <Resource Include="Resources\Cancel.png" />
+    <Resource Include="Resources\Cancel_Undo.png" />
+    <Resource Include="Resources\CardnoLogo.bmp" />
+    <Resource Include="Resources\Checkbox.png" />
+    <Resource Include="Resources\Checkbox_Sm.png" />
+    <Resource Include="Resources\checkedbox_checked.png" />
+    <Resource Include="Resources\Copy.jpg" />
+    <Resource Include="Resources\Crop.png" />
+    <Resource Include="Resources\Delete.png" />
+    <Resource Include="Resources\Distress_Selector.png" />
+    <Resource Include="Resources\DownArrow.png" />
+    <Resource Include="Resources\Edit.png" />
+    <Resource Include="Resources\EditText_Comments.png" />
+    <Resource Include="Resources\Filter.jpg" />
+    <Resource Include="Resources\Filter_Clear.png" />
+    <Resource Include="Resources\Filter_Green.jpg" />
+    <Resource Include="Resources\Folder_Closed.png" />
+    <Resource Include="Resources\Inspection.png" />
+    <Resource Include="Resources\Inventory.png" />
+    <Resource Include="Resources\MicrophoneOFF_Rnd_Slash.png" />
+    <Resource Include="Resources\MicrophoneON_Rnd.png" />
+    <Resource Include="Resources\OK.png" />
+    <Resource Include="Resources\OK_ReviewLater.png" />
+    <Resource Include="Resources\PhotoIcon.jpg" />
+    <Resource Include="Resources\Photos_cropped.jpg" />
+    <Resource Include="Resources\ProgressStatus.jpg" />
+    <Resource Include="Resources\RadioBtn_Checked.png" />
+    <Resource Include="Resources\RadioBtn_Unchecked.png" />
+    <Resource Include="Resources\Refresh.png" />
+    <Resource Include="Resources\Remember.png" />
+    <Resource Include="Resources\ReviewIssue.png" />
+    <Resource Include="Resources\ReviewLater.png" />
+    <Resource Include="Resources\RotateLeft.png" />
+    <Resource Include="Resources\RotateRight.png" />
+    <Resource Include="Resources\Slider.png" />
+    <Resource Include="Resources\SpellCheck.png" />
+    <Resource Include="Resources\Unlink.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
