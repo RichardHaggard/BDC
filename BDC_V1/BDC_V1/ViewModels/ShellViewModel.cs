@@ -29,16 +29,17 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdExit             { get; }
-        public ICommand CmdAbout            { get; }
-        public ICommand CmdBluebeam         { get; }
-        public ICommand CmdCalculators      { get; }
-        public ICommand CmdSwitchFile       { get; }
-        public ICommand CmdViewAllSystems   { get; }
-        public ICommand CmdInspectionSummary{ get; }
-        public ICommand CmdQaReports        { get; }
-        public ICommand CmdMicOn            { get; }
-        public ICommand CmdMicOff           { get; }
+        public ICommand CmdAbout               { get; }
+        public ICommand CmdBluebeam            { get; }
+        public ICommand CmdCalculators         { get; }
+        public ICommand CmdExit                { get; }
+        public ICommand CmdInspectionSummary   { get; }
+        public ICommand CmdMicOff              { get; }
+        public ICommand CmdMicOn               { get; }
+        public ICommand CmdQaReports           { get; }
+        public ICommand CmdSwitchFile          { get; }
+        public ICommand CmdViewAllSystems      { get; }
+        public ICommand CmdViewAssignedSystems { get; }
 
         public Visibility WindowVisibility
         {
@@ -59,6 +60,7 @@ namespace BDC_V1.ViewModels
         }
         private Visibility _windowVisibility;
          
+
         public string InventoryTreeContent
         {
             get => _inventoryTreeContent;
@@ -66,7 +68,9 @@ namespace BDC_V1.ViewModels
         }
         private string _inventoryTreeContent;
 
+
         public string Title => @"Builder DC - " + ConfigurationFilename;
+
 
         public string SelectedLoginUser
         {
@@ -81,6 +85,7 @@ namespace BDC_V1.ViewModels
             } 
         }
         private string _selectedLoginUser;
+
 
         public string ConfigurationFilename
         {
@@ -180,6 +185,7 @@ namespace BDC_V1.ViewModels
 
         public ObservableCollection<object> ToolbarMenuItems { get; } = new ObservableCollection<object>();
 
+
         // **************** Class constructors ********************************************** //
 
         /// <summary>
@@ -187,16 +193,17 @@ namespace BDC_V1.ViewModels
         /// </summary>
         public ShellViewModel()
         {
-            CmdExit              = new DelegateCommand(OnCmdExit             );
-            CmdAbout             = new DelegateCommand(OnCmdAbout            ); 
-            CmdBluebeam          = new DelegateCommand(OnCmdBluebeam         );
-            CmdCalculators       = new DelegateCommand(OnCmdCalculators      );
-            CmdSwitchFile        = new DelegateCommand(OnCmdSwitchFile       );
-            CmdViewAllSystems    = new DelegateCommand(OnCmdViewAllSystems   );
-            CmdInspectionSummary = new DelegateCommand(OnCmdInspectionSummary);
-            CmdQaReports         = new DelegateCommand(OnCmdQcReport         );
-            CmdMicOn             = new DelegateCommand(OnCmdMicOn            );
-            CmdMicOff            = new DelegateCommand(OnCmdMicOff           );
+            CmdExit                = new DelegateCommand(OnCmdExit             );
+            CmdAbout               = new DelegateCommand(OnCmdAbout            ); 
+            CmdBluebeam            = new DelegateCommand(OnCmdBluebeam         );
+            CmdCalculators         = new DelegateCommand(OnCmdCalculators      );
+            CmdSwitchFile          = new DelegateCommand(OnCmdSwitchFile       );
+            CmdViewAllSystems      = new DelegateCommand(OnCmdViewAllSystems   );
+            CmdViewAssignedSystems = new DelegateCommand(OnCmdViewAssignedSystems   );
+            CmdInspectionSummary   = new DelegateCommand(OnCmdInspectionSummary);
+            CmdQaReports           = new DelegateCommand(OnCmdQcReport         );
+            CmdMicOn               = new DelegateCommand(OnCmdMicOn            );
+            CmdMicOff              = new DelegateCommand(OnCmdMicOff           );
 
             ViewTabIndex = -1;
 
@@ -245,114 +252,119 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
+        private void OnCmdAbout()
+        {
+            MessageBox.Show( "OnCmdAbout not implemented");
+        }
+
+        private void OnCmdBluebeam()
+        {
+            MessageBox.Show( "CmdBluebeam not implemented");
+        }
+
+        private void OnCmdCalculators()
+        {
+            MessageBox.Show( "CmdCalculators not implemented");
+        }
+
         private void OnCmdExit()
         {
             App.Current.Shutdown();
         }
 
-        private void OnCmdAbout()
-        {
-            Debug.WriteLine("OnCmdAbout not implemented");
-        }
-
-        private void OnCmdBluebeam()
-        {
-            Debug.WriteLine("CmdBluebeam not implemented");
-        }
-
-        private void OnCmdCalculators()
-        {
-            Debug.WriteLine("CmdCalculators not implemented");
-        }
-
-        private void OnCmdSwitchFile()
-        {
-            Debug.WriteLine("CmdSwitchFile not implemented");
-        }
-
-        private void OnCmdViewAllSystems()
-        {
-            Debug.WriteLine("CmdViewAllSystems not implemented");
-        }
-
         private void OnCmdInspectionSummary()
         {
-            Debug.WriteLine("CmdInspectionSummary not implemented");
-        }
-
-        private void OnCmdQcReport()
-        {
-            Debug.WriteLine("CmdQaReports not implemented");
-        }
-
-        private void OnCmdMicOn()
-        {
-            Debug.WriteLine("CmdMicOn not implemented");
+            MessageBox.Show( "CmdInspectionSummary not implemented");
         }
 
         private void OnCmdMicOff()
         {
-            Debug.WriteLine("CmdMicOff not implemented");
+            MessageBox.Show( "CmdMicOff not implemented");
+        }
+
+        private void OnCmdMicOn()
+        {
+            MessageBox.Show( "CmdMicOn not implemented");
+        }
+
+        private void OnCmdQcReport()
+        {
+            MessageBox.Show( "CmdQaReports not implemented");
+        }
+
+        private void OnCmdSwitchFile()
+        {
+            MessageBox.Show( "CmdSwitchFile not implemented");
+        }
+
+        private void OnCmdViewAllSystems()
+        {
+            MessageBox.Show( "CmdViewAllSystems not implemented");
+        }
+
+        private void OnCmdViewAssignedSystems()
+        {
+            MessageBox.Show( "CmdViewAssignedSystems not implemented");
         }
 
         private void CmdInv2InspFacility()
         {
-            Debug.WriteLine("CmdInv2InspFacility not implemented");
+            MessageBox.Show( "CmdInv2InspFacility not implemented");
         }
 
         private void CmdInv2InspInventory()
         {
-            Debug.WriteLine("CmdInv2InspInventory not implemented");
+            MessageBox.Show( "CmdInv2InspInventory not implemented");
         }
 
         private void CmdInv2InspInspection()
         {
-            Debug.WriteLine("CmdInv2InspInspection not implemented");
+            MessageBox.Show( "CmdInv2InspInspection not implemented");
         }
 
         private void CmdInv2InspQcInventory()
         {
-            Debug.WriteLine("CmdInv2InspQcInventory not implemented");
+            MessageBox.Show( "CmdInv2InspQcInventory not implemented");
         }
 
         private void CmdInv2InspQcInspection()
         {
-            Debug.WriteLine("CmdInv2InspQcInspection not implemented");
+            MessageBox.Show( "CmdInv2InspQcInspection not implemented");
         }
 
         private void CmdAddSystem()
         {
-            Debug.WriteLine("CmdAddSystem not implemented");
+            MessageBox.Show( "CmdAddSystem not implemented");
         }
 
         private void CmdDeleteSystem()
         {
-            Debug.WriteLine("CmdDeleteSystem not implemented");
+            MessageBox.Show( "CmdDeleteSystem not implemented");
         }
 
         private void CmdAddComponent()
         {
-            Debug.WriteLine("CmdAddComponent not implemented");
+            MessageBox.Show( "CmdAddComponent not implemented");
         }
 
         private void CmdAddSection()
         {
-            Debug.WriteLine("CmdAddSection not implemented");
+            MessageBox.Show( "CmdAddSection not implemented");
         }
 
         private void CmdCopySections()
         {
-            Debug.WriteLine("CmdCopySections not implemented");
+            MessageBox.Show( "CmdCopySections not implemented");
         }
 
         private void CmdCopyInventory()
         {
-            Debug.WriteLine("CmdCopyInventory not implemented");
+            MessageBox.Show( "CmdCopyInventory not implemented");
         }
 
         private void CmdCopyInspection()
         {
-            Debug.WriteLine("CmdCopyInspection not implemented");
+            MessageBox.Show( "CmdCopyInspection not implemented");
         }
 
         //public void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
