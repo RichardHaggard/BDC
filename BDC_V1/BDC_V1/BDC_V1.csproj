@@ -105,6 +105,8 @@
     <Compile Include="ValidationRules\ValidationRulesBase.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="ViewModels\InspectionViewModel.cs" />
+    <Compile Include="ViewModels\InventoryDetailsViewModel.cs" />
+    <Compile Include="ViewModels\InventorySectionViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />
@@ -117,6 +119,12 @@
     </Compile>
     <Compile Include="Views\InspectionView.xaml.cs">
       <DependentUpon>InspectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InventoryDetailsView.xaml.cs">
+      <DependentUpon>InventoryDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InventorySectionView.xaml.cs">
+      <DependentUpon>InventorySectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
@@ -165,6 +173,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\InspectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InventoryDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InventorySectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

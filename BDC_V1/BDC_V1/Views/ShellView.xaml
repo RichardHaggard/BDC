@@ -163,11 +163,11 @@
                 </TabItem>
                 
                 <TabItem Name="Inventory" Header="INVENTORY">
-                    <local:InspectionView />
+                    <local:InventoryView />
                 </TabItem>
 
                 <TabItem Name="Inspection" Header="INSPECTION">
-                    <local:InventoryView />
+                    <local:InspectionView />
                 </TabItem>
                 
                 <TabItem Name="QaInventory" Header="QA - INVENTORY">
