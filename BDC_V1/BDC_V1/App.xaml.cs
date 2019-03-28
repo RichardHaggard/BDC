@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Navigation;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
@@ -49,27 +50,29 @@ namespace BDC_V1
             base.OnInitialized();
 
             if (MainWindow == null) return;
+
             MainWindow.Hide();
-
-            var view = new LoginView(new LoginViewModel());
-            view.ShowDialog();
-
-            if (view.DataContext is LoginViewModel loginViewModel)
+            if (MainWindow.DataContext is ShellViewModel shellViewModel)
             {
-                if (loginViewModel.DialogResultEx != true)
-                {
-                    Application.Current.Shutdown(-1);
-                    return;
-                }
+                shellViewModel.WindowVisibility = Visibility.Hidden;
 
-                // Publish event to make the shell window visible
-                MainWindow.Visibility = Visibility.Visible;
-                if (MainWindow.DataContext is ShellViewModel shellViewModel)
+                var loginView = new LoginView(new LoginViewModel());
+                loginView.ShowDialog();
+
+                if (loginView.DataContext is LoginViewModel loginViewModel)
                 {
+                    if (loginViewModel.DialogResultEx != true)
+                    {
+                        Application.Current.Shutdown(-1);
+                        return;
+                    }
+
+                    // Publish event to make the shell window visible
                     shellViewModel.ConfigurationFilename = loginViewModel.ConfigurationFilename;
                     shellViewModel.BredFilename          = loginViewModel.BredFilename;
                     shellViewModel.SelectedLoginUser     = loginViewModel.SelectedLoginUser;
 
+                    shellViewModel.WindowVisibility = Visibility.Visible;
                     return;
                 }
             }

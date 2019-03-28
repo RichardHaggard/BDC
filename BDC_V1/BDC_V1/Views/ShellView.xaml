@@ -6,19 +6,18 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:local="clr-namespace:BDC_V1.Views"
         xmlns:vm="clr-namespace:BDC_V1.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         mc:Ignorable="d"
         Title="{Binding Title}" 
-        Visibility="{Binding WindowVisibility}"
+        Visibility="{Binding Path=WindowVisibility, Mode=TwoWay}"
         Height="900" Width="1400"
         d:DesignHeight="450" d:DesignWidth="800">
 
     <Window.Resources>
         <ResourceDictionary>
-            <!--<vm:ShellViewModel x:Key="ViewModel"/>-->
-
             <!--Since this is specified in multiple locations it should go into a common location instead.-->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -38,42 +37,96 @@
         </Grid.RowDefinitions>
 
         <!--Menu-->
-        <Menu
-            Grid.Row="0">
+        <Menu Grid.Row="0">
             <MenuItem Header="Tools" >
+                <MenuItem Header="Tool 1"/>
+                <MenuItem Header="Tool 2"/>
+                <MenuItem Header="..."/>
             </MenuItem>
 
             <MenuItem Header="Reports" >
+                <MenuItem Header="Report 1"/>
+                <MenuItem Header="Report 2"/>
+                <MenuItem Header="..."/>
             </MenuItem>
 
             <MenuItem Header="Help">
+                <MenuItem Header="About..." Command="{Binding CmdAbout}" />
             </MenuItem>
 
             <MenuItem Header="Exit" Command="{Binding CmdExit}" />
         </Menu>
         
         <!--Toolbar-->
-        <StackPanel
-            Grid.Row="1"
-            Orientation="Horizontal"
-            >
-            <Button Content="Bluebeam" />
-            <Button Content="Calculators" />
-            <Button Content="Change file/inspector" />
-            <Button Content="View all/auth/assigned Systems" />
-            <Button Content="Inspection Summary" />
-            <Button Content="QA Report" />
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal">
+            <Button
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                ToolTip="Bluebeam"
+                Command="{Binding CmdBluebeam}">
+                <Image Source="/BDC_V1;component/Resources/Bluebeam.jpg"/>
+            </Button>
+            <Button
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                ToolTip="Calculators"
+                Command="{Binding CmdCalculators}">
+                <Image Source="/BDC_V1;component/Resources/Calculator.png"/>
+            </Button>
+            <Button
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                ToolTip="Change file/inspector"
+                Command="{Binding CmdSwitchFile}">
+                <Image Source="/BDC_V1;component/Resources/OpenFile.jpg"/>
+            </Button>
+            <Button
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                ToolTip="View all/auth/assigned Systems"
+                Command="{Binding CmdViewAllSystems}">
+                <Image Source="/BDC_V1;component/Resources/ViewAll.jpg"/>
+            </Button>
+            <Button
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                ToolTip="Inspection Summary"
+                Command="{Binding CmdInspectionSummary}">
+                <Image Source="/BDC_V1;component/Resources/Inspection.png"/>
+            </Button>
+            <Button
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                ToolTip="QA Reports"
+                Command="{Binding CmdQaReports}">
+                <Image Source="/BDC_V1;component/Resources/Report.jpg"/>
+            </Button>
         </StackPanel>
         
         <!--Inventory tree, the selected Tree item.-->
-        <Label
-            Grid.Row="2"
-            Content="{Binding InventoryTreeContent}" />
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Menu Grid.Column="0" Name="ToolbarMenu" ItemsSource="{Binding ToolbarMenuItems}">
+            </Menu>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Margin="10 0 10 0"
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        ToolTip="Microphone ON"
+                        Command="{Binding CmdMicOn}">
+                    <Image Source="/BDC_V1;component/Resources/MicrophoneON_Rnd.png"/>
+                </Button>
+                <Button Margin="0 0 10 0"
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        ToolTip="Microphone OFF"
+                        Command="{Binding CmdMicOff}">
+                    <Image Source="/BDC_V1;component/Resources/MicrophoneOFF_Rnd_Slash.png"/>
+                </Button>
+            </StackPanel>
+        </Grid>
         
         <!--Primary working area-->
         <!--A column for a tree, a splitter column and a column for a Tab Control.-->
-        <Grid
-            Grid.Row="3">
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="5" />
@@ -94,25 +147,26 @@
             </TreeView>
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
-            <TabControl
-                Grid.Column="2">
-                <TabItem Header="FACILITY">
+            <TabControl Grid.Column="2" Name="ViewTabControl" 
+                        SelectedIndex="{Binding Path=ViewTabIndex, Mode=OneWayToSource}"
+                        SelectedItem="{Binding Path=ViewTabItem, Mode=OneWayToSource}">
+                <TabItem Name="Facility" Header="FACILITY">
                     <local:FacilityView />
                 </TabItem>
                 
-                <TabItem Header="INVENTORY">
+                <TabItem Name="Inventory" Header="INVENTORY">
                     <local:InspectionView />
                 </TabItem>
 
-                <TabItem Header="INSPECTION">
+                <TabItem Name="Inspection" Header="INSPECTION">
                     <local:InventoryView />
                 </TabItem>
                 
-                <TabItem Header="QA - INVENTORY">
+                <TabItem Name="QaInventory" Header="QA - INVENTORY">
                     <local:QaInspectionView />
                 </TabItem>
                 
-                <TabItem Header="QA - INSPECTION">
+                <TabItem Name="QaInspection" Header="QA - INSPECTION">
                     <local:QaInventoryView />
                 </TabItem>
                 
@@ -120,12 +174,11 @@
         </Grid>
         
         <!--Bottom status bar-->
-        <StatusBar
-            Grid.Row="4">
-            <Label Content="Lookup.XXXX" />
-            <Label Content="Current Inspector: Last, First" />
-            <Label Content="(Inspected BY: Last, First)" />
-            <Label Content="M/DD/YYY HH:MM AM/PM" />
+        <StatusBar Grid.Row="4">
+            <Label Content="{Binding StatusLookup        }" />
+            <Label Content="{Binding StatusInspector     }" />
+            <Label Content="{Binding StatusInspectedBy   }" />
+            <Label Content="{Binding StatusDateTimeString}" />
         </StatusBar>
 
     </Grid>

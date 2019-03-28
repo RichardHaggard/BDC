@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,5 +42,48 @@ namespace BDC_V1.Views
             //    }
             //});
         }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //if (DataContext is ShellViewModel viewModel)
+            //{
+            //    viewModel.TabControl_SelectionChanged(sender, e);
+            //}
+            //else
+            //{
+            //    Debug.WriteLine("DataContext is NOT ShellViewModel");
+            //}
+        }
+
+        //private void UpdateToolsMenu()
+        //{
+        //    if ((DataContext is ShellViewModel viewModel) &&
+        //        (viewModel.WindowVisibility == Visibility.Visible) &&
+        //        (ViewTabControl.SelectedIndex >= 0) &&
+        //        (ViewTabControl.SelectedItem is TabItem tabItem))
+        //    {
+        //        viewModel.SetToolbarMenuItems(tabItem);
+        //    }
+        //    else
+        //    {
+        //        Debug.WriteLine("ViewTabControl.SelectedItem is NOT TabItem");
+        //    }
+        //}
+
+        // Doesn't work!
+        //protected override void OnContentRendered(EventArgs e)
+        //{
+        //    base.OnContentRendered(e);
+
+        //    // DO the initial update of the Tools Menu
+        //    UpdateToolsMenu();
+        //}
+
+        // Doesn't work!
+        //protected override void OnGotFocus(RoutedEventArgs e)
+        //{
+        //    base.OnGotFocus(e);
+        //    UpdateToolsMenu();
+        //}
     }
 }

@@ -204,7 +204,14 @@
     </PackageReference>
     <PackageReference Include="Prism.Unity" Version="7.1.0.431&#xD;&#xA;" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Bluebeam.jpg" />
+    <Resource Include="Resources\Calculator.png" />
+    <Resource Include="Resources\OpenFile.jpg" />
+    <Resource Include="Resources\Report.jpg" />
+    <Resource Include="Resources\Summary.png" />
+    <Resource Include="Resources\ViewAll.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Add.png" />
     <Resource Include="Resources\BarcodeScan2.png" />
