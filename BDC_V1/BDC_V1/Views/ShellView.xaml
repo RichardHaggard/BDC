@@ -39,15 +39,16 @@
         <!--Menu-->
         <Menu Grid.Row="0">
             <MenuItem Header="Tools" >
-                <MenuItem Header="Tool 1"/>
-                <MenuItem Header="Tool 2"/>
-                <MenuItem Header="..."/>
+                <MenuItem Header="_Bluebeam data"         Command="{Binding CmdBluebeam}"/>
+                <MenuItem Header="_Calculators"           Command="{Binding CmdCalculators}"/>
+                <MenuItem Header="_Switch file/inspector" Command="{Binding CmdSwitchFile}"/>
+                <MenuItem Header="View _All Systems"      Command="{Binding CmdViewAllSystems}"/>
+                <MenuItem Header="_View Assigned Systems" Command="{Binding CmdViewAssignedSystems}"/>
             </MenuItem>
 
             <MenuItem Header="Reports" >
-                <MenuItem Header="Report 1"/>
-                <MenuItem Header="Report 2"/>
-                <MenuItem Header="..."/>
+                <MenuItem Header="_Inspection Summary" Command="{Binding CmdInspectionSummary}"/>
+                <MenuItem Header="_QC Reports" Command="{Binding CmdQcReports}"/>
             </MenuItem>
 
             <MenuItem Header="Help">
