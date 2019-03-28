@@ -61,37 +61,37 @@
         <!--Toolbar-->
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal">
-            <Button
+            <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="Bluebeam"
                 Command="{Binding CmdBluebeam}">
                 <Image Source="/BDC_V1;component/Resources/Bluebeam.jpg"/>
             </Button>
-            <Button
+            <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="Calculators"
                 Command="{Binding CmdCalculators}">
                 <Image Source="/BDC_V1;component/Resources/Calculator.png"/>
             </Button>
-            <Button
+            <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="Change file/inspector"
                 Command="{Binding CmdSwitchFile}">
                 <Image Source="/BDC_V1;component/Resources/OpenFile.jpg"/>
             </Button>
-            <Button
+            <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="View all/auth/assigned Systems"
                 Command="{Binding CmdViewAllSystems}">
                 <Image Source="/BDC_V1;component/Resources/ViewAll.jpg"/>
             </Button>
-            <Button
+            <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="Inspection Summary"
                 Command="{Binding CmdInspectionSummary}">
                 <Image Source="/BDC_V1;component/Resources/Inspection.png"/>
             </Button>
-            <Button
+            <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="QA Reports"
                 Command="{Binding CmdQaReports}">
@@ -110,13 +110,13 @@
             <Menu Grid.Column="0" Name="ToolbarMenu" ItemsSource="{Binding ToolbarMenuItems}">
             </Menu>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <Button Margin="10 0 10 0"
+                <Button Margin="5 0 5 0"
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
                         ToolTip="Microphone ON"
                         Command="{Binding CmdMicOn}">
                     <Image Source="/BDC_V1;component/Resources/MicrophoneON_Rnd.png"/>
                 </Button>
-                <Button Margin="0 0 10 0"
+                <Button Margin="5 0 5 0"
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
                         ToolTip="Microphone OFF"
                         Command="{Binding CmdMicOff}">
@@ -148,9 +148,16 @@
             </TreeView>
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
-            <TabControl Grid.Column="2" Name="ViewTabControl" 
-                        SelectedIndex="{Binding Path=ViewTabIndex, Mode=OneWayToSource}"
-                        SelectedItem="{Binding Path=ViewTabItem, Mode=OneWayToSource}">
+            <TabControl Grid.Column="2" Name="ViewTabControl"
+                        SelectedIndex="{Binding Path=ViewTabIndex, Mode=TwoWay}">
+                <!-- A Prism compatible way to reflect events into the ViewModel -->
+                <i:Interaction.Triggers> 
+                    <i:EventTrigger EventName="SelectionChanged"> 
+                        <i:InvokeCommandAction Command="{Binding CmdTabSelectionChanged}"
+                                               CommandParameter="{Binding ElementName=ViewTabControl, Path=SelectedItem}"/>  
+                    </i:EventTrigger> 
+                </i:Interaction.Triggers> 
+
                 <TabItem Name="Facility" Header="FACILITY">
                     <local:FacilityView />
                 </TabItem>

@@ -73,6 +73,12 @@ namespace BDC_V1
                     shellViewModel.SelectedLoginUser     = loginViewModel.SelectedLoginUser;
 
                     shellViewModel.WindowVisibility = Visibility.Visible;
+
+                    // this is a hack to get the toolbar menu to display at first showing
+                    if (MainWindow is ShellView shellView)
+                    {
+                        shellView.ViewTabControl.SelectedIndex = 0;
+                    }
                     return;
                 }
             }
