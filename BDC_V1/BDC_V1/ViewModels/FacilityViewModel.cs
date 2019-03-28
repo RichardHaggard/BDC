@@ -126,6 +126,14 @@ namespace BDC_V1.ViewModels
         private string _Phone;
 
 
+        public string PhotoQty
+        {
+            get { return _PhotoQty; }
+            set { SetProperty(ref _PhotoQty, value); }
+        }
+        private string _PhotoQty = "Qty: 2";
+
+
         public string PocEmail
         {
             get { return _PocEmail; }
