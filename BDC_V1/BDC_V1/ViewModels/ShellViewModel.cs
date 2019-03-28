@@ -35,6 +35,7 @@ namespace BDC_V1.ViewModels
         public ICommand CmdCalculators         { get; }
         public ICommand CmdSwitchFile          { get; }
         public ICommand CmdViewAllSystems      { get; }
+        public ICommand CmdViewAssignedSystems { get; }
         public ICommand CmdInspectionSummary   { get; }
         public ICommand CmdQaReports           { get; }
         public ICommand CmdMicOn               { get; }
