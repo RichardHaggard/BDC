@@ -41,16 +41,16 @@ namespace BDC_V1.ViewModels
         // **************** Class properties ************************************************ //
 
         [NotNull]
-        public ICommand LoginCmd { get; }
+        public ICommand CmdLogin { get; }
 
         [NotNull]
-        public ICommand SelectConfigFileCmd { get; }
+        public ICommand CmdSelectConfigFile { get; }
 
         [NotNull]
-        public ICommand SelectQcFileCmd { get; }
+        public ICommand CmdSelectQcFile { get; }
 
         [NotNull]
-        public ICommand SelectInspectorCmd { get; }
+        public ICommand CmdSelectInspector { get; }
 
         [CanBeNull]
         public bool? DialogResultEx
@@ -60,30 +60,9 @@ namespace BDC_V1.ViewModels
         }
         private bool? _dialogResultEx;
 
-        //public string LoginButtonContent
-        //{
-        //    get => _loginButtonContent;
-        //    set => SetProperty(ref _loginButtonContent, value);
-        //}
-        //private string _loginButtonContent;
+        public IReadOnlyCollection<IPerson> LoginUserList => _validUsers.GetValidUsers();
 
-        //public string LabelContent
-        //{
-        //    get => _labelContent;
-        //    set => SetProperty(ref _labelContent, value);
-        //}
-        //private string _labelContent;
-
-        //public bool LoginSuccessful 
-        //{
-        //    get => _loginSuccessful;
-        //    set => SetProperty(ref _loginSuccessful, value);
-        //}
-        //private bool _loginSuccessful;
-
-        public IReadOnlyCollection<string> LoginUserList => _validUsers.GetValidUsers();
-
-        public string SelectedLoginUser
+        public IPerson SelectedLoginUser
         {
             get => _selectedLoginUser;
             set
@@ -98,7 +77,7 @@ namespace BDC_V1.ViewModels
                 }
             }
         }
-        private string _selectedLoginUser;
+        private IPerson _selectedLoginUser;
 
         public string ConfigurationFilename
         {
@@ -130,7 +109,7 @@ namespace BDC_V1.ViewModels
 
         public bool LoginButtonEnabled => (!string.IsNullOrEmpty(ConfigurationFilename) &&
                                            !string.IsNullOrEmpty(BredFilename) &&
-                                           !string.IsNullOrEmpty(SelectedLoginUser) &&
+                                           (SelectedLoginUser != null) &&
                                            LoginUserList.Contains(SelectedLoginUser));
 
         [NotNull]
@@ -150,28 +129,19 @@ namespace BDC_V1.ViewModels
             //LabelContent = "Something to confirm LoginViewModel is properly bound.";
 
             // build the button commands
-            LoginCmd            = new DelegateCommand(OnCmdLogin  );
-            SelectConfigFileCmd = new DelegateCommand(OnConfigFile);
-            SelectQcFileCmd     = new DelegateCommand(OnQcFile    );
-            SelectInspectorCmd  = new DelegateCommand(OnInspector );
+            CmdLogin            = new DelegateCommand(OnCmdLogin  );
+            CmdSelectConfigFile = new DelegateCommand(OnConfigFile);
+            CmdSelectQcFile     = new DelegateCommand(OnQcFile    );
+            CmdSelectInspector  = new DelegateCommand(OnInspector );
 
             //Build the company logo, make the background color (White) transparent
             var bitmapUri = new Uri(@"pack://application:,,,/Resources/CardnoLogo.bmp");
             var bitmapImage = new BitmapImage(bitmapUri);
             
-            // Doesn't work
-            //if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
-            //{
-            //    // in the designer display the logo as it is, the conversion doesn't display
-            //    CompanyLogo = bitmapImage;
-            //}
-            //else
-            {
-                // make the background color transparent
-                var bmp = bitmapImage.ToBitmap();
-                bmp.MakeTransparent(bmp.GetPixel(1, 1));
-                CompanyLogo = bmp.ToBitmapSource();
-            }
+            // make the background color transparent
+            var bmp = bitmapImage.ToBitmap();
+            bmp.MakeTransparent(bmp.GetPixel(1, 1));
+            CompanyLogo = bmp.ToBitmapSource();
 
             // get the valid users class from the application services
             _validUsers = ServiceLocator.Current.TryResolve<IValidUsers>();

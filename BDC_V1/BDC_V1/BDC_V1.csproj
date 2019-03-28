@@ -83,11 +83,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Person.cs" />
+    <Compile Include="Enumerations\EnumConstType.cs" />
     <Compile Include="Events\CloseWindowEvent.cs" />
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\WindowVisibilityEvent.cs" />
+    <Compile Include="Interfaces\IAddress.cs" />
     <Compile Include="Interfaces\IAppController.cs" />
     <Compile Include="Interfaces\IAppModel.cs" />
+    <Compile Include="Interfaces\IBredInfo.cs" />
+    <Compile Include="Interfaces\IConfigInfo.cs" />
+    <Compile Include="Interfaces\IContact.cs" />
+    <Compile Include="Interfaces\IFacility.cs" />
+    <Compile Include="Interfaces\IInspector.cs" />
+    <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Interfaces\IValidUsers.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

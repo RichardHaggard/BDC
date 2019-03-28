@@ -10,6 +10,8 @@
     xmlns:utils="clr-namespace:BDC_V1.Utils"
     xmlns:vm="clr-namespace:BDC_V1.ViewModels"
     xmlns:validation="clr-namespace:BDC_V1.ValidationRules"
+    xmlns:interfaces="clr-namespace:BDC_V1.Interfaces"
+    xmlns:classes="clr-namespace:BDC_V1.Classes"
     prism:ViewModelLocator.AutoWireViewModel="True"
     WindowStyle="None"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -125,7 +127,7 @@
                                                BadgeColorZoneMode="PrimaryDark">
                             <Button Margin="10 0 0 0"
                                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                Command="{Binding SelectConfigFileCmd}">
+                                Command="{Binding CmdSelectConfigFile}">
                                 Select...
                             </Button>
                         </materialDesign:Badged>
@@ -168,7 +170,7 @@
                             BadgeColorZoneMode="PrimaryDark">
                             <Button Margin="10 0 0 0"
                                     Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                    Command="{Binding SelectQcFileCmd}">
+                                    Command="{Binding CmdSelectQcFile}">
                                 Select...
                             </Button>
                         </materialDesign:Badged>
@@ -201,6 +203,11 @@
                                   BorderThickness="1"
                                   BorderBrush="Black"
                                   ItemsSource="{Binding LoginUserList}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
                             <ComboBox.SelectedValue>
                                 <Binding Path="SelectedLoginUser"
                                          UpdateSourceTrigger="PropertyChanged"
@@ -213,18 +220,13 @@
                                     </Binding.ValidationRules>
                                 </Binding>
                             </ComboBox.SelectedValue>
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                        </ComboBox>
+                         </ComboBox>
                         <materialDesign:Badged Grid.Column="2"
                                                x:Name="SelectInspectorMore"
                                                BadgeColorZoneMode="PrimaryDark">
                             <Button Margin="10 0 0 0"
                                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                Command="{Binding SelectInspectorCmd}">
+                                Command="{Binding CmdSelectInspector}">
                                 More...
                             </Button>
                         </materialDesign:Badged>
@@ -238,7 +240,7 @@
                                        HorizontalAlignment="Center" >
                     <Button Margin="0"
                             Style="{StaticResource MaterialDesignRaisedLightButton}"
-                            Command="{Binding LoginCmd}"
+                            Command="{Binding CmdLogin}"
                             HorizontalAlignment="Stretch"
                             BorderThickness="1"
                             BorderBrush="Black"

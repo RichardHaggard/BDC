@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using BDC_V1.Interfaces;
 using BDC_V1.Views;
 using JetBrains.Annotations;
 using Prism.Commands;
@@ -29,18 +30,18 @@ namespace BDC_V1.ViewModels
         // **************** Class properties ************************************************ //
 
         // commands are read only to the outside world
-        public ICommand CmdExit                { get; }
-        public ICommand CmdAbout               { get; }
-        public ICommand CmdBluebeam            { get; }
-        public ICommand CmdCalculators         { get; }
-        public ICommand CmdSwitchFile          { get; }
-        public ICommand CmdViewAllSystems      { get; }
-        public ICommand CmdViewAssignedSystems { get; }
-        public ICommand CmdInspectionSummary   { get; }
-        public ICommand CmdQaReports           { get; }
-        public ICommand CmdMicOn               { get; }
-        public ICommand CmdMicOff              { get; }
-        public ICommand CmdTabSelectionChanged { get; }
+        public ICommand CmdMenuExit                { get; }
+        public ICommand CmdMenuAbout               { get; }
+        public ICommand CmdMenuBluebeam            { get; }
+        public ICommand CmdMenuCalculators         { get; }
+        public ICommand CmdMenuSwitchFile          { get; }
+        public ICommand CmdMenuViewAllSystems      { get; }
+        public ICommand CmdMenuViewAssignedSystems { get; }
+        public ICommand CmdMenuInspectionSummary   { get; }
+        public ICommand CmdMenuQcReports           { get; }
+        public ICommand CmdMicOn                   { get; }
+        public ICommand CmdMicOff                  { get; }
+        public ICommand CmdTabSelectionChanged     { get; }
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
         public string Title => @"Builder DC - " + ConfigurationFilename;
@@ -71,7 +72,7 @@ namespace BDC_V1.ViewModels
         private string _bredFilename;
 
 
-        public string SelectedLoginUser
+        public IPerson SelectedLoginUser
         {
             get => _selectedLoginUser;
             set
@@ -83,7 +84,7 @@ namespace BDC_V1.ViewModels
                 }
             } 
         }
-        private string _selectedLoginUser;
+        private IPerson _selectedLoginUser;
 
 
         public string ConfigurationFilename
@@ -170,15 +171,15 @@ namespace BDC_V1.ViewModels
         /// </summary>
         public ShellViewModel()
         {
-            CmdExit                = new DelegateCommand(OnCmdExit             );
-            CmdAbout               = new DelegateCommand(OnCmdAbout            ); 
-            CmdBluebeam            = new DelegateCommand(OnCmdBluebeam         );
-            CmdCalculators         = new DelegateCommand(OnCmdCalculators      );
-            CmdSwitchFile          = new DelegateCommand(OnCmdSwitchFile       );
-            CmdViewAllSystems      = new DelegateCommand(OnCmdViewAllSystems   );
-            CmdViewAssignedSystems = new DelegateCommand(OnCmdViewAssignedSystems   );
-            CmdInspectionSummary   = new DelegateCommand(OnCmdInspectionSummary);
-            CmdQaReports           = new DelegateCommand(OnCmdQcReport         );
+            CmdMenuExit                = new DelegateCommand(OnCmdExit             );
+            CmdMenuAbout               = new DelegateCommand(OnCmdAbout            ); 
+            CmdMenuBluebeam            = new DelegateCommand(OnCmdBluebeam         );
+            CmdMenuCalculators         = new DelegateCommand(OnCmdCalculators      );
+            CmdMenuSwitchFile          = new DelegateCommand(OnCmdSwitchFile       );
+            CmdMenuViewAllSystems      = new DelegateCommand(OnCmdViewAllSystems   );
+            CmdMenuViewAssignedSystems = new DelegateCommand(OnCmdViewAssignedSystems   );
+            CmdMenuInspectionSummary   = new DelegateCommand(OnCmdInspectionSummary);
+            CmdMenuQcReports           = new DelegateCommand(OnCmdQcReport         );
             CmdMicOn               = new DelegateCommand(OnCmdMicOn            );
             CmdMicOff              = new DelegateCommand(OnCmdMicOff           );
             CmdTabSelectionChanged = new DelegateCommand<TabItem>(OnTabSelectionChanged);
@@ -238,7 +239,7 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdQcReport()
         {
-            MessageBox.Show( "CmdQaReports not implemented");
+            MessageBox.Show( "CmdQcReports not implemented");
         }
 
         private void OnCmdSwitchFile()
