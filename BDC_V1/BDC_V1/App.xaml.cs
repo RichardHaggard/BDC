@@ -98,7 +98,7 @@ namespace BDC_V1
         public override void WriteLine(string message)
         {
             Debug.WriteLine(message);
-            Debugger.Break();
+            //Debugger.Break();
         }
     }
 }

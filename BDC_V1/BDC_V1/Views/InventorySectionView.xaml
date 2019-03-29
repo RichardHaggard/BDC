@@ -8,7 +8,7 @@
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d" 
-    d:DesignHeight="450" d:DesignWidth="800">
+    d:DesignHeight="600" d:DesignWidth="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -34,6 +34,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -43,9 +48,10 @@
             Content="Section Name:"
             Style="{StaticResource LabelRJ}"/>
         <ComboBox
-            Grid.Row="0" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1"
+            Grid.Row="0" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="8"
             ItemsSource="{Binding SectionNames}"
             SelectedItem="{Binding SectionName}"
+            Style="{StaticResource ComboBase}"
             />
         
         <Label 
@@ -53,20 +59,23 @@
             Content="Equipment Category:"
             Style="{StaticResource LabelRJ}"/>
         <ComboBox
-            Grid.Row="1" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1"
+            Grid.Row="1" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="8"
             ItemsSource="{Binding EquipmentCategorys}"
             SelectedItem="{Binding EquipmentCategory}"
+            Style="{StaticResource ComboBase}"
             />
+        
         <Label 
             Grid.Row="2" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1"
             Content="Component Type:"
             Style="{StaticResource LabelRJ}"/>
-
         <ComboBox
-            Grid.Row="2" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1"
+            Grid.Row="2" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="8"
             ItemsSource="{Binding ComponentTypes}"
             SelectedItem="{Binding ComponentType}"
+            Style="{StaticResource ComboBase}"
             />
+        
         <Label 
             Grid.Row="3" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1"
             Content="Quantity:"
@@ -74,6 +83,7 @@
         <TextBox
             Grid.Row="3" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1"
             Width="75"
+            Text="{Binding Quantity}"
             />
         <Label 
             Grid.Row="3" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1"
@@ -165,6 +175,7 @@
             Text="{Binding PcType}"
             ItemsSource="{Binding PcTypes}"
             SelectedItem="{Binding PcType}"
+            Style="{StaticResource ComboBase}"
             Visibility="{Binding YearPcVisibility}"
             />
 
@@ -178,15 +189,15 @@
             </Grid.RowDefinitions>
             <Border
                 Grid.Row="0" Grid.RowSpan="2"
-                Background="LightBlue"
+                Style="{StaticResource BorderBlue}"
                 />
             <Image 
-                    Grid.Row="0" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Margin="0,5,0,0"
-                    Source="/BDC_V1;component/Resources/EditText_Comments.png"
-                    Width="40"
-                    />
+                Grid.Row="0" 
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Margin="0,5,0,0"
+                Source="/BDC_V1;component/Resources/EditText_Comments.png"
+                Width="40"
+                />
             <Label
                 Grid.Row="1"
                 Content="Section Comment"
@@ -218,11 +229,105 @@
                     />
             </Grid>
         </Grid>
+        <Border
+            Grid.Row="6" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="8"
+            Style="{StaticResource BorderYO}"
+            />
         <TextBox
-            Grid.Row="6" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1"
-            Background="Moccasin"
+            Grid.Row="6" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="8"
             Text="{Binding SectionComment}"
             />
+
+        <Grid Grid.Row="7">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
+                Style="{StaticResource BorderBlue}"
+                />
+            <Image
+                    Grid.Row="0" 
+                    Source="/BDC_V1;component/Resources/Photos_cropped.jpg" 
+                    Width="40"
+                    />
+            <Label 
+                    Grid.Row="1" 
+                    Content="Photo(s)"
+                    Style="{StaticResource LabelCJ}"/>
+            <Label 
+                    Grid.Row="2" 
+                    Content="{Binding PhotoQty}"
+                    Style="{StaticResource LabelCJ}"/>
+        </Grid>
+        <Border 
+            Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8" 
+            Style="{StaticResource BorderYO}"
+            />
+        <Border 
+            Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" 
+            BorderBrush="Black" BorderThickness="1"
+            Background="White" />
+        <TextBox 
+            Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" 
+            TextWrapping="Wrap"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            Text="Thumbnail 1 of Facility Photo"
+            />
+        <Border 
+            Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2" 
+            BorderBrush="Black" BorderThickness="1"
+            Background="White" />
+        <TextBox 
+            Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2" 
+            TextWrapping="Wrap"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            Text="Thumbnail 2 of section"
+            Style="{StaticResource TextBoxWrap }"
+            />
+
+        <CheckBox
+            Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="1" 
+            Content="Add current inspector"
+            FontSize="15"
+            IsChecked="{Binding AddCurrentInspector}"
+            />
+        <Label
+            Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="1" 
+            Content="Date:"
+            Style="{StaticResource LabelRJ}"
+            />
+        <DatePicker
+            Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="1" 
+            FontSize="15"
+            Width="100"
+            Text="{Binding Date}"
+            />
+        <Label
+            Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="1" 
+            Content="DCR:"
+            Style="{StaticResource LabelRJ}"
+            />
+        <ComboBox
+            Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="1" 
+            FontSize="15"
+            ItemsSource="{Binding Dcrs}"
+            SelectedItem="{Binding Dcr}"
+            Style="{StaticResource ComboBase}"
+            />
+        <Label
+            Grid.Row="8" Grid.Column="5" Grid.ColumnSpan="1" 
+            Content="P/C Rating:"
+            Style="{StaticResource LabelRJ}"
+            />
+        <ComboBox
+            Grid.Row="8" Grid.Column="6" Grid.ColumnSpan="1" 
+            FontSize="15"
+            Style="{StaticResource ComboBase}"
+            />
+
 
     </Grid>
 </UserControl>

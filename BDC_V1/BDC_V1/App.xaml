@@ -62,8 +62,29 @@
                 <Setter Property="FontWeight" Value="Bold" />
             </Style>
 
+            <Style TargetType="Border" x:Key="BorderBlack" >
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
 
+            <Style TargetType="Border" x:Key="BorderBlue"  BasedOn="{StaticResource BorderBlack}">
+                <Setter Property="Background" Value="LightBlue" />
+            </Style>
 
+            <Style TargetType="Border" x:Key="BorderYO"  BasedOn="{StaticResource BorderBlack}">
+                <Setter Property="Background" Value="Moccasin" />
+            </Style>
+
+            <Style TargetType="TextBox" x:Key="TextBoxWrap">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style TargetType="ComboBox" x:Key="ComboBase">
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 
