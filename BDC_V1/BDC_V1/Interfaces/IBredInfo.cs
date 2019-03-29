@@ -8,5 +8,7 @@ namespace BDC_V1.Interfaces
 {
     public interface IBredInfo
     {
+        string    FileName     { get; set; }
+        IFacility FacilityInfo { get; }
     }
 }

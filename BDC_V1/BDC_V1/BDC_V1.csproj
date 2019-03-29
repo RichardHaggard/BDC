@@ -83,10 +83,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Address.cs" />
+    <Compile Include="Classes\BredInfo.cs" />
+    <Compile Include="Classes\BredInfoContainer.cs" />
+    <Compile Include="Classes\ConfigInfo.cs" />
+    <Compile Include="Classes\ConfigInfoContainer.cs" />
+    <Compile Include="Classes\Contact.cs" />
+    <Compile Include="Classes\Facility.cs" />
+    <Compile Include="Classes\Inspector.cs" />
     <Compile Include="Classes\Person.cs" />
+    <Compile Include="Classes\ValidUsers.cs" />
     <Compile Include="Enumerations\EnumConstType.cs" />
     <Compile Include="Events\CloseWindowEvent.cs" />
     <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Events\GlobalDataEvent.cs" />
     <Compile Include="Events\WindowVisibilityEvent.cs" />
     <Compile Include="Interfaces\IAddress.cs" />
     <Compile Include="Interfaces\IAppController.cs" />
@@ -95,6 +105,7 @@
     <Compile Include="Interfaces\IConfigInfo.cs" />
     <Compile Include="Interfaces\IContact.cs" />
     <Compile Include="Interfaces\IFacility.cs" />
+    <Compile Include="Interfaces\IGlobalContainer.cs" />
     <Compile Include="Interfaces\IInspector.cs" />
     <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Interfaces\IValidUsers.cs" />
@@ -104,6 +115,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\AppController.cs" />
+    <Compile Include="Services\MockBredInfo.cs" />
+    <Compile Include="Services\MockConfigInfo.cs" />
+    <Compile Include="Services\MockFacility.cs" />
     <Compile Include="Services\MockValidUsers.cs" />
     <Compile Include="Utils\BitmapExtension.cs" />
     <Compile Include="Utils\BitmapSourceExtension.cs" />
@@ -280,6 +294,10 @@
     <Resource Include="Resources\Slider.png" />
     <Resource Include="Resources\SpellCheck.png" />
     <Resource Include="Resources\Unlink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\EmeraldHils.jpg" />
+    <Resource Include="Resources\FlamingoWater.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

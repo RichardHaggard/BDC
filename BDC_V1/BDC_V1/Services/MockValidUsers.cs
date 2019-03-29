@@ -9,27 +9,14 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Services
 {
-    public class MockValidUsers : IValidUsers
+    public class MockValidUsers : ValidUsers
     {
-        private readonly Dictionary<IPerson, string> _validUsers = new Dictionary<IPerson, string>();
-
-        [NotNull]
-        public IReadOnlyCollection<IPerson> GetValidUsers()
-        {
-            return _validUsers.Keys;
-        }
-
-        public bool ValidateUser([CanBeNull] IPerson userName, [CanBeNull] string password)
-        {
-            if ((userName == null) || string.IsNullOrEmpty(password)) return false;
-            return _validUsers.TryGetValue(userName, out var validPass) && (validPass == password);
-        }
-
         public MockValidUsers()
         {
-            _validUsers.Add(new Person() {FirstName = "Rick"  , LastName = "Wakeman"}, "Yes");
-            _validUsers.Add(new Person() {FirstName = "Keith" , LastName = "Emerson"}, "ELP");
-            _validUsers.Add(new Person() {FirstName = "Carlos", LastName = "Santana"}, "EvilWoman");
+            ValidUserDictionary.Add(new Person() {FirstName = "Rick"  , LastName = "Wakeman"}, "Yes");
+            ValidUserDictionary.Add(new Person() {FirstName = "Keith" , LastName = "Emerson"}, "ELP");
+            ValidUserDictionary.Add(new Person() {FirstName = "Carlos", LastName = "Santana"}, "EvilWoman");
+            ValidUserDictionary.Add(new Person() {FirstName = "George", LastName = "Jetson" }, "Leroy");
         }
     }
 }

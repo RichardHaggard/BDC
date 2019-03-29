@@ -8,5 +8,7 @@ namespace BDC_V1.Interfaces
 {
     public interface IConfigInfo
     {
+        string      FileName   { get; set; }
+        IValidUsers ValidUsers { get; }
     }
 }

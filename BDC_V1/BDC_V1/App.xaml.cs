@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
+using BDC_V1.Classes;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
@@ -11,7 +12,6 @@ using MaterialDesignThemes.Wpf;
 using Prism.Ioc;
 using Prism.Unity;
 using Prism.Events;
-using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1
 {
@@ -25,9 +25,10 @@ namespace BDC_V1
             // Previous to Prism version 7, this happened automatically. Not anymore.
             base.ConfigureServiceLocator();
 
-            containerRegistry.RegisterInstance<IAppController>(new AppController());
-            containerRegistry.RegisterInstance<IEventAggregator>(new Prism.Events.EventAggregator());
-            containerRegistry.RegisterInstance<IValidUsers>(new MockValidUsers());
+            containerRegistry.RegisterInstance<IAppController>     (new AppController());
+            containerRegistry.RegisterInstance<IEventAggregator>   (new Prism.Events.EventAggregator());
+            containerRegistry.RegisterInstance<BredInfoContainer>  (new BredInfoContainer  ());
+            containerRegistry.RegisterInstance<ConfigInfoContainer>(new ConfigInfoContainer());
         }
 
         protected override Window CreateShell()

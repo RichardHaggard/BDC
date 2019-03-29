@@ -8,7 +8,7 @@ namespace BDC_V1.Interfaces
 {
     public interface IValidUsers
     {
-        IReadOnlyCollection<IPerson> GetValidUsers();
+        IReadOnlyCollection<IPerson> GetValidUsers { get; }
         bool ValidateUser(IPerson userName, string password);
     }
 }

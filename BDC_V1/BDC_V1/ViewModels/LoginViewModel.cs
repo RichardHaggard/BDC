@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using BDC_V1.Classes;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
@@ -32,11 +34,6 @@ namespace BDC_V1.ViewModels
     {
 
         // **************** Class enumerations ********************************************** //
-
-        // **************** Class data members ********************************************** //
-
-        // this causes exceptions within the XamlParser
-        //private readonly IValidUsers _validUsers;
 
         // **************** Class properties ************************************************ //
 
@@ -60,8 +57,10 @@ namespace BDC_V1.ViewModels
         }
         private bool? _dialogResultEx;
 
-        public IReadOnlyCollection<IPerson> LoginUserList => _validUsers.GetValidUsers();
+        [CanBeNull]
+        public IReadOnlyCollection<IPerson> LoginUserList => LocalValidUsers?.GetValidUsers;
 
+        [CanBeNull]
         public IPerson SelectedLoginUser
         {
             get => _selectedLoginUser;
@@ -69,7 +68,7 @@ namespace BDC_V1.ViewModels
             {
                 if (_selectedLoginUser != value)
                 {
-                    if (LoginUserList.Contains(value))
+                    if ((value == null) || ((LoginUserList == null) || LoginUserList.Contains(value)))
                     {
                         SetProperty(ref _selectedLoginUser, value);
                         RaisePropertyChanged(nameof(LoginButtonEnabled));
@@ -110,13 +109,38 @@ namespace BDC_V1.ViewModels
         public bool LoginButtonEnabled => (!string.IsNullOrEmpty(ConfigurationFilename) &&
                                            !string.IsNullOrEmpty(BredFilename) &&
                                            (SelectedLoginUser != null) &&
+                                           (LoginUserList != null) &&
                                            LoginUserList.Contains(SelectedLoginUser));
 
         [NotNull]
         public BitmapSource CompanyLogo { get; }
 
-        [NotNull]
-        private readonly IValidUsers _validUsers;
+        // **************** Class data members ********************************************** //
+
+        // this causes exceptions within the XamlParser
+        //private readonly IValidUsers _localValidUsers;
+
+        [CanBeNull]
+        protected IValidUsers LocalValidUsers
+        {
+            get => _localValidUsers;
+            set
+            {
+                if (_localValidUsers != value)
+                {
+                    Debug.Assert(value != null);
+                    _localValidUsers = value;
+
+                    // make sure the current user is still valid
+                    if ((SelectedLoginUser == null) || !_localValidUsers.GetValidUsers.Contains(SelectedLoginUser))
+                        SelectedLoginUser = new Person();
+
+                    RaisePropertyChanged(nameof(LoginUserList));
+                    RaisePropertyChanged(nameof(LoginButtonEnabled));
+                }
+            }
+        }
+        private IValidUsers _localValidUsers;
 
         // **************** Class constructors ********************************************** //
 
@@ -125,9 +149,6 @@ namespace BDC_V1.ViewModels
             // NOTE: Passing an interface to the constructor causes runtime problems with XamlParser
             //       This is stupid!
 
-            //LoginButtonContent = "LOG IN";
-            //LabelContent = "Something to confirm LoginViewModel is properly bound.";
-
             // build the button commands
             CmdLogin            = new DelegateCommand(OnCmdLogin  );
             CmdSelectConfigFile = new DelegateCommand(OnConfigFile);
@@ -135,30 +156,63 @@ namespace BDC_V1.ViewModels
             CmdSelectInspector  = new DelegateCommand(OnInspector );
 
             //Build the company logo, make the background color (White) transparent
-            var bitmapUri = new Uri(@"pack://application:,,,/Resources/CardnoLogo.bmp");
-            var bitmapImage = new BitmapImage(bitmapUri);
+            var bitmapImage = new BitmapImage(new Uri(@"pack://application:,,,/Resources/CardnoLogo.bmp"));
             
             // make the background color transparent
             var bmp = bitmapImage.ToBitmap();
             bmp.MakeTransparent(bmp.GetPixel(1, 1));
             CompanyLogo = bmp.ToBitmapSource();
 
-            // get the valid users class from the application services
-            _validUsers = ServiceLocator.Current.TryResolve<IValidUsers>();
-            if (_validUsers == null)
-            {
-                MessageBox.Show("Error Obtaining Valid Users", "System Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                _validUsers = new MockValidUsers();
-            }
+            // subscribe to updates of the global configuration
+            // it get's updated when the config file is opened
+            EventAggregator.GetEvent<PubSubEvent<GlobalDataEvent>>()
+                .Subscribe((item) =>
+                {
+                    if ((item.GlobalType == typeof(IConfigInfo)) &&
+                        (item.GlobalName == "GlobalValue"))
+                    {
+                        var container = ServiceLocator.Current.TryResolve<ConfigInfoContainer>();
+                        Debug.Assert(container?.GlobalValue?.ValidUsers != null);
 
-        #if DEBUG
-            SelectedLoginUser     = _validUsers?.GetValidUsers().ElementAt(1);
-            ConfigurationFilename = @"My Documents\Project\Subfolder\BRED_HOOD_ABRAMS_E_11057.cfg";
-            BredFilename          = @"My Documents\Project\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb";
-        #endif
+                        SelectedLoginUser     = new Person();
+                        LocalValidUsers       = container?.GlobalValue?.ValidUsers;
+                        ConfigurationFilename = container?.GlobalValue?.FileName;
+                    }
+                });
+
+            EventAggregator.GetEvent<PubSubEvent<GlobalDataEvent>>()
+                .Subscribe((item) =>
+                {
+                    if ((item.GlobalType == typeof(IBredInfo)) &&
+                        (item.GlobalName == "GlobalValue"))
+                    {
+                        var container = ServiceLocator.Current.TryResolve<BredInfoContainer>();
+                        BredFilename = container?.GlobalValue?.FileName;
+                    }
+                });
         }
 
         // **************** Class members *************************************************** //
+
+        // here is where we read in the global config info containing the list of valid users
+        private static IConfigInfo GetConfigInfo(string fileName)
+        {
+            var container = ServiceLocator.Current.TryResolve<ConfigInfoContainer>();
+            Debug.Assert(container != null);
+
+            container.GlobalValue = new MockConfigInfo {FileName = fileName};
+            return container.GlobalValue;
+        }
+
+        // here is where we read in the global BRED info
+        private static IBredInfo GetBredInfo(string fileName)
+        {
+            var container = ServiceLocator.Current.TryResolve<BredInfoContainer>();
+            Debug.Assert(container != null);
+
+            container.GlobalValue = new MockBredInfo {FileName = fileName};
+            return container.GlobalValue;
+        }
 
         private void OnCmdLogin()
         {
@@ -176,7 +230,7 @@ namespace BDC_V1.ViewModels
             if (!(view.DataContext is PasswordViewModel viewModel)) return;
             if (viewModel.DialogResultEx != true) return;
 
-            if (_validUsers.ValidateUser(SelectedLoginUser, viewModel.UserPass))
+            if (_localValidUsers.ValidateUser(SelectedLoginUser, viewModel.UserPass))
             {
                 //LoginSuccessful = true;
                 DialogResultEx  = true;
@@ -225,7 +279,10 @@ namespace BDC_V1.ViewModels
             };
 
             if (openFileDlg.ShowDialog() == true)
+            {
                 ConfigurationFilename = openFileDlg.FileName;
+                GetConfigInfo(ConfigurationFilename);
+            }
         }
 
         private void OnQcFile()
@@ -247,7 +304,10 @@ namespace BDC_V1.ViewModels
             };
 
             if (openFileDlg.ShowDialog() == true)
+            {
                 BredFilename = openFileDlg.FileName;
+                GetBredInfo(BredFilename);
+            }
         }
         
         private void OnInspector()
