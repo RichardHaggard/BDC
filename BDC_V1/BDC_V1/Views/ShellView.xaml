@@ -14,7 +14,7 @@
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Visibility="{Binding Path=WindowVisibility, Mode=TwoWay}"
-        Height="900" Width="1400"
+        Height="900" Width="1440"
         d:DesignHeight="450" d:DesignWidth="800">
 
     <Window.Resources>
@@ -133,20 +133,22 @@
         <!--A column for a tree, a splitter column and a column for a Tab Control.-->
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="300" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TreeView Grid.Column="0" ItemsSource="{Binding TreeItemsViewSource}"  >
-                <!-- How can I initially expand the tree ??? -->
-                <!-- I may need to do something like this, for now the ToString() works -->
-                <!--<TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type classes:TreeNode}" 
-                                              ItemsSource="{Binding Source=ShellViewModel, Path=TreeItemsViewSource}" >
-                        <TextBlock Text="{Binding Description}"/>
-                    </HierarchicalDataTemplate>
-                </TreeView.Resources>-->             
+            <TreeView 
+                Grid.Column="0" 
+                ItemsSource="{Binding TreeItemsViewSource}"  >
+                
+                <!--By default, a tree displays its items condensed. We want all items in the tree to be expanded.-->
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="True" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                
             </TreeView>
             
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
