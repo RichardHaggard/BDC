@@ -11,6 +11,7 @@ namespace BDC_V1.Interfaces
         string FirstName { get; set; }
         string LastName  { get; set; }
 
+        string FirstLast { get; }
         string ToString();
     }
 }

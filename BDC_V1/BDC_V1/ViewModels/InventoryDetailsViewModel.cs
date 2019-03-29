@@ -16,25 +16,21 @@ namespace BDC_V1.ViewModels
 
         public string CurrentSection
         {
-            get { return _CurrentSection; }
-            set { SetProperty(ref _CurrentSection, value); }
+            get => _currentSection;
+            set => SetProperty(ref _currentSection, value);
         }
-        private string _CurrentSection;
+        private string _currentSection;
 
 
         public string DetailSelector
         {
-            get { return _DetailSelector; }
-            set { SetProperty(ref _DetailSelector, value); }
+            get => _detailSelector;
+            set => SetProperty(ref _detailSelector, value);
         }
-        private string _DetailSelector;
+        private string _detailSelector;
 
 
-        public List<string> DetailSelectors
-        {
-            get { return _DetailSelectors; }
-        }
-        private List<string> _DetailSelectors = new List<string>();
+        public List<string> DetailSelectors { get; } = new List<string>();
 
         // **************** Class constructors ********************************************** //
 

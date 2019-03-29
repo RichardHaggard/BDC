@@ -66,13 +66,10 @@ namespace BDC_V1.ViewModels
             get => _selectedLoginUser;
             set
             {
-                if (_selectedLoginUser != value)
+                if ((value == null) || ((LoginUserList == null) || LoginUserList.Contains(value)))
                 {
-                    if ((value == null) || ((LoginUserList == null) || LoginUserList.Contains(value)))
-                    {
-                        SetProperty(ref _selectedLoginUser, value);
+                    if (SetProperty(ref _selectedLoginUser, value))
                         RaisePropertyChanged(nameof(LoginButtonEnabled));
-                    }
                 }
             }
         }
@@ -83,11 +80,8 @@ namespace BDC_V1.ViewModels
             get => _configurationFilename;
             set
             {
-                if (_configurationFilename != value)
-                {
-                    SetProperty(ref _configurationFilename, value);
+                if (SetProperty(ref _configurationFilename, value))
                     RaisePropertyChanged(nameof(LoginButtonEnabled));
-                }
             }
         }
         private string _configurationFilename;
@@ -97,19 +91,15 @@ namespace BDC_V1.ViewModels
             get => _bredFilename;
             set
             {
-                if (_bredFilename != value)
-                {
-                    SetProperty(ref _bredFilename, value);
+                if (SetProperty(ref _bredFilename, value))
                     RaisePropertyChanged(nameof(LoginButtonEnabled));
-                }
             }
         }
         private string _bredFilename;
 
         public bool LoginButtonEnabled => (!string.IsNullOrEmpty(ConfigurationFilename) &&
                                            !string.IsNullOrEmpty(BredFilename) &&
-                                           (SelectedLoginUser != null) &&
-                                           (LoginUserList != null) &&
+                                           (SelectedLoginUser != null) && (LoginUserList != null) &&
                                            LoginUserList.Contains(SelectedLoginUser));
 
         [NotNull]
@@ -142,6 +132,27 @@ namespace BDC_V1.ViewModels
         }
         private IValidUsers _localValidUsers;
 
+        protected override IConfigInfo LocalConfigInfo
+        {
+            get => base.LocalConfigInfo;
+            set
+            {
+                base.LocalConfigInfo = value;
+                ConfigurationFilename = base.LocalConfigInfo?.FileName;
+                LocalValidUsers       = base.LocalConfigInfo?.ValidUsers;
+            }
+        }
+
+        protected override IBredInfo LocalBredInfo
+        {
+            get => base.LocalBredInfo;
+            set
+            {
+                base.LocalBredInfo = value;
+                BredFilename = base.LocalBredInfo?.FileName;
+            }
+        }
+
         // **************** Class constructors ********************************************** //
 
         public LoginViewModel()
@@ -162,56 +173,30 @@ namespace BDC_V1.ViewModels
             var bmp = bitmapImage.ToBitmap();
             bmp.MakeTransparent(bmp.GetPixel(1, 1));
             CompanyLogo = bmp.ToBitmapSource();
-
-            // subscribe to updates of the global configuration
-            // it get's updated when the config file is opened
-            EventAggregator.GetEvent<PubSubEvent<GlobalDataEvent>>()
-                .Subscribe((item) =>
-                {
-                    if ((item.GlobalType == typeof(IConfigInfo)) &&
-                        (item.GlobalName == "GlobalValue"))
-                    {
-                        var container = ServiceLocator.Current.TryResolve<ConfigInfoContainer>();
-                        Debug.Assert(container?.GlobalValue?.ValidUsers != null);
-
-                        SelectedLoginUser     = new Person();
-                        LocalValidUsers       = container?.GlobalValue?.ValidUsers;
-                        ConfigurationFilename = container?.GlobalValue?.FileName;
-                    }
-                });
-
-            EventAggregator.GetEvent<PubSubEvent<GlobalDataEvent>>()
-                .Subscribe((item) =>
-                {
-                    if ((item.GlobalType == typeof(IBredInfo)) &&
-                        (item.GlobalName == "GlobalValue"))
-                    {
-                        var container = ServiceLocator.Current.TryResolve<BredInfoContainer>();
-                        BredFilename = container?.GlobalValue?.FileName;
-                    }
-                });
+#if DEBUG
+            GetConfigInfo(@"This_is_a_fake_config_file.cfg");
+            GetBredInfo  (@"My Documents\ProjectName\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb");
+#endif
         }
 
         // **************** Class members *************************************************** //
 
         // here is where we read in the global config info containing the list of valid users
-        private static IConfigInfo GetConfigInfo(string fileName)
+        private static void GetConfigInfo(string fileName)
         {
             var container = ServiceLocator.Current.TryResolve<ConfigInfoContainer>();
             Debug.Assert(container != null);
 
             container.GlobalValue = new MockConfigInfo {FileName = fileName};
-            return container.GlobalValue;
         }
 
         // here is where we read in the global BRED info
-        private static IBredInfo GetBredInfo(string fileName)
+        private static void GetBredInfo(string fileName)
         {
             var container = ServiceLocator.Current.TryResolve<BredInfoContainer>();
             Debug.Assert(container != null);
 
             container.GlobalValue = new MockBredInfo {FileName = fileName};
-            return container.GlobalValue;
         }
 
         private void OnCmdLogin()
@@ -273,7 +258,7 @@ namespace BDC_V1.ViewModels
                 RestoreDirectory = true,
                 DefaultExt = "cfg",
                 Filter = "cfg files (*.cfg)|*.cfg|All files (*.*)|*.*",
-                FilterIndex = 2,
+                FilterIndex = 1,
                 FileName = ConfigurationFilename,
                 Title = "Configuration File"
             };
@@ -298,7 +283,7 @@ namespace BDC_V1.ViewModels
                 RestoreDirectory = true,
                 DefaultExt = "mdb",
                 Filter = "mdb files (*.mdb)|*.mdb|All files (*.*)|*.*",
-                FilterIndex = 2,
+                FilterIndex = 1,
                 FileName = BredFilename,
                 Title = "BRED QC File"
             };

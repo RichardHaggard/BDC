@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
+using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 
 namespace BDC_V1.Interfaces
@@ -26,7 +28,8 @@ namespace BDC_V1.Interfaces
         string   FacilityComments  { get; set; }
         IAddress Address           { get; set; }
         IContact Contact           { get; set; }
-        ObservableCollection<ImageSource> Images      { get; }
+        IList<TreeNode> FacilityTreeNodes { get; }
+        ObservableCollection<ImageSource> Images { get; }
         ObservableCollection<IInspector>  Inspections { get; }
     }
 }

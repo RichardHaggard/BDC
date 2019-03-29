@@ -12,6 +12,7 @@ namespace BDC_V1.Classes
         public string FirstName { get; set; }
         public string LastName  { get; set; }
 
+        public string FirstLast => FirstName + " " + LastName;
         public override string ToString()
         {
             return LastName + ", " + FirstName;

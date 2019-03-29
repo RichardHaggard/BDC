@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
+using BDC_V1.Enumerations;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
@@ -25,7 +26,6 @@ using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.ViewModels
 {
@@ -50,7 +50,7 @@ namespace BDC_V1.ViewModels
         public ICommand CmdTabSelectionChanged     { get; }
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
-        public string Title => @"Builder DC - " + ConfigurationFilename;
+        public string Title => @"Builder DC - " + BredFilename;
 
         public string StatusLookup => "Lookup: " + LookupField;
 
@@ -61,6 +61,8 @@ namespace BDC_V1.ViewModels
         public string StatusDateTimeString =>
             StatusDateTime.ToShortDateString() + " " + StatusDateTime.ToShortTimeString();
 
+        public ObservableCollection<TreeViewItem> TreeItemsViewSource { get; } = new ObservableCollection<TreeViewItem>();
+
         // these properties all raise their own changed events
         public Visibility WindowVisibility
         {
@@ -70,10 +72,71 @@ namespace BDC_V1.ViewModels
         private Visibility _windowVisibility;
 
 
+        public System.Windows.Media.Brush InvTreeBorderBackgroundColor
+        {
+            get => _invTreeBorderBackgroundColor;
+            set => SetProperty(ref _invTreeBorderBackgroundColor, value);
+        }
+        private System.Windows.Media.Brush _invTreeBorderBackgroundColor;
+
+
+        public System.Windows.Media.Brush FacilityTabBackgroundColor
+        {
+            get => _facilityTabBackgroundColor;
+            set => SetProperty(ref _facilityTabBackgroundColor, value);
+        }
+        private System.Windows.Media.Brush _facilityTabBackgroundColor;
+
+
+        public System.Windows.Media.Brush InventoryTabBackgroundColor
+        {
+            get => _inventoryTabBackgroundColor;
+            set => SetProperty(ref _inventoryTabBackgroundColor, value);
+        }
+        private System.Windows.Media.Brush _inventoryTabBackgroundColor;
+
+
+        public System.Windows.Media.Brush InspectionTabBackgroundColor
+        {
+            get => _inspectionTabBackgroundColor;
+            set => SetProperty(ref _inspectionTabBackgroundColor, value);
+        }
+        private System.Windows.Media.Brush _inspectionTabBackgroundColor;
+
+
+        public System.Windows.Media.Brush QaInventoryTabBackgroundColor
+        {
+            get => _qaInventoryTabBackgroundColor;
+            set => SetProperty(ref _qaInventoryTabBackgroundColor, value);
+        }
+        private System.Windows.Media.Brush _qaInventoryTabBackgroundColor;
+
+
+        public System.Windows.Media.Brush QaInspectionTabBackgroundColor
+        {
+            get => _qaInspectionTabBackgroundColor;
+            set => SetProperty(ref _qaInspectionTabBackgroundColor, value);
+        }
+        private System.Windows.Media.Brush _qaInspectionTabBackgroundColor;
+
+
+        [CanBeNull]
+        public string ConfigurationFilename
+        {
+            get => _configurationFilename;
+            set => SetProperty(ref _configurationFilename, value);
+        }
+        [CanBeNull] private string _configurationFilename;
+
+
         public string BredFilename
         {
             get => _bredFilename;
-            set => SetProperty(ref _bredFilename, value);
+            set
+            {
+                if (SetProperty(ref _bredFilename, value))
+                    RaisePropertyChanged(nameof(Title));
+            }
         }
         private string _bredFilename;
 
@@ -83,11 +146,8 @@ namespace BDC_V1.ViewModels
             get => _statusDateTime;
             private set
             {
-                if (_statusDateTime != value)
-                {
-                    SetProperty(ref _statusDateTime, value);
+                if (SetProperty(ref _statusDateTime, value))
                     RaisePropertyChanged(nameof(StatusDateTimeString));
-                }
             }
         }
         private DateTime _statusDateTime;
@@ -99,30 +159,11 @@ namespace BDC_V1.ViewModels
             get => _selectedLoginUser;
             set
             {
-                if (_selectedLoginUser != value)
-                {
-                    SetProperty(ref _selectedLoginUser, value);
+                if (SetProperty(ref _selectedLoginUser, value))
                     RaisePropertyChanged(nameof(StatusInspector));
-                }
             } 
         }
-        private IPerson _selectedLoginUser;
-
-
-        [CanBeNull]
-        public string ConfigurationFilename
-        {
-            get => _configurationFilename;
-            set
-            {
-                if (_configurationFilename != value)
-                {
-                    SetProperty(ref _configurationFilename, value);
-                    RaisePropertyChanged(nameof(Title));
-                }
-            }
-        }
-        private string _configurationFilename;
+        [CanBeNull] private IPerson _selectedLoginUser;
 
 
         public string LookupField
@@ -130,11 +171,8 @@ namespace BDC_V1.ViewModels
             get => _lookupField;
             set
             {
-                if (_lookupField != value)
-                {
-                    SetProperty(ref _lookupField, value);
+                if (SetProperty(ref _lookupField, value))
                     RaisePropertyChanged(nameof(StatusLookup));;
-                }
             }
         }
         private string _lookupField;
@@ -146,16 +184,14 @@ namespace BDC_V1.ViewModels
             get => _inspectedByUser;
             private set
             {
-                if (_inspectedByUser != value)
+                if (SetProperty(ref _inspectedByUser, value))
                 {
-                    SetProperty(ref _inspectedByUser, value);
-                    StatusDateTime = _inspectedByUser.InspectionDate;
-
+                    StatusDateTime = _inspectedByUser?.InspectionDate?? DateTime.Now;
                     RaisePropertyChanged(nameof(StatusInspectedBy));
                 }
             }
         }
-        private IInspector _inspectedByUser;
+        [CanBeNull] private IInspector _inspectedByUser;
 
 
         // Used to force the Tab selection internally
@@ -166,6 +202,18 @@ namespace BDC_V1.ViewModels
         }
         private int _viewTabIndex;
 
+        [CanBeNull]
+        public TabItem ViewTabItem
+        {
+            get => _viewTabItem;
+            set
+            {
+                if (SetProperty(ref _viewTabItem, value))
+                    UpdateTreeView(_viewTabItem);
+            }
+        }
+        [CanBeNull] private TabItem _viewTabItem;
+
 
         public ObservableCollection<Control> ToolbarMenuItems { get; } = new ObservableCollection<Control>();
 
@@ -175,40 +223,39 @@ namespace BDC_V1.ViewModels
         private readonly Dictionary<string, IEnumerable<Control>> _toolBarMenuItemsDictionary = 
             new Dictionary<string, IEnumerable<Control>>();
 
-        [CanBeNull]
-        protected IConfigInfo LocalConfigInfo
+        protected override IConfigInfo LocalConfigInfo
         {
-            get => _configInfo;
+            get => base.LocalConfigInfo;
             set
             {
-                if (_configInfo != value)
-                {
-                    Debug.Assert(value != null);
-
-                    _configInfo = value;
-                    ConfigurationFilename = _configInfo.FileName;
-                }
+                base.LocalConfigInfo = value;
+                ConfigurationFilename = base.LocalConfigInfo?.FileName;
             }
         }
-        [CanBeNull] private IConfigInfo _configInfo;
 
         [CanBeNull] 
-        protected IBredInfo LocalBredInfo
+        protected IFacility LocalFacilityInfo
         {
-            get => _bredInfo;
+            get => _localFacilityInfo;
             set
             {
-                if (_bredInfo != value)
-                {
-                    Debug.Assert(value != null);
-
-                    _bredInfo = value;
-                    BredFilename    = _bredInfo.FileName;
-                    InspectedByUser = _bredInfo.FacilityInfo?.Inspections?.LastOrDefault();
-                }
+                if (SetProperty(ref _localFacilityInfo, value))
+                    UpdateTreeView(ViewTabItem);
             }
         }
-        [CanBeNull] private IBredInfo _bredInfo;
+        [CanBeNull] private IFacility _localFacilityInfo;
+
+        protected override IBredInfo LocalBredInfo
+        {
+            get => base.LocalBredInfo;
+            set
+            {
+                base.LocalBredInfo = value;
+                LocalFacilityInfo = base.LocalBredInfo?.FacilityInfo;
+                BredFilename      = base.LocalBredInfo?.FileName;
+                InspectedByUser   = LocalFacilityInfo?.Inspections?.LastOrDefault();
+            }
+        }
 
         // **************** Class constructors ********************************************** //
 
@@ -230,6 +277,15 @@ namespace BDC_V1.ViewModels
             CmdMicOff                  = new DelegateCommand(OnCmdMicOff             );
             CmdTabSelectionChanged     = new DelegateCommand<TabItem>(OnTabSelectionChanged);
 
+            InvTreeBorderBackgroundColor   = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray);
+
+            // these should be done with a selection style
+            FacilityTabBackgroundColor     = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGreen);
+            InventoryTabBackgroundColor    = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
+            InspectionTabBackgroundColor   = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
+            QaInventoryTabBackgroundColor  = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
+            QaInspectionTabBackgroundColor = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
+
             // Setup the toolbar menu items dictionary
             SetUpToolbarMenuItems();
 
@@ -242,83 +298,43 @@ namespace BDC_V1.ViewModels
                 WindowVisibility = Visibility.Visible;
             else
                 WindowVisibility = Visibility.Collapsed;
-
-            // subscribe to updates of the global information
-            // it get's updated when the config file is opened at LoginView or when a new file->open occurs
-            EventAggregator.GetEvent<PubSubEvent<GlobalDataEvent>>()
-                .Subscribe((item) =>
-                {
-                    if ((item.GlobalType == typeof(IConfigInfo)) &&
-                        (item.GlobalName == "GlobalValue"))
-                    {
-                        LocalConfigInfo = GetConfigInfo();
-                    }
-                });
-
-            EventAggregator.GetEvent<PubSubEvent<GlobalDataEvent>>()
-                .Subscribe((item) =>
-                {
-                    if ((item.GlobalType == typeof(IBredInfo)) &&
-                        (item.GlobalName == "GlobalValue"))
-                    {
-                        LocalBredInfo = GetBredInfo();
-                    }
-                });
         }
 
         // **************** Class members *************************************************** //
-
-        // here is where we read in the global config info containing the list of valid users
-        [NotNull]
-        private static IConfigInfo GetConfigInfo()
-        {
-            var container = ServiceLocator.Current.TryResolve<ConfigInfoContainer>();
-            Debug.Assert(container?.GlobalValue != null);
-            return container.GlobalValue;
-        }
-
-        // here is where we read in the global BRED info
-        [NotNull]
-        private static IBredInfo GetBredInfo()
-        {
-            var container = ServiceLocator.Current.TryResolve<BredInfoContainer>();
-            Debug.Assert(container?.GlobalValue != null);
-            return container.GlobalValue;
-        }
-
-        private void OnCmdAbout()
-        {
-            MessageBox.Show( "OnCmdAbout not implemented");
-        }
-
-        private void OnCmdBluebeam()
-        {
-            MessageBox.Show( "CmdBluebeam not implemented");
-        }
-
-        private void OnCmdCalculators()
-        {
-            MessageBox.Show( "CmdCalculators not implemented");
-        }
 
         private void OnCmdExit()
         {
             App.Current.Shutdown();
         }
 
+        private void OnCmdAbout()
+        {
+            Debug.WriteLine("OnCmdAbout not implemented");
+        }
+
+        private void OnCmdBluebeam()
+        {
+            Debug.WriteLine("CmdBluebeam not implemented");
+        }
+
+        private void OnCmdCalculators()
+        {
+            Debug.WriteLine("CmdCalculators not implemented");
+        }
+
         private void OnCmdInspectionSummary()
         {
-            MessageBox.Show( "CmdInspectionSummary not implemented");
+            Debug.WriteLine("CmdInspectionSummary not implemented");
         }
 
         private void OnCmdMicOff()
         {
-            MessageBox.Show( "CmdMicOff not implemented");
+            Debug.WriteLine("CmdMicOff not implemented");
         }
 
         private void OnCmdMicOn()
         {
-            MessageBox.Show( "CmdMicOn not implemented");
+            Debug.WriteLine("CmdMicOn not implemented");
         }
 
         private void OnCmdQcReport()
@@ -328,17 +344,17 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdSwitchFile()
         {
-            MessageBox.Show( "CmdSwitchFile not implemented");
+            Debug.WriteLine("CmdSwitchFile not implemented");
         }
 
         private void OnCmdViewAllSystems()
         {
-            MessageBox.Show( "CmdViewAllSystems not implemented");
+            Debug.WriteLine("CmdViewAllSystems not implemented");
         }
 
         private void OnCmdViewAssignedSystems()
         {
-            MessageBox.Show( "CmdViewAssignedSystems not implemented");
+            Debug.WriteLine("CmdViewAssignedSystems not implemented");
         }
 
         private void OnCmdInv2InspFacility()
@@ -403,10 +419,52 @@ namespace BDC_V1.ViewModels
 
         private void OnTabSelectionChanged([CanBeNull] TabItem tabItem)
         {
-            if (tabItem != null)
+            if (tabItem != null) SetToolbarMenuItems(tabItem);
+        }
+
+        private void UpdateTreeView([CanBeNull] TabItem tabItem)
+        {
+            TreeItemsViewSource.Clear();
+
+            if ((tabItem != null) && (LocalFacilityInfo != null))
             {
-                SetToolbarMenuItems(tabItem);
+                Predicate<TreeNode> filter = (arg) => true;;
+
+                switch (tabItem.Name)
+                {
+                    case "Facility":
+                        break;
+
+                    case "Inventory":
+                    case "Inspection":
+                        filter = (arg) =>
+                        {
+                            if ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
+                                (arg.NodeType == EnumTreeNodeType.SystemNode))
+                            {
+                                return arg.Children.Any();
+                            }
+
+                            return (arg.NodeType == EnumTreeNodeType.ComponentNode);
+                        };
+                        break;
+
+                    case "QaInventory":
+                    case "QaInspection":
+                        filter = (arg) => ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
+                                           (arg.NodeType == EnumTreeNodeType.SystemNode));
+                        break;
+
+                    default:
+                        filter = (arg) => false;
+                        break;
+                }
+
+                foreach (var facility in LocalFacilityInfo.FacilityTreeNodes)
+                    TreeItemsViewSource.Add(TreeNode.BuildTree(facility, filter));
             }
+
+            RaisePropertyChanged(nameof(TreeItemsViewSource));
         }
 
         public void SetToolbarMenuItems([NotNull] TabItem tabItem)

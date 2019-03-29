@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
@@ -27,13 +28,15 @@ namespace BDC_V1.Classes
         public string   FacilityComments  { get; set; }
         public IAddress Address           { get; set; }
         public IContact Contact           { get; set; }
-        public ObservableCollection<ImageSource> Images      { get; }
+        public IList<TreeNode> FacilityTreeNodes { get; } 
+        public ObservableCollection<ImageSource> Images { get; }
         public ObservableCollection<IInspector>  Inspections { get; }
 
         public Facility()
         {
-            Images      = new ObservableCollection<ImageSource>();
-            Inspections = new ObservableCollection<IInspector> ();
+            Images            = new ObservableCollection<ImageSource>();
+            Inspections       = new ObservableCollection<IInspector> ();
+            FacilityTreeNodes = new List<TreeNode>();
         }
     }
 }

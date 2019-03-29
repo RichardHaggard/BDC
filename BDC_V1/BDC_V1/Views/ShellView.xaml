@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:BDC_V1.Views"
         xmlns:vm="clr-namespace:BDC_V1.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:classes="clr-namespace:BDC_V1.Classes"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -37,6 +38,7 @@
         </Grid.RowDefinitions>
 
         <!--Menu-->
+        <Border Grid.Row="0" BorderThickness="0" Background="LightGray" />
         <Menu Grid.Row="0">
             <MenuItem Header="Tools" >
                 <MenuItem Header="_Bluebeam data"         Command="{Binding CmdMenuBluebeam}"/>
@@ -59,6 +61,7 @@
         </Menu>
         
         <!--Toolbar-->
+        <Border Grid.Row="1" BorderThickness="0" Background="Gray" />
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal">
             <Button Margin="5 0 5 0"
@@ -100,16 +103,17 @@
         </StackPanel>
         
         <!--Inventory tree, the selected Tree item.-->
+        <Border Grid.Row="2" BorderThickness="0" Background="{Binding InvTreeBorderBackgroundColor}" />
         <Grid Grid.Row="2" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Menu Grid.Column="0" Name="ToolbarMenu" ItemsSource="{Binding ToolbarMenuItems}">
-            </Menu>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <Menu Grid.Column="0" Name="ToolbarMenu" ItemsSource="{Binding ToolbarMenuItems}"
+                  Background="{Binding InvTreeBorderBackgroundColor}" />
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <Button Margin="5 0 5 0"
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
                         ToolTip="Microphone ON"
@@ -134,22 +138,22 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TreeView
-                Grid.Column="0">
-                <TreeViewItem Header="Facility #1">
-                    <TreeViewItem Header="A10 - Foundations">
-                        <TreeViewItem Header="A1010 - Standard Foundations" >
-                            <TreeViewItem Header="A101001 - Wall Foundations" />
-                        </TreeViewItem>
-                    </TreeViewItem>
-                </TreeViewItem>
-                <TreeViewItem />
-                <TreeViewItem />
+            <TreeView Grid.Column="0" ItemsSource="{Binding TreeItemsViewSource}"  >
+                <!-- How can I initially expand the tree ??? -->
+                <!-- I may need to do something like this, for now the ToString() works -->
+                <!--<TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type classes:TreeNode}" 
+                                              ItemsSource="{Binding Source=ShellViewModel, Path=TreeItemsViewSource}" >
+                        <TextBlock Text="{Binding Description}"/>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>-->             
             </TreeView>
+            
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
             <TabControl Grid.Column="2" Name="ViewTabControl"
-                        SelectedIndex="{Binding Path=ViewTabIndex, Mode=TwoWay}">
+                        SelectedIndex="{Binding Path=ViewTabIndex, Mode=TwoWay}"
+                        SelectedItem="{Binding Path=ViewTabItem, Mode=OneWayToSource}">
                 <!-- A Prism compatible way to reflect events into the ViewModel -->
                 <i:Interaction.Triggers> 
                     <i:EventTrigger EventName="SelectionChanged"> 
@@ -158,23 +162,29 @@
                     </i:EventTrigger> 
                 </i:Interaction.Triggers> 
 
-                <TabItem Name="Facility" Header="FACILITY">
+                <!--  these colors should be done with a selection style -->
+                <TabItem Name="Facility" Header="FACILITY" 
+                         Background="{Binding FacilityTabBackgroundColor}">
                     <local:FacilityView />
                 </TabItem>
                 
-                <TabItem Name="Inventory" Header="INVENTORY">
+                <TabItem Name="Inventory" Header="INVENTORY"  
+                         Background="{Binding InventoryTabBackgroundColor}">
                     <local:InventoryView />
                 </TabItem>
 
-                <TabItem Name="Inspection" Header="INSPECTION">
+                <TabItem Name="Inspection" Header="INSPECTION"  
+                         Background="{Binding InspectionTabBackgroundColor}">
                     <local:InspectionView />
                 </TabItem>
                 
-                <TabItem Name="QaInventory" Header="QA - INVENTORY">
+                <TabItem Name="QaInventory" Header="QA - INVENTORY"  
+                         Background="{Binding QaInventoryTabBackgroundColor}">
                     <local:QaInspectionView />
                 </TabItem>
                 
-                <TabItem Name="QaInspection" Header="QA - INSPECTION">
+                <TabItem Name="QaInspection" Header="QA - INSPECTION"  
+                         Background="{Binding QaInspectionTabBackgroundColor}">
                     <local:QaInventoryView />
                 </TabItem>
                 
@@ -182,6 +192,7 @@
         </Grid>
         
         <!--Bottom status bar-->
+        <Border Grid.Row="4" BorderThickness="0" Background="Gray" />
         <StatusBar Grid.Row="4">
             <Label Content="{Binding StatusLookup        }" />
             <Label Content="{Binding StatusInspector     }" />

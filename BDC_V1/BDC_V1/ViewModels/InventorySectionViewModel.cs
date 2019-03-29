@@ -17,151 +17,127 @@ namespace BDC_V1.ViewModels
 
         public string AddCurrentInspector
         {
-            get { return _AddCurrentInspector; }
-            set { SetProperty(ref _AddCurrentInspector, value); }
+            get => _addCurrentInspector;
+            set => SetProperty(ref _addCurrentInspector, value);
         }
-        private string _AddCurrentInspector;
+        private string _addCurrentInspector;
 
 
         public string ComponentType
         {
-            get { return _ComponentType; }
-            set { SetProperty(ref _ComponentType, value); }
+            get => _componentType;
+            set => SetProperty(ref _componentType, value);
         }
-        private string _ComponentType;
+        private string _componentType;
 
 
-        public List<string> ComponentTypes
-        {
-            get {return _ComponentTypes;}
-        }
-        private List<string> _ComponentTypes = new List<string>();
+        public List<string> ComponentTypes { get; } = new List<string>();
 
 
         public string Date
         {
-            get { return _Date; }
-            set { SetProperty(ref _Date, value); }
+            get => _date;
+            set => SetProperty(ref _date, value);
         }
-        private string _Date;
+        private string _date;
 
 
         public string Dcr
         {
-            get { return _Dcr; }
-            set { SetProperty(ref _Dcr, value); }
+            get => _dcr;
+            set => SetProperty(ref _dcr, value);
         }
-        private string _Dcr;
+        private string _dcr;
 
 
-        public List<string> Dcrs
-        {
-            get {return _Dcrs;}
-        }
-        private List<string> _Dcrs = new List<string>();
+        public List<string> Dcrs { get; } = new List<string>();
 
 
         public string EquipmentCategory
         {
-            get { return _EquipmentCategory; }
-            set { SetProperty(ref _EquipmentCategory, value); }
+            get => _equipmentCategory;
+            set => SetProperty(ref _equipmentCategory, value);
         }
-        private string _EquipmentCategory;
+        private string _equipmentCategory;
 
 
-        public List<string> EquipmentCategorys
-        {
-            get {return _EquipmentCategorys;}
-        }
-        private List<string> _EquipmentCategorys = new List<string>();
+        public List<string> EquipmentCategorys { get; } = new List<string>();
 
 
         public bool PaintedIsChecked
         {
-            get { return _PaintedIsChecked; }
+            get => _paintedIsChecked;
             set
             {
-                if (SetProperty( ref _PaintedIsChecked, value ))
+                if (SetProperty( ref _paintedIsChecked, value ))
                     YearPcVisibility = value ? Visibility.Visible : Visibility.Hidden;
             }
         }
-        private bool _PaintedIsChecked = false;
+        private bool _paintedIsChecked = false;
 
 
         public string PcRating
         {
-            get { return _PcRating; }
-            set { SetProperty(ref _PcRating, value); }
+            get => _pcRating;
+            set => SetProperty(ref _pcRating, value);
         }
-        private string _PcRating = "";
+        private string _pcRating = "";
 
 
-        public List<string> PcRatings
-        {
-            get { return _PcRatings; }
-        }
-        private List<string> _PcRatings = new List<string>();
+        public List<string> PcRatings { get; } = new List<string>();
 
 
         public string PcType
         {
-            get { return _PcType; }
-            set { SetProperty(ref _PcType, value); }
+            get => _pcType;
+            set => SetProperty(ref _pcType, value);
         }
-        private string _PcType = "";
+        private string _pcType = "";
 
 
         public string Quantity
         {
-            get { return _Quantity; }
-            set { SetProperty(ref _Quantity, value); }
+            get => _quantity;
+            set => SetProperty(ref _quantity, value);
         }
-        private string _Quantity = "";
+        private string _quantity = "";
 
 
-        public List<string> PcTypes
-        {
-            get { return _PcTypes; }
-        }
-        private List<string> _PcTypes = new List<string>();
+        public List<string> PcTypes { get; } = new List<string>();
 
 
         public string SectionComment
         {
-            get { return _SectionComment; }
-            set { SetProperty(ref _SectionComment, value); }
+            get => _sectionComment;
+            set => SetProperty(ref _sectionComment, value);
         }
-        private string _SectionComment;
+        private string _sectionComment;
 
         public string SectionName
         {
-            get { return _SectionName; }
-            set { SetProperty(ref _SectionName, value); }
+            get => _sectionName;
+            set => SetProperty(ref _sectionName, value);
         }
-        private string _SectionName;
+        private string _sectionName;
 
 
-        public List<string> SectionNames
-        {
-            get {return _SectionNames;}
-        }
-        private List<string> _SectionNames = new List<string>();
+        public List<string> SectionNames { get; } = new List<string>();
 
 
         public string YearPc
         {
-            get { return _YearPc; }
-            set { SetProperty(ref _YearPc, value); }
+            get => _yearPc;
+            set => SetProperty(ref _yearPc, value);
         }
-        private string _YearPc;
+        private string _yearPc;
 
 
         public Visibility YearPcVisibility
         {
-            get { return _YearPcVisibility; }
-            set { SetProperty(ref _YearPcVisibility, value); }
+            get => _yearPcVisibility;
+            set => SetProperty(ref _yearPcVisibility, value);
         }
-        private Visibility _YearPcVisibility;
+        private Visibility _yearPcVisibility;
 
 
         // **************** Class constructors ********************************************** //
