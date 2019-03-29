@@ -39,23 +39,23 @@
         <!--Menu-->
         <Menu Grid.Row="0">
             <MenuItem Header="Tools" >
-                <MenuItem Header="_Bluebeam data"         Command="{Binding CmdBluebeam}"/>
-                <MenuItem Header="_Calculators"           Command="{Binding CmdCalculators}"/>
-                <MenuItem Header="_Switch file/inspector" Command="{Binding CmdSwitchFile}"/>
-                <MenuItem Header="View _All Systems"      Command="{Binding CmdViewAllSystems}"/>
-                <MenuItem Header="_View Assigned Systems" Command="{Binding CmdViewAssignedSystems}"/>
+                <MenuItem Header="_Bluebeam data"         Command="{Binding CmdMenuBluebeam}"/>
+                <MenuItem Header="_Calculators"           Command="{Binding CmdMenuCalculators}"/>
+                <MenuItem Header="_Switch file/inspector" Command="{Binding CmdMenuSwitchFile}"/>
+                <MenuItem Header="View _All Systems"      Command="{Binding CmdMenuViewAllSystems}"/>
+                <MenuItem Header="_View Assigned Systems" Command="{Binding CmdMenuViewAssignedSystems}"/>
             </MenuItem>
 
             <MenuItem Header="Reports" >
-                <MenuItem Header="_Inspection Summary" Command="{Binding CmdInspectionSummary}"/>
-                <MenuItem Header="_QC Reports" Command="{Binding CmdQcReports}"/>
+                <MenuItem Header="_Inspection Summary" Command="{Binding CmdMenuInspectionSummary}"/>
+                <MenuItem Header="_QC Reports" Command="{Binding CmdMenuQcReports}"/>
             </MenuItem>
 
             <MenuItem Header="Help">
-                <MenuItem Header="About..." Command="{Binding CmdAbout}" />
+                <MenuItem Header="About..." Command="{Binding CmdMenuAbout}" />
             </MenuItem>
 
-            <MenuItem Header="Exit" Command="{Binding CmdExit}" />
+            <MenuItem Header="Exit" Command="{Binding CmdMenuExit}" />
         </Menu>
         
         <!--Toolbar-->
@@ -64,37 +64,37 @@
             <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="Bluebeam"
-                Command="{Binding CmdBluebeam}">
+                Command="{Binding CmdMenuBluebeam}">
                 <Image Source="/BDC_V1;component/Resources/Bluebeam.jpg"/>
             </Button>
             <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="Calculators"
-                Command="{Binding CmdCalculators}">
+                Command="{Binding CmdMenuCalculators}">
                 <Image Source="/BDC_V1;component/Resources/Calculator.png"/>
             </Button>
             <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="Change file/inspector"
-                Command="{Binding CmdSwitchFile}">
+                Command="{Binding CmdMenuSwitchFile}">
                 <Image Source="/BDC_V1;component/Resources/OpenFile.jpg"/>
             </Button>
             <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="View all/auth/assigned Systems"
-                Command="{Binding CmdViewAllSystems}">
+                Command="{Binding CmdMenuViewAllSystems}">
                 <Image Source="/BDC_V1;component/Resources/ViewAll.jpg"/>
             </Button>
             <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="Inspection Summary"
-                Command="{Binding CmdInspectionSummary}">
+                Command="{Binding CmdMenuInspectionSummary}">
                 <Image Source="/BDC_V1;component/Resources/Inspection.png"/>
             </Button>
             <Button Margin="5 0 5 0"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="QA Reports"
-                Command="{Binding CmdQaReports}">
+                Command="{Binding CmdMenuQcReports}">
                 <Image Source="/BDC_V1;component/Resources/Report.jpg"/>
             </Button>
         </StackPanel>

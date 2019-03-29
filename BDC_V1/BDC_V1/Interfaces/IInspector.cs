@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BDC_V1.Interfaces
 {
-    public interface IValidUsers
+    public interface IInspector
     {
-        IReadOnlyCollection<IPerson> GetValidUsers();
-        bool ValidateUser(IPerson userName, string password);
+        IPerson  InspectorName  { get; set; }
+        DateTime InspectionDate { get; set; }
     }
 }

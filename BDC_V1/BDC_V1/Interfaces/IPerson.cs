@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace BDC_V1.Interfaces
 {
-    public interface IValidUsers
+    public interface IPerson
     {
-        IReadOnlyCollection<IPerson> GetValidUsers();
-        bool ValidateUser(IPerson userName, string password);
+        string FirstName { get; set; }
+        string LastName  { get; set; }
+
+        string ToString();
     }
 }
