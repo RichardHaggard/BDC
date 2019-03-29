@@ -25,6 +25,66 @@
                 </Setter>
             </Style>
 
+            <Style TargetType="CheckBox" x:Key="cbBase">
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelBase">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Margin" Value="0,5,10,5" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelGray" BasedOn="{StaticResource LabelBase}">
+                <Setter Property="Background" Value="LightGray" />
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelBorder" BasedOn="{StaticResource LabelBase}">
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelCJ" BasedOn="{StaticResource LabelBase}">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelLJ" BasedOn="{StaticResource LabelBase}">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelRJ" BasedOn="{StaticResource LabelBase}">
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelBold" BasedOn="{StaticResource LabelBase}">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style TargetType="Border" x:Key="BorderBlack" >
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <Style TargetType="Border" x:Key="BorderBlue"  BasedOn="{StaticResource BorderBlack}">
+                <Setter Property="Background" Value="LightBlue" />
+            </Style>
+
+            <Style TargetType="Border" x:Key="BorderYO"  BasedOn="{StaticResource BorderBlack}">
+                <Setter Property="Background" Value="Moccasin" />
+            </Style>
+
+            <Style TargetType="TextBox" x:Key="TextBoxWrap">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style TargetType="ComboBox" x:Key="ComboBase">
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 
@@ -36,6 +96,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Purple.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
+            
         </ResourceDictionary>
 
     </Application.Resources>

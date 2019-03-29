@@ -8,8 +8,109 @@
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d" 
-    d:DesignHeight="450" d:DesignWidth="800">
+    d:DesignHeight="600" d:DesignWidth="1000">
     <Grid>
-        <Label Content="This is the InventoryDetails View."/> 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Current Section:"
+            Style="{StaticResource LabelRJ}"/>
+        <TextBox
+            Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
+            Style="{StaticResource TextBoxWrap}"
+            Text="{Binding CurrentSection}"
+            />
+
+        <Label
+            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Detail Selector:"
+            Style="{StaticResource LabelRJ}"/>
+        <TextBox
+            Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"
+            Style="{StaticResource TextBoxWrap}"
+            Text="{Binding DetailSelector}"
+            />
+
+        <Label
+            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Detail ID Number:"
+            Style="{StaticResource LabelRJ}"/>
+
+        <Label
+            Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Model:"
+            Style="{StaticResource LabelRJ}"/>
+
+        <Label
+            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Manufacturer:"
+            Style="{StaticResource LabelRJ}"/>
+
+        <Label
+            Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Equipment Type:"
+            Style="{StaticResource LabelRJ}"/>
+
+        <Label
+            Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Date Manufactured:"
+            Style="{StaticResource LabelRJ}"/>
+
+        <Label
+            Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Control Type/Make:"
+            Style="{StaticResource LabelRJ}"/>
+
+        <Label
+            Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Warranty Date:"
+            Style="{StaticResource LabelRJ}"/>
+
+        <Label
+            Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Warranty Date 2:"
+            Style="{StaticResource LabelRJ}"/>
+
+        <Label
+            Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Detail Comment"
+            Style="{StaticResource LabelRJ}"/>
+
+        <Label
+            Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Detail Photos:"
+            Style="{StaticResource LabelRJ}"/>
+
+        <Button
+            Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="1"
+            Content="Cancel Edit"
+            Width="125"
+            />
     </Grid>
 </UserControl>
