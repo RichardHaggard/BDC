@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using BDC_V1.Enumerations;
 using JetBrains.Annotations;
@@ -50,10 +51,9 @@ namespace BDC_V1.Classes
             if ((srcNode.NodeType == nodeType) && (srcNode.Description == description))
                 return srcNode;
 
-            if (srcNode.Children.Any(item => FindNode(item, nodeType, description) != null))
-                return srcNode;
-
-            return null;
+            return srcNode.Children
+                .Select(item => FindNode(item, nodeType, description))
+                .FirstOrDefault(tmp => tmp != null);
         }
 
         public override string ToString()
@@ -64,6 +64,21 @@ namespace BDC_V1.Classes
         public static TreeViewItem BuildTree(TreeNode srcNode, Predicate<TreeNode> filter)
         {
             var node = new TreeViewItem() {Header = srcNode};
+            switch (srcNode.NodeType)
+            {
+                case EnumTreeNodeType.FacilityNode:
+                case EnumTreeNodeType.HeaderNode:
+                    node.FontSize *= 1.2;
+                    node.FontWeight = FontWeights.Bold;
+                    break;
+                case EnumTreeNodeType.SystemNode:
+                case EnumTreeNodeType.ComponentNode:
+                    node.FontSize *= 1;
+                    node.FontWeight = FontWeights.Normal;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             foreach (var item in srcNode.Children)
             {
