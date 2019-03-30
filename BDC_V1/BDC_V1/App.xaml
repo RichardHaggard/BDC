@@ -27,8 +27,23 @@
 
             <Style TargetType="CheckBox" x:Key="cbBase">
                 <Setter Property="FontSize" Value="15" />
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="5" />
             </Style>
 
+            <Style TargetType="ComboBox" x:Key="ComboBase">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
+            <Style TargetType="DatePicker" x:Key="dpBase">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+            
             <Style TargetType="Label" x:Key="LabelBase">
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Margin" Value="0,5,10,5" />
@@ -65,6 +80,7 @@
             <Style TargetType="Border" x:Key="BorderBlack" >
                 <Setter Property="BorderBrush" Value="Black" />
                 <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="5" />
             </Style>
 
             <Style TargetType="Border" x:Key="BorderBlue"  BasedOn="{StaticResource BorderBlack}">
@@ -75,13 +91,18 @@
                 <Setter Property="Background" Value="Moccasin" />
             </Style>
 
-            <Style TargetType="TextBox" x:Key="TextBoxWrap">
+            <Style TargetType="TextBox" x:Key="TextBoxBase">
                 <Setter Property="FontSize" Value="15" />
-                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="IsReadOnly" Value="True" />
             </Style>
 
-            <Style TargetType="ComboBox" x:Key="ComboBase">
-                <Setter Property="FontSize" Value="15" />
+            <Style TargetType="TextBox" x:Key="TextBoxNoWrap" BasedOn="{StaticResource TextBoxBase}">
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+
+            <Style TargetType="TextBox" x:Key="TextBoxWrap" BasedOn="{StaticResource TextBoxBase}">
+                <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
 
             
