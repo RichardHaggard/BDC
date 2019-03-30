@@ -49,6 +49,7 @@ namespace BDC_V1.Services
 
             Images.Add(new BitmapImage(new Uri(@"pack://application:,,,/Resources/EmeraldHils.jpg"  )));
             Images.Add(new BitmapImage(new Uri(@"pack://application:,,,/Resources/FlamingoWater.jpg")));
+            Images.Add(new BitmapImage(new Uri(@"pack://application:,,,/Resources/Reactor.png")));
 
             Inspections.Add(new Inspector()
             {

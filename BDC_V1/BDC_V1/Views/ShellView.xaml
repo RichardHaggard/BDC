@@ -166,27 +166,37 @@
 
                 <!--  these colors should be done with a selection style -->
                 <TabItem Name="Facility" Header="FACILITY" 
-                         Background="{Binding FacilityTabBackgroundColor}">
+                         Background="{Binding FacilityTabBackgroundColor}"
+                         HorizontalContentAlignment="Left"
+                         VerticalContentAlignment="Top">
                     <local:FacilityView />
                 </TabItem>
                 
                 <TabItem Name="Inventory" Header="INVENTORY"  
-                         Background="{Binding InventoryTabBackgroundColor}">
+                         Background="{Binding InventoryTabBackgroundColor}"
+                         HorizontalContentAlignment="Left"
+                         VerticalContentAlignment="Top">
                     <local:InventoryView />
                 </TabItem>
 
                 <TabItem Name="Inspection" Header="INSPECTION"  
-                         Background="{Binding InspectionTabBackgroundColor}">
+                         Background="{Binding InspectionTabBackgroundColor}"
+                         HorizontalContentAlignment="Left"
+                         VerticalContentAlignment="Top">
                     <local:InspectionView />
                 </TabItem>
                 
                 <TabItem Name="QaInventory" Header="QA - INVENTORY"  
-                         Background="{Binding QaInventoryTabBackgroundColor}">
+                         Background="{Binding QaInventoryTabBackgroundColor}"
+                         HorizontalContentAlignment="Left"
+                         VerticalContentAlignment="Top">
                     <local:QaInspectionView />
                 </TabItem>
                 
                 <TabItem Name="QaInspection" Header="QA - INSPECTION"  
-                         Background="{Binding QaInspectionTabBackgroundColor}">
+                         Background="{Binding QaInspectionTabBackgroundColor}"
+                         HorizontalContentAlignment="Left"
+                         VerticalContentAlignment="Top">
                     <local:QaInventoryView />
                 </TabItem>
                 

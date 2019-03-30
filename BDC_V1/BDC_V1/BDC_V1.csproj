@@ -90,11 +90,13 @@
     <Compile Include="Classes\ConfigInfoContainer.cs" />
     <Compile Include="Classes\Contact.cs" />
     <Compile Include="Classes\Facility.cs" />
+    <Compile Include="Classes\InspectionInfoType.cs" />
     <Compile Include="Classes\Inspector.cs" />
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\TreeNode.cs" />
     <Compile Include="Classes\ValidUsers.cs" />
     <Compile Include="Enumerations\EnumConstType.cs" />
+    <Compile Include="Enumerations\EnumInspectionType.cs" />
     <Compile Include="Enumerations\EnumTreeNodeType.cs" />
     <Compile Include="Events\CloseWindowEvent.cs" />
     <Compile Include="Events\EventAggregator.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Interfaces\IContact.cs" />
     <Compile Include="Interfaces\IFacility.cs" />
     <Compile Include="Interfaces\IGlobalContainer.cs" />
+    <Compile Include="Interfaces\IInspectionInfoType.cs" />
     <Compile Include="Interfaces\IInspector.cs" />
     <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Interfaces\IValidUsers.cs" />
@@ -120,10 +123,12 @@
     <Compile Include="Services\MockBredInfo.cs" />
     <Compile Include="Services\MockConfigInfo.cs" />
     <Compile Include="Services\MockFacility.cs" />
+    <Compile Include="Services\MockInspectionInfo.cs" />
     <Compile Include="Services\MockValidUsers.cs" />
     <Compile Include="Utils\BitmapExtension.cs" />
     <Compile Include="Utils\BitmapSourceExtension.cs" />
     <Compile Include="Utils\DialogCloserExtension.cs" />
+    <Compile Include="Utils\EnumBooleanConverter.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
     <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
@@ -300,6 +305,9 @@
   <ItemGroup>
     <Resource Include="Resources\EmeraldHils.jpg" />
     <Resource Include="Resources\FlamingoWater.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Reactor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
