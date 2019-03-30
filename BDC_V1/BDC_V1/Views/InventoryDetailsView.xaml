@@ -267,8 +267,9 @@
                     BorderThickness="1"/>
                 <Image Grid.Row="0"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
+                       Margin="0,5,0,0"
                     Source="/BDC_V1;component/Resources/Photos_cropped.jpg"
+                    VerticalAlignment="Center"
                     Width="40"/>
                 <Label Grid.Row="1"
                     Content="Detail Photo(s)"

@@ -27,6 +27,8 @@
 
             <Style TargetType="CheckBox" x:Key="cbBase">
                 <Setter Property="FontSize" Value="15" />
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="Margin" Value="5" />
             </Style>
 

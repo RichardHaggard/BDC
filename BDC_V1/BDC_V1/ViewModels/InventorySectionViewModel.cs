@@ -124,6 +124,14 @@ namespace BDC_V1.ViewModels
         public List<string> SectionNames { get; } = new List<string>();
 
 
+        public string YearInstalledRenewed
+        {
+            get => _yearInstalledRenewed;
+            set => SetProperty(ref _yearInstalledRenewed, value);
+        }
+        private string _yearInstalledRenewed;
+
+
         public string YearPc
         {
             get => _yearPc;
@@ -137,7 +145,7 @@ namespace BDC_V1.ViewModels
             get => _yearPcVisibility;
             set => SetProperty(ref _yearPcVisibility, value);
         }
-        private Visibility _yearPcVisibility;
+        private Visibility _yearPcVisibility = Visibility.Hidden;
 
 
         // **************** Class constructors ********************************************** //
