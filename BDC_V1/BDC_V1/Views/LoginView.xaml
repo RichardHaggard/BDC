@@ -17,8 +17,8 @@
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d" 
-    Height="Auto"
-    Width="800"
+    Height="500"
+    Width="900"
     ResizeMode="NoResize"
     >
 
