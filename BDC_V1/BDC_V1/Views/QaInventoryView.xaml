@@ -2,15 +2,114 @@
     x:Class="BDC_V1.Views.QaInventoryView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:BDC_V1.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d" 
-    d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label Content="QA Inventory View" />
+    Height="Auto" Width="Auto"
+    d:DesignHeight="650" d:DesignWidth="1000">
 
-    </Grid>
+    <UserControl.Resources>
+        <Style TargetType="DataGridColumnHeader" x:Key="DgHeader">
+            <Setter Property="Background" Value="LightGray" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style TargetType="DataGridRow" x:Key="DgItems">
+            <Setter Property="Background" Value="WhiteSmoke" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                  VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5"    />     <!--  0 - white space at top -->
+                <RowDefinition Height="Auto" />     <!--  1 - Component -->
+                <RowDefinition Height="5"    />     <!--  2 - white space between buttons and datagrid -->
+                <RowDefinition Height="Auto" />     <!--  3 - Component Type -->
+                <RowDefinition Height="5"    />     <!-- 14 - white space at bottom -->
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5" />  <!-- white space to the left -->
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="490" />
+                <ColumnDefinition Width="5" />  <!-- white space to the right -->
+            </Grid.ColumnDefinitions>
+
+            <!-- DataGrid -->
+            <DataGrid Name="LvUsers" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="6" Width="990"
+                      ItemsSource="{Binding InventoryInfo}"
+                      ColumnHeaderStyle="{StaticResource DgHeader}"
+                      ItemContainerStyle="{StaticResource DgItems}"
+                      CanUserSortColumns="True"
+                      GridLinesVisibility="All">
+                <DataGrid.Columns>
+                    <!-- The header formats should be in a setter resource, but I fought with it long enough. Brute force time -->
+                    <DataGridTextColumn Width="100" Binding="{Binding Path=FacilityId}">
+                        <DataGridColumn.Header>
+                            <Grid Width="68">
+                                <Label Content="Fac. ID:" HorizontalAlignment="Left"/>
+                                <Image Height="15" Source="/BDC_V1;component/Resources/Filter.jpg" 
+                                       HorizontalAlignment="Right"/>
+                            </Grid>
+                        </DataGridColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="100" Binding="{Binding Path=SystemId}">
+                        <DataGridColumn.Header>
+                            <Grid Width="68">
+                                <Label Content="Syst.:" HorizontalAlignment="Left"/>
+                                <Image Height="15" Source="/BDC_V1;component/Resources/Filter.jpg" 
+                                       HorizontalAlignment="Right"/>
+                            </Grid>
+                        </DataGridColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="100" Binding="{Binding Path=ComponentId}">
+                        <DataGridColumn.Header>
+                            <Grid Width="68">
+                                <Label Content="Comp.:" HorizontalAlignment="Left"/>
+                                <Image Height="15" Source="/BDC_V1;component/Resources/Filter.jpg" 
+                                       HorizontalAlignment="Right"/>
+                            </Grid>
+                        </DataGridColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="100" Binding="{Binding Path=TypeName}">
+                        <DataGridColumn.Header>
+                            <Grid Width="68">
+                                <Label Content="Type:" HorizontalAlignment="Left"/>
+                                <Image Height="15" Source="/BDC_V1;component/Resources/Filter.jpg" 
+                                       HorizontalAlignment="Right"/>
+                            </Grid>
+                        </DataGridColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="100" Binding="{Binding Path=SectionName}">
+                        <DataGridColumn.Header>
+                            <Grid Width="68">
+                                <Label Content="Section:" HorizontalAlignment="Left"/>
+                                <Image Height="15" Source="/BDC_V1;component/Resources/Filter.jpg" 
+                                       HorizontalAlignment="Right"/>
+                            </Grid>
+                        </DataGridColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="490" Binding="{Binding Path=InventIssue}">
+                        <DataGridColumn.Header>
+                            <Grid Width="460">
+                                <Label Content="Inventory Issues:" HorizontalAlignment="Left"/>
+                                <Image Height="15" Source="/BDC_V1;component/Resources/Filter.jpg" 
+                                       HorizontalAlignment="Right"/>
+                            </Grid>
+                        </DataGridColumn.Header>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

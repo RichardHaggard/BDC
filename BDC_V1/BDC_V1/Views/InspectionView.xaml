@@ -1,449 +1,634 @@
-﻿<UserControl 
-    x:Class="BDC_V1.Views.InspectionView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:prism="http://prismlibrary.com/"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:BDC_V1.Views"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
-    xmlns:utils="clr-namespace:BDC_V1.Utils"
-    prism:ViewModelLocator.AutoWireViewModel="True"
-    mc:Ignorable="d" 
-    Height="Auto" Width="800">
+﻿<UserControl x:Class="BDC_V1.Views.InspectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:BDC_V1.Views"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:utils="clr-namespace:BDC_V1.Utils"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+             Height="650"
+             Width="800"
+             d:DesignHeight="650"
+             d:DesignWidth="800">
 
-    <ScrollViewer>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5" />        <!--  0 - white space at top -->
-                <RowDefinition Height="Auto" />     <!--  1 --> <!-- Component -->
-                <RowDefinition Height="Auto" />     <!--  2 --> <!-- Equip/Mat -->
-                <RowDefinition Height="Auto" />     <!--  3 --> <!-- Component Type -->
-                <RowDefinition Height="Auto" />     <!--  4 --> <!-- Section Quantity -->
-                <RowDefinition Height="Auto" />     <!--  5 --> <!-- Inspection Date -->
-                <RowDefinition Height="Auto" />     <!--  6 --> <!-- Painted & Direct -->
-                <RowDefinition Height="Auto" />     <!--  7 --> <!-- Inspection Comment -->
-                <RowDefinition Height="10"   />     <!--  8 --> <!-- white space -->
-                <RowDefinition Height="Auto" />     <!--  9 --> <!-- Remember --> 
-                <RowDefinition Height="10"   />     <!-- 10 --> <!-- white space -->
-                <RowDefinition Height="Auto" />     <!-- 11 --> <!-- Inspection Photos --> 
-                <RowDefinition Height="10"   />     <!-- 12 --> <!-- white space -->
-                <RowDefinition Height="Auto" />     <!-- 13 --> <!-- Action Buttons --> 
-                <RowDefinition Height="5"    />     <!-- 14 --> <!-- white space at bottom -->
-            </Grid.RowDefinitions>
+  <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="5"    />  <!--  0 - white space at top -->
+        <RowDefinition Height="Auto" />  <!--  1 - Component -->
+        <RowDefinition Height="Auto" />  <!--  2 - Equip/Mat -->
+        <RowDefinition Height="Auto" />  <!--  3 - Component Type -->
+        <RowDefinition Height="Auto" />  <!--  4 - Section Quantity -->
+        <RowDefinition Height="Auto" />  <!--  5 - Inspection Date -->
+        <RowDefinition Height="Auto" />  <!--  6 - Painted & Direct -->
+        <RowDefinition Height="Auto" />  <!--  7 - Inspection Comment -->
+        <RowDefinition Height="10"   />  <!--  8 - white space -->
+        <RowDefinition Height="Auto" />  <!--  9 - Remember -->
+        <RowDefinition Height="10"   />  <!-- 10 - white space -->
+        <RowDefinition Height="Auto" />  <!-- 11 - Inspection Photos -->
+        <RowDefinition Height="10"   />  <!-- 12 - white space -->
+        <RowDefinition Height="Auto" />  <!-- 13 - Action Buttons -->
+        <RowDefinition Height="5"    />  <!-- 14 - white space at bottom -->
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="150" />
+        <ColumnDefinition Width="80" />
+        <ColumnDefinition Width="80" />
+        <ColumnDefinition Width="80" />
+        <ColumnDefinition Width="80" />
+        <ColumnDefinition Width="80" />
+        <ColumnDefinition Width="80" />
+        <ColumnDefinition Width="80" />
+        <ColumnDefinition Width="80" />
+        <ColumnDefinition Width="5" />
+        <!-- Make room for the scroll bar -->
+      </Grid.ColumnDefinitions>
 
-            <!-- -->
-            <Label Grid.Row="1" Grid.Column="0" Margin="10 2 5 2" Content="Component:" />
-            <Label Grid.Row="1" Grid.Column="1" Margin="0 2 0 2" Grid.ColumnSpan="4" 
-                   BorderBrush="Black" BorderThickness="1" Background="DarkGray" 
-                   Content="{Binding InspectionInfo.Component}"/>
-            <Label Grid.Row="1" Grid.Column="5" Margin="0 2 0 2" HorizontalContentAlignment="Center">Section:</Label>
-            <Label Grid.Row="1" Grid.Column="6" Margin="0 2 0 2" Grid.ColumnSpan="3" 
-                   BorderBrush="Black" BorderThickness="1" Background="DarkGray" 
-                   Content="{Binding InspectionInfo.Section}"/>
+      <!-- -->
+      <Label Grid.Row="1"
+             Grid.Column="0"
+             Content="Component:" />
+      <Label Grid.Row="1"
+             Grid.Column="1"
+             Grid.ColumnSpan="4"
+             BorderBrush="Black"
+             BorderThickness="1"
+             Background="DarkGray"
+             Content="{Binding InspectionInfo.Component}" />
+      <Label Grid.Row="1"
+             Grid.Column="5"
+             HorizontalContentAlignment="Center">Section:</Label>
+      <Label Grid.Row="1"
+             Grid.Column="6"
+             Grid.ColumnSpan="3"
+             BorderBrush="Black"
+             BorderThickness="1"
+             Background="DarkGray"
+             Content="{Binding InspectionInfo.Section}" />
 
-            <!-- Equip / Mat Category -->
-            <Label Grid.Row="2" Grid.Column="0" Margin="10 2 5 2" Content="Equip./Mat. Category:" />
-            <Label Grid.Row="2" Grid.Column="1" Margin="0 2 0 2" Grid.ColumnSpan="8" 
-                   BorderBrush="Black" BorderThickness="1" Background="DarkGray"
-                   Content="{Binding InspectionInfo.Category}"/>
+      <!-- Equip / Mat Category -->
+      <Label Grid.Row="2"
+             Grid.Column="0"
+             Content="Equip./Mat. Category:" />
+      <Label Grid.Row="2"
+             Grid.Column="1"
+             Grid.ColumnSpan="8"
+             BorderBrush="Black"
+             BorderThickness="1"
+             Background="DarkGray"
+             Content="{Binding InspectionInfo.Category}" />
 
-            <!-- Component Type -->
-            <Label Grid.Row="3" Grid.Column="0" Margin="10 2 5 2" Content="Component Type:" />
-            <Label Grid.Row="3" Grid.Column="1" Margin="0 2 0 2" Grid.ColumnSpan="8" 
-                   BorderBrush="Black" BorderThickness="1" Background="DarkGray"
-                   Content="{Binding InspectionInfo.ComponentType}"/>
+      <!-- Component Type -->
+      <Label Grid.Row="3"
+             Grid.Column="0"
+             Content="Component Type:" />
+      <Label Grid.Row="3"
+             Grid.Column="1"
+             Grid.ColumnSpan="8"
+             BorderBrush="Black"
+             BorderThickness="1"
+             Background="DarkGray"
+             Content="{Binding InspectionInfo.ComponentType}" />
 
-            <!-- Section Quantity -->
-            <Label Grid.Row="4" Grid.Column="0" Margin="10 2 5 2" Content="Section Quantity:" />
-            <Label Grid.Row="4" Grid.Column="1" Margin="0 2 0 2" 
-                   BorderBrush="Black" BorderThickness="1" Background="DarkGray"
-                   Content="{Binding InspectionInfo.Quantity}"
-                   ContentStringFormat="{}{0:#,#.00}"/>
-            <Label Grid.Row="4" Grid.Column="2" Margin="0 2 0 2" Content="MBH"/>
+      <!-- Section Quantity -->
+      <Label Grid.Row="4"
+             Grid.Column="0"
+             Content="Section Quantity:" />
+      <Label Grid.Row="4"
+             Grid.Column="1"
+             BorderBrush="Black"
+             BorderThickness="1"
+             Background="DarkGray"
+             Content="{Binding InspectionInfo.Quantity}"
+             ContentStringFormat="{}{0:#,#.00}" />
+      <Label Grid.Row="4"
+             Grid.Column="1"
+             Content="MBH"
+             Grid.ColumnSpan="2" />
 
-            <!-- Inspection Date -->
-            <Label Grid.Row="5" Grid.Column="0" Margin="10 2 5 2" Content="Inspection Date:" />
-            <TextBox Grid.Row="5" Grid.Column="1" Margin="0 2 0 2" 
-                     BorderBrush="Black" BorderThickness="1"   
-                     Text="{Binding InspectionInfo.InspectionDate, StringFormat=d}"/>
-            <StackPanel Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="5" Margin="0 2 0 2" Orientation="Horizontal">
-                <StackPanel.Resources>
-                    <utils:EnumBooleanConverter x:Key="EnumBooleanConverter" />
-                </StackPanel.Resources>
+      <!-- Inspection Date -->
+      <Label Grid.Row="5"
+             Grid.Column="0"
+             Content="Inspection Date:" />
+      <TextBox Grid.Row="5"
+               Grid.Column="1"
+               BorderBrush="Black"
+               BorderThickness="1"
+               Text="{Binding InspectionInfo.InspectionDate, StringFormat=d}" />
+      <StackPanel Grid.Row="5"
+                  Grid.Column="4"
+                  Grid.ColumnSpan="6"
+                  Orientation="Horizontal">
+        <StackPanel.Resources>
+          <utils:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+        </StackPanel.Resources>
 
-                <Label Margin="0 0 20 0" Content="Inspection Type:"/>
-                <RadioButton Margin="0 0 20 0" Content="Direct Rating"
-                             VerticalContentAlignment="Center"
-                             GroupName="InspectionType" 
-                             IsChecked="{Binding Path=InspectionInfo.InspectionType, 
+        <Label Margin="0 0 20 0"
+               Content="Inspection Type:" />
+        <RadioButton Margin="0 0 20 0"
+                     Content="Direct Rating"
+                     VerticalContentAlignment="Center"
+                     GroupName="InspectionType"
+                     IsChecked="{Binding Path=InspectionInfo.InspectionType, 
                                 Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                                 ConverterParameter=DirectRating,
                                 Mode=TwoWay}" />
-                <RadioButton Margin="0 0 20 0" Content="Distress Survey"
-                             VerticalContentAlignment="Center"
-                             GroupName="InspectionType" 
-                             IsChecked="{Binding Path=InspectionInfo.InspectionType, 
+        <RadioButton Margin="0 0 20 0"
+                     Content="Distress Survey"
+                     VerticalContentAlignment="Center"
+                     GroupName="InspectionType"
+                     IsChecked="{Binding Path=InspectionInfo.InspectionType, 
                                 Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                                 ConverterParameter=DistressSurvey,
-                                Mode=TwoWay}"/>
-            </StackPanel>
+                                Mode=TwoWay}" />
+      </StackPanel>
 
-            <!-- Painted & Direct -->
-            <Grid Grid.Row="6" Grid.Column="0" Margin="10 2 5 2" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+      <!-- Painted & Direct -->
+      <Grid Grid.Row="6" Grid.Column="0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Content="Painted/Coated:" />
-                <Label Grid.Row="1" Content="Direct Condition Rating:" 
-                       VerticalContentAlignment="Top"/>
-            </Grid>
-            <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="8" Margin="0 2 0 2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+        <Label Grid.Row="0"
+               Content="Painted/Coated:" />
+        <Label Grid.Row="1"
+               Content="Direct Condition Rating:"
+               VerticalContentAlignment="Top" />
+      </Grid>
+      <Grid Grid.Row="6"
+            Grid.Column="1"
+            Grid.ColumnSpan="8"
+            Margin="1,1,0,1">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Row="0" Grid.Column="0" Name="CheckboxPainted" 
-                          VerticalContentAlignment="Center"
-                          IsChecked="{Binding IsPainted}"/>
-                <Label Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="3" Content="Paint/Coating Condition Rating:"
-                       Background="LightGray"/>
+        <CheckBox Grid.Row="0"
+                  Grid.Column="0"
+                  Name="CheckboxPainted"
+                  VerticalContentAlignment="Center"
+                  IsChecked="{Binding IsPainted}" />
+        <Label Grid.Row="0"
+               Grid.Column="4"
+               Grid.ColumnSpan="3"
+               Content="Paint/Coating Condition Rating:"
+               Background="LightGray" />
 
-                <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="7" Background="LightGray" />
-                <Button Grid.Row="1" Grid.Column="0" Margin="0 0 5 5" Width="90" Content="Green+" 
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Green</system:String>
-                            <system:String>0</system:String>
-                            <system:String>0</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="2" Grid.Column="0" Margin="0 0 5 5" Width="90" Content="Green+" 
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Green</system:String>
-                            <system:String>0</system:String>
-                            <system:String>1</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="3" Grid.Column="0" Margin="0 0 5 5" Width="90" Content="Green+" 
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Green</system:String>
-                            <system:String>0</system:String>
-                            <system:String>2</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
+        <Border Grid.Row="1"
+                Grid.Column="0"
+                Grid.RowSpan="3"
+                Grid.ColumnSpan="7"
+                Background="LightGray" />
+        <Button Grid.Row="1"
+                Grid.Column="0"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Green+"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Green</system:String>
+              <system:String>0</system:String>
+              <system:String>0</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="2"
+                Grid.Column="0"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Green+"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Green</system:String>
+              <system:String>0</system:String>
+              <system:String>1</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="3"
+                Grid.Column="0"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Green+"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Green</system:String>
+              <system:String>0</system:String>
+              <system:String>2</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
 
-                <Button Grid.Row="1" Grid.Column="1" Margin="0 0 5 5" Width="90" Content="Amber+" 
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Amber</system:String>
-                            <system:String>0</system:String>
-                            <system:String>0</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="2" Grid.Column="1" Margin="0 0 5 5" Width="90" Content="Amber+" 
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Amber</system:String>
-                            <system:String>0</system:String>
-                            <system:String>1</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="3" Grid.Column="1" Margin="0 0 5 5" Width="90" Content="Amber+" 
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Amber</system:String>
-                            <system:String>0</system:String>
-                            <system:String>2</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Amber+"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Amber</system:String>
+              <system:String>0</system:String>
+              <system:String>0</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="2"
+                Grid.Column="1"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Amber+"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Amber</system:String>
+              <system:String>0</system:String>
+              <system:String>1</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="3"
+                Grid.Column="1"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Amber+"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Amber</system:String>
+              <system:String>0</system:String>
+              <system:String>2</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
 
-                <Button Grid.Row="1" Grid.Column="2" Margin="0 0 0 5" Width="90" Content="Red+"   
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Red</system:String>
-                            <system:String>0</system:String>
-                            <system:String>0</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="2" Grid.Column="2" Margin="0 0 0 5" Width="90" Content="Red+"   
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Red</system:String>
-                            <system:String>0</system:String>
-                            <system:String>1</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="3" Grid.Column="2" Margin="0 0 0 5" Width="90" Content="Red+"   
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Red</system:String>
-                            <system:String>0</system:String>
-                            <system:String>2</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
+        <Button Grid.Row="1"
+                Grid.Column="2"
+                Margin="0 0 0 5"
+                Width="90"
+                Content="Red+"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Red</system:String>
+              <system:String>0</system:String>
+              <system:String>0</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="2"
+                Grid.Column="2"
+                Margin="0 0 0 5"
+                Width="90"
+                Content="Red+"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Red</system:String>
+              <system:String>0</system:String>
+              <system:String>1</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="3"
+                Grid.Column="2"
+                Margin="0 0 0 5"
+                Width="90"
+                Content="Red+"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Red</system:String>
+              <system:String>0</system:String>
+              <system:String>2</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
 
-                <Button Grid.Row="1" Grid.Column="4" Margin="0 0 5 5" Width="90" Content="Green+" 
-                        IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Green</system:String>
-                            <system:String>1</system:String>
-                            <system:String>0</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="2" Grid.Column="4" Margin="0 0 5 5" Width="90" Content="Green+" 
-                        IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Green</system:String>
-                            <system:String>1</system:String>
-                            <system:String>1</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="3" Grid.Column="4" Margin="0 0 5 5" Width="90" Content="Green+" 
-                        IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Green</system:String>
-                            <system:String>1</system:String>
-                            <system:String>2</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
+        <Button Grid.Row="1"
+                Grid.Column="4"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Green+"
+                IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Green</system:String>
+              <system:String>1</system:String>
+              <system:String>0</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="2"
+                Grid.Column="4"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Green+"
+                IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Green</system:String>
+              <system:String>1</system:String>
+              <system:String>1</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="3"
+                Grid.Column="4"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Green+"
+                IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Green</system:String>
+              <system:String>1</system:String>
+              <system:String>2</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
 
-                <Button Grid.Row="1" Grid.Column="5" Margin="0 0 5 5" Width="90" Content="Amber+" 
-                        IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Amber</system:String>
-                            <system:String>1</system:String>
-                            <system:String>0</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="2" Grid.Column="5" Margin="0 0 5 5" Width="90" Content="Amber+" 
-                        IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Amber</system:String>
-                            <system:String>1</system:String>
-                            <system:String>1</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="3" Grid.Column="5" Margin="0 0 5 5" Width="90" Content="Amber+" 
-                        IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Amber</system:String>
-                            <system:String>1</system:String>
-                            <system:String>2</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
+        <Button Grid.Row="1"
+                Grid.Column="5"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Amber+"
+                IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Amber</system:String>
+              <system:String>1</system:String>
+              <system:String>0</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="2"
+                Grid.Column="5"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Amber+"
+                IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Amber</system:String>
+              <system:String>1</system:String>
+              <system:String>1</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="3"
+                Grid.Column="5"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Amber+"
+                IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Amber</system:String>
+              <system:String>1</system:String>
+              <system:String>2</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
 
-                <Button Grid.Row="1" Grid.Column="6" Margin="0 0 5 5" Width="90" Content="Red+"   
-                        IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Red</system:String>
-                            <system:String>1</system:String>
-                            <system:String>0</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="2" Grid.Column="6" Margin="0 0 5 5" Width="90" Content="Red+"   
-                        IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Red</system:String>
-                            <system:String>1</system:String>
-                            <system:String>1</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Grid.Row="3" Grid.Column="6" Margin="0 0 5 5" Width="90" Content="Red+"   
-                        IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-                        Command="{Binding CmdCondRating}">
-                    <Button.CommandParameter>
-                        <x:Array Type="system:Object">
-                            <system:String>Red</system:String>
-                            <system:String>1</system:String>
-                            <system:String>2</system:String>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
+        <Button Grid.Row="1"
+                Grid.Column="6"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Red+"
+                IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Red</system:String>
+              <system:String>1</system:String>
+              <system:String>0</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="2"
+                Grid.Column="6"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Red+"
+                IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Red</system:String>
+              <system:String>1</system:String>
+              <system:String>1</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="3"
+                Grid.Column="6"
+                Margin="0 0 5 5"
+                Width="90"
+                Content="Red+"
+                IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                Command="{Binding CmdCondRating}">
+          <Button.CommandParameter>
+            <x:Array Type="system:Object">
+              <system:String>Red</system:String>
+              <system:String>1</system:String>
+              <system:String>2</system:String>
+            </x:Array>
+          </Button.CommandParameter>
+        </Button>
 
-                <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="7" Background="Gray"
-                       Content="{Binding InspectionInfo.Note}"/>
-            </Grid>
+        <Label Grid.Row="4"
+               Grid.Column="0"
+               Grid.ColumnSpan="7"
+               Background="Gray"
+               Content="{Binding InspectionInfo.Note}" />
+      </Grid>
 
-            <!-- Inspection Comment -->
-            <Border Grid.Row="7" Grid.Column="0" Margin="0 2 5 2" Style="{StaticResource BorderBlue}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+      <!-- Inspection Comment -->
+      <Border Grid.Row="7"
+              Grid.Column="0"
+              Margin="0,3,5,3"
+              Style="{StaticResource BorderBlue}">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
 
-                    <Image Grid.Row="0" Width="40" Margin="0,5,0,0"
-                           HorizontalAlignment="Center" VerticalAlignment="Center"
-                           Source="/BDC_V1;component/Resources/EditText_Comments.png"/>
-                    <Label Grid.Row="1" Style="{StaticResource LabelCJ}"
-                           Content="Inspection Comment"/>
-                </Grid>
-            </Border>
-
-            <!-- Remember -->
-            <Border Grid.Row="9" Grid.Column="0" Margin="0 2 5 2" Background="LightBlue">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <CheckBox Grid.Column="0" Margin="5,0,0,0" Content="Remember"
-                              HorizontalContentAlignment="Center"
-                              VerticalContentAlignment="Center"
-                              Style="{StaticResource cbBase}"
-                              IsChecked="{Binding IsRemembered}"/>
-                    <Image Grid.Column="1" Margin="5,2,5,2"
-                           Source="/BDC_V1;component/Resources/Remember.png"
-                           Width="35"/>
-                </Grid>
-            </Border>
-            <Border Grid.Row="7" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="8" Margin="0 2 0 0"
-                    Style="{StaticResource BorderYO}">
-                <TextBox VerticalContentAlignment="Top" HorizontalContentAlignment="Left" TextWrapping="Wrap"
-                         Text="{Binding InspectionInfo.InspectionComment}"/>
-            </Border>
-
-            <!-- Photos -->
-            <Border Grid.Row="11" Grid.Column="0" Margin="0 0 5 0" Style="{StaticResource BorderBlue}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Image Grid.Row="0" Width="40"
-                           HorizontalAlignment="Center" VerticalAlignment="Center"
-                           Source="/BDC_V1;component/Resources/Photos_cropped.jpg" />
-                    <Label Grid.Row="1" Content="Photo(s)"
-                           Style="{StaticResource LabelCJ}"/>
-                    <Label Grid.Row="2" 
-                           Content="{Binding InspectionInfo.Images.Count}"
-                           Style="{StaticResource LabelCJ}"/>
-                </Grid>
-            </Border>
-            <Border Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="8" Style="{StaticResource BorderYO}">
-                <StackPanel Orientation="Horizontal">
-                    <Border BorderBrush="Black" BorderThickness="1" Background="White" Margin="0 0 5 0">
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center"
-                               Height="94" MinWidth="20"
-                               Source="{Binding InspectionInfo.Images[0]}"/>
-                    </Border>
-                    <Border BorderBrush="Black" BorderThickness="1" Background="White" Margin="0 0 5 0">
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center"
-                               Height="94" MinWidth="20"
-                               Source="{Binding InspectionInfo.Images[1]}"/>
-                    </Border>
-                    <Border BorderBrush="Black" BorderThickness="1" Background="White" Margin="0 0 5 0">
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center"
-                               Height="94" MinWidth="20"
-                               Source="{Binding InspectionInfo.Images[2]}"/>
-                    </Border>
-                </StackPanel>
-            </Border>
-
-            <!-- Action Buttons -->
-            <StackPanel Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal">
-                <Button Margin="0 0 5 0" Width="175"
-                        HorizontalContentAlignment="Left"
-                        Command="{Binding CmdCancelEdit}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/BDC_V1;component/Resources/Cancel_Undo.png" 
-                               HorizontalAlignment="Left"/>
-                        <Label Margin="0 -4 0 0" Content="Cancel Edit"
-                               HorizontalAlignment="Right"/>
-                    </StackPanel>
-                </Button>
-                <Button Margin="5 0 0 0" Width="175" 
-                        HorizontalContentAlignment="Left"
-                        Command="{Binding CmdDeleteInspection}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/BDC_V1;component/Resources/Delete.png" 
-                               HorizontalAlignment="Left"/>
-                        <Label Margin="0 -2 0 0" Content="Delete Inspection" 
-                               HorizontalAlignment="Right"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-
+          <Image Grid.Row="0"
+                 Width="40"
+                 Margin="0,5,0,0"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Source="/BDC_V1;component/Resources/EditText_Comments.png" />
+          <Label Grid.Row="1"
+                 Style="{StaticResource LabelCJ}"
+                 Content="Inspection Comment" />
         </Grid>
-    </ScrollViewer>
+      </Border>
+
+      <!-- Remember -->
+      <Border Grid.Row="9"
+              Grid.Column="0"
+              Background="LightBlue">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+
+          <CheckBox Grid.Column="0"
+                    Margin="5,0,0,0"
+                    Content="Remember"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Style="{StaticResource cbBase}"
+                    IsChecked="{Binding IsRemembered}" />
+          <Image Grid.Column="1"
+                 Margin="5,2,5,2"
+                 Source="/BDC_V1;component/Resources/Remember.png"
+                 Width="35" />
+        </Grid>
+      </Border>
+      <Border Grid.Row="7"
+              Grid.Column="1"
+              Grid.RowSpan="3"
+              Grid.ColumnSpan="8"
+              Style="{StaticResource BorderYO}">
+        <TextBox VerticalContentAlignment="Top"
+                 HorizontalContentAlignment="Left"
+                 TextWrapping="Wrap"
+                 Text="{Binding InspectionInfo.InspectionComment}" />
+      </Border>
+
+      <!-- Photos -->
+      <Border Grid.Row="11"
+              Grid.Column="0"
+              Style="{StaticResource BorderBlue}">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+
+          <Image Grid.Row="0"
+                 Width="40"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Source="/BDC_V1;component/Resources/Photos_cropped.jpg" />
+          <Label Grid.Row="1"
+                 Content="Photo(s)"
+                 Style="{StaticResource LabelCJ}" />
+          <Label Grid.Row="2"
+                 Content="{Binding InspectionInfo.Images.Count}"
+                 Style="{StaticResource LabelCJ}" />
+        </Grid>
+      </Border>
+      <Border Grid.Row="11"
+              Grid.Column="1"
+              Grid.ColumnSpan="8"
+              Style="{StaticResource BorderYO}"
+              >
+        <StackPanel Orientation="Horizontal">
+          <Border BorderBrush="Black"
+                  BorderThickness="1"
+                  Background="White"
+                  Margin="0 0 5 0">
+            <Image HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Height="94"
+                   MinWidth="20"
+                   Source="{Binding InspectionInfo.Images[0]}" />
+          </Border>
+          <Border BorderBrush="Black"
+                  BorderThickness="1"
+                  Background="White"
+                  Margin="0 0 5 0">
+            <Image HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Height="94"
+                   MinWidth="20"
+                   Source="{Binding InspectionInfo.Images[1]}" />
+          </Border>
+          <Border BorderBrush="Black"
+                  BorderThickness="1"
+                  Background="White"
+                  Margin="0 0 5 0">
+            <Image HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Height="94"
+                   MinWidth="20"
+                   Source="{Binding InspectionInfo.Images[2]}" />
+          </Border>
+        </StackPanel>
+      </Border>
+
+      <!-- Action Buttons -->
+      <StackPanel Grid.Row="13"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="4"
+                  Orientation="Horizontal"
+                  Grid.RowSpan="2">
+        <Button Margin="0 0 5 0"
+                Width="175"
+                HorizontalContentAlignment="Left"
+                Command="{Binding CmdCancelEdit}">
+          <StackPanel Orientation="Horizontal">
+            <Image Source="/BDC_V1;component/Resources/Cancel_Undo.png"
+                   HorizontalAlignment="Left" />
+            <Label Margin="0 -4 0 0"
+                   Content="Cancel Edit"
+                   HorizontalAlignment="Right" />
+          </StackPanel>
+        </Button>
+        <Button Margin="5 0 0 0"
+                Width="175"
+                HorizontalContentAlignment="Left"
+                Command="{Binding CmdDeleteInspection}">
+          <StackPanel Orientation="Horizontal">
+            <Image Source="/BDC_V1;component/Resources/Delete.png"
+                   HorizontalAlignment="Left" />
+            <Label Margin="0 -2 0 0"
+                   Content="Delete Inspection"
+                   HorizontalAlignment="Right" />
+          </StackPanel>
+        </Button>
+      </StackPanel>
+
+    </Grid>
+  </ScrollViewer>
 
 </UserControl>

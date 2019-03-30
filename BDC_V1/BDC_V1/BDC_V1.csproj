@@ -92,6 +92,7 @@
     <Compile Include="Classes\Facility.cs" />
     <Compile Include="Classes\InspectionInfoType.cs" />
     <Compile Include="Classes\Inspector.cs" />
+    <Compile Include="Classes\InventoryType.cs" />
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\TreeNode.cs" />
     <Compile Include="Classes\ValidUsers.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Interfaces\IGlobalContainer.cs" />
     <Compile Include="Interfaces\IInspectionInfoType.cs" />
     <Compile Include="Interfaces\IInspector.cs" />
+    <Compile Include="Interfaces\IInventoryType.cs" />
     <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Interfaces\IValidUsers.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

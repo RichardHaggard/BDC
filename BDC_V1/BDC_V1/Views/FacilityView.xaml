@@ -70,7 +70,7 @@
 
   </UserControl.Resources>
 
-  <ScrollViewer>
+  <ScrollViewer HorizontalScrollBarVisibility="Auto">
 
     <Grid>
       <Grid.ColumnDefinitions>
