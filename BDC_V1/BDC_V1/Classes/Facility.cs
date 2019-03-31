@@ -29,13 +29,13 @@ namespace BDC_V1.Classes
         public IAddress Address           { get; set; }
         public IContact Contact           { get; set; }
         public IList<TreeNode> FacilityTreeNodes { get; } 
-        public ObservableCollection<ImageSource> Images { get; }
-        public ObservableCollection<IInspector>  Inspections { get; }
+        public QuickObservableCollection<ImageSource> Images { get; }
+        public QuickObservableCollection<IInspector>  Inspections { get; }
 
         public Facility()
         {
-            Images            = new ObservableCollection<ImageSource>();
-            Inspections       = new ObservableCollection<IInspector> ();
+            Images            = new QuickObservableCollection<ImageSource>();
+            Inspections       = new QuickObservableCollection<IInspector> ();
             FacilityTreeNodes = new List<TreeNode>();
         }
     }

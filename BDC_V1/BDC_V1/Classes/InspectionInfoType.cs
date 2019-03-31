@@ -13,7 +13,7 @@ namespace BDC_V1.Classes
     public class InspectionInfoType : IInspectionInfoType
     {
         public EnumInspectionType InspectionType { get; set; }
-        public ObservableCollection<ImageSource> Images { get; }
+        public QuickObservableCollection<ImageSource> Images { get; }
         public string   Component         { get; set; }
         public string   Section           { get; set; }
         public string   Category          { get; set; }
@@ -25,7 +25,7 @@ namespace BDC_V1.Classes
 
         public InspectionInfoType()
         {
-            Images = new ObservableCollection<ImageSource>();
+            Images = new QuickObservableCollection<ImageSource>();
         }
     }
 }

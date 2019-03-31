@@ -10,9 +10,42 @@ namespace BDC_V1.ViewModels
     {
         // **************** Class enumerations ********************************************** //
 
+        // **************** Class properties ************************************************ //
+
         // **************** Class data members ********************************************** //
 
-        // **************** Class properties ************************************************ //
+        //[CanBeNull] 
+        //protected IFacility LocalFacilityInfo
+        //{
+        //    get => _localFacilityInfo;
+        //    set
+        //    {
+        //        if (SetProperty(ref _localFacilityInfo, value))
+        //        {
+
+        //        }
+        //    }
+        //}
+        //[CanBeNull] private IFacility _localFacilityInfo;
+
+        //protected override IConfigInfo LocalConfigInfo
+        //{
+        //    get => base.LocalConfigInfo;
+        //    set
+        //    {
+        //        base.LocalConfigInfo = value;
+        //    }
+        //}
+
+        //protected override IBredInfo LocalBredInfo
+        //{
+        //    get => base.LocalBredInfo;
+        //    set
+        //    {
+        //        base.LocalBredInfo = value;
+        //        LocalFacilityInfo = base.LocalBredInfo?.FacilityInfo;
+        //    }
+        //}
 
         // **************** Class constructors ********************************************** //
 

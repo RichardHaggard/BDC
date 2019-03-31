@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using BDC_V1.Enumerations;
 using JetBrains.Annotations;
 using Prism.Mvvm;
@@ -63,7 +64,12 @@ namespace BDC_V1.Classes
 
         public static TreeViewItem BuildTree(TreeNode srcNode, Predicate<TreeNode> filter)
         {
-            var node = new TreeViewItem() {Header = srcNode};
+            var node = new TreeViewItem
+            {
+                Header = srcNode, 
+                Foreground = Brushes.Black
+            };
+
             switch (srcNode.NodeType)
             {
                 case EnumTreeNodeType.FacilityNode:

@@ -92,8 +92,12 @@
     <Compile Include="Classes\Facility.cs" />
     <Compile Include="Classes\InspectionInfoType.cs" />
     <Compile Include="Classes\Inspector.cs" />
+    <Compile Include="Classes\InventoryDetailsType.cs" />
+    <Compile Include="Classes\InventorySectionType.cs" />
     <Compile Include="Classes\InventoryType.cs" />
     <Compile Include="Classes\Person.cs" />
+    <Compile Include="Classes\QuickObservableCollection.cs" />
+    <Compile Include="Classes\RelayCommand.cs" />
     <Compile Include="Classes\TreeNode.cs" />
     <Compile Include="Classes\ValidUsers.cs" />
     <Compile Include="Enumerations\EnumConstType.cs" />
@@ -102,6 +106,7 @@
     <Compile Include="Events\CloseWindowEvent.cs" />
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\GlobalDataEvent.cs" />
+    <Compile Include="Events\TabChangeEvent.cs" />
     <Compile Include="Events\WindowVisibilityEvent.cs" />
     <Compile Include="Interfaces\IAddress.cs" />
     <Compile Include="Interfaces\IAppController.cs" />
@@ -113,7 +118,9 @@
     <Compile Include="Interfaces\IGlobalContainer.cs" />
     <Compile Include="Interfaces\IInspectionInfoType.cs" />
     <Compile Include="Interfaces\IInspector.cs" />
+    <Compile Include="Interfaces\IInventoryDetailsType.cs" />
     <Compile Include="Interfaces\IInventoryType.cs" />
+    <Compile Include="Interfaces\IInverntorySectionType.cs" />
     <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Interfaces\IValidUsers.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -126,6 +133,8 @@
     <Compile Include="Services\MockConfigInfo.cs" />
     <Compile Include="Services\MockFacility.cs" />
     <Compile Include="Services\MockInspectionInfo.cs" />
+    <Compile Include="Services\MockInventoryDetails.cs" />
+    <Compile Include="Services\MockInventorySection.cs" />
     <Compile Include="Services\MockValidUsers.cs" />
     <Compile Include="Utils\BitmapExtension.cs" />
     <Compile Include="Utils\BitmapSourceExtension.cs" />
@@ -337,6 +346,8 @@
     <Resource Include="Resources\DeleteSystem.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Filter.bmp" />
+    <Resource Include="Resources\Filter.png" />
     <Resource Include="Resources\AddComponent %281%29.png" />
     <Resource Include="Resources\AddSection %281%29.png" />
     <Resource Include="Resources\AddSystem %281%29.png" />
