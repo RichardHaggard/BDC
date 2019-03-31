@@ -37,7 +37,13 @@ namespace BDC_V1.ViewModels
         // **************** Class properties ************************************************ //
 
         // commands are read only to the outside world
+        public ICommand CmdAddComponent            { get; }
+        public ICommand CmdAddSection              { get; }
+        public ICommand CmdAddSystem               { get; }
+        public ICommand CmdCopyInventory           { get; }
+        public ICommand CmdCopySections            { get; }
         public ICommand CmdDefaultInventoryMode    { get; }
+        public ICommand CmdDeleteSystem            { get; }
         public ICommand CmdInspectionMode          { get; }
         public ICommand CmdMenuExit                { get; }
         public ICommand CmdMenuAbout               { get; }
@@ -218,6 +224,70 @@ namespace BDC_V1.ViewModels
         [CanBeNull] private TabItem _viewTabItem;
 
 
+        public Visibility VisibilityAddComponentButton
+        {
+            get { return _VisibilityAddComponentButton; }
+            set { SetProperty(ref _VisibilityAddComponentButton, value); }
+        }
+        private Visibility _VisibilityAddComponentButton = Visibility.Collapsed;
+
+
+        public Visibility VisibilityAddSectionButton
+        {
+            get { return _VisibilityAddSectionButton; }
+            set { SetProperty(ref _VisibilityAddSectionButton, value); }
+        }
+        private Visibility _VisibilityAddSectionButton = Visibility.Collapsed;
+
+
+        public Visibility VisibilityAddSystemButton
+        {
+            get { return _VisibilityAddSystemButton; }
+            set { SetProperty(ref _VisibilityAddSystemButton, value); }
+        }
+        private Visibility _VisibilityAddSystemButton = Visibility.Collapsed;
+
+
+        public Visibility VisibilityCopyInspectionButton
+        {
+            get { return _VisibilityCopyInspectionButton; }
+            set { SetProperty(ref _VisibilityCopyInspectionButton, value); }
+        }
+        private Visibility _VisibilityCopyInspectionButton = Visibility.Collapsed;
+
+
+        public Visibility VisibilityCopyInventoryButton
+        {
+            get { return _VisibilityCopyInventoryButton; }
+            set { SetProperty(ref _VisibilityCopyInventoryButton, value); }
+        }
+        private Visibility _VisibilityCopyInventoryButton = Visibility.Collapsed;
+
+
+        public Visibility VisibilityCopySectionsButton
+        {
+            get { return _VisibilityCopySectionsButton; }
+            set { SetProperty(ref _VisibilityCopySectionsButton, value); }
+        }
+        private Visibility _VisibilityCopySectionsButton = Visibility.Collapsed;
+
+
+        public Visibility VisibilityDeleteSystemButton
+        {
+            get { return _VisibilityDeleteSystemButton; }
+            set { SetProperty(ref _VisibilityDeleteSystemButton, value); }
+        }
+        private Visibility _VisibilityDeleteSystemButton = Visibility.Collapsed;
+
+
+        public Visibility VisibilityInspectionButton
+        {
+            get { return _VisibilityInspectionButton; }
+            set { SetProperty(ref _VisibilityInspectionButton, value); }
+        }
+        private Visibility _VisibilityInspectionButton = Visibility.Collapsed;
+
+
         public QuickObservableCollection<Control> ToolbarMenuItems { get; } = new QuickObservableCollection<Control>();
 
 
@@ -267,19 +337,24 @@ namespace BDC_V1.ViewModels
         /// </summary>
         public ShellViewModel()
         {
-            CmdInspectionMode          = new DelegateCommand(OnCmdInspectionMode       );
+            CmdAddComponent            = new DelegateCommand(OnCmdAddComponent         );
+            CmdAddSystem               = new DelegateCommand(OnCmdAddSystem            );
+            CmdCopyInventory           = new DelegateCommand(OnCmdCopyInventory        );
+            CmdCopySections            = new DelegateCommand(OnCmdCopySections         );
             CmdDefaultInventoryMode    = new DelegateCommand(OnCmdDefaultInventoryMode );
-            CmdMenuExit                = new DelegateCommand(OnCmdExit                 );
+            CmdDeleteSystem            = new DelegateCommand(OnCmdDeleteSystem         );
+            CmdInspectionMode          = new DelegateCommand(OnCmdInspectionMode       );
             CmdMenuAbout               = new DelegateCommand(OnCmdAbout                ); 
             CmdMenuBluebeam            = new DelegateCommand(OnCmdBluebeam             );
             CmdMenuCalculators         = new DelegateCommand(OnCmdCalculators          );
+            CmdMenuExit                = new DelegateCommand(OnCmdExit                 );
+            CmdMenuInspectionSummary   = new DelegateCommand(OnCmdInspectionSummary    );
+            CmdMenuQcReports           = new DelegateCommand(OnCmdQcReport             );
             CmdMenuSwitchFile          = new DelegateCommand(OnCmdSwitchFile           );
             CmdMenuViewAllSystems      = new DelegateCommand(OnCmdViewAllSystems       );
             CmdMenuViewAssignedSystems = new DelegateCommand(OnCmdViewAssignedSystems  );
-            CmdMenuInspectionSummary   = new DelegateCommand(OnCmdInspectionSummary    );
-            CmdMenuQcReports           = new DelegateCommand(OnCmdQcReport             );
-            CmdMicOn                   = new DelegateCommand(OnCmdMicOn                );
             CmdMicOff                  = new DelegateCommand(OnCmdMicOff               );
+            CmdMicOn                   = new DelegateCommand(OnCmdMicOn                );
             CmdTabSelectionChanged     = new DelegateCommand<TabItem>(OnTabSelectionChanged);
 
             InvTreeBorderBackgroundColor   = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray);
@@ -308,9 +383,34 @@ namespace BDC_V1.ViewModels
         // **************** Class members *************************************************** //
 
 
-        private void OnCmdInspectionMode()
+        private void OnCmdAbout()
         {
-            Debug.WriteLine("OnCmdInspectionMode not implemented");
+            Debug.WriteLine("OnCmdAbout not implemented");
+        }
+
+        private void OnCmdAddComponent()
+        {
+            Debug.WriteLine("OnCmdAddComponent not implemented");
+        }
+
+        private void OnCmdAddSystem()
+        {
+            Debug.WriteLine("OnCmdAddSystem not implemented");
+        }
+
+        private void OnCmdAddSection()
+        {
+            Debug.WriteLine("OnCmdAddSection not implemented");
+        }
+
+        private void OnCmdBluebeam()
+        {
+            Debug.WriteLine("CmdBluebeam not implemented");
+        }
+
+        private void OnCmdCalculators()
+        {
+            Debug.WriteLine("CmdCalculators not implemented");
         }
 
         private void OnCmdDefaultInventoryMode()
@@ -323,19 +423,9 @@ namespace BDC_V1.ViewModels
             App.Current.Shutdown();
         }
 
-        private void OnCmdAbout()
+        private void OnCmdInspectionMode()
         {
-            Debug.WriteLine("OnCmdAbout not implemented");
-        }
-
-        private void OnCmdBluebeam()
-        {
-            Debug.WriteLine("CmdBluebeam not implemented");
-        }
-
-        private void OnCmdCalculators()
-        {
-            Debug.WriteLine("CmdCalculators not implemented");
+            Debug.WriteLine("OnCmdInspectionMode not implemented");
         }
 
         private void OnCmdInspectionSummary()
@@ -398,24 +488,9 @@ namespace BDC_V1.ViewModels
             Debug.WriteLine("OnCmdInv2InspQcInspection not implemented");
         }
 
-        private void OnCmdAddSystem()
-        {
-            Debug.WriteLine("OnCmdAddSystem not implemented");
-        }
-
         private void OnCmdDeleteSystem()
         {
             Debug.WriteLine("OnCmdDeleteSystem not implemented");
-        }
-
-        private void OnCmdAddComponent()
-        {
-            Debug.WriteLine("OnCmdAddComponent not implemented");
-        }
-
-        private void OnCmdAddSection()
-        {
-            Debug.WriteLine("OnCmdAddSection not implemented");
         }
 
         private void OnCmdCopySections()
@@ -452,31 +527,67 @@ namespace BDC_V1.ViewModels
             {
                 Predicate<TreeNode> filter = (arg) => true;;
 
+                VisibilityAddComponentButton   =
+                VisibilityAddSectionButton     =
+                VisibilityAddSystemButton      = 
+                VisibilityCopyInspectionButton =
+                VisibilityCopyInventoryButton  =
+                VisibilityCopySectionsButton   =
+                VisibilityDeleteSystemButton   = Visibility.Collapsed;
+
                 switch (tabItem.Name)
                 {
                     case "Facility":
-                        break;
+                        {
+                            VisibilityAddSystemButton    = 
+                            VisibilityDeleteSystemButton = Visibility.Visible;
+                            break;
+                        }
 
                     case "Inventory":
-                    case "Inspection":
-                        filter = (arg) =>
                         {
-                            if ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
-                                (arg.NodeType == EnumTreeNodeType.SystemNode))
-                            {
-                                return arg.Children.Any();
-                            }
+                            VisibilityAddComponentButton =
+                            VisibilityAddSectionButton =
+                            VisibilityCopyInventoryButton =
+                            VisibilityCopySectionsButton = Visibility.Visible;
 
-                            return (arg.NodeType == EnumTreeNodeType.ComponentNode);
-                        };
-                        break;
+                            filter = (arg) =>
+                            {
+                                if ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
+                                    (arg.NodeType == EnumTreeNodeType.SystemNode))
+                                {
+                                    return arg.Children.Any();
+                                }
+
+                                return (arg.NodeType == EnumTreeNodeType.ComponentNode);
+                            };
+                            break;
+                        }
+
+                    case "Inspection":
+                        {
+                            VisibilityCopyInspectionButton = Visibility.Visible;
+
+                            filter = (arg) =>
+                            {
+                                if ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
+                                    (arg.NodeType == EnumTreeNodeType.SystemNode))
+                                {
+                                    return arg.Children.Any();
+                                }
+
+                                return (arg.NodeType == EnumTreeNodeType.ComponentNode);
+                            };
+                            break;
+                        }
 
                     case "QaInventory":
                     case "QaInspection":
-                        filter = (arg) => ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
+                        {
+                            filter = (arg) => ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
                                            (arg.NodeType == EnumTreeNodeType.SystemNode));
-                        break;
-
+                            break;
+                        }
                     default:
                         filter = (arg) => false;
                         break;
