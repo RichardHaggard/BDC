@@ -30,6 +30,17 @@ namespace BDC_V1.ViewModels
         public ICommand CmdFilterBySection     { get; }
         public ICommand CmdFilterByIssue       { get; }
         
+        public ICommand CmdRefresh             { get; }
+        public ICommand CmdReviewIssue         { get; }
+        public ICommand CmdClearFilter         { get; }
+
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
+        }
+        private string _description;
+
         public QuickObservableCollection<IInventoryType> InventoryInfo { get; } =
             new QuickObservableCollection<IInventoryType>();
 
@@ -79,6 +90,10 @@ namespace BDC_V1.ViewModels
             CmdFilterByTypeName    = new DelegateCommand(OnFilterByTypeName   );
             CmdFilterBySection     = new DelegateCommand(OnFilterBySection    );
             CmdFilterByIssue       = new DelegateCommand(OnFilterByIssue      );
+        
+            CmdRefresh             = new DelegateCommand(OnCmdRefresh         );
+            CmdReviewIssue         = new DelegateCommand(OnCmdReviewIssue     );
+            CmdClearFilter         = new DelegateCommand(OnCmdClearFilter     );
 
             InventoryInfo.Add(new InventoryType()
             {
@@ -100,7 +115,8 @@ namespace BDC_V1.ViewModels
                 InventIssue = "Missing Photo"
             });
 
-            InventoryInfo.AddRange(Enumerable.Repeat(new InventoryType(), 30));
+            Description = "Filter: 11057";
+            //InventoryInfo.AddRange(Enumerable.Repeat(new InventoryType(), 30));
         }
 
         // **************** Class members *************************************************** //
@@ -117,5 +133,8 @@ namespace BDC_V1.ViewModels
         private void OnFilterBySection    () { Debug.WriteLine("OnFilterBySection     not implemented"); }
         private void OnFilterByIssue      () { Debug.WriteLine("OnFilterByIssue       not implemented"); }
 
+        private void OnCmdRefresh         () { Debug.WriteLine("OnCmdRefresh          not implemented"); }
+        private void OnCmdReviewIssue     () { Debug.WriteLine("OnCmdReviewIssue      not implemented"); }
+        private void OnCmdClearFilter     () { Debug.WriteLine("OnCmdClearFilter      not implemented"); }
     }
 }
