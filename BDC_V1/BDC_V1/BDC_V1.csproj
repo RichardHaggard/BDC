@@ -195,6 +195,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\BDC mockup feedback 3-30.docx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -334,6 +335,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\DeleteSystem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AddComponent %281%29.png" />
+    <Resource Include="Resources\AddSection %281%29.png" />
+    <Resource Include="Resources\AddSystem %281%29.png" />
+    <Resource Include="Resources\Cardno_reg_rgb %281%29.png" />
+    <Content Include="Resources\Cardno_reg_rgb.wmf" />
+    <Resource Include="Resources\Cardno_rgb %281%29.png" />
+    <Resource Include="Resources\DeleteComponent %281%29.png" />
+    <Resource Include="Resources\DeleteSection %281%29.png" />
+    <Resource Include="Resources\DeleteSystem %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
