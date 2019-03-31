@@ -5,15 +5,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Events;
@@ -38,17 +33,25 @@ namespace BDC_V1.ViewModels
         // **************** Class properties ************************************************ //
 
         [NotNull]
+        public ICommand CmdCancel { get; }
+
+
+        [NotNull]
         public ICommand CmdLogin { get; }
 
+        
         [NotNull]
         public ICommand CmdSelectConfigFile { get; }
 
+        
         [NotNull]
         public ICommand CmdSelectQcFile { get; }
 
+        
         [NotNull]
         public ICommand CmdSelectInspector { get; }
 
+        
         [CanBeNull]
         public bool? DialogResultEx
         {
@@ -57,9 +60,11 @@ namespace BDC_V1.ViewModels
         }
         private bool? _dialogResultEx;
 
+        
         [CanBeNull]
         public IReadOnlyCollection<IPerson> LoginUserList => LocalValidUsers?.GetValidUsers;
 
+        
         [CanBeNull]
         public IPerson SelectedLoginUser
         {
@@ -75,28 +80,39 @@ namespace BDC_V1.ViewModels
         }
         private IPerson _selectedLoginUser;
 
+        
         public string ConfigurationFilename
         {
             get => _configurationFilename;
             set
             {
                 if (SetProperty(ref _configurationFilename, value))
+                {
                     RaisePropertyChanged(nameof(LoginButtonEnabled));
+                    Properties.Settings.Default.ConfigurationFilename = value;
+                    Properties.Settings.Default.Save();
+                }
             }
         }
         private string _configurationFilename;
 
+        
         public string BredFilename
         {
             get => _bredFilename;
             set
             {
                 if (SetProperty(ref _bredFilename, value))
+                {
                     RaisePropertyChanged(nameof(LoginButtonEnabled));
+                    Properties.Settings.Default.BredFilename = value;
+                    Properties.Settings.Default.Save();
+                }
             }
         }
         private string _bredFilename;
 
+        
         public bool LoginButtonEnabled => (!string.IsNullOrEmpty(ConfigurationFilename) &&
                                            !string.IsNullOrEmpty(BredFilename) &&
                                            (SelectedLoginUser != null) && (LoginUserList != null) &&
@@ -104,6 +120,7 @@ namespace BDC_V1.ViewModels
 
         [NotNull]
         public BitmapSource CompanyLogo { get; }
+
 
         // **************** Class data members ********************************************** //
 
@@ -161,6 +178,7 @@ namespace BDC_V1.ViewModels
             //       This is stupid!
 
             // build the button commands
+            CmdCancel           = new DelegateCommand(OnCmdCancel );
             CmdLogin            = new DelegateCommand(OnCmdLogin  );
             CmdSelectConfigFile = new DelegateCommand(OnConfigFile);
             CmdSelectQcFile     = new DelegateCommand(OnQcFile    );
@@ -173,10 +191,14 @@ namespace BDC_V1.ViewModels
             var bmp = bitmapImage.ToBitmap();
             bmp.MakeTransparent(bmp.GetPixel(1, 1));
             CompanyLogo = bmp.ToBitmapSource();
+
+
 #if DEBUG
             GetConfigInfo(@"This_is_a_fake_config_file.cfg");
-            GetBredInfo  (@"My Documents\ProjectName\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb");
+            GetBredInfo(@"My Documents\ProjectName\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb");
 #endif
+            ConfigurationFilename = Properties.Settings.Default.ConfigurationFilename;
+            BredFilename          = Properties.Settings.Default.BredFilename;
         }
 
         // **************** Class members *************************************************** //
@@ -190,6 +212,7 @@ namespace BDC_V1.ViewModels
             container.GlobalValue = new MockConfigInfo {FileName = fileName};
         }
 
+
         // here is where we read in the global BRED info
         private static void GetBredInfo(string fileName)
         {
@@ -198,6 +221,16 @@ namespace BDC_V1.ViewModels
 
             container.GlobalValue = new MockBredInfo {FileName = fileName};
         }
+
+
+        private void OnCmdCancel()
+        {
+            DialogResultEx = false;
+            Application app = App.Current;
+            if (app != null)
+                app.Shutdown();
+        }
+
 
         private void OnCmdLogin()
         {
@@ -245,22 +278,23 @@ namespace BDC_V1.ViewModels
         #endif
         }
 
+
         private void OnConfigFile()
         {
             var openFileDlg = new OpenFileDialog
             {
-                ReadOnlyChecked = true,
-                Multiselect = false,
-                ShowReadOnly = false,
-                AddExtension = true,
-                CheckFileExists = true,
-                CheckPathExists = true,
+                ReadOnlyChecked  = true,
+                Multiselect      = false,
+                ShowReadOnly     = false,
+                AddExtension     = true,
+                CheckFileExists  = true,
+                CheckPathExists  = true,
                 RestoreDirectory = true,
-                DefaultExt = "cfg",
-                Filter = "cfg files (*.cfg)|*.cfg|All files (*.*)|*.*",
-                FilterIndex = 1,
-                FileName = ConfigurationFilename,
-                Title = "Configuration File"
+                DefaultExt       = "cfg",
+                Filter           = "cfg files (*.cfg)|*.cfg|All files (*.*)|*.*",
+                FilterIndex      = 1,
+                FileName         = ConfigurationFilename,
+                Title            = "Configuration File"
             };
 
             if (openFileDlg.ShowDialog() == true)
@@ -274,18 +308,18 @@ namespace BDC_V1.ViewModels
         {
             var openFileDlg = new OpenFileDialog
             {
-                ReadOnlyChecked = true,
-                Multiselect = false,
-                ShowReadOnly = false,
-                AddExtension = true,
-                CheckFileExists = true,
-                CheckPathExists = true,
+                ReadOnlyChecked  = true,
+                Multiselect      = false,
+                ShowReadOnly     = false,
+                AddExtension     = true,
+                CheckFileExists  = true,
+                CheckPathExists  = true,
                 RestoreDirectory = true,
-                DefaultExt = "mdb",
-                Filter = "mdb files (*.mdb)|*.mdb|All files (*.*)|*.*",
-                FilterIndex = 1,
-                FileName = BredFilename,
-                Title = "BRED QC File"
+                DefaultExt       = "mdb",
+                Filter           = "mdb files (*.mdb)|*.mdb|All files (*.*)|*.*",
+                FilterIndex      = 1,
+                FileName         = BredFilename,
+                Title            = "BRED QC File"
             };
 
             if (openFileDlg.ShowDialog() == true)

@@ -73,6 +73,36 @@ namespace BDC_V1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AddComponent {
+            get {
+                object obj = ResourceManager.GetObject("AddComponent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddSection {
+            get {
+                object obj = ResourceManager.GetObject("AddSection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddSystem {
+            get {
+                object obj = ResourceManager.GetObject("AddSystem", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BarcodeScan2 {
             get {
                 object obj = ResourceManager.GetObject("BarcodeScan2", resourceCulture);
@@ -116,6 +146,26 @@ namespace BDC_V1.Properties {
         internal static System.Drawing.Bitmap Cancel_Undo {
             get {
                 object obj = ResourceManager.GetObject("Cancel_Undo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Cardno_reg_rgb {
+            get {
+                object obj = ResourceManager.GetObject("Cardno_reg_rgb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Cardno_rgb {
+            get {
+                object obj = ResourceManager.GetObject("Cardno_rgb", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,6 +236,36 @@ namespace BDC_V1.Properties {
         internal static System.Drawing.Bitmap Delete {
             get {
                 object obj = ResourceManager.GetObject("Delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DeleteComponent {
+            get {
+                object obj = ResourceManager.GetObject("DeleteComponent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DeleteSection {
+            get {
+                object obj = ResourceManager.GetObject("DeleteSection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DeleteSystem {
+            get {
+                object obj = ResourceManager.GetObject("DeleteSystem", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -25,6 +25,11 @@
                 </Setter>
             </Style>
 
+            <Style TargetType="Button" x:Key="MaterialDesignRaisedLightButton">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Background" Value="#9BC2E6" />
+            </Style>
+
             <Style TargetType="CheckBox" x:Key="cbBase">
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="HorizontalAlignment" Value="Center"/>

@@ -118,127 +118,151 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Add"                     type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add.png                    ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BarcodeScan2"            type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="AddComponent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddComponent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AddSection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddSection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AddSystem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddSystem.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BarcodeScan2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BarcodeScan2.png           ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Camera"                  type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Camera" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Camera.png                 ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Camera_cropped"          type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Camera_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Camera_cropped.png         ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cancel"                  type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cancel.png                 ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cancel_Undo"             type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Cancel_Undo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cancel_Undo.png            ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CardnoLogo"              type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="CardnoLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CardnoLogo.bmp             ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Checkbox"                type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Cardno_reg_rgb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cardno_reg_rgb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardno_rgb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cardno_rgb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Checkbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Checkbox.png               ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Checkbox_Sm"             type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Checkbox_Sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Checkbox_Sm.png            ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Checkedbox_checked"      type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Checkedbox_checked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\checkedbox_checked.png     ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Copy"                    type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Copy.jpg                   ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Crop"                    type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Crop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Crop.png                   ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Delete"                  type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Delete.png                 ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Distress Selector"       type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="DeleteComponent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteComponent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteSection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteSection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteSystem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteSystem.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Distress Selector" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Distress_Selector.png      ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DownArrow"               type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="DownArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DownArrow.png              ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Edit"                    type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Edit.png                   ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="EditText_Comments"       type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="EditText_Comments" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EditText_Comments.png      ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Filter"                  type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Filter.jpg                 ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Filter_Clear"            type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Filter_Clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Filter_Clear.png           ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Filter_Green"            type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Filter_Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Filter_Green.jpg           ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Folder_Closed"           type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Folder_Closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folder_Closed.png          ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Inspection"              type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Inspection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Inspection.png             ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Inventory"               type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Inventory" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Inventory.png              ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MicrophoneOFF_Rnd_Slash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MicrophoneOFF_Rnd_Slash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MicrophoneON_Rnd"        type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="MicrophoneON_Rnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MicrophoneON_Rnd.png       ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="OK"                      type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OK.png                     ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="OK_ReviewLater"          type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="OK_ReviewLater" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OK_ReviewLater.png         ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PhotoIcon"               type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="PhotoIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PhotoIcon.jpg              ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Photos_cropped"          type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Photos_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Photos_cropped.jpg         ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ProgressStatus"          type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="ProgressStatus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ProgressStatus.jpg         ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RadioBtn_Checked"        type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="RadioBtn_Checked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RadioBtn_Checked.png       ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RadioBtn_Unchecked"      type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="RadioBtn_Unchecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RadioBtn_Unchecked.png     ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Refresh"                 type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Refresh.png                ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Remember"                type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Remember" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Remember.png               ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ReviewIssue"             type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="ReviewIssue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ReviewIssue.png            ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ReviewLater"             type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="ReviewLater" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ReviewLater.png            ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RotateLeft"              type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="RotateLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RotateLeft.png             ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RotateRight"             type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="RotateRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RotateRight.png            ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Slider"                  type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Slider" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Slider.png                 ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SpellCheck"              type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="SpellCheck" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SpellCheck.png             ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Unlink"                  type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Unlink" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Unlink.png                 ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -64,7 +64,9 @@ namespace BDC_V1
                 {
                     if (loginViewModel.DialogResultEx != true)
                     {
-                        Application.Current.Shutdown(-1);
+                        Application app = Application.Current;
+                        if (app != null)
+                            app.Shutdown(-1);
                         return;
                     }
 

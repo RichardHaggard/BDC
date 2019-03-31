@@ -311,5 +311,29 @@
   <ItemGroup>
     <Resource Include="Resources\Reactor.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AddComponent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AddSection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AddSystem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cardno_reg_rgb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cardno_rgb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DeleteComponent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DeleteSection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DeleteSystem.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
