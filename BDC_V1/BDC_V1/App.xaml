@@ -55,17 +55,6 @@
                 <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
-            <Style TargetType="Label" x:Key="LabelGray" BasedOn="{StaticResource LabelBase}">
-                <Setter Property="Background" Value="LightGray" />
-                <Setter Property="BorderBrush" Value="Black" />
-                <Setter Property="BorderThickness" Value="1" />
-            </Style>
-
-            <Style TargetType="Label" x:Key="LabelBorder" BasedOn="{StaticResource LabelBase}">
-                <Setter Property="BorderBrush" Value="Black" />
-                <Setter Property="BorderThickness" Value="1" />
-            </Style>
-
             <Style TargetType="Label" x:Key="LabelCJ" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
             </Style>
@@ -76,6 +65,13 @@
 
             <Style TargetType="Label" x:Key="LabelRJ" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelRO" BasedOn="{StaticResource LabelBase}">
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="3" />
             </Style>
 
             <Style TargetType="Label" x:Key="LabelBold" BasedOn="{StaticResource LabelBase}">
