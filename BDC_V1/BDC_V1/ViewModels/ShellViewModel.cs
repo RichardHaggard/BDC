@@ -78,7 +78,7 @@ namespace BDC_V1.ViewModels
             get => _windowVisibility;
             set => SetProperty(ref _windowVisibility, value);
         }
-        private Visibility _windowVisibility;
+        private Visibility _windowVisibility = Visibility.Collapsed;
 
 
         public System.Windows.Media.Brush InvTreeBorderBackgroundColor

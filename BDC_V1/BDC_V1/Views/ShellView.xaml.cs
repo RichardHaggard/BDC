@@ -55,7 +55,7 @@ namespace BDC_V1.Views
 
             // Use the extension method in the WindowPlace class to retrieve this 
             // window's previous position and display state, if any.
-            this.SetPlacement(Settings.Default.PlacementShell);
+            this.SetPlacement(Settings.Default.PlacementShell, true);
         }
  
 

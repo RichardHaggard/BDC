@@ -12,6 +12,8 @@ using MaterialDesignThemes.Wpf;
 using Prism.Ioc;
 using Prism.Unity;
 using Prism.Events;
+using BDC_V1.Utils;
+using BDC_V1.Properties;
 
 namespace BDC_V1
 {
@@ -52,7 +54,6 @@ namespace BDC_V1
 
             if (MainWindow == null) return;
 
-            MainWindow.Hide();
             if (MainWindow.DataContext is ShellViewModel shellViewModel)
             {
                 shellViewModel.WindowVisibility = Visibility.Hidden;
@@ -74,6 +75,10 @@ namespace BDC_V1
                     shellViewModel.ConfigurationFilename = loginViewModel.ConfigurationFilename;
                     shellViewModel.BredFilename          = loginViewModel.BredFilename;
                     shellViewModel.SelectedLoginUser     = loginViewModel.SelectedLoginUser;
+
+                    // Use the extension method in the WindowPlace class to retrieve this 
+                    // window's previous position and display state, if any.
+                    MainWindow.SetPlacement(Settings.Default.PlacementShell, false);
 
                     shellViewModel.WindowVisibility = Visibility.Visible;
 
