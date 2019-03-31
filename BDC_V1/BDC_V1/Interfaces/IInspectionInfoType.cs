@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 
 namespace BDC_V1.Interfaces
@@ -12,7 +13,7 @@ namespace BDC_V1.Interfaces
     public interface IInspectionInfoType
     {
         EnumInspectionType InspectionType { get; set; }
-        ObservableCollection<ImageSource> Images   { get; }
+        QuickObservableCollection<ImageSource> Images   { get; }
         string   Component         { get; set; }
         string   Section           { get; set; }
         string   Category          { get; set; }

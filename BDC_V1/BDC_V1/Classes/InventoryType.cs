@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using BDC_V1.Interfaces;
 using Prism.Mvvm;
 
@@ -15,7 +16,6 @@ namespace BDC_V1.Classes
             get => _facilityId;
             set => SetProperty(ref _facilityId, value);
         }
-
         private string _facilityId;
 
         public string SystemId
@@ -23,7 +23,6 @@ namespace BDC_V1.Classes
             get => _systemId;
             set => SetProperty(ref _systemId, value);
         }
-
         private string _systemId;
 
         public string ComponentId
@@ -31,7 +30,6 @@ namespace BDC_V1.Classes
             get => _componentId;
             set => SetProperty(ref _componentId, value);
         }
-
         private string _componentId;
 
         public string TypeName
@@ -39,7 +37,6 @@ namespace BDC_V1.Classes
             get => _typeName;
             set => SetProperty(ref _typeName, value);
         }
-
         private string _typeName;
 
         public string SectionName
@@ -47,7 +44,6 @@ namespace BDC_V1.Classes
             get => _sectionName;
             set => SetProperty(ref _sectionName, value);
         }
-
         private string _sectionName;
 
         public string InventIssue
@@ -55,7 +51,6 @@ namespace BDC_V1.Classes
             get => _inventIssue;
             set => SetProperty(ref _inventIssue, value);
         }
-
         private string _inventIssue;
     }
 }

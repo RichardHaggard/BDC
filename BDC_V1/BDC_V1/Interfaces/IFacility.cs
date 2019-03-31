@@ -29,7 +29,7 @@ namespace BDC_V1.Interfaces
         IAddress Address           { get; set; }
         IContact Contact           { get; set; }
         IList<TreeNode> FacilityTreeNodes { get; }
-        ObservableCollection<ImageSource> Images { get; }
-        ObservableCollection<IInspector>  Inspections { get; }
+        QuickObservableCollection<ImageSource> Images { get; }
+        QuickObservableCollection<IInspector>  Inspections { get; }
     }
 }

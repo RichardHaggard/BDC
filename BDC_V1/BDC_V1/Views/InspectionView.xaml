@@ -7,32 +7,37 @@
              xmlns:local="clr-namespace:BDC_V1.Views"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:utils="clr-namespace:BDC_V1.Utils"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
-             Height="650"
-             Width="800"
-             d:DesignHeight="650"
-             d:DesignWidth="800">
+             d:DesignHeight="700"
+             d:DesignWidth="850">
+
+  <i:Interaction.Triggers>
+    <i:EventTrigger EventName="Loaded">
+      <i:InvokeCommandAction Command="{Binding ViewActivated}" />
+    </i:EventTrigger>
+  </i:Interaction.Triggers>
 
   <ScrollViewer HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto">
     <Grid>
       <Grid.RowDefinitions>
-        <RowDefinition Height="5"    />  <!--  0 - white space at top -->
-        <RowDefinition Height="Auto" />  <!--  1 - Component -->
-        <RowDefinition Height="Auto" />  <!--  2 - Equip/Mat -->
-        <RowDefinition Height="Auto" />  <!--  3 - Component Type -->
-        <RowDefinition Height="Auto" />  <!--  4 - Section Quantity -->
-        <RowDefinition Height="Auto" />  <!--  5 - Inspection Date -->
-        <RowDefinition Height="Auto" />  <!--  6 - Painted & Direct -->
-        <RowDefinition Height="Auto" />  <!--  7 - Inspection Comment -->
-        <RowDefinition Height="10"   />  <!--  8 - white space -->
-        <RowDefinition Height="Auto" />  <!--  9 - Remember -->
-        <RowDefinition Height="10"   />  <!-- 10 - white space -->
-        <RowDefinition Height="Auto" />  <!-- 11 - Inspection Photos -->
-        <RowDefinition Height="10"   />  <!-- 12 - white space -->
-        <RowDefinition Height="Auto" />  <!-- 13 - Action Buttons -->
-        <RowDefinition Height="5"    />  <!-- 14 - white space at bottom -->
+        <RowDefinition Height="5"    /> <!--  0 - white space at top -->
+        <RowDefinition Height="Auto" /> <!--  1 - Component -->
+        <RowDefinition Height="Auto" /> <!--  2 - Equip/Mat -->
+        <RowDefinition Height="Auto" /> <!--  3 - Component Type -->
+        <RowDefinition Height="Auto" /> <!--  4 - Section Quantity -->
+        <RowDefinition Height="Auto" /> <!--  5 - Inspection Date -->
+        <RowDefinition Height="Auto" /> <!--  6 - Painted & Direct -->
+        <RowDefinition Height="Auto" /> <!--  7 - Inspection Comment -->
+        <RowDefinition Height="10"   /> <!--  8 - white space -->
+        <RowDefinition Height="Auto" /> <!--  9 - Remember -->
+        <RowDefinition Height="10"   /> <!-- 10 - white space -->
+        <RowDefinition Height="Auto" /> <!-- 11 - Inspection Photos -->
+        <RowDefinition Height="10"   /> <!-- 12 - white space -->
+        <RowDefinition Height="Auto" /> <!-- 13 - Action Buttons -->
+        <RowDefinition Height="5"    /> <!-- 14 - white space at bottom -->
       </Grid.RowDefinitions>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="150" />
@@ -106,9 +111,8 @@
              Content="{Binding InspectionInfo.Quantity}"
              ContentStringFormat="{}{0:#,#.00}" />
       <Label Grid.Row="4"
-             Grid.Column="1"
-             Content="MBH"
-             Grid.ColumnSpan="2" />
+             Grid.Column="2"
+             Content="MBH" />
 
       <!-- Inspection Date -->
       <Label Grid.Row="5"
@@ -553,7 +557,7 @@
                  Content="Photo(s)"
                  Style="{StaticResource LabelCJ}" />
           <Label Grid.Row="2"
-                 Content="{Binding InspectionInfo.Images.Count}"
+                 Content="{Binding Images.Count}"
                  Style="{StaticResource LabelCJ}" />
         </Grid>
       </Border>
@@ -562,8 +566,16 @@
               Grid.ColumnSpan="8"
               Style="{StaticResource BorderYO}"
               >
-        <StackPanel Orientation="Horizontal">
-          <Border BorderBrush="Black"
+        <ItemsControl prism:RegionManager.RegionName="ImagesItemControl">
+          <!--ItemsSource="{Binding Images}"-->
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <!--<StackPanel Name="ImageStackPanel" Orientation="Horizontal">
+            <Border BorderBrush="Black"
                   BorderThickness="1"
                   Background="White"
                   Margin="0 0 5 0">
@@ -593,7 +605,7 @@
                    MinWidth="20"
                    Source="{Binding InspectionInfo.Images[2]}" />
           </Border>
-        </StackPanel>
+        </StackPanel>-->
       </Border>
 
       <!-- Action Buttons -->

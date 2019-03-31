@@ -2,22 +2,37 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
+using BDC_V1.Classes;
 using BDC_V1.Enumerations;
+using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
+using CommonServiceLocator;
 using JetBrains.Annotations;
+using MaterialDesignThemes.Wpf;
 using Prism.Commands;
+using Prism.Events;
+using Prism.Regions;
+using Unity;
+using Brushes = System.Windows.Media.Brushes;
+using EventAggregator = BDC_V1.Events.EventAggregator;
+using Image = System.Windows.Controls.Image;
 
 namespace BDC_V1.ViewModels
 {
     public class InspectionViewModel : ViewModelBase
     {
+        private const double DoubleTolerance = 0.001;
+
         // **************** Class enumerations ********************************************** //
 
         // **************** Class properties ************************************************ //
@@ -52,8 +67,43 @@ namespace BDC_V1.ViewModels
         }
         private IInspectionInfoType _inspectionInfo;
 
+        public QuickObservableCollection<Border> Images { get; } =
+            new QuickObservableCollection<Border>();
+
+        // OneWayToSource doesn't need notifications
+        public double ImagesHeight
+        {
+            get => _imagesHeight;
+            set
+            {
+                if (Math.Abs(_imagesHeight - value) > DoubleTolerance)
+                {
+                    _imagesHeight = value;
+                    CreateImages();
+                }
+            }
+        }
+        private double _imagesHeight;
+
+        public double ImagesWidth  { get; set; }
 
         // **************** Class data members ********************************************** //
+
+        [CanBeNull] private ItemsControl ItemsControl { get; set; }
+
+        //[NotNull]
+        //public ICommand TabSelectionChange { get; set; }
+
+        [NotNull]
+        public ICommand ViewActivated { get; set; }
+
+        [CanBeNull]
+        public IRegionManager RegionManager
+        {
+            get => this._regionManager;
+            set => SetProperty(ref _regionManager, value);
+        } 
+        private IRegionManager _regionManager;
 
         //protected override IConfigInfo LocalConfigInfo
         //{
@@ -74,11 +124,26 @@ namespace BDC_V1.ViewModels
                 {
                     InspectionInfo.Images.Clear();
                     InspectionInfo.Images.AddRange(_localFacilityInfo?.Images);
-                    RaisePropertyChanged(nameof(InspectionInfo));
+
+                    // QuickObservableCollection should raise it's own notify
+                    //RaisePropertyChanged(nameof(InspectionInfo));
+
+                    CreateImages();
+                    // QuickObservableCollection should raise it's own notify
+                    //RaisePropertyChanged(Images);
                 }
             }
         }
         [CanBeNull] private IFacility _localFacilityInfo;
+
+        //protected override IConfigInfo LocalConfigInfo
+        //{
+        //    get => base.LocalConfigInfo;
+        //    set
+        //    {
+        //        base.LocalConfigInfo = value;
+        //    }
+        //}
 
         protected override IBredInfo LocalBredInfo
         {
@@ -101,9 +166,81 @@ namespace BDC_V1.ViewModels
             IsPainted    = false;
             IsRemembered = false;
             InspectionInfo = new MockInspectionInfo();
+
+            //EventAggregator.GetEvent<PubSubEvent<TabChangeEvent>>()
+            //    .Subscribe((item) =>
+            //    {
+            //        if ((item.TabControlName == "ViewTabControl") &&
+            //             (item.TabItemName   ==  "Inspection"))
+            //        {
+            //            CreateImages();
+            //        }
+            //    });
+
+            ViewActivated = new RelayCommand(ViewActivatedEventHandler);         
         }
 
         // **************** Class members *************************************************** //
+
+     
+        private void ViewActivatedEventHandler(object sender, object e)
+        {
+            RegionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
+            if ((RegionManager != null) &&
+                RegionManager.Regions.ContainsRegionWithName("ImagesItemControl"))
+            {
+                var viewsCollections = RegionManager.Regions["ImagesItemControl"].ActiveViews;
+                if (viewsCollections != null)
+                {
+                    foreach (var view in viewsCollections)
+                        RegionManager.Regions["ImagesItemControl"].Remove(view);
+                }
+
+                ItemsControl = new ItemsControl();
+                RegionManager.Regions["ImagesItemControl"].Add(ItemsControl);
+            }
+            else
+            {
+                ItemsControl = null;
+            }
+
+            if (ItemsControl != null) CreateImages();
+        }
+
+        private void CreateImages()
+        {
+            Images.Clear();
+
+            if ((LocalFacilityInfo == null) || (ItemsControl == null))
+                return;
+
+            var itemsWidth = ItemsControl.ActualWidth;
+
+            foreach (var item in LocalFacilityInfo.Images)
+            {
+                var image = new Image
+                {
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalAlignment   = System.Windows.VerticalAlignment.Center,
+                    Height   = ItemsControl.ActualHeight,
+                    MinWidth = 20,
+                    Source   = item
+                };
+
+                var border = new Border()
+                {
+                    Background      = Brushes.White,
+                    BorderThickness = new System.Windows.Thickness(1),
+                    Margin          = new System.Windows.Thickness() { Right = 5 },
+                    Child           = image
+                };
+
+                if ((itemsWidth -= border.ActualWidth) <= 0) break;
+                Images.Add(border);
+            }
+
+            ItemsControl.ItemsSource = Images;
+        }
 
         private void OnCancelEdit()
         {

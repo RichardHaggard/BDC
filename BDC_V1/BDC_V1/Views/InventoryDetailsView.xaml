@@ -47,7 +47,7 @@
             <TextBox
                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
                 Style="{StaticResource TextBoxWrap}"
-                Text="{Binding CurrentSection}"
+                Text="{Binding InventoryDetails.CurrentSection}"
                 />
 
             <Label
@@ -56,8 +56,8 @@
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox
                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
-                ItemsSource="{Binding DetailSelectors}"
-                SelectedItem="{Binding DetailSelector}"
+                ItemsSource="{Binding InventoryDetails.DetailSelectors}"
+                SelectedItem="{Binding InventoryDetails.DetailSelector}"
                 Style="{StaticResource ComboBase}"
                 />
             <Button
@@ -74,7 +74,7 @@
             <TextBox
                 Grid.Row="2" Grid.Column="1" 
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding DetailIdNumber}"
+                Text="{Binding InventoryDetails.DetailIdNumber}"
                 />
             <Label
                 Grid.Row="2" Grid.Column="2" 
@@ -83,7 +83,7 @@
             <TextBox
                 Grid.Row="2" Grid.Column="3" 
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding Location}"
+                Text="{Binding InventoryDetails.Location}"
                 />
 
             <Label
@@ -93,7 +93,7 @@
             <TextBox
                 Grid.Row="3" Grid.Column="1" 
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding Model}"
+                Text="{Binding InventoryDetails.Model}"
                 />
             <Label
                 Grid.Row="3" Grid.Column="2" 
@@ -102,7 +102,7 @@
             <TextBox
                 Grid.Row="3" Grid.Column="3" 
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding SerialNumber}"
+                Text="{Binding InventoryDetails.SerialNumber}"
                 />
             <Image
                 Grid.Row="3" Grid.Column="4" 
@@ -118,8 +118,8 @@
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox
                 Grid.Row="4" Grid.Column="1" 
-                ItemsSource="{Binding Manufacturers}"
-                SelectedItem="{Binding Manufacturer}"
+                ItemsSource="{Binding InventoryDetails.Manufacturers}"
+                SelectedItem="{Binding InventoryDetails.Manufacturer}"
                 Style="{StaticResource ComboBase}"
                 />
             <Label
@@ -129,7 +129,7 @@
             <TextBox
                 Grid.Row="4" Grid.Column="3" 
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding Capacity}"
+                Text="{Binding InventoryDetails.Capacity}"
                 />
 
             <Label
@@ -139,7 +139,7 @@
             <TextBox
                 Grid.Row="5" Grid.Column="1" 
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding EquipmentType}"
+                Text="{Binding InventoryDetails.EquipmentType}"
                 />
             <Label
                 Grid.Row="5" Grid.Column="2" 
@@ -157,7 +157,7 @@
             <DatePicker
                 Grid.Row="6" Grid.Column="1" 
                 Style="{StaticResource dpBase}"
-                Text="{Binding DateManufactured}"
+                Text="{Binding InventoryDetails.DateManufactured}"
                 />
             <Label
                 Grid.Row="6" Grid.Column="2" 
@@ -166,7 +166,7 @@
             <TextBox
                 Grid.Row="6" Grid.Column="3" 
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding YearInstalled}"
+                Text="{Binding InventoryDetails.YearInstalled}"
                 />
 
             <Label
@@ -176,7 +176,7 @@
             <TextBox
                 Grid.Row="7" Grid.Column="1" 
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding ControlTypeMake}"
+                Text="{Binding InventoryDetails.ControlTypeMake}"
                 />
 
             <Label
@@ -186,7 +186,7 @@
             <DatePicker
                 Grid.Row="8" Grid.Column="1" 
                 Style="{StaticResource dpBase}"
-                Text="{Binding WarranyDate}"
+                Text="{Binding InventoryDetails.WarrantyDate}"
                 />
             <Label
                 Grid.Row="8" Grid.Column="2" 
@@ -195,7 +195,7 @@
             <TextBox
                 Grid.Row="8" Grid.Column="3" 
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding WarrantyCompany}"
+                Text="{Binding InventoryDetails.WarrantyCompany}"
                 />
 
             <Label
@@ -205,7 +205,7 @@
             <DatePicker
                 Grid.Row="9" Grid.Column="1" 
                 Style="{StaticResource dpBase}"
-                Text="{Binding WarranyDate2}"
+                Text="{Binding InventoryDetails.WarrantyDate2}"
                 />
             <Label
                 Grid.Row="9" Grid.Column="2" 
@@ -214,7 +214,7 @@
             <TextBox
                 Grid.Row="9" Grid.Column="3" 
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding WarrantyCompany2}"
+                Text="{Binding InventoryDetails.WarrantyCompany2}"
                 />
 
             <Grid 
@@ -246,7 +246,7 @@
                 Grid.Row="10" Grid.Column="1"  Grid.ColumnSpan="3"
                 Margin="5"
                 Style="{StaticResource TextBoxWrap}"
-                Text="{Binding DetailComment}"
+                Text="{Binding InventoryDetails.DetailComment}"
                 />
 
             <Grid 
@@ -275,7 +275,7 @@
                     Content="Detail Photo(s)"
                     Style="{StaticResource LabelCJ}" />
                 <Label Grid.Row="2"
-                    Content="{Binding DetailPhotosCount}"
+                    Content="{Binding InventoryDetails.Images.Count}"
                     Style="{StaticResource LabelCJ}" />
             </Grid >
             <Grid Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"
@@ -296,7 +296,7 @@
                     <Image HorizontalAlignment="Right"
                         VerticalAlignment="Top"
                         Stretch="UniformToFill"
-                        Source="{Binding LocalFacilityInfo.Images[0]}"/>
+                        Source="{Binding InventoryDetails.Images[0]}"/>
                 </Grid>
                 <Grid 
                     Grid.Column="1" 
@@ -311,7 +311,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Stretch="UniformToFill"
-                        Source="{Binding LocalFacilityInfo.Images[1]}" />
+                        Source="{Binding InventoryDetails.Images[1]}" />
                 </Grid>
             </Grid>
 

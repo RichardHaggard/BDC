@@ -52,8 +52,8 @@
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox
                 Grid.Row="0" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="9"
-                ItemsSource="{Binding SectionNames}"
-                SelectedItem="{Binding SectionName}"
+                ItemsSource="{Binding InventorySection.SectionNames}"
+                SelectedItem="{Binding InventorySection.SectionName}"
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -63,8 +63,8 @@
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox
                 Grid.Row="1" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="9"
-                ItemsSource="{Binding EquipmentCategorys}"
-                SelectedItem="{Binding EquipmentCategory}"
+                ItemsSource="{Binding InventorySection.EquipmentCategories}"
+                SelectedItem="{Binding InventorySection.EquipmentCategory}"
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -74,8 +74,8 @@
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox
                 Grid.Row="2" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="9"
-                ItemsSource="{Binding ComponentTypes}"
-                SelectedItem="{Binding ComponentType}"
+                ItemsSource="{Binding InventorySection.ComponentTypes}"
+                SelectedItem="{Binding InventorySection.ComponentType}"
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -86,7 +86,7 @@
             <TextBox
                 Grid.Row="3" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1"
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding Quantity}"
+                Text="{Binding InventorySection.Quantity}"
                 />
             <Label 
                 Grid.Row="3" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1"
@@ -148,7 +148,7 @@
             <DatePicker
                 Grid.Row="4" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1"
                 Style="{StaticResource dpBase}"
-                Text="{Binding YearInstalledRenewed}"
+                Text="{Binding InventorySection.YearInstalledRenewed}"
                 />
             <CheckBox
                 Grid.Row="4" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="2"
@@ -171,33 +171,33 @@
                 Style="{StaticResource LabelRJ}"/>
             <CheckBox 
                 Grid.Row="6" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1"
-                IsChecked="{Binding PaintedIsChecked}"
+                IsChecked="{Binding InventorySection.PaintedIsChecked}"
                 />
             <Label
                 Grid.Row="6" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1"
                 Content="Year P/C:"
                 Style="{StaticResource LabelRJ}"
-                Visibility="{Binding YearPcVisibility}"
+                Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
             <TextBox
                 Grid.Row="6" Grid.RowSpan="1" Grid.Column="3" Grid.ColumnSpan="1"
                 Style="{StaticResource TextBoxNoWrap}"
-                Text="{Binding YearPc}"
-                Visibility="{Binding YearPcVisibility}"
+                Text="{Binding InventorySection.YearPc}"
+                Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
             <Label
                 Grid.Row="6" Grid.RowSpan="1" Grid.Column="5" Grid.ColumnSpan="1"
                 Content="P/C Type:"
                 Style="{StaticResource LabelRJ}"
-                Visibility="{Binding YearPcVisibility}"
+                Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
             <ComboBox
                 Grid.Row="6" Grid.RowSpan="1" Grid.Column="6" Grid.ColumnSpan="3"
-                Text="{Binding PcType}"
-                ItemsSource="{Binding PcTypes}"
-                SelectedItem="{Binding PcType}"
+                Text="{Binding InventorySection.PcType}"
+                ItemsSource="{Binding InventorySection.PcTypes}"
+                SelectedItem="{Binding InventorySection.PcType}"
                 Style="{StaticResource ComboBase}"
-                Visibility="{Binding YearPcVisibility}"
+                Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
 
             <Grid
@@ -254,7 +254,7 @@
                 Grid.Row="7" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="8"
                 Margin="5"
                 Style="{StaticResource TextBoxWrap}"
-                Text="{Binding SectionComment}"
+                Text="{Binding InventorySection.SectionComment}"
                 />
 
             <Grid 
@@ -281,7 +281,7 @@
                     Style="{StaticResource LabelCJ}"/>
                 <Label 
                     Grid.Row="2" 
-                    Content="{Binding PhotoQty}"
+                    Content="{Binding InventorySection.Images.Count}"
                     Style="{StaticResource LabelCJ}"/>
             </Grid>
             <Grid 
@@ -304,7 +304,7 @@
                     <Image HorizontalAlignment="Right"
                         VerticalAlignment="Top"
                         Stretch="UniformToFill"
-                        Source="{Binding LocalFacilityInfo.Images[0]}"/>
+                        Source="{Binding InventorySection.Images[0]}"/>
                 </Grid>
                 <Grid 
                     Grid.Column="1" 
@@ -319,7 +319,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Stretch="UniformToFill"
-                        Source="{Binding LocalFacilityInfo.Images[1]}" />
+                        Source="{Binding InventorySection.Images[1]}" />
                 </Grid>
             </Grid>
 
@@ -328,7 +328,7 @@
                 Content="Add current inspector"
                 FontSize="15"
                 Margin="5"
-                IsChecked="{Binding AddCurrentInspector}"
+                IsChecked="{Binding InventorySection.AddCurrentInspector}"
                 />
             <Label
                 Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="1" 
@@ -338,7 +338,7 @@
             <DatePicker
                 Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="1" 
                 Style="{StaticResource dpBase}"
-                Text="{Binding Date}"
+                Text="{Binding InventorySection.Date}"
                 />
             <Label
                 Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="1" 
@@ -348,8 +348,8 @@
             <ComboBox
                 Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="1" 
                 FontSize="15"
-                ItemsSource="{Binding Dcrs}"
-                SelectedItem="{Binding Dcr}"
+                ItemsSource="{Binding InventorySection.Dcrs}"
+                SelectedItem="{Binding InventorySection.Dcr}"
                 Style="{StaticResource ComboBase}"
                 />
             <Label

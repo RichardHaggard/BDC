@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 
@@ -13,6 +15,9 @@ namespace BDC_V1.Services
     {
         public MockInspectionInfo()
         {
+            // get rid of some bad binding messages
+            Images.AddRange(Enumerable.Repeat(new BitmapImage(), 5));
+
             InspectionType    = EnumInspectionType.DirectRating;
             Component         = "D3020 - HEAT GENERATING SYSTEMS";
             Section           = "Northside";

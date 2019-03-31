@@ -26,6 +26,7 @@ using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.ViewModels
 {
@@ -63,7 +64,7 @@ namespace BDC_V1.ViewModels
         public string StatusDateTimeString =>
             StatusDateTime.ToShortDateString() + " " + StatusDateTime.ToShortTimeString();
 
-        public ObservableCollection<TreeViewItem> TreeItemsViewSource { get; } = new ObservableCollection<TreeViewItem>();
+        public QuickObservableCollection<TreeViewItem> TreeItemsViewSource { get; } = new QuickObservableCollection<TreeViewItem>();
 
         // these properties all raise their own changed events
         public Visibility WindowVisibility
@@ -217,23 +218,13 @@ namespace BDC_V1.ViewModels
         [CanBeNull] private TabItem _viewTabItem;
 
 
-        public ObservableCollection<Control> ToolbarMenuItems { get; } = new ObservableCollection<Control>();
+        public QuickObservableCollection<Control> ToolbarMenuItems { get; } = new QuickObservableCollection<Control>();
 
 
         // **************** Class data members ********************************************** //
 
         private readonly Dictionary<string, IEnumerable<Control>> _toolBarMenuItemsDictionary = 
             new Dictionary<string, IEnumerable<Control>>();
-
-        protected override IConfigInfo LocalConfigInfo
-        {
-            get => base.LocalConfigInfo;
-            set
-            {
-                base.LocalConfigInfo = value;
-                ConfigurationFilename = base.LocalConfigInfo?.FileName;
-            }
-        }
 
         [CanBeNull] 
         protected IFacility LocalFacilityInfo
@@ -246,6 +237,16 @@ namespace BDC_V1.ViewModels
             }
         }
         [CanBeNull] private IFacility _localFacilityInfo;
+
+        protected override IConfigInfo LocalConfigInfo
+        {
+            get => base.LocalConfigInfo;
+            set
+            {
+                base.LocalConfigInfo = value;
+                ConfigurationFilename = base.LocalConfigInfo?.FileName;
+            }
+        }
 
         protected override IBredInfo LocalBredInfo
         {
@@ -434,7 +435,13 @@ namespace BDC_V1.ViewModels
 
         private void OnTabSelectionChanged([CanBeNull] TabItem tabItem)
         {
-            if (tabItem != null) SetToolbarMenuItems(tabItem);
+            if (tabItem != null)
+            {
+                SetToolbarMenuItems(tabItem);
+
+                EventAggregator.GetEvent<PubSubEvent<TabChangeEvent>>()
+                    .Publish(new TabChangeEvent("ViewTabControl", tabItem.Name));
+            }
         }
 
         private void UpdateTreeView([CanBeNull] TabItem tabItem)

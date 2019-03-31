@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BDC_V1.ViewModels;
 
 namespace BDC_V1.Views
 {
@@ -24,5 +25,12 @@ namespace BDC_V1.Views
         {
             InitializeComponent();
         }
+
+        InspectionViewModel ViewModel
+        {
+            set => DataContext = value;
+        }
+
+        
     }
 }
