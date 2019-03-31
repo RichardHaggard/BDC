@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Enumerations;
@@ -67,43 +68,9 @@ namespace BDC_V1.ViewModels
         }
         private IInspectionInfoType _inspectionInfo;
 
-        public QuickObservableCollection<Border> Images { get; } =
-            new QuickObservableCollection<Border>();
-
-        // OneWayToSource doesn't need notifications
-        public double ImagesHeight
-        {
-            get => _imagesHeight;
-            set
-            {
-                if (Math.Abs(_imagesHeight - value) > DoubleTolerance)
-                {
-                    _imagesHeight = value;
-                    CreateImages();
-                }
-            }
-        }
-        private double _imagesHeight;
-
-        public double ImagesWidth  { get; set; }
-
         // **************** Class data members ********************************************** //
 
         [CanBeNull] private ItemsControl ItemsControl { get; set; }
-
-        //[NotNull]
-        //public ICommand TabSelectionChange { get; set; }
-
-        [NotNull]
-        public ICommand ViewActivated { get; set; }
-
-        [CanBeNull]
-        public IRegionManager RegionManager
-        {
-            get => this._regionManager;
-            set => SetProperty(ref _regionManager, value);
-        } 
-        private IRegionManager _regionManager;
 
         //protected override IConfigInfo LocalConfigInfo
         //{
@@ -159,6 +126,8 @@ namespace BDC_V1.ViewModels
 
         public InspectionViewModel()
         {
+            RegionManagerName = "InspectionItemControl";
+
             CmdCondRating       = new DelegateCommand<object>(OnConditionRating);
             CmdCancelEdit       = new DelegateCommand(OnCancelEdit      );
             CmdDeleteInspection = new DelegateCommand(OnDeleteInspection);
@@ -176,53 +145,48 @@ namespace BDC_V1.ViewModels
             //            CreateImages();
             //        }
             //    });
-
-            ViewActivated = new RelayCommand(ViewActivatedEventHandler);         
         }
 
         // **************** Class members *************************************************** //
 
-     
-        private void ViewActivatedEventHandler(object sender, object e)
+        protected override bool GetRegionManager()
         {
-            RegionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
-            if ((RegionManager != null) &&
-                RegionManager.Regions.ContainsRegionWithName("ImagesItemControl"))
-            {
-                var viewsCollections = RegionManager.Regions["ImagesItemControl"].ActiveViews;
-                if (viewsCollections != null)
-                {
-                    foreach (var view in viewsCollections)
-                        RegionManager.Regions["ImagesItemControl"].Remove(view);
-                }
+            if (!base.GetRegionManager() || (RegionManager == null)) return false;
 
-                ItemsControl = new ItemsControl();
-                RegionManager.Regions["ImagesItemControl"].Add(ItemsControl);
-            }
-            else
-            {
-                ItemsControl = null;
-            }
+            const string xaml = "<ItemsPanelTemplate\r\n" + 
+                                "  xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'\r\n" + 
+                                "  xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>\r\n" +
+                                "  <StackPanel Orientation=\"Horizontal\"\r\n" +
+                                "              VerticalAlignment=\"Center\"\r\n" +
+                                "              HorizontalAlignment=\"Left\"/>\r\n" +
+                                "</ItemsPanelTemplate>";
+            var foo = XamlReader.Parse(xaml) as ItemsPanelTemplate;
 
-            if (ItemsControl != null) CreateImages();
+            ItemsControl = new ItemsControl() {ItemsPanel = foo};
+            RegionManager.Regions[RegionManagerName].Add(ItemsControl);
+
+            CreateImages();
+
+            return true;
         }
 
         private void CreateImages()
         {
-            Images.Clear();
-
-            if ((LocalFacilityInfo == null) || (ItemsControl == null))
+            if ((InspectionInfo == null) || (ItemsControl == null))
                 return;
 
-            var itemsWidth = ItemsControl.ActualWidth;
+            //var itemsWidth = 634;    // ItemsControl.ActualWidth;
+            var itemsHeight = 120;   // ItemsControl.ActualHeight,
 
-            foreach (var item in LocalFacilityInfo.Images)
+            var borderImages = new QuickObservableCollection<Border>();
+
+            foreach (var item in InspectionInfo.Images)
             {
                 var image = new Image
                 {
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     VerticalAlignment   = System.Windows.VerticalAlignment.Center,
-                    Height   = ItemsControl.ActualHeight,
+                    Height   = itemsHeight,
                     MinWidth = 20,
                     Source   = item
                 };
@@ -235,11 +199,11 @@ namespace BDC_V1.ViewModels
                     Child           = image
                 };
 
-                if ((itemsWidth -= border.ActualWidth) <= 0) break;
-                Images.Add(border);
+                //if ((itemsWidth -= border.ActualWidth) <= 0) break;
+                borderImages.Add(border);
             }
 
-            ItemsControl.ItemsSource = Images;
+            ItemsControl.ItemsSource = borderImages;
         }
 
         private void OnCancelEdit()

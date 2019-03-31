@@ -30,7 +30,5 @@ namespace BDC_V1.Views
         {
             set => DataContext = value;
         }
-
-        
     }
 }

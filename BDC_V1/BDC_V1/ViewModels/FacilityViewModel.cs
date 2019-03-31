@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Markup;
+using System.Windows.Media;
+using BDC_V1.Classes;
 using BDC_V1.Interfaces;
+using JetBrains.Annotations;
 
 namespace BDC_V1.ViewModels
 {
@@ -15,11 +20,22 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
+        [CanBeNull] private ItemsControl ItemsControl { get; set; }
+
         public IFacility LocalFacilityInfo
         {
             get => _localFacilityInfo;
-            set => SetProperty(ref _localFacilityInfo, value);
+            set
+            {
+                if (SetProperty(ref _localFacilityInfo, value))
+                {
+                    CreateImages();
+                    // QuickObservableCollection should raise it's own notify
+                    //RaisePropertyChanged(Images);
+                }
+            }
         }
+
         private IFacility _localFacilityInfo;
 
         //protected override IConfigInfo LocalConfigInfo
@@ -45,10 +61,66 @@ namespace BDC_V1.ViewModels
 
         public FacilityViewModel()
         {
+            RegionManagerName = "FacilityItemControl";
         }
-
 
         // **************** Class members *************************************************** //
 
+        protected override bool GetRegionManager()
+        {
+            if (!base.GetRegionManager() || (RegionManager == null)) return false;
+
+            const string xaml = "<ItemsPanelTemplate\r\n" +
+                                "  xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'\r\n" +
+                                "  xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>\r\n" +
+                                "  <StackPanel Orientation=\"Horizontal\"\r\n" +
+                                "              VerticalAlignment=\"Center\"\r\n" +
+                                "              HorizontalAlignment=\"Left\"/>\r\n" +
+                                "</ItemsPanelTemplate>";
+            var foo = XamlReader.Parse(xaml) as ItemsPanelTemplate;
+
+            ItemsControl = new ItemsControl() {ItemsPanel = foo};
+            RegionManager.Regions[RegionManagerName].Add(ItemsControl);
+
+            CreateImages();
+
+            return true;
+        }
+
+        private void CreateImages()
+        {
+            if ((LocalFacilityInfo == null) || (ItemsControl == null))
+                return;
+
+            //var itemsWidth = 634;    // ItemsControl.ActualWidth;
+            var itemsHeight = 120;   // ItemsControl.ActualHeight,
+
+            var borderImages = new QuickObservableCollection<Border>();
+
+            foreach (var item in LocalFacilityInfo.Images)
+            {
+                var image = new Image
+                {
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalAlignment   = System.Windows.VerticalAlignment.Center,
+                    Height   = itemsHeight,
+                    MinWidth = 20,
+                    Source   = item
+                };
+
+                var border = new Border()
+                {
+                    Background      = Brushes.White,
+                    BorderThickness = new System.Windows.Thickness(1),
+                    Margin          = new System.Windows.Thickness() { Right = 5 },
+                    Child           = image
+                };
+
+                //if ((itemsWidth -= border.ActualWidth) <= 0) break;
+                borderImages.Add(border);
+            }
+
+            ItemsControl.ItemsSource = borderImages;
+        }
     }
 }

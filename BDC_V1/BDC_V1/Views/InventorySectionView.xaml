@@ -6,9 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:BDC_V1.Views"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d" 
     d:DesignHeight="800" d:DesignWidth="1000">
+
+  <i:Interaction.Triggers>
+    <i:EventTrigger EventName="Loaded">
+      <i:InvokeCommandAction Command="{Binding ViewActivated}" />
+    </i:EventTrigger>
+  </i:Interaction.Triggers>
 
     <ScrollViewer
         HorizontalScrollBarVisibility="Auto"
@@ -281,47 +288,16 @@
                     Style="{StaticResource LabelCJ}"/>
                 <Label 
                     Grid.Row="2" 
-                    Content="{Binding InventorySection.Images.Count}"
+                    Content="{Binding ElementName=ImagesList, Path=Items.Count}"
                     Style="{StaticResource LabelCJ}"/>
             </Grid>
-            <Grid 
-                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
-                Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0"
-                    Grid.ColumnSpan="3"
-                    Background="BlanchedAlmond" />
-                <Grid 
-                    Grid.Column="0" Height="120" Width="200" Margin="2 0 2 0">
-                    <Border BorderBrush="Black"
-                        BorderThickness="1"
-                        Background="White" />
-                    <Image HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Stretch="UniformToFill"
-                        Source="{Binding InventorySection.Images[0]}"/>
-                </Grid>
-                <Grid 
-                    Grid.Column="1" 
-                    Height="120" Width="200" 
-                    Margin="2 0 2 0"
-                    >
-                    <Border 
-                        BorderBrush="Black"
-                        BorderThickness="1"
-                        Background="White" />
-                    <Image 
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Stretch="UniformToFill"
-                        Source="{Binding InventorySection.Images[1]}" />
-                </Grid>
-            </Grid>
+            <Border x:Name="ItemsBorder" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+                    Style="{StaticResource BorderYO}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+              <ItemsControl x:Name="ImagesList" prism:RegionManager.RegionName="InventorySectionItemControl" />
+            </Border>
 
             <CheckBox
                 Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="1" 

@@ -267,6 +267,8 @@ namespace BDC_V1.ViewModels
         /// </summary>
         public ShellViewModel()
         {
+            RegionManagerName = "ShellItemControl";
+
             CmdInspectionMode          = new DelegateCommand(OnCmdInspectionMode       );
             CmdDefaultInventoryMode    = new DelegateCommand(OnCmdDefaultInventoryMode );
             CmdMenuExit                = new DelegateCommand(OnCmdExit                 );
@@ -307,6 +309,10 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
+        protected override bool GetRegionManager()
+        {
+            return false;
+        }
 
         private void OnCmdInspectionMode()
         {

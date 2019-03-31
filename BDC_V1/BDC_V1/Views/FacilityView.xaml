@@ -4,10 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800">
+
+  <i:Interaction.Triggers>
+    <i:EventTrigger EventName="Loaded">
+      <i:InvokeCommandAction Command="{Binding ViewActivated}" />
+    </i:EventTrigger>
+  </i:Interaction.Triggers>
 
   <UserControl.Resources>
     <Style TargetType="Label"
@@ -292,17 +299,28 @@
                    Content="Photo(s)"
                    Style="{StaticResource LabelCJ}" />
             <Label Grid.Row="2"
-                   Content="{Binding LocalFacilityInfo.Images.Count}"
+                   Content="{Binding ElementName=ImagesList, Path=Items.Count}"
                    Style="{StaticResource LabelCJ}" />
         </Grid >
 
+      <Border x:Name="ItemsBorder" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+              Style="{StaticResource BorderYO}"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Height="120" >
+        <ItemsControl x:Name="ImagesList" prism:RegionManager.RegionName="FacilityItemControl" />
+      </Border>
+
+      <!--
         <Grid Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8">
-            <Grid.ColumnDefinitions>
+          <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+          </Grid.ColumnDefinitions>
+          -->
 
+          <!--
             <Border Grid.Column="0"
                     Grid.ColumnSpan="3"
                     Background="BlanchedAlmond" />
@@ -326,6 +344,7 @@
                    Source="{Binding LocalFacilityInfo.Images[1]}" />
           </Grid>
       </Grid>
+          -->
 
       <Label Grid.Row="9"
              Grid.Column="0"

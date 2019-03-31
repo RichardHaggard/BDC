@@ -71,6 +71,8 @@ namespace BDC_V1.ViewModels
         // **************** Class constructors ********************************************** //
         public QaInventoryViewModel()
         {
+            RegionManagerName = "QaInventoryItemControl";
+
             CmdFilterByFacilityId  = new DelegateCommand(OnFilterByFacilityId );
             CmdFilterBySystemId    = new DelegateCommand(OnFilterBySystemId   );
             CmdFilterByComponentId = new DelegateCommand(OnFilterByComponentId);
@@ -102,6 +104,12 @@ namespace BDC_V1.ViewModels
         }
 
         // **************** Class members *************************************************** //
+
+        protected override bool GetRegionManager()
+        {
+            return false;
+        }
+
         private void OnFilterByFacilityId () { Debug.WriteLine("OnFilterByFacilityId  not implemented"); }
         private void OnFilterBySystemId   () { Debug.WriteLine("OnFilterBySystemId    not implemented"); }
         private void OnFilterByComponentId() { Debug.WriteLine("OnFilterByComponentId not implemented"); }
