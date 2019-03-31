@@ -68,13 +68,20 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
             <Border 
-                Grid.ColumnSpan="5" 
+                Grid.ColumnSpan="14" 
                 Background="Gray" />
 
             <!--Default/Inventory mode button-->
@@ -83,8 +90,9 @@
                 Height="75"
                 Margin="10"
                 ToolTip="Default/Inventory Mode"
+                Command="{Binding CmdDefaultInventoryMode}"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Command="{Binding CmdDefaultInventoryMode}">
+                >
                 <Image Source="/BDC_V1;component/Resources/Inventory.png"/>
             </Button>
 
@@ -94,14 +102,114 @@
                 Height="75"
                 Margin="10"
                 ToolTip="Inspection Mode"
+                Command="{Binding CmdInspectionMode}"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Command="{Binding CmdInspectionMode}">
+                Visibility="{Binding VisibilityInspectionButton}"
+                >
                 <Image Source="/BDC_V1;component/Resources/Inspection.png"/>
+            </Button>
+            
+            <!--Add System-->
+            <!--Visible when Facility active-->
+            <Button 
+                Grid.Column="2"
+                Height="75"
+                Margin="10"
+                ToolTip="Add System"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Command="{Binding CmdAddSystem}"
+                Visibility="{Binding VisibilityAddSystemButton}"
+                >
+                <Image Source="/BDC_V1;component/Resources/AddSystem (1).png"/>
+            </Button>
+
+            <!--Delete System-->
+            <!--Visible when Facility active-->
+            <Button 
+                Grid.Column="3"
+                Height="75"
+                Margin="10"
+                ToolTip="Delete System"
+                Command="{Binding CmdDeleteSystem}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Visibility="{Binding VisibilityDeleteSystemButton}"
+                >
+                <Image Source="/BDC_V1;component/Resources/DeleteSystem (1).png"/>
+            </Button>
+
+            <!--Add Component-->
+            <!--Visible when Inventory active-->
+            <Button 
+                Grid.Column="4"
+                Height="75"
+                Margin="10"
+                ToolTip="Add Component"
+                Command="{Binding CmdAddComponent}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Visibility="{Binding VisibilityAddComponentButton}"
+                >
+                <Image Source="/BDC_V1;component/Resources/AddComponent (1).png"/>
+            </Button>
+
+            <!--Add Section-->
+            <!--Visible when Inventory active-->
+            <Button 
+                Grid.Column="5"
+                Height="75"
+                Margin="10"
+                ToolTip="Add Section"
+                Command="{Binding CmdAddSection}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Visibility="{Binding VisibilityAddSectionButton}"
+                >
+                <Image Source="/BDC_V1;component/Resources/AddSection (1).png"/>
+            </Button>
+
+            <!--Copy Sections-->
+            <!--Visible when Inventory active-->
+            <Button 
+                Grid.Column="6"
+                Height="75"
+                Margin="10"
+                ToolTip="Copy Sections"
+                Command="{Binding CmdCopySections}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Visibility="{Binding VisibilityCopySectionsButton}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Copy.jpg"/>
+            </Button>
+
+            <!--Copy Inventory-->
+            <!--Visible when Inventory active-->
+            <Button 
+                Grid.Column="7"
+                Height="75"
+                Margin="10"
+                ToolTip="Copy Inventory"
+                Command="{Binding CmdCopyInventory}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Visibility="{Binding VisibilityCopyInventoryButton}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Copy.jpg"/>
+            </Button>
+
+            <!--Copy Inspection-->
+            <!--Visible when Inspection active-->
+            <Button 
+                Grid.Column="8"
+                Height="75"
+                Margin="10"
+                ToolTip="Copy Inspection"
+                Command="{Binding CmdCopyInspection}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Visibility="{Binding VisibilityCopyInspectionButton}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Copy.jpg"/>
             </Button>
 
             <!--Microphone On button-->
             <Button 
-                Grid.Column="3"
+                Grid.Column="10"
                 Height="75"
                 Margin="10"
                 ToolTip="Microphone ON"
@@ -112,7 +220,7 @@
 
             <!--Microphone Off button-->
             <Button 
-                Grid.Column="4"
+                Grid.Column="11"
                 Height="75"
                 Margin="10"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
