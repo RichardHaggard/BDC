@@ -268,7 +268,8 @@ namespace BDC_V1.Utils
         [return: MarshalAs( UnmanagedType.Bool )]
         static extern bool SetWindowPos( IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, SetWindowPosFlags uFlags );
 
-        private const int SW_SHOWNORMAL = 1;
+        private const int SW_HIDE          = 0;
+        private const int SW_SHOWNORMAL    = 1;
         private const int SW_SHOWMINIMIZED = 2;
 
         // ------------------------ Class methods ---------------------------------- //
@@ -316,7 +317,7 @@ namespace BDC_V1.Utils
         /// </summary>
         /// <param name="windowHandle">Window to receive the WINDOWPLACEMENT values.</param>
         /// <param name="placementXml">WINDOWPLACEMENT structure expressed as an XML string.</param>
-        private static void SetPlacement( IntPtr windowHandle, string placementXml )
+        private static void SetPlacement( IntPtr windowHandle, string placementXml, bool hide )
         {
             do
             {
@@ -348,7 +349,16 @@ namespace BDC_V1.Utils
 
                     placement.length = Marshal.SizeOf( typeof( WINDOWPLACEMENT ) );
                     placement.flags = 0;
-                    placement.showCmd = (placement.showCmd == SW_SHOWMINIMIZED ? SW_SHOWNORMAL : placement.showCmd);
+
+                    // Normally, the showCmd is dependent on values saved from the previous session.
+                    // This case is special. The Login has to show first. The problwm is that this
+                    // code is being called before the Login is shown so we have to disable the
+                    // manner in which the window is shown and make sure it is hidden.
+                    if (hide)
+                        placement.showCmd = SW_SHOWMINIMIZED;
+                    else
+                        placement.showCmd = (placement.showCmd == SW_SHOWMINIMIZED ? SW_SHOWNORMAL : placement.showCmd);
+
                     SetWindowPlacement( windowHandle, ref placement );
                 }
                 catch (InvalidOperationException)
@@ -365,9 +375,9 @@ namespace BDC_V1.Utils
         /// </summary>
         /// <param name="window">Window to be positioned.</param>
         /// <param name="placementXml">WINDOWPLACEMENT structure expressed as an XML string.</param>
-        public static void SetPlacement( this Window window, string placementXml )
+        public static void SetPlacement( this Window window, string placementXml, bool hide )
         {
-            WindowPlacement.SetPlacement( new WindowInteropHelper( window ).Handle, placementXml );
+            WindowPlacement.SetPlacement( new WindowInteropHelper( window ).Handle, placementXml, hide );
         }
 
 
