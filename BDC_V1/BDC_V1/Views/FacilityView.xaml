@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
-             d:DesignHeight="800"
+             d:DesignHeight="850"
              d:DesignWidth="1000">
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto">
@@ -201,7 +201,8 @@
 
             <Grid 
                 Grid.Row="7" Grid.Column="0" 
-                Height="120">
+                Height="120"
+                Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
@@ -232,18 +233,20 @@
                     VerticalContentAlignment="Top"
                     Style="{StaticResource LabelCJ}" />
             </Grid>
-            <TextBox Grid.Row="7"
+            <TextBox 
+                Grid.Row="7"
                 Grid.Column="1"
                 Grid.ColumnSpan="8"
                 Background="BlanchedAlmond"
                 Text="{Binding LocalFacilityInfo.FacilityComments}"
                 VerticalContentAlignment="Top" 
                 TextWrapping="Wrap"
-                Margin="2"/>
+                Margin="5"/>
 
             <Grid 
                 Grid.Row="8" Grid.Column="0" 
-                Height="120">
+                Height="120"
+                Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
@@ -273,7 +276,8 @@
             </Grid >
 
             <Grid 
-                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8">
+                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+                Margin="2,5,2,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />

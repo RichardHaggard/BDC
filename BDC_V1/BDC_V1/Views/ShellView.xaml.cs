@@ -1,24 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.ComponentModel;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using BDC_V1.Events;
-using BDC_V1.ViewModels;
-using CommonServiceLocator;
-using JetBrains.Annotations;
-using Prism.Events;
-using EventAggregator = BDC_V1.Events.EventAggregator;
+using BDC_V1.Properties;
+using BDC_V1.Utils;
 
 namespace BDC_V1.Views
 {
@@ -27,6 +11,14 @@ namespace BDC_V1.Views
     /// </summary>
     public partial class ShellView
     {
+        // **************** Class enumerations ********************************************** //
+
+        // **************** Class data members ********************************************** //
+
+        // **************** Class properties ************************************************ //
+
+        // **************** Class constructors ********************************************** //
+
         public ShellView()
         {
             InitializeComponent();
@@ -42,6 +34,30 @@ namespace BDC_V1.Views
             //    }
             //});
         }
+
+
+        // **************** Class members *************************************************** //
+
+        protected override void OnClosing( CancelEventArgs e )
+        {
+            base.OnClosing( e );
+    
+           // Use the extension method in the WindowPlace class to save this 
+           // window's current position and display state.
+            Settings.Default.PlacementShell = this.GetPlacement();
+            Settings.Default.Save();
+        }
+
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            // Use the extension method in the WindowPlace class to retrieve this 
+            // window's previous position and display state, if any.
+            this.SetPlacement(Settings.Default.PlacementShell);
+        }
+ 
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {

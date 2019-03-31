@@ -46,5 +46,17 @@ namespace BDC_V1.Properties {
                 this["BredFilename"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PlacementShell {
+            get {
+                return ((string)(this["PlacementShell"]));
+            }
+            set {
+                this["PlacementShell"] = value;
+            }
+        }
     }
 }
