@@ -557,55 +557,18 @@
                  Content="Photo(s)"
                  Style="{StaticResource LabelCJ}" />
           <Label Grid.Row="2"
-                 Content="{Binding Images.Count}"
+                 Content="{Binding ElementName=ImagesList, Path=Items.Count}"
                  Style="{StaticResource LabelCJ}" />
         </Grid>
       </Border>
-      <Border Grid.Row="11"
+      <Border x:Name="ItemsBorder" Grid.Row="11"
               Grid.Column="1"
               Grid.ColumnSpan="8"
               Style="{StaticResource BorderYO}"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
               >
-        <ItemsControl prism:RegionManager.RegionName="ImagesItemControl">
-          <!--ItemsSource="{Binding Images}"-->
-          <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-              <StackPanel Orientation="Horizontal"/>
-            </ItemsPanelTemplate>
-          </ItemsControl.ItemsPanel>
-        </ItemsControl>
-        <!--<StackPanel Name="ImageStackPanel" Orientation="Horizontal">
-            <Border BorderBrush="Black"
-                  BorderThickness="1"
-                  Background="White"
-                  Margin="0 0 5 0">
-            <Image HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Height="94"
-                   MinWidth="20"
-                   Source="{Binding InspectionInfo.Images[0]}" />
-          </Border>
-          <Border BorderBrush="Black"
-                  BorderThickness="1"
-                  Background="White"
-                  Margin="0 0 5 0">
-            <Image HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Height="94"
-                   MinWidth="20"
-                   Source="{Binding InspectionInfo.Images[1]}" />
-          </Border>
-          <Border BorderBrush="Black"
-                  BorderThickness="1"
-                  Background="White"
-                  Margin="0 0 5 0">
-            <Image HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Height="94"
-                   MinWidth="20"
-                   Source="{Binding InspectionInfo.Images[2]}" />
-          </Border>
-        </StackPanel>-->
+        <ItemsControl x:Name="ImagesList" prism:RegionManager.RegionName="InspectionItemControl" />
       </Border>
 
       <!-- Action Buttons -->

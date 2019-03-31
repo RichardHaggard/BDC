@@ -50,7 +50,17 @@ namespace BDC_V1.ViewModels
 
         // **************** Class constructors ********************************************** //
 
+        public QaInspectionViewModel()
+        {
+            RegionManagerName = "QaInspectionItemControl";
+        }
+
         // **************** Class members *************************************************** //
+
+        protected override bool GetRegionManager()
+        {
+            return false;
+        }
 
     }
 }

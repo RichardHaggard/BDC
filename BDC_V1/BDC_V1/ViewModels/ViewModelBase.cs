@@ -1,5 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System.Collections;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Markup;
 using BDC_V1.Classes;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
@@ -7,6 +11,7 @@ using CommonServiceLocator;
 using JetBrains.Annotations;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.ViewModels
@@ -51,6 +56,19 @@ namespace BDC_V1.ViewModels
         }
         [CanBeNull] private IBredInfo _bredInfo;
 
+        [NotNull]
+        public ICommand ViewActivated { get; }
+
+        [CanBeNull]
+        protected IRegionManager RegionManager
+        {
+            get => this._regionManager;
+            set => SetProperty(ref _regionManager, value);
+        } 
+        private IRegionManager _regionManager;
+
+        protected string RegionManagerName { get; set; }
+
         // **************** Class constructors ********************************************** //
 
         public ViewModelBase()
@@ -76,6 +94,8 @@ namespace BDC_V1.ViewModels
                         LocalBredInfo = GetBredInfo();
                     }
                 });
+
+            ViewActivated = new RelayCommand(ViewActivatedEventHandler);         
         }
 
         // **************** Class members *************************************************** //
@@ -98,5 +118,44 @@ namespace BDC_V1.ViewModels
             return container.GlobalValue;
         }
 
+        protected virtual void ViewActivatedEventHandler(object sender, object e)
+        {
+            RegionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
+
+            GetRegionManager();
+        }
+
+        protected virtual bool GetRegionManager()
+        {
+            // if the manager name hasn't been set, return
+            if (string.IsNullOrEmpty(RegionManagerName)) return false;
+
+            // find the region manager for this ViewModel
+            if ((RegionManager == null) ||
+                !RegionManager.Regions.ContainsRegionWithName(RegionManagerName))
+            {
+                return false;
+            }
+
+            // always start with a clean slate
+            var viewsCollections = RegionManager.Regions[RegionManagerName].ActiveViews;
+            if (viewsCollections != null)
+            {
+                foreach (var region in viewsCollections)
+                {
+                    if (region is ItemsControl itemsControl)
+                    {
+                        if (itemsControl.ItemsSource is IList borderCollie)
+                            borderCollie.Clear();
+
+                        itemsControl.ItemsSource = null;
+                    }
+
+                    RegionManager.Regions[RegionManagerName].Remove(region);
+                }
+            }
+
+            return true;
+        }
     }
 }

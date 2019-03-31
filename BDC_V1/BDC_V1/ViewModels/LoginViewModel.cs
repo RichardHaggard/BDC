@@ -174,6 +174,8 @@ namespace BDC_V1.ViewModels
 
         public LoginViewModel()
         {
+            RegionManagerName = "LoginItemControl";
+
             // NOTE: Passing an interface to the constructor causes runtime problems with XamlParser
             //       This is stupid!
 
@@ -202,6 +204,11 @@ namespace BDC_V1.ViewModels
         }
 
         // **************** Class members *************************************************** //
+
+        protected override bool GetRegionManager()
+        {
+            return false;
+        }
 
         // here is where we read in the global config info containing the list of valid users
         private static void GetConfigInfo(string fileName)

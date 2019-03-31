@@ -41,7 +41,14 @@ namespace BDC_V1.ViewModels
 
         public PasswordViewModel()
         {
+            RegionManagerName = "PasswordItemControl";
+
             ValidateCmd = new DelegateCommand(OnCmdVerify);
+        }
+
+        protected override bool GetRegionManager()
+        {
+            return false;
         }
 
         private void OnCmdVerify()
