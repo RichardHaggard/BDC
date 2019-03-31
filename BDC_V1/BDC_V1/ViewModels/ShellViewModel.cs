@@ -36,6 +36,8 @@ namespace BDC_V1.ViewModels
         // **************** Class properties ************************************************ //
 
         // commands are read only to the outside world
+        public ICommand CmdDefaultInventoryMode    { get; }
+        public ICommand CmdInspectionMode          { get; }
         public ICommand CmdMenuExit                { get; }
         public ICommand CmdMenuAbout               { get; }
         public ICommand CmdMenuBluebeam            { get; }
@@ -264,17 +266,19 @@ namespace BDC_V1.ViewModels
         /// </summary>
         public ShellViewModel()
         {
-            CmdMenuExit                = new DelegateCommand(OnCmdExit               );
-            CmdMenuAbout               = new DelegateCommand(OnCmdAbout              ); 
-            CmdMenuBluebeam            = new DelegateCommand(OnCmdBluebeam           );
-            CmdMenuCalculators         = new DelegateCommand(OnCmdCalculators        );
-            CmdMenuSwitchFile          = new DelegateCommand(OnCmdSwitchFile         );
-            CmdMenuViewAllSystems      = new DelegateCommand(OnCmdViewAllSystems     );
-            CmdMenuViewAssignedSystems = new DelegateCommand(OnCmdViewAssignedSystems);
-            CmdMenuInspectionSummary   = new DelegateCommand(OnCmdInspectionSummary  );
-            CmdMenuQcReports           = new DelegateCommand(OnCmdQcReport           );
-            CmdMicOn                   = new DelegateCommand(OnCmdMicOn              );
-            CmdMicOff                  = new DelegateCommand(OnCmdMicOff             );
+            CmdInspectionMode          = new DelegateCommand(OnCmdInspectionMode       );
+            CmdDefaultInventoryMode    = new DelegateCommand(OnCmdDefaultInventoryMode );
+            CmdMenuExit                = new DelegateCommand(OnCmdExit                 );
+            CmdMenuAbout               = new DelegateCommand(OnCmdAbout                ); 
+            CmdMenuBluebeam            = new DelegateCommand(OnCmdBluebeam             );
+            CmdMenuCalculators         = new DelegateCommand(OnCmdCalculators          );
+            CmdMenuSwitchFile          = new DelegateCommand(OnCmdSwitchFile           );
+            CmdMenuViewAllSystems      = new DelegateCommand(OnCmdViewAllSystems       );
+            CmdMenuViewAssignedSystems = new DelegateCommand(OnCmdViewAssignedSystems  );
+            CmdMenuInspectionSummary   = new DelegateCommand(OnCmdInspectionSummary    );
+            CmdMenuQcReports           = new DelegateCommand(OnCmdQcReport             );
+            CmdMicOn                   = new DelegateCommand(OnCmdMicOn                );
+            CmdMicOff                  = new DelegateCommand(OnCmdMicOff               );
             CmdTabSelectionChanged     = new DelegateCommand<TabItem>(OnTabSelectionChanged);
 
             InvTreeBorderBackgroundColor   = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray);
@@ -301,6 +305,17 @@ namespace BDC_V1.ViewModels
         }
 
         // **************** Class members *************************************************** //
+
+
+        private void OnCmdInspectionMode()
+        {
+            Debug.WriteLine("OnCmdInspectionMode not implemented");
+        }
+
+        private void OnCmdDefaultInventoryMode()
+        {
+            Debug.WriteLine("OnCmdDefaultInventoryMode not implemented");
+        }
 
         private void OnCmdExit()
         {

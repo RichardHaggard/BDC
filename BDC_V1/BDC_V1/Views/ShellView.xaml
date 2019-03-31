@@ -12,6 +12,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         mc:Ignorable="d"
+        FontSize="15"
         Title="{Binding Title}" 
         Visibility="{Binding Path=WindowVisibility, Mode=TwoWay}"
         Height="900" Width="1440"
@@ -19,7 +20,6 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <!--Since this is specified in multiple locations it should go into a common location instead.-->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
@@ -30,7 +30,6 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -61,83 +60,76 @@
         </Menu>
         
         <!--Toolbar-->
-        <Border Grid.Row="1" BorderThickness="0" Background="Gray" />
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal">
-            <Button Margin="5 0 5 0"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                ToolTip="Bluebeam"
-                Command="{Binding CmdMenuBluebeam}">
-                <Image Source="/BDC_V1;component/Resources/Bluebeam.jpg"/>
-            </Button>
-            <Button Margin="5 0 5 0"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                ToolTip="Calculators"
-                Command="{Binding CmdMenuCalculators}">
-                <Image Source="/BDC_V1;component/Resources/Calculator.png"/>
-            </Button>
-            <Button Margin="5 0 5 0"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                ToolTip="Change file/inspector"
-                Command="{Binding CmdMenuSwitchFile}">
-                <Image Source="/BDC_V1;component/Resources/OpenFile.jpg"/>
-            </Button>
-            <Button Margin="5 0 5 0"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                ToolTip="View all/auth/assigned Systems"
-                Command="{Binding CmdMenuViewAllSystems}">
-                <Image Source="/BDC_V1;component/Resources/ViewAll.jpg"/>
-            </Button>
-            <Button Margin="5 0 5 0"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                ToolTip="Inspection Summary"
-                Command="{Binding CmdMenuInspectionSummary}">
-                <Image Source="/BDC_V1;component/Resources/Inspection.png"/>
-            </Button>
-            <Button Margin="5 0 5 0"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                ToolTip="QA Reports"
-                Command="{Binding CmdMenuQcReports}">
-                <Image Source="/BDC_V1;component/Resources/Report.jpg"/>
-            </Button>
-        </StackPanel>
-        
-        <!--Inventory tree, the selected Tree item.-->
-        <Border Grid.Row="2" BorderThickness="0" Background="{Binding InvTreeBorderBackgroundColor}" />
-        <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+        <Grid
+            Grid.Row="1"
+            >
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+            
+            <Border 
+                Grid.ColumnSpan="5" 
+                Background="Gray" />
 
-            <Menu Grid.Column="0" Name="ToolbarMenu" ItemsSource="{Binding ToolbarMenuItems}"
-                  Background="{Binding InvTreeBorderBackgroundColor}" />
+            <!--Default/Inventory mode button-->
+            <Button 
+                Grid.Column="0"
+                Height="75"
+                Margin="10"
+                ToolTip="Default/Inventory Mode"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Command="{Binding CmdDefaultInventoryMode}">
+                <Image Source="/BDC_V1;component/Resources/Inventory.png"/>
+            </Button>
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <Button Margin="5 0 5 0"
-                        Style="{StaticResource MaterialDesignRaisedLightButton}"
-                        ToolTip="Microphone ON"
-                        Command="{Binding CmdMicOn}">
-                    <Image Source="/BDC_V1;component/Resources/MicrophoneON_Rnd.png"/>
-                </Button>
-                <Button Margin="5 0 5 0"
-                        Style="{StaticResource MaterialDesignRaisedLightButton}"
-                        ToolTip="Microphone OFF"
-                        Command="{Binding CmdMicOff}">
-                    <Image Source="/BDC_V1;component/Resources/MicrophoneOFF_Rnd_Slash.png"/>
-                </Button>
-            </StackPanel>
+            <!--Inspection mode button-->
+            <Button 
+                Grid.Column="1"
+                Height="75"
+                Margin="10"
+                ToolTip="Inspection Mode"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Command="{Binding CmdInspectionMode}">
+                <Image Source="/BDC_V1;component/Resources/Inspection.png"/>
+            </Button>
+
+            <!--Microphone On button-->
+            <Button 
+                Grid.Column="3"
+                Height="75"
+                Margin="10"
+                ToolTip="Microphone ON"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Command="{Binding CmdMicOn}">
+                <Image Source="/BDC_V1;component/Resources/MicrophoneON_Rnd.png"/>
+            </Button>
+
+            <!--Microphone Off button-->
+            <Button 
+                Grid.Column="4"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                ToolTip="Microphone OFF"
+                Command="{Binding CmdMicOff}">
+                <Image Source="/BDC_V1;component/Resources/MicrophoneOFF_Rnd_Slash.png"/>
+            </Button>
         </Grid>
         
         <!--Primary working area-->
         <!--A column for a tree, a splitter column and a column for a Tab Control.-->
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <!--Inventory tree, the selected Tree item.-->
             <TreeView 
                 Grid.Column="0" 
                 ItemsSource="{Binding TreeItemsViewSource}"  >
@@ -150,53 +142,66 @@
                 </TreeView.ItemContainerStyle>
                 
             </TreeView>
-            
+
+            <!--Put a splitter between the inventory tree and the TabControl where most activities take place.-->
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
+            <!--This TabControl contains a collection of items, each of which preforms a task related to the currently selected Tree item.-->
             <TabControl Grid.Column="2" Name="ViewTabControl"
                         SelectedIndex="{Binding Path=ViewTabIndex, Mode=TwoWay}"
                         SelectedItem="{Binding Path=ViewTabItem, Mode=OneWayToSource}">
                 <!-- A Prism compatible way to reflect events into the ViewModel -->
                 <i:Interaction.Triggers> 
                     <i:EventTrigger EventName="SelectionChanged"> 
-                        <i:InvokeCommandAction Command="{Binding CmdTabSelectionChanged}"
-                                               CommandParameter="{Binding ElementName=ViewTabControl, Path=SelectedItem}"/>  
+                        <i:InvokeCommandAction 
+                            Command="{Binding CmdTabSelectionChanged}"
+                            CommandParameter="{Binding ElementName=ViewTabControl, Path=SelectedItem}"/>  
                     </i:EventTrigger> 
                 </i:Interaction.Triggers> 
 
                 <!--  these colors should be done with a selection style -->
-                <TabItem Name="Facility" Header="FACILITY" 
-                         Background="{Binding FacilityTabBackgroundColor}"
-                         HorizontalContentAlignment="Left"
-                         VerticalContentAlignment="Top">
+                <TabItem 
+                    Name="Facility" 
+                    Header="FACILITY" 
+                    Background="{Binding FacilityTabBackgroundColor}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Top">
                     <local:FacilityView />
                 </TabItem>
                 
-                <TabItem Name="Inventory" Header="INVENTORY"  
-                         Background="{Binding InventoryTabBackgroundColor}"
-                         HorizontalContentAlignment="Left"
-                         VerticalContentAlignment="Top">
+                <TabItem 
+                    Name="Inventory" 
+                    Header="INVENTORY"  
+                    Background="{Binding InventoryTabBackgroundColor}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Top">
                     <local:InventoryView />
                 </TabItem>
 
-                <TabItem Name="Inspection" Header="INSPECTION"  
-                         Background="{Binding InspectionTabBackgroundColor}"
-                         HorizontalContentAlignment="Left"
-                         VerticalContentAlignment="Top">
+                <TabItem 
+                    Name="Inspection" 
+                    Header="INSPECTION"  
+                    Background="{Binding InspectionTabBackgroundColor}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Top">
                     <local:InspectionView />
                 </TabItem>
                 
-                <TabItem Name="QaInventory" Header="QA - INVENTORY"  
-                         Background="{Binding QaInventoryTabBackgroundColor}"
-                         HorizontalContentAlignment="Left"
-                         VerticalContentAlignment="Top">
+                <TabItem 
+                    Name="QaInventory" 
+                    Header="QA - INVENTORY"  
+                    Background="{Binding QaInventoryTabBackgroundColor}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Top">
                     <local:QaInspectionView />
                 </TabItem>
                 
-                <TabItem Name="QaInspection" Header="QA - INSPECTION"  
-                         Background="{Binding QaInspectionTabBackgroundColor}"
-                         HorizontalContentAlignment="Left"
-                         VerticalContentAlignment="Top">
+                <TabItem 
+                    Name="QaInspection" 
+                    Header="QA - INSPECTION"  
+                    Background="{Binding QaInspectionTabBackgroundColor}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Top">
                     <local:QaInventoryView />
                 </TabItem>
                 
