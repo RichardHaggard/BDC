@@ -145,6 +145,13 @@
     <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ValidationRules\ValidationRulesBase.cs" />
+    <Compile Include="ViewModels\AddNewComponentViewModel.cs" />
+    <Compile Include="ViewModels\AddSystemViewModel.cs" />
+    <Compile Include="ViewModels\CameraViewModel.cs" />
+    <Compile Include="ViewModels\CmInspViewModel.cs" />
+    <Compile Include="ViewModels\CmViewModel.cs" />
+    <Compile Include="ViewModels\CpyCmViewModel.cs" />
+    <Compile Include="ViewModels\CpyInvViewModel.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="ViewModels\InspectionViewModel.cs" />
     <Compile Include="ViewModels\InventoryDetailsViewModel.cs" />
@@ -152,10 +159,32 @@
     <Compile Include="ViewModels\InventoryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />
+    <Compile Include="ViewModels\PhotoManagementViewModel.cs" />
     <Compile Include="ViewModels\QaInspectionViewModel.cs" />
     <Compile Include="ViewModels\QaInventoryViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\AddNewComponentView.xaml.cs">
+      <DependentUpon>AddNewComponentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddSystemView.xaml.cs">
+      <DependentUpon>AddSystemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CameraView.xaml.cs">
+      <DependentUpon>CameraView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CmInspView.xaml.cs">
+      <DependentUpon>CmInspView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CmView.xaml.cs">
+      <DependentUpon>CmView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CpyCmView.xaml.cs">
+      <DependentUpon>CpyCmView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CpyInvView.xaml.cs">
+      <DependentUpon>CpyInvView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FacilityView.xaml.cs">
       <DependentUpon>FacilityView.xaml</DependentUpon>
     </Compile>
@@ -176,6 +205,9 @@
     </Compile>
     <Compile Include="Views\PasswordView.xaml.cs">
       <DependentUpon>PasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PhotoManagementView.xaml.cs">
+      <DependentUpon>PhotoManagementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\QaInspectionView.xaml.cs">
       <DependentUpon>QaInspectionView.xaml</DependentUpon>
@@ -211,6 +243,34 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\AddNewComponentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddSystemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CameraView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CmInspView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CmView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CpyCmView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CpyInvView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\FacilityView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -236,6 +296,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PasswordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PhotoManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,141 @@
+﻿<Window 
+    x:Class="BDC_V1.Views.CameraView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:BDC_V1.Views"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d"
+    Title="CAPTURE PHOTO" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="bTB" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Width" Value="50" />
+        </Style>
+        
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--Toolbar.-->
+        <Grid
+            Grid.Row="0"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Border 
+                Grid.ColumnSpan="14" 
+                Background="Gray" />
+
+            <Button 
+                Grid.Column="0"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Camera_cropped.png"/>
+            </Button>
+
+            <Button 
+                Grid.Column="1"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Crop.png"/>
+            </Button>
+
+            <Button 
+                Grid.Column="2"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/RotateRight.png"/>
+            </Button>
+
+            <Button 
+                Grid.Column="3"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/RotateLeft.png"/>
+            </Button>
+
+            <Button 
+                Grid.Column="4"
+                Height="75"
+                Margin="10"
+                Content="Standard"
+                Width="75"
+                Style="{StaticResource bTB}"
+                >
+            </Button>
+
+            <Button 
+                Grid.Column="5"
+                Content="Large"
+                Height="75"
+                Margin="10"
+                Width="75"
+                Style="{StaticResource bTB}"
+                >
+            </Button>
+            
+            <Button 
+                Grid.Column="6"
+                Content="X Large"
+                Height="75"
+                Margin="10"
+                Width="75"
+                Style="{StaticResource bTB}"
+                >
+            </Button>
+            
+            <Button 
+                Grid.Column="8"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Cancel.png"/>
+            </Button>
+
+            <Button 
+                Grid.Column="9"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/OK.png"/>
+            </Button>
+
+        </Grid>
+
+        <Image
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" Source="/BDC_V1;component/Resources/Reactor.png"
+            />
+
+    </Grid>
+</Window>
