@@ -66,8 +66,10 @@ namespace BDC_V1.Classes
         {
             var node = new TreeViewItem
             {
-                Header = srcNode, 
-                Foreground = Brushes.Black
+                Header                     = srcNode, 
+                Foreground                 = Brushes.Black,
+                HorizontalContentAlignment = HorizontalAlignment.Left,  // removes some mysterious runtime warnings
+                VerticalContentAlignment   = VerticalAlignment.Center
             };
 
             switch (srcNode.NodeType)
