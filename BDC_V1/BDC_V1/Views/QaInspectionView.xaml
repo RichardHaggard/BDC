@@ -8,6 +8,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
     xmlns:viewModels="clr-namespace:BDC_V1.ViewModels"
+    xmlns:utils="clr-namespace:BDC_V1.Utils"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d"
     Height="400" Width="1200"
@@ -67,6 +68,23 @@
         </Setter.Value>
       </Setter>
     </Style>
+
+    <utils:RtgToBackgroundConverter x:Key="RtgToBackgroundConverter"/>
+
+    <Style x:Key="RtgStyle" TargetType="TextBlock">
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <!--
+      <Setter Property="Background" 
+              Value="{Binding RelativeSource={RelativeSource Self}, 
+                Path=Text, 
+                Converter={StaticResource RtgToBackgroundConverter}}" />
+      <Setter Property="TextDecorations"
+              Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},
+                      Path =InspectionInfo.Rtg,
+                      Converter={StaticResource RtgToBackgroundConverter}}" />
+      -->
+    </Style>
+
   </UserControl.Resources>
 
   <ScrollViewer HorizontalScrollBarVisibility="Auto"
@@ -87,7 +105,7 @@
         <ColumnDefinition Width="100" />
         <ColumnDefinition Width="100" />
         <ColumnDefinition Width="100" />
-        <ColumnDefinition Width="50"  />
+        <ColumnDefinition Width="40"  />
         <ColumnDefinition Width="590" />
         <ColumnDefinition Width="5" /> <!-- white space to the right -->
       </Grid.ColumnDefinitions>
@@ -174,12 +192,20 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">
         <DataGrid.Columns>
-          <DataGridTextColumn Header=" Facility ID"      Binding="{Binding Path=FacilityId}"   Width="100" />
-          <DataGridTextColumn Header=" System ID"        Binding="{Binding Path=SystemId}"     Width="100" />
-          <DataGridTextColumn Header=" Component"        Binding="{Binding Path=ComponentId}"  Width="100" />
-          <DataGridTextColumn Header=" Type"             Binding="{Binding Path=TypeName}"     Width="100" />
-          <DataGridTextColumn Header=" Section"          Binding="{Binding Path=SectionName}"  Width="100" />
-          <DataGridTextColumn Header=" Rtg."             Binding="{Binding Path=Rtg}"          Width="50"  />
+          <DataGridTextColumn Header=" Facility ID" Binding="{Binding Path=FacilityId}"   Width="100" />
+          <DataGridTextColumn Header=" System ID"   Binding="{Binding Path=SystemId}"     Width="100" />
+          <DataGridTextColumn Header=" Component"   Binding="{Binding Path=ComponentId}"  Width="100" />
+          <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"     Width="100" />
+          <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}"  Width="100" />
+          <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=Rtg}"          Width="40"
+                              ElementStyle="{StaticResource RtgStyle}">
+            <DataGridTextColumn.CellStyle>
+              <Style TargetType="DataGridCell" >
+                <Setter Property="Background" 
+                        Value="{Binding Path=Rtg, Converter={StaticResource RtgToBackgroundConverter}}" />
+              </Style>
+            </DataGridTextColumn.CellStyle>
+          </DataGridTextColumn>
           <DataGridTextColumn Header=" Inspection Issue" Binding="{Binding Path=InspectIssue}" Width="590" />
         </DataGrid.Columns>
       </DataGrid>

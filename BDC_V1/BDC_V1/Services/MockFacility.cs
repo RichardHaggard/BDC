@@ -64,6 +64,7 @@ namespace BDC_V1.Services
             {
                 NodeType = EnumTreeNodeType.FacilityNode,
                 Description = BuildingId + " - " + BuildingName
+
             });
 
             FacilityTreeNodes.Last().Children.Add(new TreeNode()

@@ -26,6 +26,7 @@ using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using Brushes = System.Drawing.Brushes;
 using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.ViewModels
@@ -591,7 +592,7 @@ namespace BDC_V1.ViewModels
                     case "QaInspection":
                         {
                             filter = (arg) => ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
-                                           (arg.NodeType == EnumTreeNodeType.SystemNode));
+                                               (arg.NodeType == EnumTreeNodeType.SystemNode));
                             break;
                         }
                     default:
@@ -601,6 +602,10 @@ namespace BDC_V1.ViewModels
 
                 foreach (var facility in LocalFacilityInfo.FacilityTreeNodes)
                     TreeItemsViewSource.Add(TreeNode.BuildTree(facility, filter));
+
+                // Color item backgrounds based on Issue count.
+                TreeItemsViewSource.First().Background = System.Windows.Media.Brushes.Red;          // 1+ QA issues
+                TreeItemsViewSource.Last ().Background = System.Windows.Media.Brushes.LightGreen;   // All QA passes
             }
 
             RaisePropertyChanged(nameof(TreeItemsViewSource));
