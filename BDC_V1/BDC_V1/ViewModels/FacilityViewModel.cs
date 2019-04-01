@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -12,7 +14,7 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.ViewModels
 {
-    public class FacilityViewModel : ViewModelBase
+    public class FacilityViewModel : ImagesModelBase
     {
         // **************** Class enumerations ********************************************** //
 
@@ -70,18 +72,7 @@ namespace BDC_V1.ViewModels
         {
             if (!base.GetRegionManager() || (RegionManager == null)) return false;
 
-            const string xaml = "<ItemsPanelTemplate\r\n" +
-                                "  xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'\r\n" +
-                                "  xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>\r\n" +
-                                "  <StackPanel Orientation=\"Horizontal\"\r\n" +
-                                "              VerticalAlignment=\"Center\"\r\n" +
-                                "              HorizontalAlignment=\"Left\"/>\r\n" +
-                                "</ItemsPanelTemplate>";
-            var foo = XamlReader.Parse(xaml) as ItemsPanelTemplate;
-
-            ItemsControl = new ItemsControl() {ItemsPanel = foo};
-            RegionManager.Regions[RegionManagerName].Add(ItemsControl);
-
+            ItemsControl = GetItemsControl(RegionManager);
             CreateImages();
 
             return true;
@@ -89,38 +80,22 @@ namespace BDC_V1.ViewModels
 
         private void CreateImages()
         {
-            if ((LocalFacilityInfo == null) || (ItemsControl == null))
+            if ((LocalFacilityInfo?.Images == null) || (ItemsControl == null)) 
                 return;
 
-            //var itemsWidth = 634;    // ItemsControl.ActualWidth;
-            var itemsHeight = 120;   // ItemsControl.ActualHeight,
+            if (ItemsControl.ItemsSource is ObservableCollection<Border> oldItems)
+                oldItems.Clear();
 
-            var borderImages = new QuickObservableCollection<Border>();
-
-            foreach (var item in LocalFacilityInfo.Images)
+            var imageSize = new System.Windows.Size()
             {
-                var image = new Image
-                {
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                    VerticalAlignment   = System.Windows.VerticalAlignment.Center,
-                    Height   = itemsHeight,
-                    MinWidth = 20,
-                    Source   = item
-                };
+                Height = 120, // ItemsControl.ActualHeight, 
+                Width  = 20   // minimum width
+            };
 
-                var border = new Border()
-                {
-                    Background      = Brushes.White,
-                    BorderThickness = new System.Windows.Thickness(1),
-                    Margin          = new System.Windows.Thickness() { Right = 5 },
-                    Child           = image
-                };
+            var itemList = base.CreateImages(imageSize, LocalFacilityInfo.Images);
 
-                //if ((itemsWidth -= border.ActualWidth) <= 0) break;
-                borderImages.Add(border);
-            }
-
-            ItemsControl.ItemsSource = borderImages;
+            // ReSharper disable once PossibleNullReferenceException
+            ItemsControl.ItemsSource = new QuickObservableCollection<Border>(itemList);
         }
     }
 }

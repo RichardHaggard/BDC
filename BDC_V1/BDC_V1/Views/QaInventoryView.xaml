@@ -22,13 +22,34 @@
       <Setter Property="FontWeight" Value="Bold" />
       <Setter Property="FontSize" Value="16" />
       <Setter Property="Height" Value="35" />
-      <Setter Property="Margin" Value="0"></Setter>
+      <Setter Property="Margin" Value="0" />
     </Style>
 
     <Style TargetType="DataGridRow">
       <Setter Property="Background" Value="WhiteSmoke" />
       <Setter Property="BorderBrush" Value="Black" />
       <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <Style x:Key="FilterButtonStyle" TargetType="Button">
+      <Setter Property="HorizontalAlignment"  Value="Stretch" />
+      <Setter Property="Height" Value="30" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate>
+            <Grid>
+              <Border CornerRadius="3"
+                      BorderThickness="2"
+                      Background="LightGray"
+                      BorderBrush="Green">
+                <Image Source="{Binding ImgFilter}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"/>
+              </Border>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
     </Style>
   </UserControl.Resources>
 
@@ -39,8 +60,9 @@
         <RowDefinition Height="5"    /> <!-- 0 - white space at top -->
         <RowDefinition Height="Auto" /> <!-- 1 - Component -->
         <RowDefinition Height="10"   /> <!-- 2 - white space between buttons and datagrid -->
-        <RowDefinition Height="Auto" /> <!-- 3 - Component Type -->
-        <RowDefinition Height="5"    /> <!-- 4 - white space at bottom -->
+        <RowDefinition Height="Auto" /> <!-- 3 - Filter buttons -->
+        <RowDefinition Height="Auto" /> <!-- 4 - Data Grid -->
+        <RowDefinition Height="5"    /> <!-- 5 - white space at bottom -->
       </Grid.RowDefinitions>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5" /> <!-- white space to the left -->
@@ -65,7 +87,7 @@
               Height="75" Margin="10"
               Command="{Binding CmdReviewIssue}"
               Style="{StaticResource MaterialDesignRaisedLightButton}">
-        <Image Source="/BDC_V1;component/Resources/ReviewIssue.png"/>
+        <Image Source="{Binding ImgReviewIssue}"/>
       </Button>
 
       <Grid Grid.Row="1" Grid.Column="6">
@@ -84,7 +106,7 @@
               <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Image Grid.Row="0" Margin="0,0,0,-10"
-                   Source="/BDC_V1;component/Resources/Filter_Clear.png"/>
+                   Source="{Binding ImgClearFilter}"/>
             <Label Grid.Row="1"
                    FontSize="13"
                    FontWeight="Bold"
@@ -100,204 +122,45 @@
                  HorizontalContentAlignment="Left"
                  VerticalContentAlignment="Center"
                  VerticalScrollBarVisibility="Auto"
-                 Margin="0,0,5,0">
+                 Margin="0">
         </TextBox>
       </Grid>
 
+      <!-- Filter buttons -->
+      <Button Grid.Row="3" Grid.Column="1" 
+        Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterByFacilityId}"/>
+      <Button Grid.Row="3" Grid.Column="2"
+              Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterBySystemId}"/>
+      <Button Grid.Row="3" Grid.Column="3"
+              Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterByComponentId}"/>
+      <Button Grid.Row="3" Grid.Column="4"
+              Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterByTypeName}"/>
+      <Button Grid.Row="3" Grid.Column="5"
+              Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterBySection}"/>
+      <Button Grid.Row="3" Grid.Column="6"
+              Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterByIssue}"/>
 
       <!-- DataGrid -->
-      <DataGrid Name="LvUsers" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="6" Width="1096"
+      <DataGrid Name="LvUsers" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="6" Width="1096"
                 ItemsSource="{Binding InventoryInfo}"
                 CanUserSortColumns="True"
                 GridLinesVisibility="All"
                 AutoGenerateColumns="False"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                
-                      >
+                VerticalAlignment="Top">
         <DataGrid.Columns>
-          <DataGridTextColumn Binding="{Binding Path=FacilityId}" Width="100"
-                              diagnostics:PresentationTraceSources.TraceLevel="High">
-            <i:Interaction.Triggers>
-              <i:EventTrigger EventName="Click">
-                <i:InvokeCommandAction Command="{
-                                    Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},
-                                            Path=DataContext.CmdFilterByFacilityId}"
-                    diagnostics:PresentationTraceSources.TraceLevel="High"/>
-              </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGridTextColumn.Header>
-              <Grid HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="2">
-                <Border SnapsToDevicePixels="True"
-                        Background="Transparent"
-                        BorderThickness="0">
-                  <DockPanel>
-                    <TextBlock Text="Fac. ID:"
-                               DockPanel.Dock="Left"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"/>
-                    <!-- ??? Why are these bitmaps not transparent ??? -->
-                    <Image Source="/BDC_V1;component/Resources/Filter.png"
-                           DockPanel.Dock="Right"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"/>
-                  </DockPanel>
-                </Border>
-              </Grid>
-            </DataGridTextColumn.Header>
-          </DataGridTextColumn>
-          <DataGridTextColumn Binding="{Binding Path=SystemId}" Width="100">
-            <i:Interaction.Triggers>
-              <i:EventTrigger EventName="Click">
-                <i:InvokeCommandAction Command="{
-                                    Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},
-                                            Path=DataContext.CmdFilterBySystemId}"
-                    diagnostics:PresentationTraceSources.TraceLevel="High"/>
-              </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGridTextColumn.Header>
-              <Grid HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="2">
-                <Border SnapsToDevicePixels="True"
-                        Background="Transparent"
-                        BorderThickness="0">
-                  <DockPanel>
-                    <TextBlock Text="Syst.:"
-                               DockPanel.Dock="Left"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"/>
-                    <Image Source="/BDC_V1;component/Resources/Filter.png"
-                           DockPanel.Dock="Right"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"/>
-                  </DockPanel>
-                </Border>
-              </Grid>
-            </DataGridTextColumn.Header>
-          </DataGridTextColumn>
-          <DataGridTextColumn Binding="{Binding Path=ComponentId}" Width="100">
-            <i:Interaction.Triggers>
-              <i:EventTrigger EventName="Click">
-                <i:InvokeCommandAction Command="{
-                                    Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},
-                                            Path=DataContext.CmdFilterByComponentId}"
-                    diagnostics:PresentationTraceSources.TraceLevel="High"/>
-              </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGridTextColumn.Header>
-              <Grid HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="2">
-                <Border SnapsToDevicePixels="True"
-                        Background="Transparent"
-                        BorderThickness="0">
-                  <DockPanel>
-                    <TextBlock Text="Comp.:"
-                               DockPanel.Dock="Left"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"/>
-                    <Image Source="/BDC_V1;component/Resources/Filter.png"
-                           DockPanel.Dock="Right"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"/>
-                  </DockPanel>
-                </Border>
-              </Grid>
-            </DataGridTextColumn.Header>
-          </DataGridTextColumn>
-          <DataGridTextColumn Binding="{Binding Path=TypeName}" Width="100">
-            <i:Interaction.Triggers>
-              <i:EventTrigger EventName="Click">
-                <i:InvokeCommandAction Command="{
-                                    Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},
-                                            Path=DataContext.CmdFilterByTypeName}"
-                    diagnostics:PresentationTraceSources.TraceLevel="High"/>
-              </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGridTextColumn.Header>
-              <Grid HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="2">
-                <Border SnapsToDevicePixels="True"
-                        Background="Transparent"
-                        BorderThickness="0">
-                  <DockPanel>
-                    <TextBlock Text="Type:"
-                               DockPanel.Dock="Left"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"/>
-                    <Image Source="/BDC_V1;component/Resources/Filter.png"
-                           DockPanel.Dock="Right"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"/>
-                  </DockPanel>
-                </Border>
-              </Grid>
-            </DataGridTextColumn.Header>
-          </DataGridTextColumn>
-          <DataGridTextColumn Binding="{Binding Path=SectionName}" Width="100">
-            <i:Interaction.Triggers>
-              <i:EventTrigger EventName="Click">
-                <i:InvokeCommandAction Command="{
-                                    Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},
-                                            Path=DataContext.CmdFilterBySection}"
-                    diagnostics:PresentationTraceSources.TraceLevel="High"/>
-              </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGridTextColumn.Header>
-              <Grid HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="2">
-                <Border SnapsToDevicePixels="True"
-                        Background="Transparent"
-                        BorderThickness="0">
-                  <DockPanel>
-                    <TextBlock Text="Section:"
-                               DockPanel.Dock="Left"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"/>
-                    <Image Source="/BDC_V1;component/Resources/Filter.png"
-                           DockPanel.Dock="Right"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"/>
-                  </DockPanel>
-                </Border>
-              </Grid>
-            </DataGridTextColumn.Header>
-          </DataGridTextColumn>
-          <DataGridTextColumn Binding="{Binding Path=InventIssue}" Width="593">
-            <i:Interaction.Triggers>
-              <i:EventTrigger EventName="Click">
-                <i:InvokeCommandAction Command="{
-                                    Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},
-                                            Path=DataContext.CmdFilterByIssue}"
-                    diagnostics:PresentationTraceSources.TraceLevel="High"/>
-              </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGridTextColumn.Header>
-              <Grid HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="0,0,10,0">
-                <Border SnapsToDevicePixels="True"
-                        Background="Transparent"
-                        BorderThickness="0">
-                  <DockPanel>
-                    <TextBlock Text="Inventory Issues:"
-                               DockPanel.Dock="Left"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"/>
-                    <Image Source="/BDC_V1;component/Resources/Filter.png"
-                           DockPanel.Dock="Right"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"/>
-                  </DockPanel>
-                </Border>
-              </Grid>
-            </DataGridTextColumn.Header>
-          </DataGridTextColumn>
+          <DataGridTextColumn Header=" Facility ID"      Binding="{Binding Path=FacilityId}"  Width="100" />
+          <DataGridTextColumn Header=" System ID"        Binding="{Binding Path=SystemId}"    Width="100" />
+          <DataGridTextColumn Header=" Component"        Binding="{Binding Path=ComponentId}" Width="100" />
+          <DataGridTextColumn Header=" Type"             Binding="{Binding Path=TypeName}"    Width="100" />
+          <DataGridTextColumn Header=" Section"          Binding="{Binding Path=SectionName}" Width="100" />
+          <DataGridTextColumn Header=" Inventory Issue"  Binding="{Binding Path=InventIssue}" Width="590" />
         </DataGrid.Columns>
       </DataGrid>
     </Grid>

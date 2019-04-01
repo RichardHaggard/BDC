@@ -91,6 +91,7 @@
     <Compile Include="Classes\Contact.cs" />
     <Compile Include="Classes\Facility.cs" />
     <Compile Include="Classes\InspectionInfoType.cs" />
+    <Compile Include="Classes\InspectionType.cs" />
     <Compile Include="Classes\Inspector.cs" />
     <Compile Include="Classes\InventoryDetailsType.cs" />
     <Compile Include="Classes\InventorySectionType.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Interfaces\IFacility.cs" />
     <Compile Include="Interfaces\IGlobalContainer.cs" />
     <Compile Include="Interfaces\IInspectionInfoType.cs" />
+    <Compile Include="Interfaces\IInspectionType.cs" />
     <Compile Include="Interfaces\IInspector.cs" />
     <Compile Include="Interfaces\IInventoryDetailsType.cs" />
     <Compile Include="Interfaces\IInventoryType.cs" />
@@ -153,6 +155,7 @@
     <Compile Include="ViewModels\CpyCmViewModel.cs" />
     <Compile Include="ViewModels\CpyInvViewModel.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
+    <Compile Include="ViewModels\ImagesModelBase.cs" />
     <Compile Include="ViewModels\InspectionViewModel.cs" />
     <Compile Include="ViewModels\InventoryDetailsViewModel.cs" />
     <Compile Include="ViewModels\InventorySectionViewModel.cs" />

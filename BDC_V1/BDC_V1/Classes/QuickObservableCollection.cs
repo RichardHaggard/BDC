@@ -12,47 +12,60 @@ namespace BDC_V1.Classes
 {
     public class QuickObservableCollection<T> : ObservableCollection<T>
     {
-        //protected bool SuppressNotification { get; set; }
+        protected bool SuppressNotification { get; set; }
  
-        // !!! This gets occasional out of range exceptions !!!
-        //protected override void OnCollectionChanged([CanBeNull] NotifyCollectionChangedEventArgs e)
-        //{
-        //    if (!SuppressNotification && (e != null)) 
-        //        base.OnCollectionChanged(e);
-        //}
+        public QuickObservableCollection()
+        {
+        }
  
-        //public void AddRange([CanBeNull] IEnumerable<T> list)
-        //{
-        //    if (list == null) return;
+        public QuickObservableCollection([NotNull] List<T> list)
+            : base(list)
+        {
+        }
 
-        //    var oldSuppressNotification = SuppressNotification;
-        //    SuppressNotification = true;
+        public QuickObservableCollection([NotNull] IEnumerable<T> collection)
+            : base(collection)
+        {
+        }
 
-        //    foreach (var item in list)
-        //        base.Add(item);
+        protected override void OnCollectionChanged([CanBeNull] NotifyCollectionChangedEventArgs e)
+        {
+            if (!SuppressNotification && (e != null)) 
+                base.OnCollectionChanged(e);
+        }
+ 
+        public void AddRange([CanBeNull] IEnumerable<T> list)
+        {
+            if (list == null) return;
 
-        //    SuppressNotification = oldSuppressNotification;
+            var oldSuppressNotification = SuppressNotification;
+            SuppressNotification = true;
 
-        //    var args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, list);
-        //    OnCollectionChanged(args);
-        //}
+            foreach (var item in list)
+                base.Add(item);
 
-        //public void RemoveRange([CanBeNull] IEnumerable<T> list)
-        //{
-        //    if (list == null) return;
+            SuppressNotification = oldSuppressNotification;
 
-        //    var oldSuppressNotification = SuppressNotification;
-        //    SuppressNotification = true;
+            var args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, list);
+            OnCollectionChanged(args);
+        }
 
-        //    foreach (var item in list)
-        //    {
-        //        if (Contains(item)) Remove(item);
-        //    }
+        public void RemoveRange([CanBeNull] IEnumerable<T> list)
+        {
+            if (list == null) return;
 
-        //    SuppressNotification = oldSuppressNotification;
+            var oldSuppressNotification = SuppressNotification;
+            SuppressNotification = true;
 
-        //    var args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, list);
-        //    OnCollectionChanged(args);
-        //}
+            foreach (var item in list)
+            {
+                if (Contains(item)) Remove(item);
+            }
+
+            SuppressNotification = oldSuppressNotification;
+
+            var args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, list);
+            OnCollectionChanged(args);
+        }
     }
 }

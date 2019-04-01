@@ -2,15 +2,187 @@
     x:Class="BDC_V1.Views.QaInspectionView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:BDC_V1.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+    xmlns:viewModels="clr-namespace:BDC_V1.ViewModels"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    mc:Ignorable="d" 
-    d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label Content="QA Inspection View" />
+    mc:Ignorable="d"
+    Height="400" Width="1200"
+    d:DesignHeight="400" d:DesignWidth="1200">
 
+  <UserControl.Resources>
+    <Style TargetType="DataGridColumnHeader">
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="Background" Value="LightGray" />
+      <Setter Property="BorderBrush" Value="Black" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Height" Value="35" />
+      <Setter Property="Margin" Value="0" />
+    </Style>
+
+    <Style TargetType="DataGridRow">
+      <Setter Property="Background" Value="WhiteSmoke" />
+      <Setter Property="BorderBrush" Value="Black" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <Style x:Key="FilterButtonStyleBase" TargetType="Button">
+      <Setter Property="HorizontalAlignment"  Value="Stretch" />
+      <Setter Property="Height" Value="30" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate>
+            <Border CornerRadius="3"
+                    BorderThickness="2"
+                    Background="LightGray"
+                    BorderBrush="Green">
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style x:Key="FilterButtonStyle" TargetType="Button">
+      <Setter Property="HorizontalAlignment"  Value="Stretch" />
+      <Setter Property="Height" Value="30" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate>
+            <Grid>
+              <Border CornerRadius="3"
+                      BorderThickness="2"
+                      Background="LightGray"
+                      BorderBrush="Green">
+                <Image Source="{Binding ImgFilter}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"/>
+              </Border>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </UserControl.Resources>
+
+  <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="5"    /> <!-- 0 - white space at top -->
+        <RowDefinition Height="Auto" /> <!-- 1 - Component -->
+        <RowDefinition Height="10"   /> <!-- 2 - white space between buttons and datagrid -->
+        <RowDefinition Height="Auto" /> <!-- 3 - Filter buttons -->
+        <RowDefinition Height="Auto" /> <!-- 4 - Data Grid -->
+        <RowDefinition Height="5"    /> <!-- 5 - white space at bottom -->
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="5" /> <!-- white space to the left -->
+        <ColumnDefinition Width="100" />
+        <ColumnDefinition Width="100" />
+        <ColumnDefinition Width="100" />
+        <ColumnDefinition Width="100" />
+        <ColumnDefinition Width="100" />
+        <ColumnDefinition Width="50"  />
+        <ColumnDefinition Width="590" />
+        <ColumnDefinition Width="5" /> <!-- white space to the right -->
+      </Grid.ColumnDefinitions>
+
+      <!-- Button row -->
+      <Button ToolTip="Refresh" Grid.Row="1" Grid.Column="1"
+              Height="75" Margin="10"
+              Command="{Binding CmdRefresh}"
+              Style="{StaticResource MaterialDesignRaisedLightButton}">
+        <Image Source="/BDC_V1;component/Resources/Refresh.png"/>
+      </Button>
+
+      <Button ToolTip="Review Issue" Grid.Row="1" Grid.Column="2"
+              Height="75" Margin="10"
+              Command="{Binding CmdReviewIssue}"
+              Style="{StaticResource MaterialDesignRaisedLightButton}">
+        <Image Source="{Binding ImgReviewIssue}"/>
+      </Button>
+
+      <Grid Grid.Row="1" Grid.Column="7">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="100" /> <!-- Button -->
+          <ColumnDefinition Width="*"   /> <!-- Text -->
+        </Grid.ColumnDefinitions>
+
+        <Button ToolTip="Clear Filter" Grid.Column="0"
+                Height="75" Margin="10"
+                Command="{Binding CmdClearFilter}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="3*"/>
+              <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Margin="0,0,0,-10"
+                   Source="{Binding ImgClearFilter}"/>
+            <Label Grid.Row="1"
+                   FontSize="13"
+                   FontWeight="Bold"
+                   >
+              Clear Filter
+            </Label>
+          </Grid>
+        </Button>
+        <TextBox Grid.Column="1"
+                 Background="LightGray"
+                 Text="{Binding Description}"
+                 TextWrapping="Wrap"
+                 HorizontalContentAlignment="Left"
+                 VerticalContentAlignment="Center"
+                 VerticalScrollBarVisibility="Auto"
+                 Margin="0">
+        </TextBox>
+      </Grid>
+
+      <!-- Filter buttons -->
+      <Button Grid.Row="3" Grid.Column="1" 
+        Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterByFacilityId}"/>
+      <Button Grid.Row="3" Grid.Column="2"
+              Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterBySystemId}"/>
+      <Button Grid.Row="3" Grid.Column="3"
+              Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterByComponentId}"/>
+      <Button Grid.Row="3" Grid.Column="4"
+              Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterByTypeName}"/>
+      <Button Grid.Row="3" Grid.Column="5"
+              Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterBySection}"/>
+      <Button Grid.Row="3" Grid.Column="6"                
+              Style="{DynamicResource FilterButtonStyleBase}"/>  <!-- space filler -->
+      <Button Grid.Row="3" Grid.Column="7"
+              Style="{DynamicResource FilterButtonStyle}"
+              Command="{Binding CmdFilterByIssue}"/>
+
+      <!-- DataGrid -->
+      <DataGrid Name="LvUsers" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="7" Width="1146"
+                ItemsSource="{Binding InspectionInfo}"
+                CanUserSortColumns="True"
+                GridLinesVisibility="All"
+                AutoGenerateColumns="False"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header=" Facility ID"      Binding="{Binding Path=FacilityId}"   Width="100" />
+          <DataGridTextColumn Header=" System ID"        Binding="{Binding Path=SystemId}"     Width="100" />
+          <DataGridTextColumn Header=" Component"        Binding="{Binding Path=ComponentId}"  Width="100" />
+          <DataGridTextColumn Header=" Type"             Binding="{Binding Path=TypeName}"     Width="100" />
+          <DataGridTextColumn Header=" Section"          Binding="{Binding Path=SectionName}"  Width="100" />
+          <DataGridTextColumn Header=" Rtg."             Binding="{Binding Path=Rtg}"          Width="50"  />
+          <DataGridTextColumn Header=" Inspection Issue" Binding="{Binding Path=InspectIssue}" Width="590" />
+        </DataGrid.Columns>
+      </DataGrid>
     </Grid>
+  </ScrollViewer>
 </UserControl>

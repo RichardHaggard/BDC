@@ -7,8 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Interfaces;
+using BDC_V1.Utils;
 using BDC_V1.ViewModels;
 using JetBrains.Annotations;
 using Prism.Commands;
@@ -33,6 +36,10 @@ namespace BDC_V1.ViewModels
         public ICommand CmdRefresh             { get; }
         public ICommand CmdReviewIssue         { get; }
         public ICommand CmdClearFilter         { get; }
+
+        public BitmapSource ImgClearFilter     { get; }
+        public BitmapSource ImgReviewIssue     { get; }
+        public BitmapSource ImgFilter          { get; }
 
         public string Description
         {
@@ -95,6 +102,10 @@ namespace BDC_V1.ViewModels
             CmdReviewIssue         = new DelegateCommand(OnCmdReviewIssue     );
             CmdClearFilter         = new DelegateCommand(OnCmdClearFilter     );
 
+            ImgClearFilter = MakeTransparent(@"pack://application:,,,/Resources/Filter_Clear.png");
+            ImgReviewIssue = MakeTransparent(@"pack://application:,,,/Resources/ReviewIssue.png");
+            ImgFilter      = MakeTransparent(@"pack://application:,,,/Resources/Filter.png");
+
             InventoryInfo.Add(new InventoryType()
             {
                 FacilityId = "11057",
@@ -116,7 +127,7 @@ namespace BDC_V1.ViewModels
             });
 
             Description = "Filter: 11057";
-            //InventoryInfo.AddRange(Enumerable.Repeat(new InventoryType(), 30));
+            //InspectionInfo.AddRange(Enumerable.Repeat(new InventoryType(), 30));
         }
 
         // **************** Class members *************************************************** //
@@ -124,6 +135,14 @@ namespace BDC_V1.ViewModels
         protected override bool GetRegionManager()
         {
             return false;
+        }
+
+        private BitmapSource MakeTransparent(string resource, System.Drawing.Color? backColor = null)
+        {
+            var image  = new BitmapImage(new Uri(resource));
+            var bitmap = image.ToBitmap();
+            bitmap.MakeTransparent(backColor?? System.Drawing.Color.White);
+            return bitmap.ToBitmapSource();
         }
 
         private void OnFilterByFacilityId () { Debug.WriteLine("OnFilterByFacilityId  not implemented"); }
