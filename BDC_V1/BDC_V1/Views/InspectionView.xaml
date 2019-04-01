@@ -502,8 +502,14 @@
                  Content="Inspection Comment" />
         </Grid>
       </Border>
+            <Button
+                Grid.Row="7"
+                Content="Insp Comment"
+                Command="{Binding CmdInspectionComment}">
 
-      <!-- Remember -->
+            </Button>
+
+            <!-- Remember -->
       <Border Grid.Row="9"
               Grid.Column="0"
               Background="LightBlue">

@@ -17,6 +17,7 @@ using BDC_V1.Enumerations;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
+using BDC_V1.Views;
 using CommonServiceLocator;
 using JetBrains.Annotations;
 using MaterialDesignThemes.Wpf;
@@ -38,9 +39,10 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdCondRating       { get; }
-        public ICommand CmdCancelEdit       { get; }
-        public ICommand CmdDeleteInspection { get; }
+        public ICommand CmdCondRating        { get; }
+        public ICommand CmdCancelEdit        { get; }
+        public ICommand CmdDeleteInspection  { get; }
+        public ICommand CmdInspectionComment { get; }
 
         public bool IsRemembered
         {
@@ -128,9 +130,10 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "InspectionItemControl";
 
-            CmdCondRating       = new DelegateCommand<object>(OnConditionRating);
-            CmdCancelEdit       = new DelegateCommand(OnCancelEdit      );
-            CmdDeleteInspection = new DelegateCommand(OnDeleteInspection);
+            CmdCondRating        = new DelegateCommand<object>(OnConditionRating);
+            CmdCancelEdit        = new DelegateCommand(OnCancelEdit      );
+            CmdDeleteInspection  = new DelegateCommand(OnDeleteInspection);
+            CmdInspectionComment = new DelegateCommand(OnCmdInspectionComment    );
 
             IsPainted    = false;
             IsRemembered = false;
@@ -209,6 +212,12 @@ namespace BDC_V1.ViewModels
         private void OnCancelEdit()
         {
             Debug.WriteLine("OnCancelEdit not implemented");
+        }
+
+        private void OnCmdInspectionComment()
+        {
+            CmInspView view = new CmInspView();
+            view.ShowDialog();
         }
 
         private void OnDeleteInspection()

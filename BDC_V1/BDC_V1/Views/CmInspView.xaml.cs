@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BDC_V1.Events;
 
 namespace BDC_V1.Views
 {
@@ -22,6 +23,13 @@ namespace BDC_V1.Views
         public CmInspView()
         {
             InitializeComponent();
+
+            EventAggregator.GetEvent<Prism.Events.PubSubEvent<CloseWindowEvent>>()
+                .Subscribe((item) =>
+                {
+                    if (item?.WindowName==this.GetType().Name)
+                        Close();
+                });
         }
     }
 }

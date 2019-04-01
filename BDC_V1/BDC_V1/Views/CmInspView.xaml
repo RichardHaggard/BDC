@@ -7,9 +7,130 @@
     xmlns:local="clr-namespace:BDC_V1.Views"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    xmlns:utils="clr-namespace:BDC_V1.Utils"
+    utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
     mc:Ignorable="d"
-    Title="CmInspView" Height="450" Width="800">
+    Title="Inspection Comment on [Inventory Item[,Section]]" 
+    Height="450" Width="800"
+    >
+
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="bTB" BasedOn="{StaticResource ToolbarButton}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0"
+            Background="LightGray"
+            Content="for Inspection on [inspection date]"
+            Margin="0"
+            Style="{StaticResource LabelLJ}"
+            />
+
+        <!--Toolbar.-->
+        <Grid
+            Grid.Row="1"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button 
+                Grid.Column="0"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/MicrophoneON_Rnd.png"/>
+            </Button>
+
+            <Button 
+                Grid.Column="1"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/MicrophoneOFF_Rnd_Slash.png"/>
+            </Button>
+
+            <Button 
+                Grid.Column="2"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Copy.jpg"/>
+            </Button>
+
+            <Button 
+                Grid.Column="3"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Distress_Selector.png"/>
+            </Button>
+            
+            <Button 
+                Grid.Column="4"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/SpellCheck.png"/>
+            </Button>
+
+            <Button 
+                Grid.Column="7"
+                Command="{Binding CmdCancel}"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Cancel.png"/>
+            </Button>
+
+            <Button 
+                Grid.Column="8"
+                Command="{Binding CmdDefer}"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/OK_ReviewLater.png"/>
+            </Button>
+
+            <Button 
+                Grid.Column="9"
+                Command="{Binding CmdOK}"
+                Style="{StaticResource bTB}"
+                >
+                <Image Source="/BDC_V1;component/Resources/OK.png"/>
+            </Button>
+
+        </Grid>
+
+        <StackPanel
+            Grid.Row="2"
+            Orientation="Horizontal">
+
+            <RadioButton Margin="5,5,15,5"  Content="Repair is recommended" />
+            <RadioButton Margin="5,5,15,5"  Content="Replacement is recommented" />
+            <RadioButton Margin="5,5,15,5"  Content="No recom." />
+        </StackPanel>
+
+        <TextBox
+            Grid.Row="3"
+            IsReadOnly="False"
+            Margin="5"
+            Style="{StaticResource TextBoxWrap}"
+            Text="{Binding Comment}"/>
     </Grid>
 </Window>
