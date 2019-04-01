@@ -11,12 +11,11 @@
     Title="CAPTURE PHOTO" Height="450" Width="800">
 
     <Window.Resources>
-        <Style TargetType="Button" x:Key="bTB" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
+        <Style TargetType="Button" x:Key="bTB" BasedOn="{StaticResource ToolbarButton}">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Height" Value="50" />
             <Setter Property="Width" Value="50" />
         </Style>
-        
     </Window.Resources>
 
     <Grid>

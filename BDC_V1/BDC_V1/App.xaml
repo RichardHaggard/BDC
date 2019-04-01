@@ -106,7 +106,13 @@
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
 
-            
+            <Style TargetType="Button" x:Key="ToolbarButton" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Height" Value="50" />
+                <Setter Property="Width" Value="50" />
+            </Style>
+
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 
