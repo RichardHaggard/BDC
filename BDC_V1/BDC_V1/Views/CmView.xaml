@@ -18,11 +18,13 @@
       <Setter Property="Margin" Value="10" />
       <Setter Property="BorderThickness" Value="0" />
     </Style>
-            
+
     <Style x:Key="HeaderText" TargetType="Label">
       <Setter Property="FontSize" Value="15" />
       <Setter Property="Margin" Value="0" />
       <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Background" Value="LightGray" />
+      <Setter Property="MinHeight" Value="20" />
     </Style>
   </Window.Resources>
 
@@ -34,17 +36,15 @@
     </Grid.RowDefinitions>
 
     <!-- Header text -->
-    <StackPanel Grid.Row="0" Margin="0">
-      <Label Background="LightGray" MinHeight="20"
-             Content="{Binding HeaderText1, Mode=OneWay}"
+    <StackPanel Grid.Row="0">
+      <Label Content="{Binding HeaderText1, Mode=OneWay}"
              Style="{StaticResource HeaderText}"/>
-      <Label Background="LightGray" MinHeight="20"
-             Content="{Binding HeaderText2, Mode=OneWay}"
+      <Label Content="{Binding HeaderText2, Mode=OneWay}"
              Style="{StaticResource HeaderText}"/>
     </StackPanel>
 
     <!-- Toolbar -->
-    <Border Grid.Row="1" Background="White">
+    <Border Grid.Row="1" Background="White" MinWidth="550">
       <Grid >
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto" />            <!-- 0 - Mic on -->
@@ -103,10 +103,11 @@
 
     <!-- Comment text -->
     <TextBox Grid.Row="2"
+             IsReadOnly="False"
              BorderThickness ="4"
              BorderBrush="Gray" 
              Background="White"
-             Text="{Binding CommentText, Mode=TwoWay}">
-    </TextBox>
+             Style="{StaticResource TextBoxWrap}"
+             Text="{Binding CommentText, Mode=TwoWay}" />
   </Grid>
 </Window>

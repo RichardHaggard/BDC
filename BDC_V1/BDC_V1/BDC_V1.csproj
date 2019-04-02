@@ -101,8 +101,10 @@
     <Compile Include="Classes\RelayCommand.cs" />
     <Compile Include="Classes\TreeNode.cs" />
     <Compile Include="Classes\ValidUsers.cs" />
+    <Compile Include="Enumerations\EnumCommentResult.cs" />
     <Compile Include="Enumerations\EnumConstType.cs" />
     <Compile Include="Enumerations\EnumInspectionType.cs" />
+    <Compile Include="Enumerations\EnumRepairType.cs" />
     <Compile Include="Enumerations\EnumTreeNodeType.cs" />
     <Compile Include="Events\CloseWindowEvent.cs" />
     <Compile Include="Events\EventAggregator.cs" />

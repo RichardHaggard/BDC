@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using BDC_V1.Enumerations;
 using Prism.Commands;
 
 namespace BDC_V1.ViewModels
@@ -24,6 +25,16 @@ namespace BDC_V1.ViewModels
         public ICommand CmdCancelUndo  { get; }
         public ICommand CmdReviewLater { get; }
         public ICommand CmdOkCommand   { get; }
+
+        /// <summary>
+        /// Setting this will cause the dialog to close
+        /// </summary>
+        public bool? DialogResultEx
+        {
+            get => _dialogResultEx;
+            set => SetProperty(ref _dialogResultEx, value);
+        }
+        private bool? _dialogResultEx;
 
         public string HeaderText1
         {
@@ -46,6 +57,13 @@ namespace BDC_V1.ViewModels
         }
         private string _commentText;
 
+        /// <summary>
+        /// EnumCommentResult.ResultCancelled indicates cancellation.
+        /// EnumCommentResult.ResultDeferred  is defer result.
+        /// EnumCommentResult.ResultSaveNow   is save Comment now.
+        /// </summary>
+        public EnumCommentResult Result { get; set; }
+
         // **************** Class constructors ********************************************** //
         
         public CmViewModel()
@@ -65,12 +83,27 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
+        private void OnCancelUndo()
+        {
+            Result = EnumCommentResult.ResultCancelled;
+            DialogResultEx = false;
+        }
+
+        private void OnReviewLater()
+        {
+            Result = EnumCommentResult.ResultDeferred;
+            DialogResultEx = false;
+        }
+
+        private void OnOkCommand()
+        {
+            Result = EnumCommentResult.ResultSaveNow;
+            DialogResultEx = true;
+        }
+
         private void OnMicOn      () { Debug.WriteLine("OnMicOn       not implemented"); }
         private void OnMicOff     () { Debug.WriteLine("OnMicOff      not implemented"); }
         private void OnCopy       () { Debug.WriteLine("OnCopy        not implemented"); }
         private void OnSpellCheck () { Debug.WriteLine("OnSpellCheck  not implemented"); }
-        private void OnCancelUndo () { Debug.WriteLine("OnCancelUndo  not implemented"); }
-        private void OnReviewLater() { Debug.WriteLine("OnReviewLater not implemented"); }
-        private void OnOkCommand  () { Debug.WriteLine("OnOkCommand   not implemented"); }
     }
 }
