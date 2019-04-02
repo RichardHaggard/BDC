@@ -24,8 +24,14 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
 
+          <Style x:Key="TransparentBitmap" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
+            <Setter Property="Height" Value="82" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Margin" Value="10" />
+          </Style>
+        </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
@@ -83,159 +89,105 @@
                 Background="Gray" />
 
             <!--Default/Inventory mode button-->
-            <Button 
-                Grid.Column="0"
-                Height="82"
-                Margin="10"
-                ToolTip="Default/Inventory Mode"
-                Command="{Binding CmdDefaultInventoryMode}"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                >
-                <Image Height="72" Width="72" 
-                       Source="{Binding ImgInventory}"/>
+            <Button Grid.Column="0"
+                    ToolTip="Default/Inventory Mode"
+                    Command="{Binding CmdDefaultInventoryMode}"
+                    Style="{DynamicResource TransparentBitmap}">
+                <Image Height="72" Width="72" Source="{Binding ImgInventory}"/>
             </Button>
 
             <!--Inspection mode button-->
-            <Button 
-                Grid.Column="1"
-                Height="82"
-                Margin="10"
-                ToolTip="Inspection Mode"
-                Command="{Binding CmdInspectionMode}"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Visibility="{Binding VisibilityInspectionButton}"
-                >
-                <Image Height="72" Width="72" 
-                       Source="{Binding ImgInspection}"/>
+            <Button Grid.Column="1"
+                    ToolTip="Inspection Mode"
+                    Command="{Binding CmdInspectionMode}"
+                    Style="{DynamicResource TransparentBitmap}">
+                <Image Height="72" Width="72" Source="{Binding ImgInspection}"/>
             </Button>
             
             <!--Add System-->
             <!--Visible when Facility active-->
-            <Button 
-                Grid.Column="2"
-                Height="82"
-                Margin="10"
-                ToolTip="Add System"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Command="{Binding CmdAddSystem}"
-                Visibility="{Binding VisibilityAddSystemButton}"
-                >
-                <Image Width="132" Height="72"
-                       Source="{Binding ImgAddSystem}"/>
+            <Button Grid.Column="2"
+                    ToolTip="Add System"
+                    Command="{Binding CmdAddSystem}"
+                    Visibility="{Binding VisibilityAddSystemButton}"
+                    Style="{DynamicResource TransparentBitmap}">
+                <Image Width="132" Height="72" Source="{Binding ImgAddSystem}"/>
             </Button>
 
             <!--Delete System-->
             <!--Visible when Facility active-->
-            <Button 
-                Grid.Column="3"
-                Height="82"
-                Margin="10"
-                ToolTip="Delete System"
-                Command="{Binding CmdDeleteSystem}"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Visibility="{Binding VisibilityDeleteSystemButton}"
-                >
-                <Image Width="132" Height="72"
-                       Source="{Binding ImgDeleteSystem}"/>
+            <Button Grid.Column="3"
+                    ToolTip="Delete System"
+                    Command="{Binding CmdDeleteSystem}"
+                    Visibility="{Binding VisibilityDeleteSystemButton}"
+                    Style="{DynamicResource TransparentBitmap}">
+              <Image Width="132" Height="72" Source="{Binding ImgDeleteSystem}"/>
             </Button>
 
             <!--Add Component-->
             <!--Visible when Inventory active-->
-            <Button 
-                Grid.Column="4"
-                Height="82"
-                Margin="10"
-                ToolTip="Add Component"
-                Command="{Binding CmdAddComponent}"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Visibility="{Binding VisibilityAddComponentButton}"
-                >
-                <Image Width="132" Height="72"
-                       Source="{Binding ImgAddComponent}"/>
+            <Button Grid.Column="4"
+                    ToolTip="Add Component"
+                    Command="{Binding CmdAddComponent}"
+                    Visibility="{Binding VisibilityAddComponentButton}"
+                    Style="{DynamicResource TransparentBitmap}">
+              <Image Width="132" Height="72" Source="{Binding ImgAddComponent}"/>
             </Button>
 
             <!--Add Section-->
             <!--Visible when Inventory active-->
-            <Button 
-                Grid.Column="5"
-                Height="82"
-                Margin="10"
-                ToolTip="Add Section"
-                Command="{Binding CmdAddSection}"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Visibility="{Binding VisibilityAddSectionButton}"
-                >
-                <Image Width="132" Height="72"
-                       Source="{Binding ImgAddSection}"/>
+            <Button Grid.Column="5"
+                    ToolTip="Add Section"
+                    Command="{Binding CmdAddSection}"
+                    Visibility="{Binding VisibilityAddSectionButton}"
+                    Style="{DynamicResource TransparentBitmap}">
+                <Image Width="132" Height="72" Source="{Binding ImgAddSection}"/>
             </Button>
 
             <!--Copy Sections-->
             <!--Visible when Inventory active-->
-            <Button 
-                Grid.Column="6"
-                Height="82"
-                Margin="10"
-                ToolTip="Copy Sections"
-                Command="{Binding CmdCopySections}"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Visibility="{Binding VisibilityCopySectionsButton}"
-                >
-                <Image Width="72" Height="72"
-                  Source="{Binding ImgCopy}"/>
+            <Button Grid.Column="6"
+                    ToolTip="Copy Sections"
+                    Command="{Binding CmdCopySections}"
+                    Visibility="{Binding VisibilityCopySectionsButton}"
+                    Style="{DynamicResource TransparentBitmap}">
+                <Image Width="72" Height="72" Source="{Binding ImgCopy}"/>
             </Button>
 
             <!--Copy Inventory-->
             <!--Visible when Inventory active-->
-            <Button 
-                Grid.Column="7"
-                Height="82"
-                Margin="10"
-                ToolTip="Copy Inventory"
-                Command="{Binding CmdCopyInventory}"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Visibility="{Binding VisibilityCopyInventoryButton}"
-                >
-                <Image Width="72" Height="72"
-                       Source="{Binding ImgCopy}"/>
+            <Button Grid.Column="7"
+                    ToolTip="Copy Inventory"
+                    Command="{Binding CmdCopyInventory}"
+                    Visibility="{Binding VisibilityCopyInventoryButton}"
+                    Style="{DynamicResource TransparentBitmap}">
+                <Image Width="72" Height="72" Source="{Binding ImgCopy}"/>
             </Button>
 
             <!--Copy Inspection-->
             <!--Visible when Inspection active-->
-            <Button 
-                Grid.Column="8"
-                Height="82"
-                Margin="10"
-                ToolTip="Copy Inspection"
-                Command="{Binding CmdCopyInspection}"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Visibility="{Binding VisibilityCopyInspectionButton}"
-                >
-                <Image Width="72" Height="72"
-                       Source="{Binding ImgCopy}"/>
+            <Button Grid.Column="8"
+                    ToolTip="Copy Inspection"
+                    Command="{Binding CmdCopyInspection}"
+                    Visibility="{Binding VisibilityCopyInspectionButton}"
+                    Style="{DynamicResource TransparentBitmap}">
+                <Image Width="72" Height="72" Source="{Binding ImgCopy}"/>
             </Button>
 
             <!--Microphone On button-->
-            <Button 
-                Grid.Column="10"
-                Height="82"
-                Margin="10"
-                ToolTip="Microphone ON"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Command="{Binding CmdMicOn}">
-                <Image Width="72" Height="72"
-                       Source="{Binding ImgMicrophoneON}"/>
+            <Button Grid.Column="10"
+                    ToolTip="Microphone ON"
+                    Command="{Binding CmdMicOn}"
+                    Style="{DynamicResource TransparentBitmap}">
+                <Image Width="72" Height="72" Source="{Binding ImgMicrophoneON}"/>
             </Button>
 
             <!--Microphone Off button-->
-            <Button 
-                Grid.Column="11"
-                Height="82"
-                Margin="10"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                ToolTip="Microphone OFF"
-                Command="{Binding CmdMicOff}">
-                <Image Width="72" Height="72"
-                       Source="{Binding ImgMicrophoneOFF}"/>
+            <Button Grid.Column="11"
+                    ToolTip="Microphone OFF"
+                    Command="{Binding CmdMicOff}"
+                    Style="{DynamicResource TransparentBitmap}">
+                <Image Width="72" Height="72" Source="{Binding ImgMicrophoneOFF}"/>
             </Button>
         </Grid>
         
