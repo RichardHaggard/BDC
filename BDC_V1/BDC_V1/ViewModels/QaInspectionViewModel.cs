@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
+using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
 using Prism.Commands;
@@ -107,7 +108,7 @@ namespace BDC_V1.ViewModels
                 ComponentId  = "D3010",
                 TypeName     = "D301002",
                 SectionName  = "N/A",
-                Rtg          = "R+",
+                Rating       = EnumRatingType.RPlus,
                 InspectIssue = "Missing Photo"
             });
 
@@ -118,7 +119,7 @@ namespace BDC_V1.ViewModels
                 ComponentId  = "D3010",
                 TypeName     = "D301002",
                 SectionName  = "N/A",
-                Rtg          = "R+",
+                Rating       = EnumRatingType.RPlus,
                 InspectIssue = "Missing Comment"
             });
 
@@ -129,7 +130,7 @@ namespace BDC_V1.ViewModels
                 ComponentId  = "D3020",
                 TypeName     = "D302001",
                 SectionName  = "N/A",
-                Rtg          = "Y+",
+                Rating       = EnumRatingType.YMinus,
                 InspectIssue = "Missing Inspection photo for Y+ rating"
             });
 
@@ -140,7 +141,7 @@ namespace BDC_V1.ViewModels
                 ComponentId  = "D3030",
                 TypeName     = "D303001",
                 SectionName  = "N/A",
-                Rtg          = "?",
+                Rating       = EnumRatingType.Unknown,
                 InspectIssue = "Missing Inspection"
             });
 

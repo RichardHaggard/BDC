@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
+using BDC_V1.Utils;
 using Prism.Mvvm;
 
 namespace BDC_V1.Classes
@@ -45,12 +47,12 @@ namespace BDC_V1.Classes
         }
         private string _sectionName;
 
-        public string Rtg
+        public EnumRatingType Rating
         {
-            get => _rtg;
-            set => SetProperty(ref _rtg, value);
+            get => _rating;
+            set => SetProperty(ref _rating, value);
         }
-        private string _rtg;
+        private EnumRatingType _rating;
 
         public string InspectIssue
         {

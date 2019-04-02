@@ -192,17 +192,17 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">
         <DataGrid.Columns>
-          <DataGridTextColumn Header=" Facility ID" Binding="{Binding Path=FacilityId}"   Width="100" />
-          <DataGridTextColumn Header=" System ID"   Binding="{Binding Path=SystemId}"     Width="100" />
-          <DataGridTextColumn Header=" Component"   Binding="{Binding Path=ComponentId}"  Width="100" />
-          <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"     Width="100" />
-          <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}"  Width="100" />
-          <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=Rtg}"          Width="40"
+          <DataGridTextColumn Header=" Facility ID" Binding="{Binding Path=FacilityId}"  Width="100" />
+          <DataGridTextColumn Header=" System ID"   Binding="{Binding Path=SystemId}"    Width="100" />
+          <DataGridTextColumn Header=" Component"   Binding="{Binding Path=ComponentId}" Width="100" />
+          <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"    Width="100" />
+          <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}" Width="100" />
+          <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=Rating.Description}" Width="40"
                               ElementStyle="{StaticResource RtgStyle}">
             <DataGridTextColumn.CellStyle>
               <Style TargetType="DataGridCell" >
                 <Setter Property="Background" 
-                        Value="{Binding Path=Rtg, Converter={StaticResource RtgToBackgroundConverter}}" />
+                        Value="{Binding Path=Rating, Converter={StaticResource RtgToBackgroundConverter}}" />
               </Style>
             </DataGridTextColumn.CellStyle>
           </DataGridTextColumn>

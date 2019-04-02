@@ -1,4 +1,5 @@
 ﻿<Window 
+  Title="CpyCmView" 
   x:Class="BDC_V1.Views.CpyCmView"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -12,7 +13,8 @@
   mc:Ignorable="d"
   WindowStyle="None"
   ResizeMode="CanResizeWithGrip"
-  Title="CpyCmView" Height="450" Width="800">
+  Height="450" 
+  Width="800">
 
   <Grid>
       

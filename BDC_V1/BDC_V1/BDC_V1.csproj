@@ -96,6 +96,7 @@
     <Compile Include="Classes\InventoryDetailsType.cs" />
     <Compile Include="Classes\InventorySectionType.cs" />
     <Compile Include="Classes\InventoryType.cs" />
+    <Compile Include="Classes\ItemChecklist.cs" />
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\QuickObservableCollection.cs" />
     <Compile Include="Classes\RelayCommand.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Enumerations\EnumCommentResult.cs" />
     <Compile Include="Enumerations\EnumConstType.cs" />
     <Compile Include="Enumerations\EnumInspectionType.cs" />
+    <Compile Include="Enumerations\EnumRatingType.cs" />
     <Compile Include="Enumerations\EnumRepairType.cs" />
     <Compile Include="Enumerations\EnumTreeNodeType.cs" />
     <Compile Include="Events\CloseWindowEvent.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Interfaces\IInventoryType.cs" />
     <Compile Include="Interfaces\IInverntorySectionType.cs" />
     <Compile Include="Interfaces\IPerson.cs" />
+    <Compile Include="Interfaces\IItemChecklist.cs" />
     <Compile Include="Interfaces\IValidUsers.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -145,6 +148,8 @@
     <Compile Include="Utils\BitmapSourceExtension.cs" />
     <Compile Include="Utils\DialogCloserExtension.cs" />
     <Compile Include="Utils\EnumBooleanConverter.cs" />
+    <Compile Include="Utils\GetEnumDescription.cs" />
+    <Compile Include="Utils\ItemSourceCountFilterConverter.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
     <Compile Include="Utils\RtgToBackgroundConverter.cs" />
     <Compile Include="Utils\WindowPlacement.cs" />
