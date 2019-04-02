@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
+using BDC_V1.Utils;
 using Prism.Mvvm;
 
 namespace BDC_V1.Classes
@@ -46,10 +47,16 @@ namespace BDC_V1.Classes
         }
         private string _sectionName;
 
+        public string RatingText => Rating.Description();
+
         public EnumRatingType Rating
         {
             get => _rating;
-            set => SetProperty(ref _rating, value);
+            set
+            {
+                if (SetProperty(ref _rating, value))
+                    RaisePropertyChanged(nameof(RatingText));
+            }
         }
         private EnumRatingType _rating;
 

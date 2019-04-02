@@ -14,6 +14,7 @@ namespace BDC_V1.Interfaces
         string ComponentId    { get; set; }
         string TypeName       { get; set; }
         string SectionName    { get; set; }
+        string RatingText     { get; }
         EnumRatingType Rating { get; set; }
         string InspectIssue   { get; set; }
     }

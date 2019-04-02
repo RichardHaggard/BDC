@@ -150,6 +150,7 @@
     <Compile Include="Utils\EnumBooleanConverter.cs" />
     <Compile Include="Utils\GetEnumDescription.cs" />
     <Compile Include="Utils\ItemSourceCountFilterConverter.cs" />
+    <Compile Include="Utils\MakeBitmapTransparent.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
     <Compile Include="Utils\RtgToBackgroundConverter.cs" />
     <Compile Include="Utils\WindowPlacement.cs" />

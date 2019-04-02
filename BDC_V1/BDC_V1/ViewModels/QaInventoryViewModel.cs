@@ -96,9 +96,9 @@ namespace BDC_V1.ViewModels
             CmdReviewIssue         = new DelegateCommand(OnCmdReviewIssue     );
             CmdClearFilter         = new DelegateCommand(OnCmdClearFilter     );
 
-            ImgClearFilter = MakeTransparent(@"pack://application:,,,/Resources/Filter_Clear.png");
-            ImgReviewIssue = MakeTransparent(@"pack://application:,,,/Resources/ReviewIssue.png");
-            ImgFilter      = MakeTransparent(@"pack://application:,,,/Resources/Filter.png");
+            ImgClearFilter = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Filter_Clear.png");
+            ImgReviewIssue = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/ReviewIssue.png");
+            ImgFilter      = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Filter.png");
 
             InventoryInfo.Add(new InventoryType()
             {
@@ -129,14 +129,6 @@ namespace BDC_V1.ViewModels
         protected override bool GetRegionManager()
         {
             return false;
-        }
-
-        private BitmapSource MakeTransparent(string resource, System.Drawing.Color? backColor = null)
-        {
-            var image  = new BitmapImage(new Uri(resource));
-            var bitmap = image.ToBitmap();
-            bitmap.MakeTransparent(backColor?? System.Drawing.Color.White);
-            return bitmap.ToBitmapSource();
         }
 
         private void OnFilterByFacilityId () { Debug.WriteLine("OnFilterByFacilityId  not implemented"); }

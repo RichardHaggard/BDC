@@ -13,6 +13,7 @@ using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
+using BDC_V1.Utils;
 using JetBrains.Annotations;
 using Prism.Commands;
 using Prism.Events;
@@ -47,6 +48,17 @@ namespace BDC_V1.ViewModels
         public ICommand CmdMicOn                   { get; }
         public ICommand CmdMicOff                  { get; }
         public ICommand CmdTabSelectionChanged     { get; }
+        public ICommand CmdCopyInspection          { get; }
+
+        public BitmapSource ImgInventory     { get; }
+        public BitmapSource ImgInspection    { get; }
+        public BitmapSource ImgAddSystem     { get; }
+        public BitmapSource ImgDeleteSystem  { get; }
+        public BitmapSource ImgAddComponent  { get; }
+        public BitmapSource ImgAddSection    { get; }
+        public BitmapSource ImgCopy          { get; }
+        public BitmapSource ImgMicrophoneON  { get; }
+        public BitmapSource ImgMicrophoneOFF { get; }
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
         public string Title => @"Builder DC - " + BredFilename;
@@ -216,66 +228,66 @@ namespace BDC_V1.ViewModels
 
         public Visibility VisibilityAddComponentButton
         {
-            get { return _VisibilityAddComponentButton; }
-            set { SetProperty(ref _VisibilityAddComponentButton, value); }
+            get => _visibilityAddComponentButton;
+            set => SetProperty(ref _visibilityAddComponentButton, value);
         }
-        private Visibility _VisibilityAddComponentButton = Visibility.Collapsed;
+        private Visibility _visibilityAddComponentButton = Visibility.Collapsed;
 
 
         public Visibility VisibilityAddSectionButton
         {
-            get { return _VisibilityAddSectionButton; }
-            set { SetProperty(ref _VisibilityAddSectionButton, value); }
+            get => _visibilityAddSectionButton;
+            set => SetProperty(ref _visibilityAddSectionButton, value);
         }
-        private Visibility _VisibilityAddSectionButton = Visibility.Collapsed;
+        private Visibility _visibilityAddSectionButton = Visibility.Collapsed;
 
 
         public Visibility VisibilityAddSystemButton
         {
-            get { return _VisibilityAddSystemButton; }
-            set { SetProperty(ref _VisibilityAddSystemButton, value); }
+            get => _visibilityAddSystemButton;
+            set => SetProperty(ref _visibilityAddSystemButton, value);
         }
-        private Visibility _VisibilityAddSystemButton = Visibility.Collapsed;
+        private Visibility _visibilityAddSystemButton = Visibility.Collapsed;
 
 
         public Visibility VisibilityCopyInspectionButton
         {
-            get { return _VisibilityCopyInspectionButton; }
-            set { SetProperty(ref _VisibilityCopyInspectionButton, value); }
+            get => _visibilityCopyInspectionButton;
+            set => SetProperty(ref _visibilityCopyInspectionButton, value);
         }
-        private Visibility _VisibilityCopyInspectionButton = Visibility.Collapsed;
+        private Visibility _visibilityCopyInspectionButton = Visibility.Collapsed;
 
 
         public Visibility VisibilityCopyInventoryButton
         {
-            get { return _VisibilityCopyInventoryButton; }
-            set { SetProperty(ref _VisibilityCopyInventoryButton, value); }
+            get => _visibilityCopyInventoryButton;
+            set => SetProperty(ref _visibilityCopyInventoryButton, value);
         }
-        private Visibility _VisibilityCopyInventoryButton = Visibility.Collapsed;
+        private Visibility _visibilityCopyInventoryButton = Visibility.Collapsed;
 
 
         public Visibility VisibilityCopySectionsButton
         {
-            get { return _VisibilityCopySectionsButton; }
-            set { SetProperty(ref _VisibilityCopySectionsButton, value); }
+            get => _visibilityCopySectionsButton;
+            set => SetProperty(ref _visibilityCopySectionsButton, value);
         }
-        private Visibility _VisibilityCopySectionsButton = Visibility.Collapsed;
+        private Visibility _visibilityCopySectionsButton = Visibility.Collapsed;
 
 
         public Visibility VisibilityDeleteSystemButton
         {
-            get { return _VisibilityDeleteSystemButton; }
-            set { SetProperty(ref _VisibilityDeleteSystemButton, value); }
+            get => _visibilityDeleteSystemButton;
+            set => SetProperty(ref _visibilityDeleteSystemButton, value);
         }
-        private Visibility _VisibilityDeleteSystemButton = Visibility.Collapsed;
+        private Visibility _visibilityDeleteSystemButton = Visibility.Collapsed;
 
 
         public Visibility VisibilityInspectionButton
         {
-            get { return _VisibilityInspectionButton; }
-            set { SetProperty(ref _VisibilityInspectionButton, value); }
+            get => _visibilityInspectionButton;
+            set => SetProperty(ref _visibilityInspectionButton, value);
         }
-        private Visibility _VisibilityInspectionButton = Visibility.Collapsed;
+        private Visibility _visibilityInspectionButton = Visibility.Collapsed;
 
 
         public QuickObservableCollection<Control> ToolbarMenuItems { get; } = new QuickObservableCollection<Control>();
@@ -330,6 +342,7 @@ namespace BDC_V1.ViewModels
             RegionManagerName = "ShellItemControl";
 
             CmdAddComponent            = new DelegateCommand(OnCmdAddComponent         );
+            CmdAddSection              = new DelegateCommand(OnCmdAddSection           );
             CmdAddSystem               = new DelegateCommand(OnCmdAddSystem            );
             CmdCopyInventory           = new DelegateCommand(OnCmdCopyInventory        );
             CmdCopySections            = new DelegateCommand(OnCmdCopySections         );
@@ -347,9 +360,21 @@ namespace BDC_V1.ViewModels
             CmdMenuViewAssignedSystems = new DelegateCommand(OnCmdViewAssignedSystems  );
             CmdMicOff                  = new DelegateCommand(OnCmdMicOff               );
             CmdMicOn                   = new DelegateCommand(OnCmdMicOn                );
+            CmdCopyInspection          = new DelegateCommand(OnCmdCopyInspection       );
+
             CmdTabSelectionChanged     = new DelegateCommand<TabItem>(OnTabSelectionChanged);
 
-            InvTreeBorderBackgroundColor   = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray);
+            ImgInventory     = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Inventory.png");
+            ImgInspection    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Inspection.png");
+            ImgAddSystem     = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddSystem (1).png");
+            ImgDeleteSystem  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/DeleteSystem (1).png");
+            ImgAddComponent  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddComponent (1).png");
+            ImgAddSection    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddSection (1).png");
+            ImgCopy          = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Copy.jpg");
+            ImgMicrophoneON  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/MicrophoneON_Rnd.png");
+            ImgMicrophoneOFF = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/MicrophoneOFF_Rnd_Slash.png");
+
+            InvTreeBorderBackgroundColor = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray);
 
             // these should be done with a selection style
             FacilityTabBackgroundColor     = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGreen);

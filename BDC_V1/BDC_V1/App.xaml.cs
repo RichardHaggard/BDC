@@ -65,9 +65,7 @@ namespace BDC_V1
                 {
                     if (loginViewModel.DialogResultEx != true)
                     {
-                        Application app = Application.Current;
-                        if (app != null)
-                            app.Shutdown(-1);
+                        Current.Shutdown(-1);
                         return;
                     }
 
@@ -92,7 +90,7 @@ namespace BDC_V1
             }
 
             MessageBox.Show("Cannot obtain necessary models", "System Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            Application.Current.Shutdown(-1);
+            Current.Shutdown(-1);
         }
     }
 

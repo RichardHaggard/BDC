@@ -235,12 +235,12 @@
                     Background="LightBlue"
                     BorderBrush="Black"
                     BorderThickness="1" />
-                <Image 
-                    Grid.Row="0"
+                <Image Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Source="/BDC_V1;component/Resources/EditText_Comments.png"
-                    Width="40" />
+                    Source="{Binding ImgEditTextComments}"
+                    Margin="0,5,0,0"
+                    Height="40" />
                 <Label 
                     Grid.Row="1"
                     Content="Facility"
@@ -282,8 +282,9 @@
             <Image Grid.Row="0"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="/BDC_V1;component/Resources/Photos_cropped.jpg"
-                   Width="40"/>
+                   Source="{Binding ImgPhotosCropped}"
+                   Margin="0,5,0,0"
+                   Height="40"/>
             <Label Grid.Row="1"
                    Content="Photo(s)"
                    Style="{StaticResource LabelCJ}" />

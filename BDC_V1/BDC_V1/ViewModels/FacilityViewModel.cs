@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using BDC_V1.Classes;
 using BDC_V1.Interfaces;
+using BDC_V1.Utils;
 using JetBrains.Annotations;
 
 namespace BDC_V1.ViewModels
@@ -18,6 +20,11 @@ namespace BDC_V1.ViewModels
         // **************** Class data members ********************************************** //
 
         // **************** Class properties ************************************************ //
+
+        public ImageSource ImgEditTextComments  { get; }
+      //public ImageSource ImgRemember          { get; }
+        public ImageSource ImgPhotosCropped     { get; }
+      //public ImageSource ImgCancelEdit        { get; }
 
         [CanBeNull] private ItemsControl ItemsControl { get; set; }
 
@@ -61,6 +68,11 @@ namespace BDC_V1.ViewModels
         public FacilityViewModel()
         {
             RegionManagerName = "FacilityItemControl";
+
+            ImgEditTextComments = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/EditText_Comments.png");
+          //ImgRemember         = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Remember.png", new Size(0,0));
+            ImgPhotosCropped    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Photos_cropped.jpg");
+          //ImgCancelEdit       = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Cancel_Undo.png");
         }
 
         // **************** Class members *************************************************** //

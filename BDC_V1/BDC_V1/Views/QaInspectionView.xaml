@@ -72,6 +72,7 @@
 
     <Style x:Key="RtgStyle" TargetType="TextBlock">
       <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
       <!--
       <Setter Property="Background" 
               Value="{Binding RelativeSource={RelativeSource Self}, 
@@ -196,7 +197,7 @@
           <DataGridTextColumn Header=" Component"   Binding="{Binding Path=ComponentId}" Width="100" />
           <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"    Width="100" />
           <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}" Width="100" />
-          <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=Rating.Description}" Width="40"
+          <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=RatingText}" Width="40"
                               ElementStyle="{StaticResource RtgStyle}">
             <DataGridTextColumn.CellStyle>
               <Style TargetType="DataGridCell" >

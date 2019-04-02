@@ -5,11 +5,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using BDC_V1.Classes;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
+using BDC_V1.Utils;
 using BDC_V1.Views;
 using JetBrains.Annotations;
 using Prism.Commands;
@@ -24,10 +27,15 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdCondRating        { get; }
-        public ICommand CmdCancelEdit        { get; }
-        public ICommand CmdDeleteInspection  { get; }
-        public ICommand CmdInspectionComment { get; }
+        public ICommand    CmdCondRating        { get; }
+        public ICommand    CmdCancelEdit        { get; }
+        public ICommand    CmdDeleteInspection  { get; }
+        public ICommand    CmdInspectionComment { get; }
+
+        public ImageSource ImgEditTextComments  { get; }
+        public ImageSource ImgRemember          { get; }
+        public ImageSource ImgPhotosCropped     { get; }
+        public ImageSource ImgCancelEdit        { get; }
 
         public bool IsRemembered
         {
@@ -119,6 +127,11 @@ namespace BDC_V1.ViewModels
             CmdCancelEdit        = new DelegateCommand(OnCancelEdit      );
             CmdDeleteInspection  = new DelegateCommand(OnDeleteInspection);
             CmdInspectionComment = new DelegateCommand(OnCmdInspectionComment    );
+
+            ImgEditTextComments = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/EditText_Comments.png");
+            ImgRemember         = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Remember.png", new Size(0,0));
+            ImgPhotosCropped    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Photos_cropped.jpg");
+            ImgCancelEdit       = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Cancel_Undo.png");
 
             IsPainted    = false;
             IsRemembered = false;
