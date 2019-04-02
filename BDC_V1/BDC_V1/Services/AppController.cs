@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BDC_V1.Interfaces;
-using BDC_V1.Events;
-using CommonServiceLocator;
-using JetBrains.Annotations;
 using Prism.Events;
 using EventAggregator = BDC_V1.Events.EventAggregator;
 

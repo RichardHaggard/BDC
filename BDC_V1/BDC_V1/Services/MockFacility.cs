@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Enumerations;
-using BDC_V1.Interfaces;
 
 namespace BDC_V1.Services
 {
@@ -18,7 +14,7 @@ namespace BDC_V1.Services
     {
         public MockFacility()
         {
-            ConstType         = EnumConstType.Permanant;
+            ConstType         = EnumConstType.Permanent;
             BuildingId        = "ARMRY";
             BuildingName      = "National Guard Readiness Center";
             BuildingUse       = "17180 - ARNG ARMORY";

@@ -10,6 +10,6 @@ namespace BDC_V1.Enumerations
     {
         None,
         Temporary,
-        Permanant
+        Permanent
     }
 }

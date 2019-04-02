@@ -5,14 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Markup;
-using System.Windows.Media;
 using BDC_V1.Classes;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
 using JetBrains.Annotations;
-using Prism.Mvvm;
 
 namespace BDC_V1.ViewModels
 {

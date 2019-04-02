@@ -2,32 +2,17 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Markup;
-using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
-using BDC_V1.Enumerations;
-using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
 using BDC_V1.Views;
-using CommonServiceLocator;
 using JetBrains.Annotations;
-using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using Prism.Events;
-using Prism.Regions;
-using Unity;
-using Brushes = System.Windows.Media.Brushes;
-using EventAggregator = BDC_V1.Events.EventAggregator;
-using Image = System.Windows.Controls.Image;
 
 namespace BDC_V1.ViewModels
 {

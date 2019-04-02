@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Markup;
 using BDC_V1.Classes;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;

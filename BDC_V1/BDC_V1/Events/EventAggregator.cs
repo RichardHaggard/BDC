@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommonServiceLocator;
-using JetBrains.Annotations;
 using Prism.Events;
 
 namespace BDC_V1.Events

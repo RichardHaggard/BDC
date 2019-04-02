@@ -11,17 +11,13 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
-using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
 using BDC_V1.Utils;
-using BDC_V1.Views;
 using CommonServiceLocator;
 using JetBrains.Annotations;
 using Microsoft.Win32;
 using Prism.Commands;
-using Prism.Events;
-using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.ViewModels
 {

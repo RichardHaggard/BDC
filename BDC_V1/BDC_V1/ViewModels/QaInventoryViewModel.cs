@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
-using BDC_V1.ViewModels;
-using JetBrains.Annotations;
 using Prism.Commands;
-using Prism.Mvvm;
 
 namespace BDC_V1.ViewModels
 {
