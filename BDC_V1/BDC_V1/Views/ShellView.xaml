@@ -1,24 +1,24 @@
-﻿<Window x:Class="BDC_V1.Views.ShellView"
+﻿<Window Title="{Binding Title}"
+        x:Class="BDC_V1.Views.ShellView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
-        xmlns:local="clr-namespace:BDC_V1.Views"
-        xmlns:vm="clr-namespace:BDC_V1.ViewModels"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:classes="clr-namespace:BDC_V1.Classes"
         prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+        xmlns:local="clr-namespace:BDC_V1.Views"
+        xmlns:utils="clr-namespace:BDC_V1.Utils"
+        utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         mc:Ignorable="d"
         FontSize="15"
-        Title="{Binding Title}" 
         Visibility="{Binding Path=WindowVisibility, Mode=TwoWay}"
-        Height="900" Width="1440"
-        d:DesignHeight="450" d:DesignWidth="800"
         WindowStartupLocation="CenterScreen"
-        >
+        Height="900" Width="1440"
+        d:DesignHeight="450" d:DesignWidth="800">
 
     <Window.Resources>
         <ResourceDictionary>

@@ -1,18 +1,17 @@
-﻿<UserControl 
-    x:Class="BDC_V1.Views.QaInspectionView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:prism="http://prismlibrary.com/"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-    xmlns:viewModels="clr-namespace:BDC_V1.ViewModels"
-    xmlns:utils="clr-namespace:BDC_V1.Utils"
-    prism:ViewModelLocator.AutoWireViewModel="True"
-    mc:Ignorable="d"
-    Height="400" Width="1200"
-    d:DesignHeight="400" d:DesignWidth="1200">
+﻿<UserControl x:Class="BDC_V1.Views.QaInspectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+             xmlns:local="clr-namespace:BDC_V1.Views"
+             xmlns:utils="clr-namespace:BDC_V1.Utils"
+             mc:Ignorable="d"
+             Height="400" Width="1200"
+             d:DesignHeight="400" d:DesignWidth="1200">
 
   <UserControl.Resources>
     <Style TargetType="DataGridColumnHeader">
