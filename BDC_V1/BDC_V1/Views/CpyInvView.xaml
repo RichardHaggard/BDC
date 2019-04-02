@@ -1,15 +1,61 @@
 ﻿<Window 
-    x:Class="BDC_V1.Views.CpyInvView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:BDC_V1.Views"
-    xmlns:prism="http://prismlibrary.com/"
-    prism:ViewModelLocator.AutoWireViewModel="True"
-    mc:Ignorable="d"
-    Title="CpyInvView" Height="450" Width="800">
-    <Grid>
+  x:Class="BDC_V1.Views.CpyInvView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:BDC_V1.Views"
+  xmlns:prism="http://prismlibrary.com/"
+  prism:ViewModelLocator.AutoWireViewModel="True"
+  xmlns:utils="clr-namespace:BDC_V1.Utils"
+  utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
+  mc:Ignorable="d"
+  Title="CpyInvView" Height="450" Width="800">
+
+  <Grid Margin="2,5,2,5">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" /> <!--  0 - Title -->
+      <RowDefinition Height="10"   /> <!--  1 - white space -->
+      <RowDefinition Height="Auto" /> <!--  2 - Source -->
+      <RowDefinition Height="Auto" /> <!--  3 - Target -->
+      <RowDefinition Height="Auto" /> <!--  4 - Section -->
+      <RowDefinition Height="Auto" /> <!--  5 - Systems 1 -->
+      <RowDefinition Height="Auto" /> <!--  6 - Systems 2 -->
+      <RowDefinition Height="Auto" /> <!--  7 - Systems 3 -->
+      <RowDefinition Height="Auto" /> <!--  8 - Options -->
+      <RowDefinition Height="Auto" /> <!--  9 - Year Built -->
+      <RowDefinition Height="Auto" /> <!-- 10 - Section Comments -->
+      <RowDefinition Height="Auto" /> <!-- 11 - Section Details -->
+      <RowDefinition Height="Auto" /> <!-- 12 -   Detail Comments -->
+      <RowDefinition Height="Auto" /> <!-- 13 - Existing Inventory -->
+      <RowDefinition Height="20"   /> <!-- 14 - white space -->
+      <RowDefinition Height="Auto" /> <!-- 15 - Copy Inspections -->
+      <RowDefinition Height="Auto" /> <!-- 16 -   Include Comments -->
+      <RowDefinition Height="20"   /> <!-- 17 - white space -->
+      <RowDefinition Height="Auto" /> <!-- 18 - Command Buttons -->
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="20"   /> <!-- offset for indented checkboxes -->
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="Auto" />
+    </Grid.ColumnDefinitions>
         
-    </Grid>
+    <!--  0 - Title -->
+    <!--  2 - Source -->
+    <!--  3 - Target -->
+    <!--  4 - Section -->
+    <!--  5 - Systems 1 -->
+    <!--  6 - Systems 2 -->
+    <!--  7 - Systems 3 -->
+    <!--  8 - Options -->
+    <!--  9 - Year Built -->
+    <!-- 10 - Section Comments -->
+    <!-- 11 - Section Details -->
+    <!-- 12 -   Detail Comments -->
+    <!-- 13 - Existing Inventory -->
+    <!-- 15 - Copy Inspections -->
+    <!-- 16 -   Include Comments -->
+    <!-- 18 - Command Buttons -->
+  </Grid>
 </Window>

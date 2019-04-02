@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BDC_V1.ViewModels
 {
-    public class CpyCmViewModel : ViewModelBase
+    public class CpyCmViewModel : CloseableWindow
     {
         // **************** Class enumerations ********************************************** //
 

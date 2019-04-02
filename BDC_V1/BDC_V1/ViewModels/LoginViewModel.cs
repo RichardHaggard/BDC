@@ -25,7 +25,7 @@ using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.ViewModels
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : CloseableWindow
     {
 
         // **************** Class enumerations ********************************************** //
@@ -50,16 +50,6 @@ namespace BDC_V1.ViewModels
         
         [NotNull]
         public ICommand CmdSelectInspector { get; }
-
-        
-        [CanBeNull]
-        public bool? DialogResultEx
-        {
-            get => _dialogResultEx;
-            set => SetProperty(ref _dialogResultEx, value);
-        }
-        private bool? _dialogResultEx;
-
         
         [CanBeNull]
         public IReadOnlyCollection<IPerson> LoginUserList => LocalValidUsers?.GetValidUsers;
@@ -233,9 +223,8 @@ namespace BDC_V1.ViewModels
         private void OnCmdCancel()
         {
             DialogResultEx = false;
-            Application app = App.Current;
-            if (app != null)
-                app.Shutdown();
+            Application app = Application.Current;
+            app?.Shutdown();
         }
 
 
@@ -279,9 +268,11 @@ namespace BDC_V1.ViewModels
         #else
             DialogResultEx = true;
 
+        #if false
             //Publish event to close this window
             EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                 .Publish(new CloseWindowEvent(typeof(LoginView).Name));
+        #endif
         #endif
         }
 

@@ -115,6 +115,7 @@
     <Compile Include="Interfaces\IAppController.cs" />
     <Compile Include="Interfaces\IAppModel.cs" />
     <Compile Include="Interfaces\IBredInfo.cs" />
+    <Compile Include="Interfaces\ICloseableWindow.cs" />
     <Compile Include="Interfaces\IConfigInfo.cs" />
     <Compile Include="Interfaces\IContact.cs" />
     <Compile Include="Interfaces\IFacility.cs" />
@@ -153,8 +154,10 @@
     <Compile Include="ViewModels\AddNewComponentViewModel.cs" />
     <Compile Include="ViewModels\AddSystemViewModel.cs" />
     <Compile Include="ViewModels\CameraViewModel.cs" />
+    <Compile Include="ViewModels\CloseableWindow.cs" />
     <Compile Include="ViewModels\CmInspViewModel.cs" />
     <Compile Include="ViewModels\CmViewModel.cs" />
+    <Compile Include="ViewModels\CommentWindows.cs" />
     <Compile Include="ViewModels\CpyCmViewModel.cs" />
     <Compile Include="ViewModels\CpyInvViewModel.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />

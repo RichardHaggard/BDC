@@ -16,18 +16,18 @@ namespace BDC_V1.ViewModels
 
         public string Component
         {
-            get { return _Component; }
-            set { SetProperty(ref _Component, value); }
+            get => _component;
+            set => SetProperty(ref _component, value);
         }
-        private string _Component;
+        private string _component;
 
 
         public List<string> Components
         {
-            get { return _Components; }
-            set { SetProperty(ref _Components, value); }
+            get => _components;
+            set => SetProperty(ref _components, value);
         }
-        private List<string> _Components = new List<string>();
+        private List<string> _components = new List<string>();
 
 
         // **************** Class constructors ********************************************** //

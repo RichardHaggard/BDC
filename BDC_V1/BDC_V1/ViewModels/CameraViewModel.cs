@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BDC_V1.ViewModels
 {
-    public class CameraViewModel  : ViewModelBase
+    public class CameraViewModel  : CloseableWindow
     {
         // **************** Class enumerations ********************************************** //
 

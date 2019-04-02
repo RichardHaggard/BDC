@@ -7,6 +7,8 @@
     xmlns:local="clr-namespace:BDC_V1.Views"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    xmlns:utils="clr-namespace:BDC_V1.Utils"
+    utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
     mc:Ignorable="d"
     Title="CAPTURE PHOTO" Height="450" Width="800">
 

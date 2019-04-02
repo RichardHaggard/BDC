@@ -32,12 +32,14 @@ namespace BDC_V1.Views
 
             InitializeComponent();
 
+    #if false
             EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                 .Subscribe((item) =>
                 {
                     if (item?.WindowName==this.GetType().Name)
                         Close();
                 });
+    #endif
         }
     }
 }
