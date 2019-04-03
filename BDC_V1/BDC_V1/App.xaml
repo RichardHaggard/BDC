@@ -69,6 +69,7 @@
             </Style>
 
             <Style TargetType="Label" x:Key="LabelRO" BasedOn="{StaticResource LabelBase}">
+                <Setter Property="Background" Value="LightGray"/>
                 <Setter Property="BorderBrush" Value="Black" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Margin" Value="3" />

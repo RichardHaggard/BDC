@@ -597,10 +597,12 @@
               Grid.RowSpan="3"
               Grid.ColumnSpan="8"
               Style="{StaticResource BorderYO}">
-        <TextBox VerticalContentAlignment="Top"
-                 HorizontalContentAlignment="Left"
-                 TextWrapping="Wrap"
-                 Text="{Binding InspectionInfo.InspectionComment}" />
+        <TextBox 
+            Background="LightYellow"
+            VerticalContentAlignment="Top"
+            HorizontalContentAlignment="Left"
+            TextWrapping="Wrap"
+            Text="{Binding InspectionInfo.InspectionComment}" />
       </Border>
 
       <!-- Photos -->
