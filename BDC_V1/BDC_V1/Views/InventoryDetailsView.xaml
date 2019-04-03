@@ -242,12 +242,12 @@
                 <Image Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Source="{Binding ImgEditTextComments}"
-                    Margin="0,10,0,0"
+                    Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
+                    Margin="0,20,0,0"
                     Height="40" />
                 <Label Grid.Row="2"
                     Content="Detail Comment"
-                    Margin="0"
+                    Margin="0,0,0,10"
                     Style="{StaticResource LabelCJ}" />
             </Grid>
             <TextBox
@@ -274,8 +274,8 @@
                     BorderThickness="1"/>
                 <Image Grid.Row="0"
                     HorizontalAlignment="Center"
-                       Margin="0"
-                    Source="{Binding ImgPhotosCropped}"
+                       Margin="1"
+                    Source="/BDC_V1;component/Resources/Photos_cropped (1).png"
                     VerticalAlignment="Center"
                     Height="40"/>
                 <Label Grid.Row="1"

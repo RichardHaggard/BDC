@@ -58,7 +58,7 @@
                       BorderThickness="2"
                       Background="LightGray"
                       BorderBrush="Green">
-                <Image Source="{Binding ImgFilter}"
+                <Image Source="/BDC_V1;component/Resources/Filter (1).png"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"/>
               </Border>
@@ -122,7 +122,7 @@
               Height="75" Margin="10"
               Command="{Binding CmdReviewIssue}"
               Style="{StaticResource MaterialDesignRaisedLightButton}">
-        <Image Source="{Binding ImgReviewIssue}"/>
+        <Image Source="/BDC_V1;component/Resources/ReviewIssue (1).png"/>
       </Button>
 
       <Grid Grid.Row="1" Grid.Column="7">
@@ -141,7 +141,7 @@
               <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Image Grid.Row="0" Margin="0,0,0,-10"
-                   Source="{Binding ImgClearFilter}"/>
+                   Source="/BDC_V1;component/Resources/Filter_Clear (1).png"/>
             <Label Grid.Row="1"
                    FontSize="13"
                    FontWeight="Bold"
@@ -184,7 +184,8 @@
               Command="{Binding CmdFilterByIssue}"/>
 
       <!-- DataGrid -->
-      <DataGrid Name="LvUsers" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="7" Width="1146"
+      <DataGrid Name="LvUsers" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="7" 
+                Width="1146"  MinHeight="200"
                 ItemsSource="{Binding InspectionInfo}"
                 CanUserSortColumns="True"
                 GridLinesVisibility="All"

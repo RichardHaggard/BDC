@@ -238,7 +238,7 @@
                 <Image Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Source="{Binding ImgEditTextComments}"
+                    Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                     Margin="0,5,0,0"
                     Height="40" />
                 <Label 
@@ -282,7 +282,7 @@
             <Image Grid.Row="0"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{Binding ImgPhotosCropped}"
+                   Source="/BDC_V1;component/Resources/Photos_cropped (1).png"
                    Margin="0,5,0,0"
                    Height="40"/>
             <Label Grid.Row="1"

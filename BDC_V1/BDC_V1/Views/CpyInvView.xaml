@@ -206,7 +206,7 @@
             <ColumnDefinition Width="55" />
           </Grid.ColumnDefinitions>
 
-          <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Copy.jpg" />
+          <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Copy (1).jpg" />
           <Label Grid.Column="2" 
                  HorizontalAlignment="Center"
                  Margin="0,-2,0,0">
@@ -225,7 +225,7 @@
             <ColumnDefinition Width="55" />
           </Grid.ColumnDefinitions>
 
-          <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Cancel_Undo.png" />
+          <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Cancel_Undo (1).png" />
           <Label Grid.Column="2" 
                  HorizontalAlignment="Center"
                  Margin="0,-2,0,0">

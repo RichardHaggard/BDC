@@ -54,7 +54,7 @@
             Margin="10"
             Style="{StaticResource bTB}"
             >
-            <Image Source="/BDC_V1;component/Resources/Camera_cropped.png"/>
+            <Image Source="/BDC_V1;component/Resources/Camera_cropped (1).png"/>
         </Button>
 
         <Button 
@@ -63,7 +63,7 @@
             Margin="10"
             Style="{StaticResource bTB}"
             >
-            <Image Source="/BDC_V1;component/Resources/Crop.png"/>
+            <Image Source="/BDC_V1;component/Resources/Crop (1).png"/>
         </Button>
 
         <Button 
@@ -72,7 +72,7 @@
             Margin="10"
             Style="{StaticResource bTB}"
             >
-            <Image Source="/BDC_V1;component/Resources/RotateRight.png"/>
+            <Image Source="/BDC_V1;component/Resources/RotateRight (1).png"/>
         </Button>
 
         <Button 
@@ -81,7 +81,7 @@
             Margin="10"
             Style="{StaticResource bTB}"
             >
-            <Image Source="/BDC_V1;component/Resources/RotateLeft.png"/>
+            <Image Source="/BDC_V1;component/Resources/RotateLeft (1).png"/>
         </Button>
 
         <Button 
@@ -120,7 +120,7 @@
             Margin="10"
             Style="{StaticResource bTB}"
             >
-            <Image Source="/BDC_V1;component/Resources/Cancel.png"/>
+            <Image Source="/BDC_V1;component/Resources/Cancel (1).png"/>
         </Button>
 
         <Button 
@@ -129,7 +129,7 @@
             Margin="10"
             Style="{StaticResource bTB}"
             >
-            <Image Source="/BDC_V1;component/Resources/OK.png"/>
+            <Image Source="/BDC_V1;component/Resources/OK (1).png"/>
         </Button>
 
     </Grid>

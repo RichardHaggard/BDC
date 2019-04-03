@@ -86,10 +86,12 @@
     <Compile Include="Classes\Address.cs" />
     <Compile Include="Classes\BredInfo.cs" />
     <Compile Include="Classes\BredInfoContainer.cs" />
+    <Compile Include="Classes\CommentaryType.cs" />
     <Compile Include="Classes\ConfigInfo.cs" />
     <Compile Include="Classes\ConfigInfoContainer.cs" />
     <Compile Include="Classes\Contact.cs" />
     <Compile Include="Classes\Facility.cs" />
+    <Compile Include="Classes\FilterItem.cs" />
     <Compile Include="Classes\InspectionInfoType.cs" />
     <Compile Include="Classes\InspectionType.cs" />
     <Compile Include="Classes\Inspector.cs" />
@@ -104,7 +106,9 @@
     <Compile Include="Classes\ValidUsers.cs" />
     <Compile Include="Enumerations\EnumCommentResult.cs" />
     <Compile Include="Enumerations\EnumConstType.cs" />
+    <Compile Include="Enumerations\EnumFilterOps.cs" />
     <Compile Include="Enumerations\EnumInspectionType.cs" />
+    <Compile Include="Enumerations\EnumRatingColors.cs" />
     <Compile Include="Enumerations\EnumRatingType.cs" />
     <Compile Include="Enumerations\EnumRepairType.cs" />
     <Compile Include="Enumerations\EnumTreeNodeType.cs" />
@@ -118,9 +122,11 @@
     <Compile Include="Interfaces\IAppModel.cs" />
     <Compile Include="Interfaces\IBredInfo.cs" />
     <Compile Include="Interfaces\ICloseableWindow.cs" />
+    <Compile Include="Interfaces\ICommentaryType.cs" />
     <Compile Include="Interfaces\IConfigInfo.cs" />
     <Compile Include="Interfaces\IContact.cs" />
     <Compile Include="Interfaces\IFacility.cs" />
+    <Compile Include="Interfaces\IFilterItem.cs" />
     <Compile Include="Interfaces\IGlobalContainer.cs" />
     <Compile Include="Interfaces\IInspectionInfoType.cs" />
     <Compile Include="Interfaces\IInspectionType.cs" />
@@ -148,6 +154,7 @@
     <Compile Include="Utils\BitmapSourceExtension.cs" />
     <Compile Include="Utils\DialogCloserExtension.cs" />
     <Compile Include="Utils\EnumBooleanConverter.cs" />
+    <Compile Include="Utils\ExpressionBuilder.cs" />
     <Compile Include="Utils\GetEnumDescription.cs" />
     <Compile Include="Utils\ItemSourceCountFilterConverter.cs" />
     <Compile Include="Utils\MakeBitmapTransparent.cs" />
@@ -246,13 +253,16 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Documents\BDC mockup feedback 3-30.docx" />
+    <None Include="Documents\BDC Progress &amp; Feedback.xlsx" />
+    <None Include="Documents\BDC Treeview details_S10.Q1.xlsx" />
+    <None Include="Documents\BDC_Wireframe_UI_2019-3-26.xlsx" />
     <None Include="Documents\Tasks.xlsx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\BDC mockup feedback 3-30.docx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -346,7 +356,9 @@
   <ItemGroup>
     <Resource Include="Resources\Bluebeam.jpg" />
     <Resource Include="Resources\Calculator.png" />
+    <Resource Include="Resources\Copy.jpg" />
     <Resource Include="Resources\OpenFile.jpg" />
+    <Resource Include="Resources\Photos_cropped %281%29.jpg" />
     <Resource Include="Resources\Report.jpg" />
     <Resource Include="Resources\Summary.png" />
     <Resource Include="Resources\ViewAll.jpg" />
@@ -362,14 +374,12 @@
     <Resource Include="Resources\Checkbox.png" />
     <Resource Include="Resources\Checkbox_Sm.png" />
     <Resource Include="Resources\checkedbox_checked.png" />
-    <Resource Include="Resources\Copy.jpg" />
     <Resource Include="Resources\Crop.png" />
     <Resource Include="Resources\Delete.png" />
     <Resource Include="Resources\Distress_Selector.png" />
     <Resource Include="Resources\DownArrow.png" />
     <Resource Include="Resources\Edit.png" />
     <Resource Include="Resources\EditText_Comments.png" />
-    <Resource Include="Resources\Filter.jpg" />
     <Resource Include="Resources\Filter_Clear.png" />
     <Resource Include="Resources\Filter_Green.jpg" />
     <Resource Include="Resources\Folder_Closed.png" />
@@ -426,12 +436,31 @@
     <Resource Include="Resources\DeleteSystem.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Filter.bmp" />
+    <Resource Include="Resources\Filter %281%29.png" />
+    <Resource Include="Resources\Remember %281%29.png" />
+    <Resource Include="Resources\Distress_Selector %281%29.png" />
+    <Resource Include="Resources\OK %281%29.png" />
+    <Resource Include="Resources\OK_ReviewLater %281%29.png" />
+    <Resource Include="Resources\Crop %281%29.png" />
+    <Resource Include="Resources\RotateLeft %281%29.png" />
+    <Resource Include="Resources\RotateRight %281%29.png" />
+    <Resource Include="Resources\Photos_cropped %281%29.png" />
+    <Resource Include="Resources\EditText_Comments %281%29.png" />
+    <Resource Include="Resources\MicrophoneOFF_Rnd_Slash %281%29.png" />
+    <Resource Include="Resources\MicrophoneON_Rnd %281%29.png" />
+    <Resource Include="Resources\Inspection %281%29.png" />
+    <Resource Include="Resources\Inventory %281%29.png" />
+    <Resource Include="Resources\Filter_Clear %281%29.png" />
+    <Resource Include="Resources\ReviewIssue %281%29.png" />
+    <Resource Include="Resources\Copy.png" />
     <Resource Include="Resources\Filter.png" />
     <Resource Include="Resources\AddComponent %281%29.png" />
     <Resource Include="Resources\AddSection %281%29.png" />
     <Resource Include="Resources\AddSystem %281%29.png" />
     <Resource Include="Resources\Cardno_reg_rgb %281%29.png" />
+    <Resource Include="Resources\Cancel_Undo %281%29.png" />
+    <Resource Include="Resources\Camera_cropped %281%29.png" />
+    <Resource Include="Resources\Cancel %281%29.png" />
     <Content Include="Resources\Cardno_reg_rgb.wmf" />
     <Resource Include="Resources\Cardno_rgb %281%29.png" />
     <Resource Include="Resources\DeleteComponent %281%29.png" />

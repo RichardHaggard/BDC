@@ -104,8 +104,8 @@ namespace BDC_V1.ViewModels
                                            (SelectedLoginUser != null) && (LoginUserList != null) &&
                                            LoginUserList.Contains(SelectedLoginUser));
 
-        [NotNull]
-        public BitmapSource CompanyLogo { get; }
+        //[NotNull]
+        //public BitmapSource CompanyLogo { get; }
 
 
         // **************** Class data members ********************************************** //
@@ -173,13 +173,7 @@ namespace BDC_V1.ViewModels
             CmdSelectInspector  = new DelegateCommand(OnInspector );
 
             //Build the company logo, make the background color (White) transparent
-            var bitmapImage = new BitmapImage(new Uri(@"pack://application:,,,/Resources/CardnoLogo.bmp"));
-            
-            // make the background color transparent
-            var bmp = bitmapImage.ToBitmap();
-            bmp.MakeTransparent(bmp.GetPixel(1, 1));
-            CompanyLogo = bmp.ToBitmapSource();
-
+            //CompanyLogo = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/CardnoLogo.bmp");
 
 #if DEBUG
             GetConfigInfo(@"This_is_a_fake_config_file.cfg");

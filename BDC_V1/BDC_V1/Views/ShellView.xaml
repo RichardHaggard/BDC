@@ -93,7 +93,7 @@
                     ToolTip="Default/Inventory Mode"
                     Command="{Binding CmdDefaultInventoryMode}"
                     Style="{DynamicResource TransparentBitmap}">
-                <Image Height="72" Width="72" Source="{Binding ImgInventory}"/>
+                <Image Height="72" Width="72" Source="/BDC_V1;component/Resources/Inventory (1).png"/>
             </Button>
 
             <!--Inspection mode button-->
@@ -101,7 +101,7 @@
                     ToolTip="Inspection Mode"
                     Command="{Binding CmdInspectionMode}"
                     Style="{DynamicResource TransparentBitmap}">
-                <Image Height="72" Width="72" Source="{Binding ImgInspection}"/>
+                <Image Height="72" Width="72" Source="/BDC_V1;component/Resources/Inspection (1).png"/>
             </Button>
             
             <!--Add System-->
@@ -111,7 +111,7 @@
                     Command="{Binding CmdAddSystem}"
                     Visibility="{Binding VisibilityAddSystemButton}"
                     Style="{DynamicResource TransparentBitmap}">
-                <Image Width="132" Height="72" Source="{Binding ImgAddSystem}"/>
+                <Image Width="132" Height="72" Source="/BDC_V1;component/Resources/AddSystem (1).png"/>
             </Button>
 
             <!--Delete System-->
@@ -121,7 +121,7 @@
                     Command="{Binding CmdDeleteSystem}"
                     Visibility="{Binding VisibilityDeleteSystemButton}"
                     Style="{DynamicResource TransparentBitmap}">
-              <Image Width="132" Height="72" Source="{Binding ImgDeleteSystem}"/>
+              <Image Width="132" Height="72" Source="/BDC_V1;component/Resources/DeleteSystem (1).png"/>
             </Button>
 
             <!--Add Component-->
@@ -131,7 +131,7 @@
                     Command="{Binding CmdAddComponent}"
                     Visibility="{Binding VisibilityAddComponentButton}"
                     Style="{DynamicResource TransparentBitmap}">
-              <Image Width="132" Height="72" Source="{Binding ImgAddComponent}"/>
+              <Image Width="132" Height="72" Source="/BDC_V1;component/Resources/AddComponent (1).png"/>
             </Button>
 
             <!--Add Section-->
@@ -141,7 +141,7 @@
                     Command="{Binding CmdAddSection}"
                     Visibility="{Binding VisibilityAddSectionButton}"
                     Style="{DynamicResource TransparentBitmap}">
-                <Image Width="132" Height="72" Source="{Binding ImgAddSection}"/>
+                <Image Width="132" Height="72" Source="/BDC_V1;component/Resources/AddSection (1).png"/>
             </Button>
 
             <!--Copy Sections-->
@@ -151,7 +151,7 @@
                     Command="{Binding CmdCopySections}"
                     Visibility="{Binding VisibilityCopySectionsButton}"
                     Style="{DynamicResource TransparentBitmap}">
-                <Image Width="72" Height="72" Source="{Binding ImgCopy}"/>
+                <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/Copy.png"/>
             </Button>
 
             <!--Copy Inventory-->
@@ -161,7 +161,7 @@
                     Command="{Binding CmdCopyInventory}"
                     Visibility="{Binding VisibilityCopyInventoryButton}"
                     Style="{DynamicResource TransparentBitmap}">
-                <Image Width="72" Height="72" Source="{Binding ImgCopy}"/>
+                <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/Copy.png"/>
             </Button>
 
             <!--Copy Inspection-->
@@ -171,7 +171,7 @@
                     Command="{Binding CmdCopyInspection}"
                     Visibility="{Binding VisibilityCopyInspectionButton}"
                     Style="{DynamicResource TransparentBitmap}">
-                <Image Width="72" Height="72" Source="{Binding ImgCopy}"/>
+                <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/Copy.png"/>
             </Button>
 
             <!--Microphone On button-->
@@ -179,7 +179,7 @@
                     ToolTip="Microphone ON"
                     Command="{Binding CmdMicOn}"
                     Style="{DynamicResource TransparentBitmap}">
-                <Image Width="72" Height="72" Source="{Binding ImgMicrophoneON}"/>
+                <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/MicrophoneON_Rnd (1).png"/>
             </Button>
 
             <!--Microphone Off button-->
@@ -187,7 +187,7 @@
                     ToolTip="Microphone OFF"
                     Command="{Binding CmdMicOff}"
                     Style="{DynamicResource TransparentBitmap}">
-                <Image Width="72" Height="72" Source="{Binding ImgMicrophoneOFF}"/>
+                <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/MicrophoneOFF_Rnd_Slash (1).png"/>
             </Button>
         </Grid>
         

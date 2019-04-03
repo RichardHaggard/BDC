@@ -31,6 +31,15 @@ namespace BDC_V1.Enumerations
         [Description("Y-")]
         YMinus,
 
+        [Description("A+")]
+        APlus,
+
+        [Description("A")]
+        A,
+
+        [Description("A-")]
+        AMinus,
+
         [Description("R+")]
         RPlus,
 
@@ -39,5 +48,36 @@ namespace BDC_V1.Enumerations
 
         [Description("R-")]
         RMinus
+    }
+
+    public static class EnumRatingConverter
+    {
+        public static EnumRatingColors ToRatingColor(this EnumRatingType value)
+        {
+            switch (value)
+            {
+                case EnumRatingType.Y:
+                case EnumRatingType.YPlus:
+                case EnumRatingType.YMinus:
+                    return EnumRatingColors.Yellow;
+
+                case EnumRatingType.A:
+                case EnumRatingType.APlus:
+                case EnumRatingType.AMinus:
+                    return EnumRatingColors.Amber;
+
+                case EnumRatingType.R:
+                case EnumRatingType.RPlus:
+                case EnumRatingType.RMinus:
+                    return EnumRatingColors.Red;
+
+                //case EnumRatingType.Unknown:
+                //case EnumRatingType.G:
+                //case EnumRatingType.GPlus:
+                //case EnumRatingType.GMinus:
+                default:
+                    return EnumRatingColors.Green;
+            }
+        }
     }
 }

@@ -63,19 +63,19 @@
         <Button Grid.Column="0"
                 Style="{StaticResource bTB}"
                 Command="{Binding CmdMicOn}">
-          <Image Source="/BDC_V1;component/Resources/MicrophoneON_Rnd.png" />
+          <Image Source="/BDC_V1;component/Resources/MicrophoneON_Rnd (1).png" />
         </Button>
 
         <Button Grid.Column="1"
                 Style="{StaticResource bTB}"
                 Command="{Binding CmdMicOff}">
-          <Image Source="/BDC_V1;component/Resources/MicrophoneOFF_Rnd_Slash.png" />
+          <Image Source="/BDC_V1;component/Resources/MicrophoneOFF_Rnd_Slash (1).png" />
         </Button>
 
         <Button Grid.Column="2"
                 Style="{StaticResource bTB}"
                 Command="{Binding CmdCopy}">
-          <Image Source="/BDC_V1;component/Resources/Copy.jpg" />
+          <Image Source="/BDC_V1;component/Resources/Copy (1).jpg" />
         </Button>
 
         <Button Grid.Column="3"
@@ -88,19 +88,19 @@
         <Button Grid.Column="4"
                 Style="{StaticResource bTB}"
                 Command="{Binding CmdCancelUndo}">
-          <Image Source="/BDC_V1;component/Resources/Cancel_Undo.png" />
+          <Image Source="/BDC_V1;component/Resources/Cancel_Undo (1).png" />
         </Button>
 
         <Button Grid.Column="5"
                 Style="{StaticResource bTB}"
                 Command="{Binding CmdReviewLater}">
-          <Image Source="/BDC_V1;component/Resources/OK_ReviewLater.png" />
+          <Image Source="/BDC_V1;component/Resources/OK_ReviewLater (1).png" />
         </Button>
 
         <Button Grid.Column="6"
                 Style="{StaticResource bTB}"
                 Command="{Binding CmdOkCommand}">
-          <Image Source="/BDC_V1;component/Resources/OK.png" />
+          <Image Source="/BDC_V1;component/Resources/OK (1).png" />
         </Button>
       </Grid>
     </Border>

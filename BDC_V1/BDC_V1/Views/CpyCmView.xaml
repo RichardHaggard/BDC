@@ -14,9 +14,256 @@
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
-        Height="450" Width="800">
+        Height="450"
+        Width="800">
+
+  <Window.Resources>
+    <Style TargetType="DataGridColumnHeader">
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="Background" Value="LightGray" />
+      <Setter Property="BorderBrush" Value="Black" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Height" Value="35" />
+      <Setter Property="Margin" Value="0" />
+    </Style>
+
+    <Style TargetType="DataGridRow">
+      <Setter Property="Background" Value="WhiteSmoke" />
+      <Setter Property="BorderBrush" Value="Black" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <Style x:Key="CommonButtons" TargetType="RadioButton">
+      <Setter Property="Width" Value="120" />
+      <Setter Property="Margin" Value="0,5,5,5" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="RowOneButtons" TargetType="RadioButton" BasedOn="{StaticResource CommonButtons}">
+      <Setter Property="Width" Value="80" />
+    </Style>
+
+    <Style x:Key="RowTwoButtons" TargetType="RadioButton" BasedOn="{StaticResource CommonButtons}">
+    </Style>
+
+    <Style x:Key="RowThreePlusButtons" TargetType="RadioButton" BasedOn="{StaticResource CommonButtons}">
+    </Style>
+
+    <Style x:Key="CommonLabels" TargetType="Label">
+      <Setter Property="Margin" Value="0,5,0,5" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="RowOneLabels" TargetType="Label" BasedOn="{StaticResource CommonLabels}">
+      <Setter Property="Width" Value="120" />
+    </Style>
+
+    <Style x:Key="RowTwoLabels" TargetType="Label" BasedOn="{StaticResource CommonLabels}">
+      <Setter Property="Width" Value="45" />
+    </Style>
+
+    <Style x:Key="RowThreePlusLabels" TargetType="Label" BasedOn="{StaticResource CommonLabels}">
+      <Setter Property="Width" Value="110" />
+    </Style>
+  </Window.Resources>
 
   <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" /> <!-- Source -->
+      <RowDefinition Height="Auto" /> <!-- Related to Content -->
+      <RowDefinition Height="Auto" /> <!-- Rated as -->
+      <RowDefinition Height="Auto" /> <!-- Search Term -->
+      <RowDefinition Height="Auto" /> <!-- DataGrid -->
+      <RowDefinition Height="Auto" /> <!-- Action Buttons -->
+    </Grid.RowDefinitions>
       
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <!-- Source -->
+    <Label Grid.Row="0" Grid.Column="0"
+           Style="{StaticResource RowOneLabels}"
+           Content="Source:" />
+
+    <RadioButton Grid.Row="0" Grid.Column="1" Name="SourceBredButton"
+                 Content="BRED"
+                 Style="{DynamicResource RowOneButtons}"
+                 GroupName="SourceTypeGroup"
+                 IsChecked="{Binding IsSourceNoneChecked}"/>
+
+    <RadioButton Grid.Row="0" Grid.Column="2" Name="SourceSavedButton"
+                 Content="My Saved Com:"
+                 Style="{DynamicResource RowTwoButtons}"
+                 GroupName="SourceTypeGroup"
+                 IsChecked="{Binding IsSourceBredChecked}"/>
+
+    <Label Grid.Row="0" Grid.Column="3"
+           Style="{StaticResource RowThreePlusLabels}"
+           HorizontalContentAlignment="Right"
+           Content="Facility:" />
+
+    <ComboBox Grid.Row="0" Grid.Column="4"
+              IsEnabled="{Binding ElementName=SourceSavedButton, Path=IsEnabled}"
+              Margin="0,5,0,5"
+              ItemsSource="{Binding ListOfFacilities, Mode=OneWay}"
+              SelectedItem="{Binding SelectedFacility, Mode=TwoWay}">
+        <ComboBox.Style>
+          <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBase}">
+            <Style.Triggers>
+              <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Background" Value="LightGray" />
+              </Trigger>
+            </Style.Triggers>
+          </Style>
+        </ComboBox.Style>
+      </ComboBox>
+
+    <!-- Related to Content -->
+    <Label Grid.Row="1" Grid.Column="0"
+           Style="{StaticResource RowOneLabels}"
+           Content="Related to current:" />
+
+    <RadioButton Grid.Row="1" Grid.Column="1" 
+                 Content="System"
+                 Style="{DynamicResource RowOneButtons}"
+                 GroupName="CurrentTypeGroup"
+                 IsChecked="{Binding IsCurrentSystemChecked}"/>
+
+    <RadioButton Grid.Row="1" Grid.Column="2" 
+                 Content="Component Type:"
+                 Style="{DynamicResource RowTwoButtons}"
+                 GroupName="CurrentTypeGroup"
+                 IsChecked="{Binding IsCurrentComponentChecked}"/>
+
+    <!-- Rated as -->
+    <Label Grid.Row="2" Grid.Column="0"
+           Style="{StaticResource RowOneLabels}"
+           Content="Rated as:" />
+
+    <RadioButton Grid.Row="2" Grid.Column="1" 
+                 Content="Any"
+                 Style="{DynamicResource RowThreePlusButtons}"
+                 GroupName="RatedTypeGroup"
+                 IsChecked="{Binding IsRatingAnyChecked}"/>
+
+    <RadioButton Grid.Row="2" Grid.Column="2" 
+                 Style="{DynamicResource RowThreePlusButtons}"
+                 Content="Yellow"
+                 GroupName="RatedTypeGroup"
+                 IsChecked="{Binding IRatingYellowChecked}"/>
+
+    <RadioButton Grid.Row="2" Grid.Column="3" 
+                 Style="{DynamicResource RowThreePlusButtons}"
+                 Content="Amber"
+                 GroupName="RatedTypeGroup"
+                 IsChecked="{Binding IsRatingAmberChecked}"/>
+
+    <RadioButton Grid.Row="2" Grid.Column="4" 
+                 Style="{DynamicResource RowThreePlusButtons}"
+                 Content="Red"
+                 GroupName="RatedTypeGroup"
+                 IsChecked="{Binding IsRatingRedChecked}"/>
+
+    <!-- Search Term -->
+    <Label Grid.Row="3" Grid.Column="0"
+           Style="{StaticResource RowOneLabels}"
+           Content="Search term:" />
+
+    <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+              Margin="0,5,0,5"
+              BorderThickness="1"
+              BorderBrush="Black"
+      Text="{Binding SearchTerm, Mode=TwoWay}"/>
+
+    <!-- DataGrid -->
+    <DataGrid Name="LvUsers" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" 
+              Margin="5"
+              MinHeight="200"
+              AutoGenerateColumns="False"
+              VerticalScrollBarVisibility="Auto"
+              CanUserSortColumns="True"
+              GridLinesVisibility="All"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              ItemsSource="{Binding FilteredCommentary, Mode=OneWay}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header=" Facility" Binding="{Binding Path=FacilityId }" Width="100" />
+        <DataGridTextColumn Header=" Code"     Binding="{Binding Path=CodeIdText }" Width="100" />
+        <DataGridTextColumn Header=" DCR"      Binding="{Binding Path=DCRText    }" Width="50" />
+        <DataGridTextColumn Header=" Comment"  Binding="{Binding Path=CommentText}" Width="*" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+    <!-- Action Buttons -->
+    <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"    /> <!-- white space to the left -->
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="4*" />
+      </Grid.ColumnDefinitions>
+
+      <Button Grid.Column="0" Margin="5"
+              Command="{Binding CmdNextButton}"
+              Content="Next"/>
+
+      <Button Grid.Column="1" Margin="5"
+              Command="{Binding CmdPrevButton}"
+              Content="Prev." />
+
+      <Button Grid.Column="2" Margin="5" 
+              Command="{Binding CmdCopyButton}"
+              HorizontalContentAlignment="Left">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="24" />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+
+          <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Copy.png" />
+          <Label Grid.Column="1" 
+                 HorizontalAlignment="Center"
+                 Margin="20,-2,0,0">
+            COPY
+          </Label>
+        </Grid>
+      </Button>
+
+      <Button Grid.Column="3" Margin="5" 
+              Command="{Binding CmdCancelButton}"
+              HorizontalContentAlignment="Left">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="24" />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+
+          <Image Grid.Column="0" 
+                 HorizontalAlignment="Left"
+                 Source="/BDC_V1;component/Resources/Cancel_Undo (1).png" />
+          <Label Grid.Column="1" 
+                 HorizontalAlignment="Center"
+                 Margin="20,-2,0,0">
+            CANCEL
+          </Label>
+        </Grid>
+      </Button>
+      <Label Grid.Column="4" Margin="5" 
+             Background="LightGray"
+             Content="{Binding MatchingResultsText, Mode=OneWay}" />
+    </Grid>
+
   </Grid>
 </Window>

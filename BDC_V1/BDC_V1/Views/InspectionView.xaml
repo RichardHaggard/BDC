@@ -555,7 +555,7 @@
                  Height="40"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Bottom"
-                 Source="{Binding ImgEditTextComments}" />
+                 Source="/BDC_V1;component/Resources/EditText_Comments (1).png" />
           <Label Grid.Row="1"
                  Style="{StaticResource LabelCJ}"
                  Content="Insp. Comment" />
@@ -588,7 +588,7 @@
           <Image Grid.Column="1"
                  Margin="5,2,5,2"
                  Height="40"
-                 Source="{Binding ImgRemember}"
+                 Source="/BDC_V1;component/Resources/Remember (1).png"
                  Width="35" />
         </Grid>
       </Border>
@@ -618,7 +618,7 @@
                  Height="40"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center"
-                 Source="{Binding ImgPhotosCropped}" />
+                 Source="/BDC_V1;component/Resources/Photos_cropped (1).png" />
           <Label Grid.Row="1"
                  Content="Photo(s)"
                  Style="{StaticResource LabelCJ}" />
@@ -649,7 +649,7 @@
                 HorizontalContentAlignment="Left"
                 Command="{Binding CmdCancelEdit}">
           <StackPanel Orientation="Horizontal">
-            <Image Source="{Binding ImgCancelEdit}"
+            <Image Source="/BDC_V1;component/Resources/Cancel_Undo (1).png"
                    Width="24"
                    HorizontalAlignment="Left" />
             <Label Margin="0 -4 0 0"

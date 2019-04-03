@@ -50,15 +50,15 @@ namespace BDC_V1.ViewModels
         public ICommand CmdTabSelectionChanged     { get; }
         public ICommand CmdCopyInspection          { get; }
 
-        public BitmapSource ImgInventory     { get; }
-        public BitmapSource ImgInspection    { get; }
-        public BitmapSource ImgAddSystem     { get; }
-        public BitmapSource ImgDeleteSystem  { get; }
-        public BitmapSource ImgAddComponent  { get; }
-        public BitmapSource ImgAddSection    { get; }
-        public BitmapSource ImgCopy          { get; }
-        public BitmapSource ImgMicrophoneON  { get; }
-        public BitmapSource ImgMicrophoneOFF { get; }
+        //public BitmapSource ImgInventory     { get; }
+        //public BitmapSource ImgInspection    { get; }
+        //public BitmapSource ImgAddSystem     { get; }
+        //public BitmapSource ImgDeleteSystem  { get; }
+        //public BitmapSource ImgAddComponent  { get; }
+        //public BitmapSource ImgAddSection    { get; }
+        //public BitmapSource ImgCopy          { get; }
+        //public BitmapSource ImgMicrophoneON  { get; }
+        //public BitmapSource ImgMicrophoneOFF { get; }
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
         public string Title => @"Builder DC - " + BredFilename;
@@ -364,15 +364,15 @@ namespace BDC_V1.ViewModels
 
             CmdTabSelectionChanged     = new DelegateCommand<TabItem>(OnTabSelectionChanged);
 
-            ImgInventory     = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Inventory.png");
-            ImgInspection    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Inspection.png");
-            ImgAddSystem     = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddSystem (1).png");
-            ImgDeleteSystem  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/DeleteSystem (1).png");
-            ImgAddComponent  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddComponent (1).png");
-            ImgAddSection    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddSection (1).png");
-            ImgCopy          = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Copy.jpg");
-            ImgMicrophoneON  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/MicrophoneON_Rnd.png");
-            ImgMicrophoneOFF = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/MicrophoneOFF_Rnd_Slash.png");
+            //ImgInventory     = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Inventory.png");
+            //ImgInspection    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Inspection.png");
+            //ImgAddSystem     = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddSystem (1).png");
+            //ImgDeleteSystem  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/DeleteSystem (1).png");
+            //ImgAddComponent  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddComponent (1).png");
+            //ImgAddSection    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddSection (1).png");
+            //ImgCopy          = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Copy.jpg");
+            //ImgMicrophoneON  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/MicrophoneON_Rnd.png");
+            //ImgMicrophoneOFF = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/MicrophoneOFF_Rnd_Slash.png");
 
             InvTreeBorderBackgroundColor = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray);
 
