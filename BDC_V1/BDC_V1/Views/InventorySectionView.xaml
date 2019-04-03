@@ -217,7 +217,9 @@
                         />
                 </Grid>
             </Grid>
-            <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
+            <TextBox 
+                Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
+                Background="LightYellow"
                 Margin="5"
                 Style="{StaticResource TextBoxWrap}"
                 Text="{Binding InventorySection.SectionComment}"

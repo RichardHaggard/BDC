@@ -252,6 +252,7 @@
             </Grid>
             <TextBox
                 Grid.Row="10" Grid.Column="1"  Grid.ColumnSpan="3"
+                Background="LightYellow"
                 Margin="5"
                 Style="{StaticResource TextBoxWrap}"
                 Text="{Binding InventoryDetails.DetailComment}"
@@ -292,34 +293,42 @@
             <ItemsControl x:Name="ImagesList" prism:RegionManager.RegionName="InventoryDetailsItemControl" />
           </Border>
 
-            <Button
+            <Grid
                 Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
                 Content="Cancel Edit"
-                HorizontalAlignment="Left"
-                Margin="10, 5, 5, 5"
+                Margin="5"
                 Width="125"
                 />
             <Button
-                Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4"
+                Grid.Column="1"
                 Content="Delete Detail"
                 HorizontalAlignment="Center"
                 Margin="5"
                 Width="125"
                 />
             <Button
-                Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4"
+                Grid.Column="2"
                 Content="Add Detail"
-                HorizontalAlignment="Right"
-                Margin="5,5,10,5"
+                Margin="5"
                 Width="125"
                 />
             <Button
-                Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="4"
-                Content="Add Detail"
-                HorizontalAlignment="Right"
-                Margin="5,5,10,5"
+                Grid.Column="3"
+                Content="Copy Detail"
+                Margin="5"
                 Width="125"
                 />
+            </Grid>
         </Grid>
     </ScrollViewer>
 </UserControl>
