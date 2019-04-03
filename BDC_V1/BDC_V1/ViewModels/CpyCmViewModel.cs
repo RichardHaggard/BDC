@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
+using JetBrains.Annotations;
 using Prism.Commands;
 
 namespace BDC_V1.ViewModels
@@ -20,143 +22,25 @@ namespace BDC_V1.ViewModels
     {
         // **************** Class enumerations ********************************************** //
 
-        public enum EnumFilterSystemType
+        public enum EnumFilterSourceType
         {
-            SystemTypeAny,
-            // ReSharper disable once InconsistentNaming
-            SystemTypeBRED,
-            SystemTypeSystem
+            BredFilter,
+            SavedFilter
+        }
+
+        public enum EnumFilterRelatedType
+        {
+            SystemFilter,
+            ComponentFilter
         }
 
         // **************** Class data members ********************************************** //
 
         // **************** Class properties ************************************************ //
-        public ICommand CmdNextButton   { get; }
-        public ICommand CmdPrevButton   { get; }
-        public ICommand CmdCopyButton   { get; }
+        public ICommand CmdNextButton { get; }
+        public ICommand CmdPrevButton { get; }
+        public ICommand CmdCopyButton { get; }
         public ICommand CmdCancelButton { get; }
-
-        public bool IsSourceSourceChecked
-        {
-            get => _isSourceSourceChecked;
-            set
-            {
-                if ( SetProperty(ref _isSourceSourceChecked, value))
-                    OnChangeFilter();
-            }
-        }
-        private bool _isSourceSourceChecked;
-
-        public bool IsSourceCurrentChecked
-        {
-            get => _isSourceCurrentChecked;
-            set
-            {
-                if ( SetProperty(ref _isSourceCurrentChecked, value))
-                    OnChangeFilter();
-            }
-        }
-        private bool _isSourceCurrentChecked;
-
-        public bool IsSourceRatedChecked
-        {
-            get => _isSourceRatedChecked;
-            set
-            {
-                if ( SetProperty(ref _isSourceRatedChecked, value))
-                    OnChangeFilter();
-            }
-        }
-        private bool _isSourceRatedChecked;
-
-        // ReSharper disable once InconsistentNaming
-        public bool IsSysTypeBREDChecked
-        {
-            get => _isSysTypeBredChecked;
-            set
-            {
-                if ( SetProperty(ref _isSysTypeBredChecked, value))
-                    OnChangeFilter();
-            }
-        }
-        private bool _isSysTypeBredChecked;
-
-        public bool IsSysTypeSystemChecked
-        {
-            get => _isSysTypeSystemChecked;
-            set
-            {
-                if ( SetProperty(ref _isSysTypeSystemChecked, value))
-                    OnChangeFilter();
-            }
-        }
-        private bool _isSysTypeSystemChecked;
-
-        public bool IsSysTypeAnyChecked
-        {
-            get => _isSysTypeAnyChecked;
-            set
-            {
-                if ( SetProperty(ref _isSysTypeAnyChecked, value))
-                    OnChangeFilter();
-            }
-        }
-        private bool _isSysTypeAnyChecked;
-
-        public bool IsColorYellowChecked
-        {
-            get => _isColorYellowChecked;
-            set => SetProperty(ref _isColorYellowChecked, value);
-        }
-        private bool _isColorYellowChecked;
-
-        public bool IsColorAmberChecked
-        {
-            get => _isColorAmberChecked;
-            set => SetProperty(ref _isColorAmberChecked, value);
-        }
-        private bool _isColorAmberChecked;
-
-        public bool IsColorRedChecked
-        {
-            get => _isColorRedChecked;
-            set => SetProperty(ref _isColorRedChecked, value);
-        }
-        private bool _isColorRedChecked;
-
-        public ObservableCollection<string> ListOfFacilities { get; } =
-            new ObservableCollection<string>();
-
-        public string SelectedFacility
-        {
-            get => _selectedFacility;
-            set
-            {
-                if ( SetProperty(ref _selectedFacility, value))
-                    OnChangeFilter();
-            }
-        }
-        private string _selectedFacility;
-
-        public string SearchTerm
-        {
-            get => _searchTerm;
-            set => SetProperty(ref _searchTerm, value);
-        }
-        private string _searchTerm;
-
-        public string MatchingResultsText
-        {
-            get => _matchingResultsText;
-            set => SetProperty(ref _matchingResultsText, value);
-        }
-        private string _matchingResultsText;
-
-        public ObservableCollection<ICommentaryType> FilteredCommentary { get; } =
-            new ObservableCollection<ICommentaryType>();
-
-        public ObservableCollection<ICommentaryType> UnFilteredCommentary { get; } =
-            new ObservableCollection<ICommentaryType>();
 
         /// <summary>
         /// EnumCommentResult.ResultCancelled indicates cancellation.
@@ -168,119 +52,146 @@ namespace BDC_V1.ViewModels
             get => _result;
             set => SetProperty(ref _result, value);
         }
+
         private EnumCommentResult _result;
 
-        public EnumFilterSystemType FilterSystemType
+        [CanBeNull]
+        public string SelectedFacility
         {
-            get
-            {
-                if (IsSysTypeBREDChecked  ) return EnumFilterSystemType.SystemTypeBRED;
-                if (IsSysTypeSystemChecked) return EnumFilterSystemType.SystemTypeSystem;
-                return EnumFilterSystemType.SystemTypeAny;
-            }
-
+            get => (FilterSource == EnumFilterSourceType.SavedFilter)
+                ? _selectedFacility
+                : ListOfFacilities.FirstOrDefault();
             set
             {
-                if (SetProperty(ref _filterSystemType, value))
-                {
-                    switch (value)
-                    {
-                        case EnumFilterSystemType.SystemTypeBRED:
-                            IsSysTypeBREDChecked = true;
-                            break;
-
-                        case EnumFilterSystemType.SystemTypeSystem:
-                            IsSysTypeSystemChecked = true;
-                            break;
-
-                        // ReSharper disable once RedundantCaseLabel
-                        case EnumFilterSystemType.SystemTypeAny :
-                        default:
-                            IsSysTypeAnyChecked = true;
-                            break;
-                    }
-                }
+                if (SetProperty(ref _selectedFacility, value))
+                    OnChangeFilter();
             }
         }
-        private EnumFilterSystemType _filterSystemType;
+        private string _selectedFacility;
 
-        public EnumRatingColors FilterRatingColor
+        public string SearchTerm
         {
-            get
-            {
-                if (IsColorYellowChecked) return EnumRatingColors.Yellow;
-                if (IsColorAmberChecked ) return EnumRatingColors.Amber;
-                if (IsColorRedChecked   ) return EnumRatingColors.Red;
-                return EnumRatingColors.Green;
-            }
-
+            get => _searchTerm;
             set
             {
-                if (SetProperty(ref _filterRatingColor, value))
+                if (SetProperty(ref _searchTerm, value))
+                    OnChangeFilter();
+            }
+        }
+        private string _searchTerm;
+
+        public EnumFilterSourceType FilterSource
+        {
+            get => _filterSource;
+            set
+            {
+                if (SetProperty(ref _filterSource, value))
                 {
-                    switch (value)
-                    {
-                        case EnumRatingColors.Yellow:
-                            IsColorYellowChecked = true;
-                            break;
-
-                        case EnumRatingColors.Amber:
-                            IsColorAmberChecked = true;
-                            break;
-
-                        case EnumRatingColors.Red:
-                            IsColorRedChecked = true;
-                            break;
-
-                        // ReSharper disable once RedundantCaseLabel
-                        case EnumRatingColors.Green:
-                        default:
-                            IsColorYellowChecked = false;
-                            IsColorAmberChecked  = false;
-                            IsColorRedChecked    = false;
-                            break;
-                    }
-
+                    RaisePropertyChanged(nameof(SelectedFacility));
                     OnChangeFilter();
                 }
             }
         }
+        private EnumFilterSourceType _filterSource;
+
+        public EnumFilterRelatedType RelatedSource
+        {
+            get => _relatedSource;
+            set
+            {
+                if (SetProperty(ref _relatedSource, value))
+                    OnChangeFilter();
+            }
+        }
+        private EnumFilterRelatedType _relatedSource;
+
+        public EnumRatingColors FilterRatingColor
+        {
+            get => _filterRatingColor;
+            set
+            {
+                if (SetProperty(ref _filterRatingColor, value))
+                    OnChangeFilter();
+            }
+        }
         private EnumRatingColors _filterRatingColor;
+
+        public string MatchingResultsText
+        {
+            get => _matchingResultsText;
+            set => SetProperty(ref _matchingResultsText, value);
+        }
+        private string _matchingResultsText;
+
+        public ObservableCollection<string> ListOfFacilities { get; } =
+            new ObservableCollection<string>();
+
+        public ObservableCollection<ICommentaryType> FilteredCommentary { get; } =
+            new ObservableCollection<ICommentaryType>();
+
+        public ObservableCollection<ICommentaryType> UnFilteredCommentary { get; } =
+            new ObservableCollection<ICommentaryType>();
 
         // **************** Class constructors ********************************************** //
 
         public CpyCmViewModel()
         {
-            CmdNextButton   = new DelegateCommand(OnNextButton  );
-            CmdPrevButton   = new DelegateCommand(OnPrevButton  );
-            CmdCopyButton   = new DelegateCommand(OnCopyButton  );
+            CmdNextButton = new DelegateCommand(OnNextButton);
+            CmdPrevButton = new DelegateCommand(OnPrevButton);
+            CmdCopyButton = new DelegateCommand(OnCopyButton);
             CmdCancelButton = new DelegateCommand(OnCancelButton);
 
-            FilterRatingColor = EnumRatingColors.Red;
+            FilterSource      = EnumFilterSourceType.BredFilter;
+            RelatedSource     = EnumFilterRelatedType.SystemFilter;
+            FilterRatingColor = EnumRatingColors.Green;
+            SearchTerm = "";
 
             ListOfFacilities.Add("<ANY FACILITY>");
             ListOfFacilities.Add("17180 - ARNG ARMORY");
             ListOfFacilities.Add("11057 - Facility #2");
 
+            SelectedFacility = ListOfFacilities.FirstOrDefault();
+
             UnFilteredCommentary.Add(new CommentaryType()
             {
-                FacilityId  = "11057",
-                CodeIdText  = "C102001",
-                Rating      = EnumRatingType.R,
+                FacilityId = "11057",
+                CodeIdText = "C102001",
+                Rating = EnumRatingType.R,
                 CommentText = "DAMAGED - All the wood doors have 70% severe moisture damage. " +
                               "CRACKED - All of the doors have 65% severe cracking and splintering."
             });
 
             UnFilteredCommentary.Add(new CommentaryType()
             {
-                FacilityId  = "17180",
-                CodeIdText  = "C102002",
-                Rating      = EnumRatingType.Y,
+                FacilityId = "17180",
+                CodeIdText = "C102002",
+                Rating = EnumRatingType.Y,
                 CommentText = "HOLED - Holes have been punched thru 20% of the doors."
             });
+
+            // Hook changes in the Facility list
+            ListOfFacilities.CollectionChanged +=
+                new NotifyCollectionChangedEventHandler(OnFacilitiesCollectionChanged);
+
+            // Hook changes in the input source
+            UnFilteredCommentary.CollectionChanged +=
+                new NotifyCollectionChangedEventHandler(OnCommentaryCollectionChanged);
+
+            OnChangeFilter();
         }
 
         // **************** Class members *************************************************** //
+
+        private void OnCommentaryCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnChangeFilter();
+        }
+
+        private void OnFacilitiesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (!ListOfFacilities.Contains(SelectedFacility))
+                SelectedFacility = ListOfFacilities.FirstOrDefault();
+        }
 
         private void OnCancelButton()
         {
@@ -294,75 +205,86 @@ namespace BDC_V1.ViewModels
             DialogResultEx = true;
         }
 
-        private void OnNextButton() { Debug.WriteLine("OnNextButton is not implemented"); }
-        private void OnPrevButton() { Debug.WriteLine("OnPrevButton is not implemented"); }
+        private void OnNextButton()
+        {
+            Debug.WriteLine("OnNextButton is not implemented");
+        }
+
+        private void OnPrevButton()
+        {
+            Debug.WriteLine("OnPrevButton is not implemented");
+        }
 
         private void OnChangeFilter()
         {
             IEnumerable<ICommentaryType> filterList = new List<ICommentaryType>(UnFilteredCommentary);
 
             // ??? don't know what to do here ???
-            if (IsSourceSourceChecked)
+            switch (FilterSource)
             {
-            }
-
-            // ??? don't know what to do here ???
-            if (IsSourceCurrentChecked)
-            {
-            }
-
-            if (IsSourceRatedChecked && !IsSysTypeAnyChecked)
-            {
-                switch (FilterRatingColor)
-                {
-                    case EnumRatingColors.Green:
-                        filterList = filterList.Where(item => 
-                            item.Rating.ToRatingColor() == EnumRatingColors.Green);
-                        break;
-
-                    case EnumRatingColors.Yellow:
-                        filterList = filterList.Where(item => 
-                            item.Rating.ToRatingColor() == EnumRatingColors.Yellow);
-                        break;
-
-                    case EnumRatingColors.Amber:
-                        filterList = filterList.Where(item => 
-                            item.Rating.ToRatingColor() == EnumRatingColors.Amber);
-                        break;
-
-                    case EnumRatingColors.Red:
-                        filterList = filterList.Where(item => 
-                            item.Rating.ToRatingColor() == EnumRatingColors.Red);
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            // ??? don't know what to do here ???
-            switch (FilterSystemType)
-            {
-                case EnumFilterSystemType.SystemTypeAny:
+                case EnumFilterSourceType.BredFilter:
                     break;
-                case EnumFilterSystemType.SystemTypeBRED:
+
+                case EnumFilterSourceType.SavedFilter:
+                    if (!string.IsNullOrEmpty(SelectedFacility) &&
+                        (SelectedFacility != "<ANY FACILITY>"))
+                    {
+                        var facilityId = SelectedFacility.Substring(0, 5);
+
+                        filterList = filterList.Where(item =>
+                            item.FacilityId == facilityId);
+                    }
+
                     break;
-                case EnumFilterSystemType.SystemTypeSystem:
-                    break;
+
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(FilterSource),
+                        FilterSource, @"Invalid FilterSource");
+            }
+
+            // ??? don't know what to do here ???
+            switch (RelatedSource)
+            {
+                case EnumFilterRelatedType.SystemFilter:
+                    break;
+
+                case EnumFilterRelatedType.ComponentFilter:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(RelatedSource),
+                        RelatedSource, @"Invalid RelatedSource");
+            }
+
+            switch (FilterRatingColor)
+            {
+                case EnumRatingColors.Green:
+                    break;
+
+                case EnumRatingColors.Yellow:
+                    filterList = filterList.Where(item =>
+                        item.Rating.ToRatingColor() == EnumRatingColors.Yellow);
+                    break;
+
+                case EnumRatingColors.Amber:
+                    filterList = filterList.Where(item =>
+                        item.Rating.ToRatingColor() == EnumRatingColors.Amber);
+                    break;
+
+                case EnumRatingColors.Red:
+                    filterList = filterList.Where(item =>
+                        item.Rating.ToRatingColor() == EnumRatingColors.Red);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(FilterRatingColor),
+                        FilterRatingColor, @"Invalid FilterRatingColor");
             }
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
                 filterList = filterList.Where(item =>
                     item.CommentText.Contains(SearchTerm));
-            }
-
-            if (SelectedFacility != "<ANY FACILITY>")
-            {
-                filterList = filterList.Where(item =>
-                    item.FacilityId == SelectedFacility);
             }
 
             FilteredCommentary.Clear();

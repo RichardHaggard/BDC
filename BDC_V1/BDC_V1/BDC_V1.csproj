@@ -154,6 +154,7 @@
     <Compile Include="Utils\BitmapSourceExtension.cs" />
     <Compile Include="Utils\DialogCloserExtension.cs" />
     <Compile Include="Utils\EnumBooleanConverter.cs" />
+    <Compile Include="Utils\EnumFilterSourceConverter.cs" />
     <Compile Include="Utils\ExpressionBuilder.cs" />
     <Compile Include="Utils\GetEnumDescription.cs" />
     <Compile Include="Utils\ItemSourceCountFilterConverter.cs" />

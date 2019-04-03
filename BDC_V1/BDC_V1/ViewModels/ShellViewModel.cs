@@ -14,7 +14,9 @@ using BDC_V1.Enumerations;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
+using BDC_V1.Views;
 using JetBrains.Annotations;
+using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Events;
 using EventAggregator = BDC_V1.Events.EventAggregator;
@@ -49,6 +51,7 @@ namespace BDC_V1.ViewModels
         public ICommand CmdMicOff                  { get; }
         public ICommand CmdTabSelectionChanged     { get; }
         public ICommand CmdCopyInspection          { get; }
+        public ICommand CmdCopyCommentary          { get; }
 
         //public BitmapSource ImgInventory     { get; }
         //public BitmapSource ImgInspection    { get; }
@@ -341,26 +344,29 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "ShellItemControl";
 
-            CmdAddComponent            = new DelegateCommand(OnCmdAddComponent         );
-            CmdAddSection              = new DelegateCommand(OnCmdAddSection           );
-            CmdAddSystem               = new DelegateCommand(OnCmdAddSystem            );
-            CmdCopyInventory           = new DelegateCommand(OnCmdCopyInventory        );
-            CmdCopySections            = new DelegateCommand(OnCmdCopySections         );
-            CmdDefaultInventoryMode    = new DelegateCommand(OnCmdDefaultInventoryMode );
-            CmdDeleteSystem            = new DelegateCommand(OnCmdDeleteSystem         );
-            CmdInspectionMode          = new DelegateCommand(OnCmdInspectionMode       );
-            CmdMenuAbout               = new DelegateCommand(OnCmdAbout                ); 
-            CmdMenuBluebeam            = new DelegateCommand(OnCmdBluebeam             );
-            CmdMenuCalculators         = new DelegateCommand(OnCmdCalculators          );
-            CmdMenuExit                = new DelegateCommand(OnCmdExit                 );
-            CmdMenuInspectionSummary   = new DelegateCommand(OnCmdInspectionSummary    );
-            CmdMenuQcReports           = new DelegateCommand(OnCmdQcReport             );
-            CmdMenuSwitchFile          = new DelegateCommand(OnCmdSwitchFile           );
-            CmdMenuViewAllSystems      = new DelegateCommand(OnCmdViewAllSystems       );
-            CmdMenuViewAssignedSystems = new DelegateCommand(OnCmdViewAssignedSystems  );
-            CmdMicOff                  = new DelegateCommand(OnCmdMicOff               );
-            CmdMicOn                   = new DelegateCommand(OnCmdMicOn                );
-            CmdCopyInspection          = new DelegateCommand(OnCmdCopyInspection       );
+            CmdAddComponent            = new DelegateCommand(OnAddComponent         );
+            CmdAddSection              = new DelegateCommand(OnAddSection           );
+            CmdAddSystem               = new DelegateCommand(OnAddSystem            );
+            CmdCopyInventory           = new DelegateCommand(OnCopyInventory        );
+            CmdCopySections            = new DelegateCommand(OnCopySections         );
+            CmdDefaultInventoryMode    = new DelegateCommand(OnDefaultInventoryMode );
+            CmdDeleteSystem            = new DelegateCommand(OnDeleteSystem         );
+            CmdInspectionMode          = new DelegateCommand(OnInspectionMode       );
+            CmdMenuAbout               = new DelegateCommand(OnAbout                ); 
+            CmdMenuBluebeam            = new DelegateCommand(OnBluebeam             );
+            CmdMenuCalculators         = new DelegateCommand(OnCalculators          );
+            CmdMenuExit                = new DelegateCommand(OnExit                 );
+            CmdMenuInspectionSummary   = new DelegateCommand(OnInspectionSummary    );
+            CmdMenuQcReports           = new DelegateCommand(OnQcReport             );
+            CmdMenuSwitchFile          = new DelegateCommand(OnSwitchFile           );
+            CmdMenuViewAllSystems      = new DelegateCommand(OnViewAllSystems       );
+            CmdMenuViewAssignedSystems = new DelegateCommand(OnViewAssignedSystems  );
+            CmdMicOff                  = new DelegateCommand(OnMicOff               );
+            CmdMicOn                   = new DelegateCommand(OnMicOn                );
+            CmdCopyInspection          = new DelegateCommand(OnCopyInspection       );
+
+            // DEBUG PURPOSES
+            CmdCopyCommentary          = new DelegateCommand(OnCopyCommentary       );
 
             CmdTabSelectionChanged     = new DelegateCommand<TabItem>(OnTabSelectionChanged);
 
@@ -404,129 +410,139 @@ namespace BDC_V1.ViewModels
             return false;
         }
 
-        private void OnCmdAbout()
+        private void OnCopyCommentary()
+        {
+            var dlg = new CpyCmView();
+            dlg.ShowDialog();
+        }
+
+        private void OnAbout()
         {
             Debug.WriteLine("OnCmdAbout not implemented");
         }
 
-        private void OnCmdAddComponent()
+        private void OnAddComponent()
         {
-            Debug.WriteLine("OnCmdAddComponent not implemented");
+            var dlg = new AddNewComponentView();
+            dlg.ShowDialog();
         }
 
-        private void OnCmdAddSystem()
+        private void OnAddSystem()
         {
-            Debug.WriteLine("OnCmdAddSystem not implemented");
+           var dlg = new AddSystemView();
+            dlg.ShowDialog();
         }
 
-        private void OnCmdAddSection()
+        private void OnAddSection()
         {
-            Debug.WriteLine("OnCmdAddSection not implemented");
+            Debug.WriteLine("OnAddSection not implemented");
         }
 
-        private void OnCmdBluebeam()
+        private void OnBluebeam()
         {
             Debug.WriteLine("CmdBluebeam not implemented");
         }
 
-        private void OnCmdCalculators()
+        private void OnCalculators()
         {
             Debug.WriteLine("CmdCalculators not implemented");
         }
 
-        private void OnCmdDefaultInventoryMode()
+        private void OnDefaultInventoryMode()
         {
-            Debug.WriteLine("OnCmdDefaultInventoryMode not implemented");
+            Debug.WriteLine("OnDefaultInventoryMode not implemented");
         }
 
-        private void OnCmdExit()
+        private void OnExit()
         {
             App.Current.Shutdown();
         }
 
-        private void OnCmdInspectionMode()
+        private void OnInspectionMode()
         {
-            Debug.WriteLine("OnCmdInspectionMode not implemented");
+            Debug.WriteLine("OnInspectionMode not implemented");
         }
 
-        private void OnCmdInspectionSummary()
+        private void OnInspectionSummary()
         {
-            Debug.WriteLine("CmdInspectionSummary not implemented");
+           var dlg = new CmInspView();
+           dlg.ShowDialog();
         }
 
-        private void OnCmdMicOff()
+        private void OnMicOff()
         {
             Debug.WriteLine("CmdMicOff not implemented");
         }
 
-        private void OnCmdMicOn()
+        private void OnMicOn()
         {
             Debug.WriteLine("CmdMicOn not implemented");
         }
 
-        private void OnCmdQcReport()
+        private void OnQcReport()
         {
             MessageBox.Show( "CmdQcReports not implemented");
         }
 
-        private void OnCmdSwitchFile()
+        private void OnSwitchFile()
         {
             Debug.WriteLine("CmdSwitchFile not implemented");
         }
 
-        private void OnCmdViewAllSystems()
+        private void OnViewAllSystems()
         {
             Debug.WriteLine("CmdViewAllSystems not implemented");
         }
 
-        private void OnCmdViewAssignedSystems()
+        private void OnViewAssignedSystems()
         {
             Debug.WriteLine("CmdViewAssignedSystems not implemented");
         }
 
-        private void OnCmdInv2InspFacility()
+        private void OnInv2InspFacility()
         {
-            Debug.WriteLine("OnCmdInv2InspFacility not implemented");
+            Debug.WriteLine("OnInv2InspFacility not implemented");
         }
 
-        private void OnCmdInv2InspInventory()
+        private void OnInv2InspInventory()
         {
-            Debug.WriteLine("OnCmdInv2InspInventory not implemented");
+            Debug.WriteLine("OnInv2InspInventory not implemented");
         }
 
-        private void OnCmdInv2InspInspection()
+        private void OnInv2InspInspection()
         {
-            Debug.WriteLine("OnCmdInv2InspInspection not implemented");
+            Debug.WriteLine("OnInv2InspInspection not implemented");
         }
 
-        private void OnCmdInv2InspQcInventory()
+        private void OnInv2InspQcInventory()
         {
-            Debug.WriteLine("OnCmdInv2InspQcInventory not implemented");
+            Debug.WriteLine("OnInv2InspQcInventory not implemented");
         }
 
-        private void OnCmdInv2InspQcInspection()
+        private void OnInv2InspQcInspection()
         {
-            Debug.WriteLine("OnCmdInv2InspQcInspection not implemented");
+            Debug.WriteLine("OnInv2InspQcInspection not implemented");
         }
 
-        private void OnCmdDeleteSystem()
+        private void OnDeleteSystem()
         {
-            Debug.WriteLine("OnCmdDeleteSystem not implemented");
+            Debug.WriteLine("OnDeleteSystem not implemented");
         }
 
-        private void OnCmdCopySections()
+        private void OnCopySections()
         {
-            Debug.WriteLine("OnCmdCopySections not implemented");
+            Debug.WriteLine("OnCopySections not implemented");
         }
 
-        private void OnCmdCopyInventory()
+        private void OnCopyInventory()
         {
-            Debug.WriteLine("OnCmdCopyInventory not implemented");
+            var dlg = new CpyInvView();
+            dlg.ShowDialog();
         }
 
-        private void OnCmdCopyInspection()
+        private void OnCopyInspection()
         {
-            Debug.WriteLine("OnCmdCopyInspection not implemented");
+            Debug.WriteLine("OnCopyInspection not implemented");
         }
 
         private void OnTabSelectionChanged([CanBeNull] TabItem tabItem)
@@ -655,7 +671,7 @@ namespace BDC_V1.ViewModels
                     Name = "Inv2Insp",
                     ToolTip = "Inv <-> Insp",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdInv2InspFacility),
+                    Command = new DelegateCommand(OnInv2InspFacility),
                     Content = new System.Windows.Controls.Image
                     {
                         Source =
@@ -670,7 +686,7 @@ namespace BDC_V1.ViewModels
                     Name = "AddSystem",
                     ToolTip = "Add System",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdAddSystem),
+                    Command = new DelegateCommand(OnAddSystem),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Add.png")),
@@ -684,7 +700,7 @@ namespace BDC_V1.ViewModels
                     Name = "DeleteSystem",
                     ToolTip = "Delete System",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdDeleteSystem),
+                    Command = new DelegateCommand(OnDeleteSystem),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Delete.png")),
@@ -706,7 +722,7 @@ namespace BDC_V1.ViewModels
                     Name = "Inv2Insp",
                     ToolTip = "Inv <-> Insp",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdInv2InspInventory),
+                    Command = new DelegateCommand(OnInv2InspInventory),
                     Content = new System.Windows.Controls.Image
                     {
                         Source =
@@ -721,7 +737,7 @@ namespace BDC_V1.ViewModels
                     Name = "AddComponent",
                     ToolTip = "Add Component",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdAddComponent),
+                    Command = new DelegateCommand(OnAddComponent),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Add.png")),
@@ -735,7 +751,7 @@ namespace BDC_V1.ViewModels
                     Name = "AddSection",
                     ToolTip = "Add Section",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdAddSection),
+                    Command = new DelegateCommand(OnAddSection),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Add.png")),
@@ -749,7 +765,7 @@ namespace BDC_V1.ViewModels
                     Name = "CopySections",
                     ToolTip = "Copy Sections",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdCopySections),
+                    Command = new DelegateCommand(OnCopySections),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.jpg")),
@@ -763,7 +779,7 @@ namespace BDC_V1.ViewModels
                     Name = "CopyInventory",
                     ToolTip = "Copy Inventory",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdCopyInventory),
+                    Command = new DelegateCommand(OnCopyInventory),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.jpg")),
@@ -785,7 +801,7 @@ namespace BDC_V1.ViewModels
                     Name = "Inv2Insp",
                     ToolTip = "Inv <-> Insp",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdInv2InspInspection),
+                    Command = new DelegateCommand(OnInv2InspInspection),
                     Content = new System.Windows.Controls.Image
                     {
                         Source =
@@ -800,7 +816,7 @@ namespace BDC_V1.ViewModels
                     Name = "CopyInspection",
                     ToolTip = "Copy Inspection",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdCopyInspection),
+                    Command = new DelegateCommand(OnCopyInspection),
                     Content = new System.Windows.Controls.Image
                     {
                         Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.jpg")),
@@ -822,7 +838,7 @@ namespace BDC_V1.ViewModels
                     Name = "Inv2Insp",
                     ToolTip = "Inv <-> Insp",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdInv2InspQcInventory),
+                    Command = new DelegateCommand(OnInv2InspQcInventory),
                     Content = new System.Windows.Controls.Image
                     {
                         Source =
@@ -845,7 +861,7 @@ namespace BDC_V1.ViewModels
                     Name = "Inv2Insp",
                     ToolTip = "Inv <-> Insp",
                     IsEnabled = true,
-                    Command = new DelegateCommand(OnCmdInv2InspQcInspection),
+                    Command = new DelegateCommand(OnInv2InspQcInspection),
                     Content = new System.Windows.Controls.Image
                     {
                         Source =

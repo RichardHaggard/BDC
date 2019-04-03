@@ -18,6 +18,8 @@
         Width="800">
 
   <Window.Resources>
+    <utils:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+
     <Style TargetType="DataGridColumnHeader">
       <Setter Property="HorizontalContentAlignment" Value="Stretch" />
       <Setter Property="Background" Value="LightGray" />
@@ -100,13 +102,19 @@
                  Content="BRED"
                  Style="{DynamicResource RowOneButtons}"
                  GroupName="SourceTypeGroup"
-                 IsChecked="{Binding IsSourceNoneChecked}"/>
+                 IsChecked="{Binding Path=FilterSource,
+                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                            ConverterParameter=BredFilter,
+                            Mode=TwoWay}" />
 
     <RadioButton Grid.Row="0" Grid.Column="2" Name="SourceSavedButton"
                  Content="My Saved Com:"
                  Style="{DynamicResource RowTwoButtons}"
                  GroupName="SourceTypeGroup"
-                 IsChecked="{Binding IsSourceBredChecked}"/>
+                 IsChecked="{Binding Path=FilterSource,
+                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                            ConverterParameter=SavedFilter,
+                            Mode=TwoWay}" />
 
     <Label Grid.Row="0" Grid.Column="3"
            Style="{StaticResource RowThreePlusLabels}"
@@ -114,15 +122,16 @@
            Content="Facility:" />
 
     <ComboBox Grid.Row="0" Grid.Column="4"
-              IsEnabled="{Binding ElementName=SourceSavedButton, Path=IsEnabled}"
               Margin="0,5,0,5"
+              IsEnabled="{Binding ElementName=SourceSavedButton, Path=IsEnabled}"
               ItemsSource="{Binding ListOfFacilities, Mode=OneWay}"
               SelectedItem="{Binding SelectedFacility, Mode=TwoWay}">
         <ComboBox.Style>
           <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBase}">
+            <Setter Property="Background" Value="LightGray" />
             <Style.Triggers>
               <Trigger Property="IsEnabled" Value="True">
-                <Setter Property="Background" Value="LightGray" />
+                <Setter Property="Background" Value="White" />
               </Trigger>
             </Style.Triggers>
           </Style>
@@ -138,13 +147,19 @@
                  Content="System"
                  Style="{DynamicResource RowOneButtons}"
                  GroupName="CurrentTypeGroup"
-                 IsChecked="{Binding IsCurrentSystemChecked}"/>
+                 IsChecked="{Binding Path=RelatedSource,
+                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                            ConverterParameter=SystemFilter,
+                            Mode=TwoWay}" />
 
     <RadioButton Grid.Row="1" Grid.Column="2" 
                  Content="Component Type:"
                  Style="{DynamicResource RowTwoButtons}"
                  GroupName="CurrentTypeGroup"
-                 IsChecked="{Binding IsCurrentComponentChecked}"/>
+                 IsChecked="{Binding Path=RelatedSource,
+                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                            ConverterParameter=ComponentFilter,
+                            Mode=TwoWay}" />
 
     <!-- Rated as -->
     <Label Grid.Row="2" Grid.Column="0"
@@ -155,25 +170,37 @@
                  Content="Any"
                  Style="{DynamicResource RowThreePlusButtons}"
                  GroupName="RatedTypeGroup"
-                 IsChecked="{Binding IsRatingAnyChecked}"/>
+                 IsChecked="{Binding Path=FilterRatingColor,
+                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                            ConverterParameter=Green,
+                            Mode=TwoWay}" />
 
     <RadioButton Grid.Row="2" Grid.Column="2" 
                  Style="{DynamicResource RowThreePlusButtons}"
                  Content="Yellow"
                  GroupName="RatedTypeGroup"
-                 IsChecked="{Binding IRatingYellowChecked}"/>
+                 IsChecked="{Binding Path=FilterRatingColor,
+                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                            ConverterParameter=Yellow,
+                            Mode=TwoWay}" />
 
     <RadioButton Grid.Row="2" Grid.Column="3" 
                  Style="{DynamicResource RowThreePlusButtons}"
                  Content="Amber"
                  GroupName="RatedTypeGroup"
-                 IsChecked="{Binding IsRatingAmberChecked}"/>
+                 IsChecked="{Binding Path=FilterRatingColor,
+                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                            ConverterParameter=Amber,
+                            Mode=TwoWay}" />
 
     <RadioButton Grid.Row="2" Grid.Column="4" 
                  Style="{DynamicResource RowThreePlusButtons}"
                  Content="Red"
                  GroupName="RatedTypeGroup"
-                 IsChecked="{Binding IsRatingRedChecked}"/>
+                 IsChecked="{Binding Path=FilterRatingColor,
+                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                            ConverterParameter=Red,
+                            Mode=TwoWay}" />
 
     <!-- Search Term -->
     <Label Grid.Row="3" Grid.Column="0"

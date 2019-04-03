@@ -119,6 +119,7 @@
             Height="75"
             Margin="10"
             Style="{StaticResource bTB}"
+            Command="{Binding CmdCancelUndo}"
             >
             <Image Source="/BDC_V1;component/Resources/Cancel (1).png"/>
         </Button>
@@ -128,6 +129,7 @@
             Height="75"
             Margin="10"
             Style="{StaticResource bTB}"
+            Command="{Binding CmdOkCommand}"
             >
             <Image Source="/BDC_V1;component/Resources/OK (1).png"/>
         </Button>

@@ -23,54 +23,12 @@ namespace BDC_V1.ViewModels
 
         public ICommand CmdDistressed  { get; }
 
-        public bool IsRepairType
-        {
-            get => _isRepairType;
-            set => SetProperty(ref _isRepairType, value);
-        }
-        private bool _isRepairType;
-
-        public bool IsReplacement
-        {
-            get => _isReplacement;
-            set => SetProperty(ref _isReplacement, value);
-        }
-        private bool _isReplacement;
-
-        public bool IsNoRecommendation
-        {
-            get => _isNoRecommendation;
-            set => SetProperty(ref _isNoRecommendation, value);
-        }
-        private bool _isNoRecommendation;
-
         public EnumRepairType RepairType
         {
-            get
-            {
-                if (IsRepairType ) return EnumRepairType.Repair;
-                if (IsReplacement) return EnumRepairType.Replace;
-                return EnumRepairType.None;
-            }
-
-            set
-            {
-                switch (value)
-                {
-                    case EnumRepairType.None:
-                        IsNoRecommendation = true;
-                        break;
-                    case EnumRepairType.Repair:
-                        IsRepairType = true;
-                        break;
-                    case EnumRepairType.Replace:
-                        IsReplacement = true;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(value), value, null);
-                }
-            }
+            get => _repairType;
+            set => SetProperty(ref _repairType, value);
         }
+        private EnumRepairType _repairType;
 
         // **************** Class constructors ********************************************** //
 

@@ -31,6 +31,9 @@
       <Setter Property="Background" Value="LightGray" />
       <Setter Property="MinHeight" Value="20" />
     </Style>
+
+    <utils:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+
   </Window.Resources>
 
   <Grid>
@@ -111,16 +114,25 @@
     <StackPanel Grid.Row="2" Orientation="Horizontal" MinWidth="480">
       <RadioButton Margin="5,5,15,5"
                    GroupName="RepairType"
-                   IsChecked="{Binding IsRepairType}"
-                   Content="Repair is recommended" />
+                   Content="Repair is recommended" 
+                   IsChecked="{Binding Path=RepairType, 
+                                Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                                ConverterParameter=Repair,
+                                Mode=TwoWay}" />
       <RadioButton Margin="5,5,15,5"
                    GroupName="RepairType"
-                   IsChecked="{Binding IsReplacement}"
-                   Content="Replacement is recommended" />
+                   Content="Replacement is recommended"
+                   IsChecked="{Binding Path=RepairType, 
+                                Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                                ConverterParameter=Replace,
+                                Mode=TwoWay}" />
       <RadioButton Margin="5,5,15,5"
                    GroupName="RepairType"
-                   IsChecked="{Binding IsNoRecommendation}"
-                   Content="No recom." />
+                   Content="No recom." 
+                   IsChecked="{Binding Path=RepairType, 
+                                Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                                ConverterParameter=None,
+                                Mode=TwoWay}" />
     </StackPanel>
 
     <TextBox Grid.Row="3"
