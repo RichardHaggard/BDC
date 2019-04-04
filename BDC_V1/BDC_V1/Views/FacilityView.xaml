@@ -119,7 +119,7 @@
             <Label 
                 Grid.Row="4"
                 Grid.Column="1"
-                Style="{StaticResource LabelLJ}"
+                Style="{StaticResource LabelRO}"
                 Content="{Binding LocalFacilityInfo.TotalArea}" 
                 ContentStringFormat="{}{0:#,#.00}" 
                 />

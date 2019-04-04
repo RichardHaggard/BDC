@@ -6,12 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using BDC_V1.Classes;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
 using BDC_V1.Utils;
 using JetBrains.Annotations;
+using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
@@ -23,6 +25,9 @@ namespace BDC_V1.ViewModels
 
         [NotNull]
         public IInventorySectionType InventorySection { get; }
+
+        public ICommand CmdNextSection { get; set; }
+
 
         // **************** Class data members ********************************************** //
 
@@ -79,6 +84,8 @@ namespace BDC_V1.ViewModels
 
         public InventorySectionViewModel()
         {
+            CmdNextSection = new DelegateCommand(OnCmdNextSection);
+
             RegionManagerName = "InventorySectionItemControl";
             InventorySection = new MockInventorySection();
 
@@ -120,6 +127,11 @@ namespace BDC_V1.ViewModels
 
             // ReSharper disable once PossibleNullReferenceException
             ItemsControl.ItemsSource = new QuickObservableCollection<Border>(itemList);
+        }
+
+        private void OnCmdNextSection()
+        {
+
         }
     }
 }

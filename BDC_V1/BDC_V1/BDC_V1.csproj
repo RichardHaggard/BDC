@@ -137,6 +137,7 @@
     <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Interfaces\IItemChecklist.cs" />
     <Compile Include="Interfaces\IValidUsers.cs" />
+    <Compile Include="Models\NotifyPropertyChangedBase.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
