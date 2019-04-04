@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BDC_V1.Interfaces
 {
-    public interface IInspector
+    public interface ITimeStamp
     {
-        IPerson  InspectorName  { get; set; }
-        DateTime InspectionDate { get; set; }
+        IPerson  EntryUser { get; set; }
+        DateTime EntryTime { get; set; }
     }
 }

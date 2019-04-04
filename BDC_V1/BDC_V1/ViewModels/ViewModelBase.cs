@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
@@ -38,7 +39,7 @@ namespace BDC_V1.ViewModels
                 }
             }
         }
-        [CanBeNull] private IConfigInfo _configInfo;
+        private IConfigInfo _configInfo;
 
         [CanBeNull] 
         protected virtual IBredInfo LocalBredInfo
@@ -53,7 +54,7 @@ namespace BDC_V1.ViewModels
                 }
             }
         }
-        [CanBeNull] private IBredInfo _bredInfo;
+        private IBredInfo _bredInfo;
 
         [NotNull]
         public ICommand ViewActivated { get; }

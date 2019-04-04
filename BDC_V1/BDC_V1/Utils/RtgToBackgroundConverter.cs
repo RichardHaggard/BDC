@@ -4,13 +4,14 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using BDC_V1.Enumerations;
 
 namespace BDC_V1.Utils
 {
-    public class RtgToBackgroundConverter : IValueConverter 
+    public class RtgToBackgroundConverter : DependencyObject, IValueConverter 
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) 
         {

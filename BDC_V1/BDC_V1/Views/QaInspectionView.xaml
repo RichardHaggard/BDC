@@ -73,16 +73,6 @@
     <Style x:Key="RtgStyle" TargetType="TextBlock">
       <Setter Property="HorizontalAlignment" Value="Center" />
       <Setter Property="VerticalAlignment" Value="Center" />
-      <!--
-      <Setter Property="Background" 
-              Value="{Binding RelativeSource={RelativeSource Self}, 
-                Path=Text, 
-                Converter={StaticResource RtgToBackgroundConverter}}" />
-      <Setter Property="TextDecorations"
-              Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},
-                      Path =InspectionInfo.Rtg,
-                      Converter={StaticResource RtgToBackgroundConverter}}" />
-      -->
     </Style>
 
   </UserControl.Resources>

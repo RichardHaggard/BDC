@@ -199,7 +199,6 @@ namespace BDC_V1.ViewModels
             container.GlobalValue = new MockConfigInfo {FileName = fileName};
         }
 
-
         // here is where we read in the global BRED info
         private static void GetBredInfo(string fileName)
         {
@@ -209,14 +208,11 @@ namespace BDC_V1.ViewModels
             container.GlobalValue = new MockBredInfo {FileName = fileName};
         }
 
-
         private void OnCmdCancel()
         {
             DialogResultEx = false;
-            Application app = Application.Current;
-            app?.Shutdown();
+            Application.Current.Shutdown();
         }
-
 
         private void OnCmdLogin()
         {

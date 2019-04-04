@@ -5,11 +5,13 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 using BDC_V1.ViewModels;
 
 namespace BDC_V1.Utils
 {
-    public class EnumFilterSourceConverter
+    public class EnumFilterSourceConverter : DependencyObject, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

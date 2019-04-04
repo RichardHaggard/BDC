@@ -252,15 +252,22 @@
                     VerticalContentAlignment="Top"
                     Style="{StaticResource LabelCJ}" />
             </Grid>
-            <TextBox 
+            <ListBox 
                 Grid.Row="7"
                 Grid.Column="1"
                 Grid.ColumnSpan="8"
                 Background="LightYellow"
-                Text="{Binding LocalFacilityInfo.FacilityComments}"
+                ItemsSource="{Binding LocalFacilityInfo.FacilityComments}"
                 VerticalContentAlignment="Top" 
-                TextWrapping="Wrap"
-                Margin="5"/>
+                Margin="5">
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Width="{Binding Path=Width,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"   
+                             TextWrapping="Wrap" 
+                             Text="{Binding Path=.}"/>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
 
             <Grid 
                 Grid.Row="8" Grid.Column="0"
