@@ -611,10 +611,6 @@ namespace BDC_V1.ViewModels
                 }
 
                 FilterNodeTree(TreeItemsViewSource, filter);
-
-                // Color item backgrounds based on Issue count.
-                TreeItemsViewSource.First().Background = System.Windows.Media.Brushes.Red;          // 1+ QA issues
-                TreeItemsViewSource.Last ().Background = System.Windows.Media.Brushes.LightGreen;   // All QA passes
             }
 
             RaisePropertyChanged(nameof(TreeItemsViewSource));
@@ -709,7 +705,7 @@ namespace BDC_V1.ViewModels
                 }
                 else
                 {
-                    treeNode.Visibility = Visibility.Hidden;
+                    treeNode.Visibility = Visibility.Collapsed;
                     treeNode.IsEnabled = false;
                 }
             }
