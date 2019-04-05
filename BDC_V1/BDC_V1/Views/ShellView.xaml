@@ -238,6 +238,7 @@
                 </i:Interaction.Triggers> 
 
                 <!--  these colors should be done with a selection style -->
+                <!--Background="{Binding FacilityTabBackgroundColor}"-->
                 <TabItem 
                     Name="Facility" 
                     Header="FACILITY" 

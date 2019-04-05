@@ -7,6 +7,8 @@
     
     <Application.Resources>
         <ResourceDictionary>
+            
+            <!--Menu separator-->
             <Style x:Key="MenuSeparatorStyle" TargetType="{x:Type Separator}">
                 <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
                 <Setter Property="Margin" Value="0,2,0,2"/>
@@ -30,6 +32,7 @@
                 <Setter Property="Background" Value="#9BC2E6" />
             </Style>
 
+            <!--CheckBox base-->
             <Style TargetType="CheckBox" x:Key="cbBase">
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -37,37 +40,44 @@
                 <Setter Property="Margin" Value="5" />
             </Style>
 
+            <!--ComboBox base-->
             <Style TargetType="ComboBox" x:Key="ComboBase">
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
 
+            <!--DatePicker-->
             <Style TargetType="DatePicker" x:Key="dpBase">
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
             
+            <!--Base for Labels. Sets the font size, vertical alignment and margin-->
             <Style TargetType="Label" x:Key="LabelBase">
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Margin" Value="0,5,10,5" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
+            <!--Label that is center justified-->
             <Style TargetType="Label" x:Key="LabelCJ" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
             </Style>
 
+            <!--Label that is left justified.-->
             <Style TargetType="Label" x:Key="LabelLJ" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
             </Style>
 
+            <!--Lbel that is right justified.-->
             <Style TargetType="Label" x:Key="LabelRJ" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="HorizontalContentAlignment" Value="Right" />
                 <Setter Property="Margin" Value="0" />
             </Style>
 
+            <!--Label that is gray bg with a black border. Indicates to user that contents are RO.-->
             <Style TargetType="Label" x:Key="LabelRO" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="Background" Value="LightGray"/>
                 <Setter Property="BorderBrush" Value="Black" />
@@ -75,47 +85,91 @@
                 <Setter Property="Margin" Value="3" />
             </Style>
 
+            <!--Label that is bold.-->
             <Style TargetType="Label" x:Key="LabelBold" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="FontWeight" Value="Bold" />
             </Style>
 
+            <!--Black border.-->
             <Style TargetType="Border" x:Key="BorderBlack" >
                 <Setter Property="BorderBrush" Value="Black" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Margin" Value="5" />
             </Style>
 
+            <!--Black border with blue interior.-->
             <Style TargetType="Border" x:Key="BorderBlue"  BasedOn="{StaticResource BorderBlack}">
                 <Setter Property="Background" Value="LightBlue" />
             </Style>
 
+            <!--Black border with yellow-orange bg-->
             <Style TargetType="Border" x:Key="BorderYO"  BasedOn="{StaticResource BorderBlack}">
                 <Setter Property="Background" Value="Moccasin" />
             </Style>
 
+            <!--Base style from which the various other TextBox styles are derived.-->
             <Style TargetType="TextBox" x:Key="TextBoxBase">
                 <Setter Property="FontSize" Value="15" />
             </Style>
 
+            <!--TextBox that doesn't wrap-->
             <Style TargetType="TextBox" x:Key="TextBoxNoWrap" BasedOn="{StaticResource TextBoxBase}">
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
+            <!--RO TextBox-->
             <Style TargetType="TextBox" x:Key="TextBoxRO" BasedOn="{StaticResource TextBoxBase}">
                 <Setter Property="IsReadOnly" Value="True" />
             </Style>
 
+            <!--TextBox that wraps-->
             <Style TargetType="TextBox" x:Key="TextBoxWrap" BasedOn="{StaticResource TextBoxBase}">
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
 
+            <!--Toolbar button-->
             <Style TargetType="Button" x:Key="ToolbarButton" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Height" Value="50" />
                 <Setter Property="Width" Value="50" />
             </Style>
 
+            <Style TargetType="TabItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Border 
+                                Name="Border"
+                                BorderBrush="Black" 
+                                BorderThickness="1,1,1,0" 
+                                CornerRadius="4,4,0,0" 
+                                Margin="5,5,5,0"
+                                >
+                                <ContentPresenter 
+                                    x:Name="ContentSite"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    ContentSource="Header"
+                                    Margin="40,0"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter TargetName="ContentSite"  Property="Height" Value="50"/>
+                                    <Setter TargetName="Border" Property="Margin" Value="5,0,5,0"/>
+                                    <Setter TargetName="Border" Property="BorderThickness" Value="3,3,3,0" />
+                                    <Setter TargetName="Border" Property="Background" Value="Yellow" />
+                                </Trigger>
+                                <!--<Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="Border" Property="Background" Value="White" />
+                                </Trigger>-->
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+
+                </Setter>
+            </Style>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

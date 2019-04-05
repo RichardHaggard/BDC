@@ -383,11 +383,11 @@ namespace BDC_V1.ViewModels
             InvTreeBorderBackgroundColor = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray);
 
             // these should be done with a selection style
-            FacilityTabBackgroundColor     = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGreen);
-            InventoryTabBackgroundColor    = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
-            InspectionTabBackgroundColor   = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
-            QaInventoryTabBackgroundColor  = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
-            QaInspectionTabBackgroundColor = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
+            FacilityTabBackgroundColor     = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightSkyBlue);
+            InventoryTabBackgroundColor    = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.SkyBlue);
+            InspectionTabBackgroundColor   = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.DeepSkyBlue);
+            QaInventoryTabBackgroundColor  = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
+            QaInspectionTabBackgroundColor = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.DarkBlue);
 
             // Setup the toolbar menu items dictionary
             SetUpToolbarMenuItems();
