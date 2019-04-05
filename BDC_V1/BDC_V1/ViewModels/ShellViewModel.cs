@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -7,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Enumerations;
@@ -53,16 +56,6 @@ namespace BDC_V1.ViewModels
         public ICommand CmdCopyInspection          { get; }
         public ICommand CmdCopyCommentary          { get; }
 
-        //public BitmapSource ImgInventory     { get; }
-        //public BitmapSource ImgInspection    { get; }
-        //public BitmapSource ImgAddSystem     { get; }
-        //public BitmapSource ImgDeleteSystem  { get; }
-        //public BitmapSource ImgAddComponent  { get; }
-        //public BitmapSource ImgAddSection    { get; }
-        //public BitmapSource ImgCopy          { get; }
-        //public BitmapSource ImgMicrophoneON  { get; }
-        //public BitmapSource ImgMicrophoneOFF { get; }
-
         // these properties are combinatorial, the components need to raise the property changed for each of these
         public string Title => @"Builder DC - " + BredFilename;
 
@@ -70,12 +63,10 @@ namespace BDC_V1.ViewModels
 
         public string StatusInspector => "Current Inspector: " + SelectedLoginUser?? "";
 
-        public string StatusInspectedBy => "(Inspected By: " + InspectedByUser?.InspectorName?? "" + ")";
+        public string StatusInspectedBy => "(Inspected By: " + InspectedByUser?.EntryUser?? "" + ")";
 
         public string StatusDateTimeString =>
             StatusDateTime.ToShortDateString() + " " + StatusDateTime.ToShortTimeString();
-
-        public QuickObservableCollection<TreeViewItem> TreeItemsViewSource { get; } = new QuickObservableCollection<TreeViewItem>();
 
         // these properties all raise their own changed events
         public Visibility WindowVisibility
@@ -140,7 +131,7 @@ namespace BDC_V1.ViewModels
             get => _configurationFilename;
             set => SetProperty(ref _configurationFilename, value);
         }
-        [CanBeNull] private string _configurationFilename;
+        private string _configurationFilename;
 
 
         public string BredFilename
@@ -177,7 +168,7 @@ namespace BDC_V1.ViewModels
                     RaisePropertyChanged(nameof(StatusInspector));
             } 
         }
-        [CanBeNull] private IPerson _selectedLoginUser;
+        private IPerson _selectedLoginUser;
 
 
         public string LookupField
@@ -193,19 +184,19 @@ namespace BDC_V1.ViewModels
 
 
         [CanBeNull]
-        public IInspector InspectedByUser
+        public IInspection InspectedByUser
         {
             get => _inspectedByUser;
             private set
             {
                 if (SetProperty(ref _inspectedByUser, value))
                 {
-                    StatusDateTime = _inspectedByUser?.InspectionDate?? DateTime.Now;
+                    StatusDateTime = _inspectedByUser?.EntryTime?? DateTime.Now;
                     RaisePropertyChanged(nameof(StatusInspectedBy));
                 }
             }
         }
-        [CanBeNull] private IInspector _inspectedByUser;
+        private IInspection _inspectedByUser;
 
 
         // Used to force the Tab selection internally
@@ -226,7 +217,7 @@ namespace BDC_V1.ViewModels
                     UpdateTreeView(_viewTabItem);
             }
         }
-        [CanBeNull] private TabItem _viewTabItem;
+        private TabItem _viewTabItem;
 
 
         public Visibility VisibilityAddComponentButton
@@ -293,25 +284,21 @@ namespace BDC_V1.ViewModels
         private Visibility _visibilityInspectionButton = Visibility.Collapsed;
 
 
-        public QuickObservableCollection<Control> ToolbarMenuItems { get; } = new QuickObservableCollection<Control>();
+        public ObservableCollection<TreeViewItem> TreeItemsViewSource =>
+            _treeItemsViewSource ?? (_treeItemsViewSource = new QuickObservableCollection<TreeViewItem>());
+
+        private QuickObservableCollection<TreeViewItem> _treeItemsViewSource;
+
+        public ObservableCollection<Control> ToolbarMenuItems =>
+            _toolbarMenuItems ?? (_toolbarMenuItems = new QuickObservableCollection<Control>());
+
+        private QuickObservableCollection<Control> _toolbarMenuItems;
 
 
         // **************** Class data members ********************************************** //
 
         private readonly Dictionary<string, IEnumerable<Control>> _toolBarMenuItemsDictionary = 
             new Dictionary<string, IEnumerable<Control>>();
-
-        [CanBeNull] 
-        protected IFacility LocalFacilityInfo
-        {
-            get => _localFacilityInfo;
-            set
-            {
-                if (SetProperty(ref _localFacilityInfo, value))
-                    UpdateTreeView(ViewTabItem);
-            }
-        }
-        [CanBeNull] private IFacility _localFacilityInfo;
 
         protected override IConfigInfo LocalConfigInfo
         {
@@ -329,9 +316,18 @@ namespace BDC_V1.ViewModels
             set
             {
                 base.LocalBredInfo = value;
-                LocalFacilityInfo = base.LocalBredInfo?.FacilityInfo;
-                BredFilename      = base.LocalBredInfo?.FileName;
-                InspectedByUser   = LocalFacilityInfo?.Inspections?.LastOrDefault();
+                if (base.LocalBredInfo != null)
+                {
+                    BredFilename = base.LocalBredInfo?.FileName;
+                    UpdateTreeView(ViewTabItem);
+                }
+
+                else
+                {
+                    BredFilename = string.Empty;
+                    TreeItemsViewSource.Clear();
+                    InspectedByUser = null;
+                }
             }
         }
 
@@ -369,16 +365,6 @@ namespace BDC_V1.ViewModels
             CmdCopyCommentary          = new DelegateCommand(OnCopyCommentary       );
 
             CmdTabSelectionChanged     = new DelegateCommand<TabItem>(OnTabSelectionChanged);
-
-            //ImgInventory     = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Inventory.png");
-            //ImgInspection    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Inspection.png");
-            //ImgAddSystem     = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddSystem (1).png");
-            //ImgDeleteSystem  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/DeleteSystem (1).png");
-            //ImgAddComponent  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddComponent (1).png");
-            //ImgAddSection    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/AddSection (1).png");
-            //ImgCopy          = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Copy.jpg");
-            //ImgMicrophoneON  = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/MicrophoneON_Rnd.png");
-            //ImgMicrophoneOFF = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/MicrophoneOFF_Rnd_Slash.png");
 
             InvTreeBorderBackgroundColor = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray);
 
@@ -560,9 +546,9 @@ namespace BDC_V1.ViewModels
         {
             TreeItemsViewSource.Clear();
 
-            if ((tabItem != null) && (LocalFacilityInfo != null))
+            if ((tabItem != null) && (LocalBredInfo != null))
             {
-                Predicate<TreeNode> filter = (arg) => true;;
+                Predicate<IFacilitySystems> filter = (arg) => true;;
 
                 VisibilityAddComponentButton   =
                 VisibilityAddSectionButton     =
@@ -572,6 +558,10 @@ namespace BDC_V1.ViewModels
                 VisibilityCopySectionsButton   =
                 VisibilityDeleteSystemButton   = Visibility.Collapsed;
 
+                // build the total list of treeItem nodes
+                TreeItemsViewSource.AddRange(BuildTreeItems());
+
+                // Filter (hide) items that shouldn't be displayed
                 switch (tabItem.Name)
                 {
                     case "Facility":
@@ -588,16 +578,10 @@ namespace BDC_V1.ViewModels
                             VisibilityCopyInventoryButton =
                             VisibilityCopySectionsButton = Visibility.Visible;
 
-                            filter = (arg) =>
-                            {
-                                if ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
-                                    (arg.NodeType == EnumTreeNodeType.SystemNode))
-                                {
-                                    return arg.Children.Any();
-                                }
-
-                                return (arg.NodeType == EnumTreeNodeType.ComponentNode);
-                            };
+                            filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
+                                               (arg.ComponentType == EnumComponentTypes.SystemType) ||
+                                               ((arg.ComponentType == EnumComponentTypes.SubsystemType) &&
+                                                arg.HasAnyComponents));
                             break;
                         }
 
@@ -605,40 +589,136 @@ namespace BDC_V1.ViewModels
                         {
                             VisibilityCopyInspectionButton = Visibility.Visible;
 
-                            filter = (arg) =>
-                            {
-                                if ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
-                                    (arg.NodeType == EnumTreeNodeType.SystemNode))
-                                {
-                                    return arg.Children.Any();
-                                }
-
-                                return (arg.NodeType == EnumTreeNodeType.ComponentNode);
-                            };
+                            filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
+                                               (arg.ComponentType == EnumComponentTypes.SystemType) ||
+                                               ((arg.ComponentType == EnumComponentTypes.SubsystemType) &&
+                                                arg.HasAnyComponents));
                             break;
                         }
 
                     case "QaInventory":
                     case "QaInspection":
                         {
-                            filter = (arg) => ((arg.NodeType == EnumTreeNodeType.FacilityNode) ||
-                                               (arg.NodeType == EnumTreeNodeType.SystemNode));
+
+                            filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
+                                               (arg.ComponentType == EnumComponentTypes.SystemType));
                             break;
                         }
+
                     default:
                         filter = (arg) => false;
                         break;
                 }
 
-                foreach (var facility in LocalFacilityInfo.FacilityTreeNodes)
-                    TreeItemsViewSource.Add(TreeNode.BuildTree(facility, filter));
-
-                // Color item backgrounds based on Issue count.
-                TreeItemsViewSource.First().Background = System.Windows.Media.Brushes.Red;          // 1+ QA issues
-                TreeItemsViewSource.Last ().Background = System.Windows.Media.Brushes.LightGreen;   // All QA passes
+                FilterNodeTree(TreeItemsViewSource, filter);
             }
 
             RaisePropertyChanged(nameof(TreeItemsViewSource));
+        }
+
+        [CanBeNull]
+        protected IList<TreeViewItem> BuildTreeItems()
+        {
+            if (!(LocalBredInfo?.HasFacilities).Equals(true)) return null;
+
+            var facilitiesList = new List<TreeViewItem>();
+
+            // ReSharper disable once PossibleNullReferenceException
+            foreach (var item in LocalBredInfo.FacilityInfo.SubSystems)
+            {
+                var treeItem = BuildTreeItems(item);
+                if (treeItem != null) facilitiesList.Add(treeItem);
+            }
+
+            return facilitiesList;
+        }
+
+        [CanBeNull]
+        protected TreeViewItem BuildTreeItems([CanBeNull] ISystemElement component)
+        {
+            if (component == null) return null;
+
+            var node = new TreeViewItem
+            {
+                Foreground                 = Brushes.Black,
+                HorizontalContentAlignment = HorizontalAlignment.Left,  // removes some mysterious runtime warnings
+                VerticalContentAlignment   = VerticalAlignment.Center,
+                DataContext                = component,
+            };
+
+            node.SetBinding(HeaderedItemsControl.HeaderProperty, new Binding
+            {
+                Path = new PropertyPath("ComponentName")
+            });
+
+            node.SetBinding(Control.FontWeightProperty, new Binding
+            {
+                Path = new PropertyPath("ComponentType"),
+                Converter = new SystemElementFontWeightConverter()
+            });
+
+            node.SetBinding(Control.FontSizeProperty, new Binding
+            {
+                Path = new PropertyPath("ComponentType"),
+                Converter = new SystemElementFontSizeConverter(),
+                ConverterParameter = node.FontSize
+            });
+
+            var bindsBackground = new MultiBinding
+            {
+                Converter = new SystemElementBackgroundConverter(),
+            };
+            bindsBackground.Bindings.Add(new Binding("ComponentType"));
+            bindsBackground.Bindings.Add(new Binding("HasQaIssues"  ));
+            node.SetBinding(Control.BackgroundProperty, bindsBackground);
+
+            if ((component is IFacilitySystems facSystem) && facSystem.HasSubsystems.Equals(true))
+            {
+                foreach (var item in facSystem.SubSystems)
+                {
+                    var treeItem = BuildTreeItems(item);
+                    if (treeItem != null) node.Items.Add(treeItem);
+                }
+            }
+
+            return node;
+        }
+
+        protected void FilterNodeTree([CanBeNull] ItemCollection nodeList, [NotNull] Predicate<IFacilitySystems> filter)
+        {
+            if (nodeList == null) return;
+
+            foreach (var node in nodeList)
+                FilterNodeTree(node as TreeViewItem, filter);
+        }
+
+        protected void FilterNodeTree([CanBeNull] TreeViewItem treeNode, [NotNull] Predicate<IFacilitySystems> filter)
+        {
+            if (treeNode == null) return;
+
+            if (treeNode.DataContext is IFacilitySystems component)
+            {
+                if (filter(component))
+                {
+                    treeNode.Visibility = Visibility.Visible;
+                    treeNode.IsEnabled = true;
+                }
+                else
+                {
+                    treeNode.Visibility = Visibility.Collapsed;
+                    treeNode.IsEnabled = false;
+                }
+            }
+
+            if (treeNode.Items.Count > 0) FilterNodeTree(treeNode.Items, filter);
+        }
+
+        protected void FilterNodeTree([CanBeNull] IEnumerable<TreeViewItem> nodeList, [NotNull] Predicate<IFacilitySystems> filter)
+        {
+            if (nodeList == null) return;
+
+            foreach (var treeNode in nodeList)
+                FilterNodeTree(treeNode, filter);
         }
 
         public void SetToolbarMenuItems([NotNull] TabItem tabItem)

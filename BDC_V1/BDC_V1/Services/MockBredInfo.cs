@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace BDC_V1.Services
     {
         public MockBredInfo()
         {
-            FacilityInfo = new MockFacility();
+            FacilityInfo.SubSystems.AddRange(MockFacility.Facilities);
         }
     }
 }

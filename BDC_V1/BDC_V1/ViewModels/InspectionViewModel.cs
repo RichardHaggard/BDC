@@ -19,7 +19,7 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class InspectionViewModel : ImagesModelBase
+    public class InspectionViewModel : FacilityBaseClass
     {
         private const double DoubleTolerance = 0.001;
 
@@ -27,15 +27,10 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand    CmdCondRating        { get; }
-        public ICommand    CmdCancelEdit        { get; }
-        public ICommand    CmdDeleteInspection  { get; }
-        public ICommand    CmdInspectionComment { get; }
-
-        public ImageSource ImgEditTextComments  { get; }
-        public ImageSource ImgRemember          { get; }
-        public ImageSource ImgPhotosCropped     { get; }
-        public ImageSource ImgCancelEdit        { get; }
+        public ICommand CmdCondRating        { get; }
+        public ICommand CmdCancelEdit        { get; }
+        public ICommand CmdDeleteInspection  { get; }
+        public ICommand CmdInspectionComment { get; }
 
         public bool IsRemembered
         {
@@ -63,59 +58,22 @@ namespace BDC_V1.ViewModels
         }
         private IInspectionInfoType _inspectionInfo;
 
-        // **************** Class data members ********************************************** //
-
-        [CanBeNull] private ItemsControl ItemsControl { get; set; }
-
-        //protected override IConfigInfo LocalConfigInfo
-        //{
-        //    get => base.LocalConfigInfo;
-        //    set
-        //    {
-        //        base.LocalConfigInfo = value;
-        //    }
-        //}
-
-        [CanBeNull] 
-        protected IFacility LocalFacilityInfo
+        public override IFacility LocalFacilityInfo
         {
-            get => _localFacilityInfo;
-            private set
-            {
-                if (SetProperty(ref _localFacilityInfo, value))
-                {
-                    InspectionInfo.Images.Clear();
-                    InspectionInfo.Images.AddRange(_localFacilityInfo?.Images);
-
-                    // QuickObservableCollection should raise it's own notify
-                    //RaisePropertyChanged(nameof(InspectionInfo));
-
-                    CreateImages();
-                    // QuickObservableCollection should raise it's own notify
-                    //RaisePropertyChanged(Images);
-                }
-            }
-        }
-        [CanBeNull] private IFacility _localFacilityInfo;
-
-        //protected override IConfigInfo LocalConfigInfo
-        //{
-        //    get => base.LocalConfigInfo;
-        //    set
-        //    {
-        //        base.LocalConfigInfo = value;
-        //    }
-        //}
-
-        protected override IBredInfo LocalBredInfo
-        {
-            get => base.LocalBredInfo;
+            get => base.LocalFacilityInfo;
             set
             {
-                base.LocalBredInfo = value;
-                LocalFacilityInfo = base.LocalBredInfo?.FacilityInfo;
+                base.LocalFacilityInfo = value;
+
+                InspectionInfo.Images.Clear();
+                InspectionInfo.Images.AddRange(LocalFacilityInfo?.Images);
+
+                // QuickObservableCollection should raise it's own notify
+                //RaisePropertyChanged(nameof(InspectionInfo));
             }
         }
+
+        // **************** Class data members ********************************************** //
 
         // **************** Class constructors ********************************************** //
 
@@ -124,28 +82,13 @@ namespace BDC_V1.ViewModels
             RegionManagerName = "InspectionItemControl";
 
             CmdCondRating        = new DelegateCommand<object>(OnConditionRating);
-            CmdCancelEdit        = new DelegateCommand(OnCancelEdit      );
-            CmdDeleteInspection  = new DelegateCommand(OnDeleteInspection);
-            CmdInspectionComment = new DelegateCommand(OnCmdInspectionComment    );
-
-            //ImgEditTextComments = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/EditText_Comments.png");
-            //ImgRemember         = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Remember.png", new Size(0,0));
-            //ImgPhotosCropped    = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Photos_cropped.jpg");
-            //ImgCancelEdit       = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Cancel_Undo.png");
+            CmdCancelEdit        = new DelegateCommand(OnCancelEdit             );
+            CmdDeleteInspection  = new DelegateCommand(OnDeleteInspection       );
+            CmdInspectionComment = new DelegateCommand(OnCmdInspectionComment   );
 
             IsPainted    = false;
             IsRemembered = false;
             InspectionInfo = new MockInspectionInfo();
-
-            //EventAggregator.GetEvent<PubSubEvent<TabChangeEvent>>()
-            //    .Subscribe((item) =>
-            //    {
-            //        if ((item.TabControlName == "ViewTabControl") &&
-            //             (item.TabItemName   ==  "Inspection"))
-            //        {
-            //            CreateImages();
-            //        }
-            //    });
         }
 
         // **************** Class members *************************************************** //
@@ -158,26 +101,6 @@ namespace BDC_V1.ViewModels
             CreateImages();
 
             return true;
-        }
-
-        private void CreateImages()
-        {
-            if ((InspectionInfo?.Images == null) || (ItemsControl == null)) 
-                return;
-
-            if (ItemsControl.ItemsSource is ObservableCollection<Border> oldItems)
-                oldItems.Clear();
-
-            var imageSize = new System.Windows.Size()
-            {
-                Height = 120, // ItemsControl.ActualHeight, 
-                Width  = 20   // minimum width
-            };
-
-            var itemList = base.CreateImages(imageSize, InspectionInfo.Images);
-
-            // ReSharper disable once PossibleNullReferenceException
-            ItemsControl.ItemsSource = new QuickObservableCollection<Border>(itemList);
         }
 
         private void OnCancelEdit()

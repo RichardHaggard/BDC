@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace BDC_V1.Utils
 {
-    public class EnumBooleanConverter : IValueConverter
+    public class EnumBooleanConverter : DependencyObject, IValueConverter
     {
         #region IValueConverter Members
         public object Convert(object value, Type targetType, object parameter, 
