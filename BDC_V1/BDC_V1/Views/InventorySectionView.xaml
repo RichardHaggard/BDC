@@ -266,7 +266,7 @@
                     Style="{StaticResource LabelCJ}"/>
             </Grid>
 
-            <Border x:Name="ItemsBorder" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+            <Border Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
                     Style="{StaticResource BorderYO}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">

@@ -286,7 +286,7 @@
                     Content="{Binding ElementName=ImagesList, Path=Items.Count}"
                     Style="{StaticResource LabelCJ}" />
             </Grid >
-          <Border x:Name="ItemsBorder" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"
+          <Border Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"
                   Style="{StaticResource BorderYO}"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch">
