@@ -31,10 +31,6 @@ namespace BDC_V1.ViewModels
         public ICommand CmdReviewIssue         { get; }
         public ICommand CmdClearFilter         { get; }
 
-        public BitmapSource ImgClearFilter     { get; }
-        public BitmapSource ImgReviewIssue     { get; }
-        public BitmapSource ImgFilter          { get; }
-
         public string Description
         {
             get => _description;
@@ -42,8 +38,8 @@ namespace BDC_V1.ViewModels
         }
         private string _description;
 
-        public QuickObservableCollection<IInventoryType> InventoryInfo { get; } =
-            new QuickObservableCollection<IInventoryType>();
+        public INotifyingCollection<IIssueInventory> InventoryInfo { get; } =
+            new NotifyingCollection<IIssueInventory>();
 
         // **************** Class data members ********************************************** //
 
@@ -63,32 +59,42 @@ namespace BDC_V1.ViewModels
             CmdReviewIssue         = new DelegateCommand(OnCmdReviewIssue     );
             CmdClearFilter         = new DelegateCommand(OnCmdClearFilter     );
 
-            ImgClearFilter = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Filter_Clear.png");
-            ImgReviewIssue = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/ReviewIssue.png");
-            ImgFilter      = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Filter.png");
-
-            InventoryInfo.Add(new InventoryType()
+#if DEBUG
+#warning Using MOCK data for QaInventoryViewModel
+            InventoryInfo.Clear();
+            InventoryInfo.Add(new IssueInventory()
             {
                 FacilityId = "11057",
                 SystemId = "D30",
                 ComponentId = "D3010",
                 TypeName = "",
                 SectionName = "",
-                InventIssue = "Missing Section"
+            });
+            InventoryInfo[0].InventoryComments.Add(new CommentInventory
+            {
+                EntryUser = new Person(),
+                EntryTime = new DateTime(),
+                CommentText = "Missing Section"
             });
 
-            InventoryInfo.Add(new InventoryType()
+            InventoryInfo.Add(new IssueInventory()
             {
                 FacilityId = "11057",
                 SystemId = "D30",
                 ComponentId = "D3010",
                 TypeName = "D302001",
                 SectionName = "N/A",
-                InventIssue = "Missing Photo"
+            });
+            InventoryInfo[1].InventoryComments.Add(new CommentInventory
+            {
+                EntryUser = new Person(),
+                EntryTime = new DateTime(),
+                CommentText = "Missing Photo"
             });
 
             Description = "Filter: 11057";
-            //InspectionInfo.AddRange(Enumerable.Repeat(new InventoryType(), 30));
+            //InspectionInfo.AddRange(Enumerable.Repeat(new IssueInventory(), 30));
+#endif
         }
 
         // **************** Class members *************************************************** //

@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BDC_V1.Interfaces
 {
-    public interface IPerson
+    public interface IPerson : INotifyPropertyChanged
     {
         string FirstName { get; set; }
         string LastName  { get; set; }
 
         string FirstLast { get; }
-        string ToString();
+        string LastFirst { get; }
     }
 }

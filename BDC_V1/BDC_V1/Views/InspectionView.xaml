@@ -95,7 +95,7 @@
       <!-- -->
       <Label Grid.Row="1"
              Grid.Column="0"
-             Content="Component:" />
+             Content="ComponentInventory:" />
       <Label Grid.Row="1"
              Grid.Column="1"
              Grid.ColumnSpan="4"
@@ -129,7 +129,7 @@
       <!-- Component Type -->
       <Label Grid.Row="3"
              Grid.Column="0"
-             Content="Component Type:" />
+             Content="ComponentInventory Type:" />
       <Label Grid.Row="3"
              Grid.Column="1"
              Grid.ColumnSpan="8"
@@ -156,7 +156,7 @@
       <!-- Inspection Date -->
       <Label Grid.Row="5"
              Grid.Column="0"
-             Content="Inspection Date:" />
+             Content="InspectionComment Date:" />
       <TextBox Grid.Row="5"
                Grid.Column="1"
                BorderBrush="Black"
@@ -171,11 +171,11 @@
         </StackPanel.Resources>
 
         <Label Margin="0 0 20 0"
-               Content="Inspection Type:" />
+               Content="InspectionComment Type:" />
         <RadioButton Margin="0 0 20 0"
                      Content="Direct Rating"
                      VerticalContentAlignment="Center"
-                     GroupName="InspectionType"
+                     GroupName="InspectionCommentType"
                      IsChecked="{Binding Path=InspectionInfo.InspectionType, 
                                 Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                                 ConverterParameter=DirectRating,
@@ -183,7 +183,7 @@
         <RadioButton Margin="0 0 20 0"
                      Content="Distress Survey"
                      VerticalContentAlignment="Center"
-                     GroupName="InspectionType"
+                     GroupName="InspectionCommentType"
                      IsChecked="{Binding Path=InspectionInfo.InspectionType, 
                                 Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                                 ConverterParameter=DistressSurvey,
@@ -637,7 +637,7 @@
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch">
         <ItemsControl x:Name="ImagesList"
-                      prism:RegionManager.RegionName="InspectionItemControl" />
+                      prism:RegionManager.RegionName="InspectionCommentItemControl" />
       </Border>
 
       <!-- Action Buttons -->
@@ -667,7 +667,7 @@
             <Image Source="/BDC_V1;component/Resources/Delete.png"
                    HorizontalAlignment="Left" />
             <Label Margin="0 -2 0 0"
-                   Content="Delete Inspection"
+                   Content="Delete InspectionComment"
                    HorizontalAlignment="Right" />
           </StackPanel>
         </Button>

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using BDC_V1.Classes;
 using BDC_V1.Enumerations;
+using BDC_V1.Interfaces;
 using Prism.Commands;
 
 namespace BDC_V1.ViewModels
@@ -28,24 +30,24 @@ namespace BDC_V1.ViewModels
         private string _component;
 
 
-        public List<string> Components
+        public INotifyingCollection<string> Components
         {
             get => _components;
             set => SetProperty(ref _components, value);
         }
-        private List<string> _components = new List<string>();
+        private INotifyingCollection<string> _components = new NotifyingCollection<string>();
 
         /// <summary>
-        /// EnumCommentResult.ResultCancelled indicates cancellation.
-        /// EnumCommentResult.ResultDeferred  is defer result.
-        /// EnumCommentResult.ResultSaveNow   is save Comment now.
+        /// EnumControlResult.ResultCancelled indicates cancellation.
+        /// EnumControlResult.ResultDeferred  is defer result.
+        /// EnumControlResult.ResultSaveNow   is save Comment now.
         /// </summary>
-        public EnumCommentResult Result
+        public EnumControlResult Result
         {
             get => _result;
             set => SetProperty(ref _result, value);
         }
-        private EnumCommentResult _result;
+        private EnumControlResult _result;
 
 
         // **************** Class constructors ********************************************** //
@@ -55,12 +57,18 @@ namespace BDC_V1.ViewModels
             CmdCancelUndo  = new DelegateCommand(OnCancelUndo );
             CmdOkCommand   = new DelegateCommand(OnOkCommand  );
 
-            Components.Add("G2010 ROADWAYS");
-            Components.Add("G2020 PARKING LOTS");
-            Components.Add("G2030 PEDESTRIAN PAVING");
-            Components.Add("G2040 SITE DEVELOPMENT");
-            Components.Add("G2050 LANDSCAPING");
-            Components.Add("G2060 AIRFIELD PACING");
+#if DEBUG
+#warning Using MOCK data for AddNewComponentViewModel
+            Components.AddRange(new[]
+            {
+                "G2010 ROADWAYS",
+                "G2020 PARKING LOTS",
+                "G2030 PEDESTRIAN PAVING",
+                "G2040 SITE DEVELOPMENT",
+                "G2050 LANDSCAPING",
+                "G2060 AIRFIELD PACING"
+            });
+#endif
         }
 
 
@@ -68,13 +76,13 @@ namespace BDC_V1.ViewModels
 
         private void OnCancelUndo()
         {
-            Result = EnumCommentResult.ResultCancelled;
+            Result = EnumControlResult.ResultCancelled;
             DialogResultEx = false;
         }
 
         private void OnOkCommand()
         {
-            Result = EnumCommentResult.ResultSaveNow;
+            Result = EnumControlResult.ResultSaveNow;
             DialogResultEx = true;
         }
 

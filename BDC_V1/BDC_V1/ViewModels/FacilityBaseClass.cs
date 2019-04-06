@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using BDC_V1.Classes;
 using BDC_V1.Interfaces;
+using BDC_V1.Utils;
 using JetBrains.Annotations;
 
 namespace BDC_V1.ViewModels
@@ -14,21 +15,20 @@ namespace BDC_V1.ViewModels
     public class FacilityBaseClass : ImagesModelBase
     {
         [CanBeNull] 
-        public virtual IFacility LocalFacilityInfo
+        public virtual IComponentFacility LocalFacilityInfo
         {
             get => _localFacilityInfo;
-            set
+            set => SetProperty(ref _localFacilityInfo, value, () =>
             {
-                if (SetProperty(ref _localFacilityInfo, value) &&
-                    (_localFacilityInfo != null))
+                if (_localFacilityInfo != null)
                 {
                     CreateImages();
-                    // QuickObservableCollection should raise it's own notify
+                    // NotifyingCollection should raise it's own notify
                     //RaisePropertyChanged(Images);
                 }
-            }
+            });
         }
-        private IFacility _localFacilityInfo;
+        private IComponentFacility _localFacilityInfo;
 
         // ??? KLUDGE ???
         public virtual int FacilityIndex
@@ -36,15 +36,15 @@ namespace BDC_V1.ViewModels
             get => _facilityIndex;
             set
             {
-                if ((LocalBredInfo != null) && LocalBredInfo.FacilityInfo.HasSubsystems.Equals(true))
+                if ((LocalBredInfo != null) && LocalBredInfo.FacilityInfo.HasItems)
                 {
                     value = Math.Max(0, value);
-                    value = Math.Min(value, LocalBredInfo.FacilityInfo.SubSystems.Count - 1);
+                    value = Math.Min(value, LocalBredInfo.FacilityInfo.Count - 1);
 
                     SetProperty(ref _facilityIndex, value);
 
                     // ReSharper disable once PossibleNullReferenceException
-                    LocalFacilityInfo = LocalBredInfo.FacilityInfo.SubSystems[_facilityIndex] as IFacility;
+                    LocalFacilityInfo = LocalBredInfo.FacilityInfo[_facilityIndex];
                     return;
                 }
 
@@ -81,7 +81,7 @@ namespace BDC_V1.ViewModels
             if ((LocalFacilityInfo?.Images == null) || (ItemsControl == null)) 
                 return;
 
-            if (ItemsControl.ItemsSource is ObservableCollection<Border> oldItems)
+            if (ItemsControl.ItemsSource is NotifyingCollection<Border> oldItems)
                 oldItems.Clear();
 
             var imageSize = new System.Windows.Size()
@@ -93,7 +93,7 @@ namespace BDC_V1.ViewModels
             var itemList = base.CreateImages(imageSize, LocalFacilityInfo.Images);
 
             // ReSharper disable once PossibleNullReferenceException
-            ItemsControl.ItemsSource = new QuickObservableCollection<Border>(itemList);
+            ItemsControl.ItemsSource = new NotifyingCollection<Border>(itemList);
         }
     }
 }

@@ -70,7 +70,7 @@
                 />
 
             <Label Grid.Row="2" Grid.Column="0"
-                Content="Component Type:"
+                Content="ComponentInventory Type:"
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="9"
                 ItemsSource="{Binding InventorySection.ComponentTypes}"

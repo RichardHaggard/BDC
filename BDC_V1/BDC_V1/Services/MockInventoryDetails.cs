@@ -8,8 +8,10 @@ using BDC_V1.Classes;
 
 namespace BDC_V1.Services
 {
-    public class MockInventoryDetails : InventoryDetailsType
+    public class MockInventoryDetails : InventoryDetail
     {
+#if DEBUG
+#warning Using MOCK data for InventoryDetail
         public MockInventoryDetails()
         {
             // get rid of some bad binding messages
@@ -31,23 +33,30 @@ namespace BDC_V1.Services
 
             SerialNumber = "";
 
-            Manufacturers.Add("GE");
-            Manufacturers.Add("Westinghouse");
-            Manufacturers.Add("Craftsman");
-            Manufacturers.Add("Whirlpool");
-            Manufacturer = "GE";
+            Manufacturers.AddRange(new []
+            {
+                "GE",
+                "Westinghouse",
+                "Craftsman",
+                "Whirlpool"
+            });
+            Manufacturer = Manufacturers[0];
 
             Capacity = "200 amp";
 
             EquipmentType = "MLO Panel";
 
-            EquipmentMakes.Add("GE");
-            EquipmentMakes.Add("Westinghouse");
-            EquipmentMakes.Add("Craftsman");
-            EquipmentMakes.Add("Whirlpool");
-            EquipmentMake = "GE";
+            EquipmentMakes.AddRange(new []
+            {
+                "GE",
+                "Westinghouse",
+                "Craftsman",
+                "Whirlpool"
+            });
+            EquipmentMake = EquipmentMakes[0];
 
-            DateManufactured = DateTime.Now.ToShortDateString();
+            var dateMfg = new DateTime(1956, 8, 18, 01, 13, 45);
+            DateManufactured = dateMfg.ToShortDateString();
 
             YearInstalled = "2007";
 
@@ -64,6 +73,6 @@ namespace BDC_V1.Services
 
             InventoryDetails = "What is supposed to go here?";
         }
+#endif
     }
-
 }

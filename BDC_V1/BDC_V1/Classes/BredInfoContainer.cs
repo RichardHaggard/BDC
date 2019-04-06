@@ -13,6 +13,11 @@ namespace BDC_V1.Classes
 {
     public class BredInfoContainer : IGlobalContainer<IBredInfo>
     {
+        // **************** Class enumerations ********************************************** //
+
+
+        // **************** Class properties ************************************************ //
+
         [CanBeNull] 
         public IBredInfo GlobalValue
         {
@@ -33,9 +38,17 @@ namespace BDC_V1.Classes
         private IBredInfo _globalValue;
         private readonly IBredInfo _defaultValue;
 
+        // **************** Class data members ********************************************** //
+
+
+        // **************** Class constructors ********************************************** //
+
         public BredInfoContainer([CanBeNull] IBredInfo defaultValue = null)
         {
             _defaultValue = defaultValue;
         }
+
+        // **************** Class members *************************************************** //
+
     }
 }

@@ -8,7 +8,7 @@ using Prism.Mvvm;
 
 namespace BDC_V1.Classes
 {
-    public class TimeStamp : BindableBase, ITimeStamp
+    public class TimeStamp : PropertyBase, ITimeStamp
     {
         public IPerson EntryUser
         {

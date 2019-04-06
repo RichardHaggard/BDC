@@ -24,19 +24,20 @@ namespace BDC_V1.ViewModels
         public ICommand CmdCopyButton   { get; }
 
         /// <summary>
-        /// EnumCommentResult.ResultCancelled indicates cancellation.
-        /// EnumCommentResult.ResultDeferred  is defer result.
-        /// EnumCommentResult.ResultSaveNow   is save Comment now.
+        /// EnumControlResult.ResultCancelled indicates cancellation.
+        /// EnumControlResult.ResultDeferred  is defer result.
+        /// EnumControlResult.ResultSaveNow   is save Comment now.
         /// </summary>
-        public EnumCommentResult Result
+        public EnumControlResult Result
         {
             get => _result;
             set => SetProperty(ref _result, value);
         }
-        private EnumCommentResult _result;
+        private EnumControlResult _result;
 
         [NotNull]
-        public IList<IItemChecklist> ListOfSystems { get; } = new List<IItemChecklist>();
+        public INotifyingCollection<IItemChecklist> ListOfSystems { get; } = 
+            new NotifyingCollection<IItemChecklist>();
 
         // **************** Class constructors ********************************************** //
 
@@ -45,22 +46,28 @@ namespace BDC_V1.ViewModels
             CmdCancelButton = new DelegateCommand(OnCancelButton);
             CmdCopyButton   = new DelegateCommand(OnCopyButton  );
 
-            ListOfSystems.Add(new ItemChecklist() {ItemName = "C10 - INTERIOR CONSTRUCTION", ItemIsChecked = false});
-            ListOfSystems.Add(new ItemChecklist() {ItemName = "C20 - STAIRS"               , ItemIsChecked = false});
-            ListOfSystems.Add(new ItemChecklist() {ItemName = "C30 - INTERIOR FINISHES"    , ItemIsChecked = false});
+#if DEBUG
+#warning Using MOCK data for CmInvViewModel
+            ListOfSystems.AddRange(new []
+            {
+                new ItemChecklist {ItemName = "C10 - INTERIOR CONSTRUCTION", ItemIsChecked = false},
+                new ItemChecklist {ItemName = "C20 - STAIRS"               , ItemIsChecked = false},
+                new ItemChecklist {ItemName = "C30 - INTERIOR FINISHES"    , ItemIsChecked = false}
+            });
+#endif
         }
 
         // **************** Class members *************************************************** //
 
         private void OnCancelButton()
         {
-            Result = EnumCommentResult.ResultCancelled;
+            Result = EnumControlResult.ResultCancelled;
             DialogResultEx = false;
         }
 
         private void OnCopyButton()
         {
-            Result = EnumCommentResult.ResultSaveNow;
+            Result = EnumControlResult.ResultSaveNow;
             DialogResultEx = true;
         }
 

@@ -38,6 +38,7 @@ namespace BDC_V1.ValidationRules
         {
             if (EqualityComparer<T>.Default.Equals(storage, value))
                 return false;
+
             storage = value;
             this.RaisePropertyChanged(propertyName);
             return true;
@@ -60,6 +61,7 @@ namespace BDC_V1.ValidationRules
         {
             if (EqualityComparer<T>.Default.Equals(storage, value))
                 return false;
+
             storage = value;
             onChanged?.Invoke();
             this.RaisePropertyChanged(propertyName);

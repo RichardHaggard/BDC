@@ -37,23 +37,23 @@ namespace BDC_V1.ViewModels
         // **************** Class data members ********************************************** //
 
         // **************** Class properties ************************************************ //
-        public ICommand CmdNextButton { get; }
-        public ICommand CmdPrevButton { get; }
-        public ICommand CmdCopyButton { get; }
+        public ICommand CmdNextButton   { get; }
+        public ICommand CmdPrevButton   { get; }
+        public ICommand CmdCopyButton   { get; }
         public ICommand CmdCancelButton { get; }
 
         /// <summary>
-        /// EnumCommentResult.ResultCancelled indicates cancellation.
-        /// EnumCommentResult.ResultDeferred  is defer result.
-        /// EnumCommentResult.ResultSaveNow   is save Comment now.
+        /// EnumControlResult.ResultCancelled indicates cancellation.
+        /// EnumControlResult.ResultDeferred  is defer result.
+        /// EnumControlResult.ResultSaveNow   is save Comment now.
         /// </summary>
-        public EnumCommentResult Result
+        public EnumControlResult Result
         {
             get => _result;
             set => SetProperty(ref _result, value);
         }
 
-        private EnumCommentResult _result;
+        private EnumControlResult _result;
 
         [CanBeNull]
         public string SelectedFacility
@@ -61,58 +61,36 @@ namespace BDC_V1.ViewModels
             get => (FilterSource == EnumFilterSourceType.SavedFilter)
                 ? _selectedFacility
                 : ListOfFacilities.FirstOrDefault();
-            set
-            {
-                if (SetProperty(ref _selectedFacility, value))
-                    OnChangeFilter();
-            }
+
+            set => SetProperty(ref _selectedFacility, value, OnChangeFilter);
         }
         private string _selectedFacility;
 
         public string SearchTerm
         {
             get => _searchTerm;
-            set
-            {
-                if (SetProperty(ref _searchTerm, value))
-                    OnChangeFilter();
-            }
+            set => SetProperty(ref _searchTerm, value, OnChangeFilter);
         }
         private string _searchTerm;
 
         public EnumFilterSourceType FilterSource
         {
             get => _filterSource;
-            set
-            {
-                if (SetProperty(ref _filterSource, value))
-                {
-                    RaisePropertyChanged(nameof(SelectedFacility));
-                    OnChangeFilter();
-                }
-            }
+            set => SetProperty(ref _filterSource, value, OnChangeFilter);
         }
         private EnumFilterSourceType _filterSource;
 
         public EnumFilterRelatedType RelatedSource
         {
             get => _relatedSource;
-            set
-            {
-                if (SetProperty(ref _relatedSource, value))
-                    OnChangeFilter();
-            }
+            set => SetProperty(ref _relatedSource, value, OnChangeFilter);
         }
         private EnumFilterRelatedType _relatedSource;
 
         public EnumRatingColors FilterRatingColor
         {
             get => _filterRatingColor;
-            set
-            {
-                if (SetProperty(ref _filterRatingColor, value))
-                    OnChangeFilter();
-            }
+            set => SetProperty(ref _filterRatingColor, value, OnChangeFilter);
         }
         private EnumRatingColors _filterRatingColor;
 
@@ -123,22 +101,22 @@ namespace BDC_V1.ViewModels
         }
         private string _matchingResultsText;
 
-        public ObservableCollection<string> ListOfFacilities { get; } =
-            new ObservableCollection<string>();
+        public INotifyingCollection<string> ListOfFacilities { get; } =
+            new NotifyingCollection<string>();
 
-        public ObservableCollection<ICommentaryType> FilteredCommentary { get; } =
-            new ObservableCollection<ICommentaryType>();
+        public INotifyingCollection<ICommentary> FilteredCommentary { get; } =
+            new NotifyingCollection<ICommentary>();
 
-        public ObservableCollection<ICommentaryType> UnFilteredCommentary { get; } =
-            new ObservableCollection<ICommentaryType>();
+        public INotifyingCollection<ICommentary> UnFilteredCommentary { get; } =
+            new NotifyingCollection<ICommentary>();
 
         // **************** Class constructors ********************************************** //
 
         public CpyCmViewModel()
         {
-            CmdNextButton = new DelegateCommand(OnNextButton);
-            CmdPrevButton = new DelegateCommand(OnPrevButton);
-            CmdCopyButton = new DelegateCommand(OnCopyButton);
+            CmdNextButton   = new DelegateCommand(OnNextButton);
+            CmdPrevButton   = new DelegateCommand(OnPrevButton);
+            CmdCopyButton   = new DelegateCommand(OnCopyButton);
             CmdCancelButton = new DelegateCommand(OnCancelButton);
 
             FilterSource      = EnumFilterSourceType.BredFilter;
@@ -146,13 +124,25 @@ namespace BDC_V1.ViewModels
             FilterRatingColor = EnumRatingColors.Green;
             SearchTerm = "";
 
-            ListOfFacilities.Add("<ANY FACILITY>");
-            ListOfFacilities.Add("17180 - ARNG ARMORY");
-            ListOfFacilities.Add("11057 - Facility #2");
+            // Hook changes in the Facility list
+            ListOfFacilities.CollectionChanged +=
+                new NotifyCollectionChangedEventHandler(OnFacilitiesCollectionChanged);
 
-            SelectedFacility = ListOfFacilities.FirstOrDefault();
+            // Hook changes in the Commentary list changes
+            UnFilteredCommentary.CollectionChanged +=
+                new NotifyCollectionChangedEventHandler(OnCommentaryCollectionChanged);
+#if DEBUG
+#warning Using MOCK data for CpyCmModel
+            ListOfFacilities.AddRange(new[]
+            {
+                "<ANY FACILITY>",
+                "17180 - ARNG ARMORY",
+                "11057 - Facility #2"
+            });
 
-            UnFilteredCommentary.Add(new CommentaryType()
+            SelectedFacility = ListOfFacilities[0];
+
+            UnFilteredCommentary.Add(new Commentary()
             {
                 FacilityId = "11057",
                 CodeIdText = "C102001",
@@ -161,7 +151,7 @@ namespace BDC_V1.ViewModels
                               "CRACKED - All of the doors have 65% severe cracking and splintering."
             });
 
-            UnFilteredCommentary.Add(new CommentaryType()
+            UnFilteredCommentary.Add(new Commentary()
             {
                 FacilityId = "17180",
                 CodeIdText = "C102002",
@@ -169,15 +159,8 @@ namespace BDC_V1.ViewModels
                 CommentText = "HOLED - Holes have been punched thru 20% of the doors."
             });
 
-            // Hook changes in the Facility list
-            ListOfFacilities.CollectionChanged +=
-                new NotifyCollectionChangedEventHandler(OnFacilitiesCollectionChanged);
-
-            // Hook changes in the input source
-            UnFilteredCommentary.CollectionChanged +=
-                new NotifyCollectionChangedEventHandler(OnCommentaryCollectionChanged);
-
             OnChangeFilter();
+#endif
         }
 
         // **************** Class members *************************************************** //
@@ -195,13 +178,13 @@ namespace BDC_V1.ViewModels
 
         private void OnCancelButton()
         {
-            Result = EnumCommentResult.ResultCancelled;
+            Result = EnumControlResult.ResultCancelled;
             DialogResultEx = false;
         }
 
         private void OnCopyButton()
         {
-            Result = EnumCommentResult.ResultSaveNow;
+            Result = EnumControlResult.ResultSaveNow;
             DialogResultEx = true;
         }
 
@@ -217,7 +200,7 @@ namespace BDC_V1.ViewModels
 
         private void OnChangeFilter()
         {
-            IEnumerable<ICommentaryType> filterList = new List<ICommentaryType>(UnFilteredCommentary);
+            IEnumerable<ICommentary> filterList = new List<ICommentary>(UnFilteredCommentary);
 
             // ??? don't know what to do here ???
             switch (FilterSource)

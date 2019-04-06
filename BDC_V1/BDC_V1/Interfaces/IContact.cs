@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BDC_V1.Interfaces
 {
-    public interface IContact
+    public interface IContact : IPerson
     {
-        IPerson Name { get; set; } 
         string Phone { get; set; }
         string EMail { get; set; }
     }

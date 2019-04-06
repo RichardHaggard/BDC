@@ -158,7 +158,7 @@
         <DataGrid.Columns>
           <DataGridTextColumn Header=" Facility ID"      Binding="{Binding Path=FacilityId}"  Width="100" />
           <DataGridTextColumn Header=" System ID"        Binding="{Binding Path=SystemId}"    Width="100" />
-          <DataGridTextColumn Header=" Component"        Binding="{Binding Path=ComponentId}" Width="100" />
+          <DataGridTextColumn Header=" Inventory"        Binding="{Binding Path=ComponentId}" Width="100" />
           <DataGridTextColumn Header=" Type"             Binding="{Binding Path=TypeName}"    Width="100" />
           <DataGridTextColumn Header=" Section"          Binding="{Binding Path=SectionName}" Width="100" />
           <DataGridTextColumn Header=" Inventory Issue"  Binding="{Binding Path=InventIssue}" Width="590" />

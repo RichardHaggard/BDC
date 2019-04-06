@@ -36,11 +36,14 @@ namespace BDC_V1.ViewModels
         {
             CmdDistressed = new DelegateCommand(OnDistressed);
 
+#if DEBUG
+#warning Using MOCK data for CmInspViewModel
             HeaderText1 = "<TYPE> Comments for <IDENTIFIER>";
             HeaderText2 = "<IDENTIFIER CONTINUED>";
             CommentText = "DAMAGED - All the wood doors have 70% severe moisture damage.  CRACKED - All of the doors have 65% severe cracking and splintering.";
 
             RepairType = EnumRepairType.Replace;
+#endif
         }
 
         // **************** Class members *************************************************** //

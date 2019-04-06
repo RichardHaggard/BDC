@@ -43,8 +43,8 @@ namespace BDC_V1.ViewModels
         }
         private string _description;
 
-        public QuickObservableCollection<IInspectionType> InspectionInfo { get; } =
-            new QuickObservableCollection<IInspectionType>();
+        public INotifyingCollection<IIssueInspection> InspectionInfo { get; } =
+            new NotifyingCollection<IIssueInspection>();
 
         // **************** Class data members ********************************************** //
         // **************** Class constructors ********************************************** //
@@ -63,11 +63,26 @@ namespace BDC_V1.ViewModels
             CmdReviewIssue         = new DelegateCommand(OnCmdReviewIssue     );
             CmdClearFilter         = new DelegateCommand(OnCmdClearFilter     );
 
-            //ImgClearFilter = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Filter_Clear.png");
-            //ImgReviewIssue = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/ReviewIssue.png");
-            //ImgFilter      = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/Filter.png");
+#if DEBUG
+#warning Using MOCK data for QaInspectionViewModel
+            InspectionInfo.Clear();
+            InspectionInfo.Add(new IssueInspection()
+            {
+                FacilityId   = "11057",
+                SystemId     = "D30",
+                ComponentId  = "D3010",
+                TypeName     = "D301002",
+                SectionName  = "N/A",
+                Rating       = EnumRatingType.RPlus
+            });
+            InspectionInfo[0].InspectionComments.Add(new CommentInspection
+            {
+                EntryUser = new Person(),
+                EntryTime = new DateTime(),
+                CommentText = "Missing Photo"
+            });
 
-            InspectionInfo.Add(new InspectionType()
+            InspectionInfo.Add(new IssueInspection()
             {
                 FacilityId   = "11057",
                 SystemId     = "D30",
@@ -75,21 +90,15 @@ namespace BDC_V1.ViewModels
                 TypeName     = "D301002",
                 SectionName  = "N/A",
                 Rating       = EnumRatingType.RPlus,
-                InspectIssue = "Missing Photo"
             });
-
-            InspectionInfo.Add(new InspectionType()
+            InspectionInfo[1].InspectionComments.Add(new CommentInspection
             {
-                FacilityId   = "11057",
-                SystemId     = "D30",
-                ComponentId  = "D3010",
-                TypeName     = "D301002",
-                SectionName  = "N/A",
-                Rating       = EnumRatingType.RPlus,
-                InspectIssue = "Missing Comment"
+                EntryUser = new Person(),
+                EntryTime = new DateTime(),
+                CommentText = "Missing Comment"
             });
 
-            InspectionInfo.Add(new InspectionType()
+            InspectionInfo.Add(new IssueInspection()
             {
                 FacilityId   = "11057",
                 SystemId     = "D30",
@@ -97,10 +106,15 @@ namespace BDC_V1.ViewModels
                 TypeName     = "D302001",
                 SectionName  = "N/A",
                 Rating       = EnumRatingType.YMinus,
-                InspectIssue = "Missing Inspection photo for Y+ rating"
+            });
+            InspectionInfo[2].InspectionComments.Add(new CommentInspection
+            {
+                EntryUser = new Person(),
+                EntryTime = new DateTime(),
+                CommentText = "Missing InspectionComment photo for Y+ rating"
             });
 
-            InspectionInfo.Add(new InspectionType()
+            InspectionInfo.Add(new IssueInspection()
             {
                 FacilityId   = "11057",
                 SystemId     = "D30",
@@ -108,11 +122,17 @@ namespace BDC_V1.ViewModels
                 TypeName     = "D303001",
                 SectionName  = "N/A",
                 Rating       = EnumRatingType.Unknown,
-                InspectIssue = "Missing Inspection"
+            });
+            InspectionInfo[3].InspectionComments.Add(new CommentInspection
+            {
+                EntryUser = new Person(),
+                EntryTime = new DateTime(),
+                CommentText = "Missing InspectionCommen"
             });
 
             Description = "Filter: 11057";
-            //InspectionInfo.AddRange(Enumerable.Repeat(new InspectionType(), 30));
+            //InspectionInfo.AddRange(Enumerable.Repeat(new IssueInspection(), 30));
+#endif
         }
 
         // **************** Class members *************************************************** //

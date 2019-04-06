@@ -290,7 +290,7 @@
                   Style="{StaticResource BorderYO}"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch">
-            <ItemsControl x:Name="ImagesList" prism:RegionManager.RegionName="InventoryDetailsItemControl" />
+            <ItemsControl x:Name="ImagesList" prism:RegionManager.RegionName="InventoryCommentDetailsItemControl" />
           </Border>
 
             <Grid

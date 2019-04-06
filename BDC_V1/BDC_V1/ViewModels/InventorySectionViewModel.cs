@@ -22,11 +22,11 @@ namespace BDC_V1.ViewModels
         // **************** Class properties ************************************************ //
 
         [NotNull]
-        public IInventorySectionType InventorySection { get; }
+        public IInventorySection InventorySection { get; }
 
         // **************** Class data members ********************************************** //
 
-        public override IFacility LocalFacilityInfo
+        public override IComponentFacility LocalFacilityInfo
         {
             get => base.LocalFacilityInfo;
             set
@@ -36,7 +36,7 @@ namespace BDC_V1.ViewModels
                 InventorySection.Images.Clear();
                 InventorySection.Images.AddRange(base.LocalFacilityInfo?.Images);
 
-                // QuickObservableCollection should raise it's own notify
+                // NotifyingCollection should raise it's own notify
                 //RaisePropertyChanged(nameof(InventorySection));
             }
         }
