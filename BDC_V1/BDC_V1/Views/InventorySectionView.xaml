@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="130" />
                 <ColumnDefinition Width="130" />
                 <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="60" />
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="100" />
@@ -51,9 +51,24 @@
             </Grid.RowDefinitions>
 
             <!--maybe a label and a spin control here?-->
-            <Label Grid.Row="0" Grid.Column="0"
+            <StackPanel
+                Grid.Row="0" Grid.Column="0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Label 
                 Content="Section Name:"
                 Style="{StaticResource LabelRJ}"/>
+                <Button
+                    Background="Transparent"
+                    Width="60"
+                    Command="{Binding CmdNextSection}"
+                    >
+                    <Image Source="/BDC_V1;component/Resources/DownArrow.png"
+                   Width="24"
+                   HorizontalAlignment="Left" />
+                </Button>
+            </StackPanel>
+            
             <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="9"
                 ItemsSource="{Binding InventorySection.SectionNames}"
                 SelectedItem="{Binding InventorySection.SectionName}"
@@ -119,20 +134,24 @@
             <Label Grid.Row="3" Grid.Column="5"
                 Content="Select"
                 Style="{StaticResource LabelRJ}"/>
-            <TextBox Grid.Row="3" Grid.Column="6"
+            <TextBox 
+                Grid.Row="3" Grid.Column="6"
                 Text="G.S.F."
                 Style="{StaticResource TextBoxNoWrap}"/>
-            <TextBox Grid.Row="3" Grid.Column="7"
+            <TextBox 
+                Grid.Row="3" Grid.Column="7"
                 Text="Footprint"
                 Style="{StaticResource TextBoxNoWrap}"/>
-            <TextBox Grid.Row="3" Grid.Column="8"
+            <TextBox 
+                Grid.Row="3" Grid.Column="8"
                 Text="Perimeter"
                 Style="{StaticResource TextBoxNoWrap}"/>
 
             <Label Grid.Row="4" Grid.Column="0"
                 Content="Year Installed/Renewed:"
                 Style="{StaticResource LabelRJ}"/>
-            <DatePicker Grid.Row="4" Grid.Column="1"
+            <DatePicker 
+                Grid.Row="4" Grid.Column="1"
                 Style="{StaticResource dpBase}"
                 Text="{Binding InventorySection.YearInstalledRenewed}"
                 />
