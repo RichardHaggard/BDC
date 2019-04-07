@@ -42,8 +42,8 @@ namespace BDC_V1.Interfaces
         [NotNull] INotifyingCollection<IComponentBase> Components { get; }
 
         // getters for the desired component children, these only work for unique keys
-        // the find key is ComponentType+ComponentName by default,
-        // Set the ComponentType = None to do a name-only search
+        // the find key is InventoryType+ComponentName by default,
+        // Set the InventoryType = None to do a name-only search
         // should the keys not be unique, these will return the first found
         bool TryGetComponent(IComponentBase    component, out IComponentBase val);
         bool TryGetComponent(EnumComponentTypes compType, string compName, out IComponentBase val);

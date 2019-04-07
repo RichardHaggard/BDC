@@ -9,7 +9,9 @@
              xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:local="clr-namespace:BDC_V1.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1000">
+             MaxHeight="720"
+             MaxWidth="920"
+             d:DesignHeight="720" d:DesignWidth="920">
 
   <i:Interaction.Triggers>
     <i:EventTrigger EventName="Loaded">
@@ -17,9 +19,8 @@
     </i:EventTrigger>
   </i:Interaction.Triggers>
 
-    <ScrollViewer
-        HorizontalScrollBarVisibility="Auto"
-        >
+  <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -49,10 +50,12 @@
 
             <Label
                 Grid.Row="0" Grid.Column="0" 
+                Margin="0"
                 Content="Current Section:"
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
+                Margin="5,0,5,0"
                 Style="{StaticResource TextBoxWrap}"
                 Text="{Binding InventoryDetails.CurrentSection}"
                 />
@@ -224,32 +227,19 @@
                 Text="{Binding InventoryDetails.WarrantyCompany2}"
                 />
 
-            <Grid 
-                Grid.Row="10" Grid.Column="0" Height="120"
-                Margin="5"
-                >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <Border Grid.Row="0"
-                    Grid.RowSpan="3"
-                    Background="LightBlue"
-                    BorderBrush="Black"
-                    BorderThickness="1" />
-                <Image Grid.Row="0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
-                    Margin="0,20,0,0"
-                    Height="40" />
-                <Label Grid.Row="2"
-                    Content="Detail Comment"
-                    Margin="0,0,0,10"
-                    Style="{StaticResource LabelCJ}" />
-            </Grid>
+          <Button Grid.Row="10" Grid.Column="0"
+                  Style="{DynamicResource ImageClickBlockButtonStyle}"
+                  Command="{Binding CmdDetailsComment}">
+            <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+              <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
+                     Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
+              <Label Content="Detail"
+                     Style="{StaticResource ImageClickBlockTextStyle}" />
+              <Label Content="Comment"
+                     VerticalContentAlignment="Top"
+                     Style="{StaticResource ImageClickBlockTextStyle}" />
+            </StackPanel>
+          </Button>
             <TextBox
                 Grid.Row="10" Grid.Column="1"  Grid.ColumnSpan="3"
                 Background="LightYellow"
@@ -258,34 +248,18 @@
                 Text="{Binding InventoryDetails.DetailComment}"
                 />
 
-            <Grid 
-                Grid.Row="11" Grid.Column="0" Height="120"
-                Margin="5"
-                >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <Border Grid.Row="0"
-                    Grid.RowSpan="3"
-                    Background="LightBlue"
-                    BorderBrush="Black"
-                    BorderThickness="1"/>
-                <Image Grid.Row="0"
-                    HorizontalAlignment="Center"
-                       Margin="1"
-                    Source="/BDC_V1;component/Resources/Photos_cropped (1).png"
-                    VerticalAlignment="Center"
-                    Height="40"/>
-                <Label Grid.Row="1"
-                    Content="Detail Photo(s)"
-                    Style="{StaticResource LabelCJ}" />
-                <Label Grid.Row="2"
-                    Content="{Binding ElementName=ImagesList, Path=Items.Count}"
-                    Style="{StaticResource LabelCJ}" />
-            </Grid >
+          <Button Grid.Row="11" Grid.Column="0"
+                  Style="{StaticResource ImageClickBlockButtonStyle}"
+                  Command="{Binding CmdPhotosButton}">
+            <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+              <Image Source="/BDC_V1;component/Resources/Photos_cropped (1).png"
+                     Style="{StaticResource ImageClickBlockImageStyle}"/>
+              <Label Content="Photo(s)"
+                     Style="{StaticResource ImageClickBlockTextStyle}" />
+              <Label Content="{Binding ElementName=ImagesList, Path=Items.Count}"
+                     Style="{StaticResource ImageClickBlockTextStyle}" />
+            </StackPanel >
+          </Button>
           <Border Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"
                   Style="{StaticResource BorderYO}"
                   HorizontalAlignment="Stretch"
@@ -308,26 +282,26 @@
                 Content="Cancel Edit"
                 Margin="5"
                 Width="125"
-                />
+                Command="{Binding CmdCancelEdit}"/>
             <Button
                 Grid.Column="1"
                 Content="Delete Detail"
                 HorizontalAlignment="Center"
                 Margin="5"
                 Width="125"
-                />
+                Command="{Binding CmdDeleteDetail}"/>
             <Button
                 Grid.Column="2"
                 Content="Add Detail"
                 Margin="5"
                 Width="125"
-                />
+                Command="{Binding CmdAddDetail}"/>
             <Button
                 Grid.Column="3"
                 Content="Copy Detail"
                 Margin="5"
                 Width="125"
-                />
+                Command="{Binding CmdCopyDetail}"/>
             </Grid>
         </Grid>
     </ScrollViewer>

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace BDC_V1.Utils
+namespace BDC_V1.Converters
 {
     public class EnumBooleanConverter : DependencyObject, IValueConverter
     {

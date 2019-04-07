@@ -23,5 +23,9 @@ namespace BDC_V1.Views
         {
             InitializeComponent();
         }
+
+        // singleton instance to block multiple instances 
+        private static CpyInvView _instance;
+        public static CpyInvView Instance => _instance ?? (_instance = new CpyInvView());
     }
 }

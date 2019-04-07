@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using BDC_V1.Enumerations;
 
-namespace BDC_V1.Utils
+namespace BDC_V1.Converters
 {
     public class RtgToBackgroundConverter : DependencyObject, IValueConverter 
     {

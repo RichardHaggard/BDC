@@ -14,6 +14,10 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
+        // singleton instance to block multiple instances 
+        private static PhotoManagementViewModel _instance;
+        public static PhotoManagementViewModel Instance => _instance ?? (_instance = new PhotoManagementViewModel());
+
         // **************** Class constructors ********************************************** //
 
         // **************** Class members *************************************************** //

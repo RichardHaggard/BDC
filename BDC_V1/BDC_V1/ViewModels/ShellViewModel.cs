@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
+using BDC_V1.Converters;
 using BDC_V1.Enumerations;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
@@ -528,7 +529,7 @@ namespace BDC_V1.ViewModels
 
             if ((tabItem != null) && (LocalBredInfo != null))
             {
-                Predicate<IComponentFacility> filter = (arg) => true;;
+                Predicate<IComponentBase> filter = (arg) => true;;
 
                 VisibilityAddComponentButton   =
                 VisibilityAddSectionButton     =
@@ -558,9 +559,9 @@ namespace BDC_V1.ViewModels
                             VisibilityCopyInventoryButton =
                             VisibilityCopySectionsButton = Visibility.Visible;
 
-                            filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
-                                               (arg.ComponentType == EnumComponentTypes.SystemType) ||
-                                               (arg.ComponentType == EnumComponentTypes.SubsystemType));
+                            //filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
+                            //                   (arg.ComponentType == EnumComponentTypes.SystemType) ||
+                            //                   (arg.ComponentType == EnumComponentTypes.SectionType));
                             break;
                         }
 
@@ -568,22 +569,22 @@ namespace BDC_V1.ViewModels
                         {
                             VisibilityCopyInspectionButton = Visibility.Visible;
 
-                            filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
-                                               (arg.ComponentType == EnumComponentTypes.SystemType) ||
-                                               (arg.ComponentType == EnumComponentTypes.SubsystemType));
+                            //filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
+                            //                   (arg.ComponentType == EnumComponentTypes.SystemType) ||
+                            //                   (arg.ComponentType == EnumComponentTypes.SectionType));
                             break;
                         }
 
                     case "QaInventory":
                     case "QaInspection":
                         {
-                            filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
-                                               (arg.ComponentType == EnumComponentTypes.SystemType));
+                            //filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
+                            //                   (arg.ComponentType == EnumComponentTypes.SystemType));
                             break;
                         }
 
                     default:
-                        filter = (arg) => false;
+                        //filter = (arg) => false;
                         break;
                 }
 
@@ -615,8 +616,11 @@ namespace BDC_V1.ViewModels
         {
             if (component == null) return null;
 
+            var safeName = new string(component.ComponentName.Where(char.IsLetterOrDigit).ToArray());
+
             var node = new TreeViewItem
             {
+                Name                       = safeName,
                 Foreground                 = Brushes.Black,
                 HorizontalContentAlignment = HorizontalAlignment.Left,  // removes some mysterious runtime warnings
                 VerticalContentAlignment   = VerticalAlignment.Center,
@@ -630,28 +634,30 @@ namespace BDC_V1.ViewModels
 
             node.SetBinding(Control.FontWeightProperty, new Binding
             {
-                Path = new PropertyPath("ComponentType"),
+                Path      = new PropertyPath("ComponentType"),
                 Converter = new SystemElementFontWeightConverter()
             });
 
             node.SetBinding(Control.FontSizeProperty, new Binding
             {
-                Path = new PropertyPath("ComponentType"),
-                Converter = new SystemElementFontSizeConverter(),
+                Path               = new PropertyPath("ComponentType"),
+                Converter          = new SystemElementFontSizeConverter(),
                 ConverterParameter = node.FontSize
             });
 
-            var bindsBackground = new MultiBinding
+            // ReSharper disable once UseObjectOrCollectionInitializer
+            var bindsBackground = new MultiBinding();
+            bindsBackground.Converter = new SystemElementBackgroundConverter();
+            bindsBackground.Bindings.AddRange(new[]
             {
-                Converter = new SystemElementBackgroundConverter(),
-            };
-            bindsBackground.Bindings.Add(new Binding("ComponentType"));
-            bindsBackground.Bindings.Add(new Binding("HasQaIssues"  ));
+                new Binding("ComponentType"),
+                new Binding("HasAnyQaIssues"),
+            });
             node.SetBinding(Control.BackgroundProperty, bindsBackground);
 
-            if ((component is IComponentFacility facSystem) && facSystem.HasComponents)
+            if (component.HasComponents)
             {
-                foreach (var item in facSystem.Components)
+                foreach (var item in component.Components)
                 {
                     var treeItem = BuildTreeItems(item);
                     if (treeItem != null) node.Items.Add(treeItem);
@@ -661,7 +667,7 @@ namespace BDC_V1.ViewModels
             return node;
         }
 
-        protected void FilterNodeTree([CanBeNull] ItemCollection nodeList, [NotNull] Predicate<IComponentFacility> filter)
+        protected void FilterNodeTree([CanBeNull] ItemCollection nodeList, [NotNull] Predicate<IComponentBase> filter)
         {
             if (nodeList == null) return;
 
@@ -669,11 +675,11 @@ namespace BDC_V1.ViewModels
                 FilterNodeTree(node as TreeViewItem, filter);
         }
 
-        protected void FilterNodeTree([CanBeNull] TreeViewItem treeNode, [NotNull] Predicate<IComponentFacility> filter)
+        protected void FilterNodeTree([CanBeNull] TreeViewItem treeNode, [NotNull] Predicate<IComponentBase> filter)
         {
             if (treeNode == null) return;
 
-            if (treeNode.DataContext is IComponentFacility component)
+            if (treeNode.DataContext is IComponentBase component)
             {
                 if (filter(component))
                 {
@@ -690,7 +696,7 @@ namespace BDC_V1.ViewModels
             if (treeNode.Items.Count > 0) FilterNodeTree(treeNode.Items, filter);
         }
 
-        protected void FilterNodeTree([CanBeNull] IEnumerable<TreeViewItem> nodeList, [NotNull] Predicate<IComponentFacility> filter)
+        protected void FilterNodeTree([CanBeNull] IEnumerable<TreeViewItem> nodeList, [NotNull] Predicate<IComponentBase> filter)
         {
             if (nodeList == null) return;
 

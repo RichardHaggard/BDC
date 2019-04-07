@@ -21,13 +21,14 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdDistressed  { get; }
+        public ICommand CmdDistressed { get; }
 
         public EnumRepairType RepairType
         {
             get => _repairType;
             set => SetProperty(ref _repairType, value);
         }
+
         private EnumRepairType _repairType;
 
         // **************** Class constructors ********************************************** //
@@ -40,7 +41,8 @@ namespace BDC_V1.ViewModels
 #warning Using MOCK data for CmInspViewModel
             HeaderText1 = "<TYPE> Comments for <IDENTIFIER>";
             HeaderText2 = "<IDENTIFIER CONTINUED>";
-            CommentText = "DAMAGED - All the wood doors have 70% severe moisture damage.  CRACKED - All of the doors have 65% severe cracking and splintering.";
+            CommentText =
+                "DAMAGED - All the wood doors have 70% severe moisture damage.  CRACKED - All of the doors have 65% severe cracking and splintering.";
 
             RepairType = EnumRepairType.Replace;
 #endif
@@ -48,6 +50,10 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
-        private void OnDistressed () { Debug.WriteLine("OnDistressed not implemented"); }
+        private void OnDistressed()
+        {
+            Debug.WriteLine("OnDistressed not implemented");
+        }
+
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+// why isn't this found?
 namespace BDC_V1.Utils
 {
     public static class DialogCloserExtension

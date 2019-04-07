@@ -12,6 +12,8 @@
         xmlns:utils="clr-namespace:BDC_V1.Utils"
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
         Height="450" Width="800">
 
   <Window.Resources>
@@ -53,6 +55,7 @@
             Grid.Column="0"
             Margin="10"
             Style="{StaticResource bTB}"
+            Command="{Binding CmdCameraButton}"
             >
             <Image Source="/BDC_V1;component/Resources/Camera_cropped (1).png"/>
         </Button>
@@ -62,6 +65,7 @@
             Height="75"
             Margin="10"
             Style="{StaticResource bTB}"
+            Command="{Binding CmdCropPhoto}"
             >
             <Image Source="/BDC_V1;component/Resources/Crop (1).png"/>
         </Button>
@@ -71,6 +75,7 @@
             Height="75"
             Margin="10"
             Style="{StaticResource bTB}"
+            Command="{Binding CmdRotateClockwise}"
             >
             <Image Source="/BDC_V1;component/Resources/RotateRight (1).png"/>
         </Button>
@@ -80,6 +85,7 @@
             Height="75"
             Margin="10"
             Style="{StaticResource bTB}"
+            Command="{Binding CmdRotateCounter}"
             >
             <Image Source="/BDC_V1;component/Resources/RotateLeft (1).png"/>
         </Button>
@@ -91,6 +97,7 @@
             Content="Standard"
             Width="75"
             Style="{StaticResource bTB}"
+            Command="{Binding CmdSizeStandard}"
             >
         </Button>
 
@@ -101,6 +108,7 @@
             Margin="10"
             Width="75"
             Style="{StaticResource bTB}"
+            Command="{Binding CmdSizeLarge}"
             >
         </Button>
         
@@ -111,6 +119,7 @@
             Margin="10"
             Width="75"
             Style="{StaticResource bTB}"
+            Command="{Binding CmdExtraSizeLarge}"
             >
         </Button>
         

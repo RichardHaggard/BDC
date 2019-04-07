@@ -37,6 +37,7 @@ namespace BDC_V1.ViewModels
         // **************** Class data members ********************************************** //
 
         // **************** Class properties ************************************************ //
+
         public ICommand CmdNextButton   { get; }
         public ICommand CmdPrevButton   { get; }
         public ICommand CmdCopyButton   { get; }

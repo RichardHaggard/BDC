@@ -23,5 +23,9 @@ namespace BDC_V1.Views
         {
             InitializeComponent();
         }
+
+        // singleton instance to block multiple instances 
+        private static CameraView _instance;
+        public static CameraView Instance => _instance ?? (_instance = new CameraView());
     }
 }

@@ -1,23 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using BDC_V1.Views;
 using JetBrains.Annotations;
+using Prism.Commands;
 using Prism.Regions;
 
 namespace BDC_V1.ViewModels
 {
     public class ImagesModelBase : ViewModelBase
     {
+        // **************** Class enumerations ********************************************** //
+
+        // **************** Class data members ********************************************** //
+
+        // **************** Class properties ************************************************ //
+
+        public ICommand CmdPhotosButton { get; }
+
+        // **************** Class constructors ********************************************** //
+
+        public ImagesModelBase()
+        {
+            RegionManagerName = "FacilityItemControl";
+
+            CmdPhotosButton = new DelegateCommand(OnPhotosButton  );
+        }
+
+        // **************** Class members *************************************************** //
+
+        protected virtual void OnPhotosButton()
+        {
+            // this almost works... just have to close all the dangling windows on App exit
+#if false
+            var view = CameraView.Instance;
+            if(view.IsVisible) view.Topmost = true;
+            else               view.Show();
+#else
+            var view = new CameraView();
+            view.ShowDialog();
+#endif
+        }
+
         [NotNull]
         protected ItemsControl GetItemsControl([NotNull] IRegionManager regionManager)
         {
-            var itemsControl = new ItemsControl() {ItemsPanel = ItemsPanelTemplate()};
+            var itemsControl = new ItemsControl {ItemsPanel = ItemsPanelTemplate()};
 
             regionManager.Regions[RegionManagerName].Add(itemsControl);
 

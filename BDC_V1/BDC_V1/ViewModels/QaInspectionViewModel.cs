@@ -32,10 +32,6 @@ namespace BDC_V1.ViewModels
         public ICommand CmdReviewIssue         { get; }
         public ICommand CmdClearFilter         { get; }
 
-        //public BitmapSource ImgClearFilter     { get; }
-        //public BitmapSource ImgReviewIssue     { get; }
-        //public BitmapSource ImgFilter          { get; }
-
         public string Description
         {
             get => _description;

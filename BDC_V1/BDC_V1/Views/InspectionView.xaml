@@ -9,6 +9,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:utils="clr-namespace:BDC_V1.Utils"
+             xmlns:converters="clr-namespace:BDC_V1.Converters"
              mc:Ignorable="d"
              d:DesignHeight="700"
              d:DesignWidth="850">
@@ -20,6 +21,24 @@
   </i:Interaction.Triggers>
 
   <UserControl.Resources>
+    <Style x:Key="FacilityBlockButtonStyle" TargetType="Button" 
+           BasedOn="{StaticResource ImageClickBlockButtonStyle}">
+      <Setter Property="Height" Value="95" />
+      <Setter Property="Width" Value="160" />
+      <Setter Property="Margin" Value="5,5,5,0" />
+    </Style>
+
+    <!-- Offset needed to visually center the image -->
+    <Style x:Key="ImageClickBlockCommentImageStyle" TargetType="Image" 
+           BasedOn="{StaticResource ImageClickBlockImageStyle}">
+      <Setter Property="Margin" Value="5,0,0,0" />
+    </Style>
+
+    <Style x:Key="PhotosBlockButtonStyle" TargetType="Button" 
+           BasedOn="{StaticResource ImageClickBlockButtonStyle}">
+      <Setter Property="Width" Value="160" />
+    </Style>
+
     <Style x:Key="btnStatusBase"
         TargetType="Button"
         BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
@@ -49,7 +68,7 @@
   </UserControl.Resources>
 
   <ScrollViewer HorizontalScrollBarVisibility="Auto"
-              VerticalScrollBarVisibility="Auto">
+                VerticalScrollBarVisibility="Auto">
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="5"    /> <!--  0 - white space at top -->
@@ -153,7 +172,7 @@
           Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="6"
           Orientation="Horizontal">
         <StackPanel.Resources>
-          <utils:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+          <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
         </StackPanel.Resources>
 
         <Label
@@ -491,39 +510,22 @@
       </Grid>
 
       <!-- Inspection Comment -->
-      <Border Grid.Row="7"
-          Grid.Column="0"
-          Style="{StaticResource BorderBlue}">
-        <Grid>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-          </Grid.RowDefinitions>
-
-          <Image
-              Grid.Row="0"
-               Width="40"
-               Margin="0,3,0,0"
-               Height="40"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Bottom"
-               Source="/BDC_V1;component/Resources/EditText_Comments (1).png" />
-          <Label Grid.Row="1"
-               Style="{StaticResource LabelCJ}"
-               Content="Insp. Comment" />
-        </Grid>
-      </Border>
-      <!--
-      <Button
-        Grid.Row="7"
-        Content="Insp Comment"
-        Command="{Binding CmdInspectionComment}"/>
-      -->
+      <Button Grid.Row="7" Grid.Column="0"
+              Style="{DynamicResource FacilityBlockButtonStyle}"
+              Command="{Binding CmdInspectionComment}">
+        <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+          <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
+                 Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
+          <Label Content="Inspection Comment"
+                 Style="{StaticResource ImageClickBlockTextStyle}" />
+        </StackPanel>
+      </Button>
 
       <!-- Remember -->
       <Border Grid.Row="9"
-          Grid.Column="0"
-          Style="{StaticResource BorderBlue}">
+              Grid.Column="0"
+              Margin="5,0,5,5"
+              Style="{StaticResource BorderBlue}">
         <Grid>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -531,17 +533,17 @@
           </Grid.ColumnDefinitions>
 
           <CheckBox Grid.Column="0"
-          Margin="5,0,0,0"
-          Content="Remember"
-          HorizontalContentAlignment="Center"
-          VerticalContentAlignment="Center"
-          Style="{StaticResource cbBase}"
-          IsChecked="{Binding IsRemembered}" />
+                    Margin="5,0,0,0"
+                    Content="Remember"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Style="{StaticResource cbBase}"
+                    IsChecked="{Binding IsRemembered}" />
           <Image Grid.Column="1"
-       Margin="5,2,5,2"
-       Height="40"
-       Source="/BDC_V1;component/Resources/Remember (1).png"
-       Width="35" />
+                 Margin="5,2,5,2"
+                 Height="40"
+                 Source="/BDC_V1;component/Resources/Remember (1).png"
+                 Width="35" />
         </Grid>
       </Border>
 
@@ -557,29 +559,18 @@
       </Border>
 
       <!-- Photos -->
-      <Border Grid.Row="11"
-          Grid.Column="0"
-          Style="{StaticResource BorderBlue}">
-        <Grid>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-          </Grid.RowDefinitions>
-
-          <Image Grid.Row="0"
-               Height="40"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               Source="/BDC_V1;component/Resources/Photos_cropped (1).png" />
-          <Label Grid.Row="1"
-               Content="Photo(s)"
-               Style="{StaticResource LabelCJ}" />
-          <Label Grid.Row="2"
-               Content="{Binding ElementName=ImagesList, Path=Items.Count}"
-               Style="{StaticResource LabelCJ}" />
-        </Grid>
-      </Border>
+      <Button Grid.Row="11" Grid.Column="0"
+              Style="{StaticResource PhotosBlockButtonStyle}"
+              Command="{Binding CmdPhotosButton}">
+        <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+          <Image Source="/BDC_V1;component/Resources/Photos_cropped (1).png"
+                 Style="{StaticResource ImageClickBlockImageStyle}"/>
+          <Label Content="Photo(s)"
+                 Style="{StaticResource ImageClickBlockTextStyle}" />
+          <Label Content="{Binding ElementName=ImagesList, Path=Items.Count}"
+                 Style="{StaticResource ImageClickBlockTextStyle}" />
+        </StackPanel >
+      </Button>
 
       <Border 
           Grid.Row="11"

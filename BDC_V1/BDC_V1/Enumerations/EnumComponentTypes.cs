@@ -11,7 +11,7 @@ namespace BDC_V1.Enumerations
         None,
         FacilityType,
         SystemType,
-        SubsystemType,
-        ComponentType
+        SectionType,
+        InventoryType
     }
 }

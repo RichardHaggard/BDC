@@ -19,6 +19,8 @@ namespace BDC_V1.Classes
 
         // **************** Class properties ************************************************ //
 
+        public override EnumComponentTypes ComponentType => EnumComponentTypes.FacilityType;
+
         public EnumConstType ConstType
         {
             get => _constType;

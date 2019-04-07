@@ -14,16 +14,13 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class CmViewModel : CloseableWindow
+    public class CommentViewModel : CommentWindows
     {
         // **************** Class enumerations ********************************************** //
 
         // **************** Class data members ********************************************** //
 
         // **************** Class properties ************************************************ //
-
-        public ICommand CmdCopyButton   { get; }
-        public ICommand CmdCancelButton { get; }
 
         public string SourceFacility
         {
@@ -136,11 +133,8 @@ namespace BDC_V1.ViewModels
 
         // **************** Class constructors ********************************************** //
 
-        public CmViewModel()
+        public CommentViewModel()
         {
-            CmdCopyButton   = new DelegateCommand(OnCopyButton  );
-            CmdCancelButton = new DelegateCommand(OnCancelButton);
-
             IsSectionNameEnabled       = false;  
             IsOverYearChecked          = false;
             IsSectionCommentsChecked   = false;
@@ -155,7 +149,7 @@ namespace BDC_V1.ViewModels
             SourceFacility = "<SOURCE FACILITY>";
 
 #if DEBUG
-#warning Using MOCK data for CmViewModel
+#warning Using MOCK data for CommentViewModel
             ListOfFacilities.AddRange(new []
             {
                 "Facility 1",
@@ -178,16 +172,5 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
-        private void OnCopyButton()
-        {
-            DialogResultEx = true;
-            Result = EnumControlResult.ResultSaveNow;
-        }
-
-        private void OnCancelButton()
-        {
-            DialogResultEx = false;
-            Result = EnumControlResult.ResultCancelled;
-        }
     }
 }

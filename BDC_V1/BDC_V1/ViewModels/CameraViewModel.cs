@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,8 +18,15 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdCancelUndo  { get; }
-        public ICommand CmdOkCommand   { get; }
+        public ICommand CmdCameraButton    { get; }
+        public ICommand CmdCropPhoto       { get; }
+        public ICommand CmdRotateClockwise { get; }
+        public ICommand CmdRotateCounter   { get; }
+        public ICommand CmdSizeStandard    { get; }
+        public ICommand CmdSizeLarge       { get; }
+        public ICommand CmdExtraSizeLarge  { get; }
+        public ICommand CmdCancelUndo      { get; }
+        public ICommand CmdOkCommand       { get; }
 
         /// <summary>
         /// EnumControlResult.ResultCancelled indicates cancellation.
@@ -37,8 +45,15 @@ namespace BDC_V1.ViewModels
 
         public CameraViewModel()
         {
-            CmdCancelUndo  = new DelegateCommand(OnCancelUndo );
-            CmdOkCommand   = new DelegateCommand(OnOkCommand  );
+            CmdCameraButton    = new DelegateCommand(OnCameraButton   );
+            CmdCropPhoto       = new DelegateCommand(OnCropPhoto      );
+            CmdRotateClockwise = new DelegateCommand(OnRotateClockwise);
+            CmdRotateCounter   = new DelegateCommand(OnRotateCounter  );
+            CmdSizeStandard    = new DelegateCommand(OnSizeStandard   );
+            CmdSizeLarge       = new DelegateCommand(OnSizeLarge      );
+            CmdExtraSizeLarge  = new DelegateCommand(OnExtraSizeLarge );
+            CmdCancelUndo      = new DelegateCommand(OnCancelUndo     );
+            CmdOkCommand       = new DelegateCommand(OnOkCommand      );
         }
 
         // **************** Class members *************************************************** //
@@ -55,5 +70,12 @@ namespace BDC_V1.ViewModels
             DialogResultEx = true;
         }
 
+        private void OnCameraButton   () { Debug.WriteLine("OnCameraButton    is not implemented"); }
+        private void OnCropPhoto      () { Debug.WriteLine("OnCropPhoto       is not implemented"); }
+        private void OnRotateClockwise() { Debug.WriteLine("OnRotateClockwise is not implemented"); }
+        private void OnRotateCounter  () { Debug.WriteLine("OnRotateCounter   is not implemented"); }
+        private void OnSizeStandard   () { Debug.WriteLine("OnSizeStandard    is not implemented"); }
+        private void OnSizeLarge      () { Debug.WriteLine("OnSizeLarge       is not implemented"); }
+        private void OnExtraSizeLarge () { Debug.WriteLine("OnExtraSizeLarge  is not implemented"); }
     }
 }

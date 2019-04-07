@@ -15,13 +15,17 @@ using System.Windows.Shapes;
 namespace BDC_V1.Views
 {
     /// <summary>
-    /// Interaction logic for CmView.xaml
+    /// Interaction logic for CommentView.xaml
     /// </summary>
-    public partial class CmView : Window
+    public partial class CommentView : Window
     {
-        public CmView()
+        public CommentView()
         {
             InitializeComponent();
         }
+
+        // singleton instance to block multiple instances 
+        private static CommentView _instance;
+        public static CommentView Instance => _instance ?? (_instance = new CommentView());
     }
 }

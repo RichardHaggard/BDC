@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
 using JetBrains.Annotations;
@@ -18,6 +19,8 @@ namespace BDC_V1.Classes
 
         // **************** Class properties ************************************************ //
 
+        public override EnumComponentTypes ComponentType => EnumComponentTypes.InventoryType;
+
         public IInventorySection Section { get; } = new InventorySection();
         public IInventoryDetail  Detail  { get; } = new InventoryDetail ();
 
@@ -30,7 +33,9 @@ namespace BDC_V1.Classes
             PropertyCollection<IIssueInspection>(ref _inspectionIssues, new []
             {
                 nameof(HasInspectionIssues),
-                nameof(HasAnyInspectionIssues)
+                nameof(HasAnyInspectionIssues),
+                nameof(HasQaIssues),
+                nameof(HasAnyQaIssues)
             });
         [CanBeNull] private INotifyingCollection<IIssueInspection> _inspectionIssues;
 
@@ -40,7 +45,9 @@ namespace BDC_V1.Classes
             PropertyCollection<IIssueInventory>(ref _inventoryIssues, new []
             {
                 nameof(HasInventoryIssues),
-                nameof(HasAnyInventoryIssues)
+                nameof(HasAnyInventoryIssues),
+                nameof(HasQaIssues),
+                nameof(HasAnyQaIssues)
             });
         [CanBeNull] private INotifyingCollection<IIssueInventory> _inventoryIssues;
 

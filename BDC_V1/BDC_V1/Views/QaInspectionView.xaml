@@ -9,6 +9,7 @@
              xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:local="clr-namespace:BDC_V1.Views"
              xmlns:utils="clr-namespace:BDC_V1.Utils"
+             xmlns:converters="clr-namespace:BDC_V1.Converters"
              mc:Ignorable="d"
              Height="400" Width="1200"
              d:DesignHeight="400" d:DesignWidth="1200">
@@ -68,7 +69,7 @@
       </Setter>
     </Style>
 
-    <utils:RtgToBackgroundConverter x:Key="RtgToBackgroundConverter"/>
+    <converters:RtgToBackgroundConverter x:Key="RtgToBackgroundConverter"/>
 
     <Style x:Key="RtgStyle" TargetType="TextBlock">
       <Setter Property="HorizontalAlignment" Value="Center" />

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BDC_V1.Classes;
+﻿using BDC_V1.Classes;
+using BDC_V1.Services;
 
-namespace BDC_V1.Services
+namespace BDC_V1.Mock_Data
 {
     public class MockBredInfo : BredInfo
     {

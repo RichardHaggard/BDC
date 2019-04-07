@@ -24,12 +24,16 @@ namespace BDC_V1.Views
         {
             InitializeComponent();
 
-            EventAggregator.GetEvent<Prism.Events.PubSubEvent<CloseWindowEvent>>()
-                .Subscribe((item) =>
-                {
-                    if (item?.WindowName==this.GetType().Name)
-                        Close();
-                });
+            //EventAggregator.GetEvent<Prism.Events.PubSubEvent<CloseWindowEvent>>()
+            //    .Subscribe((item) =>
+            //    {
+            //        if (item?.WindowName==this.GetType().Name)
+            //            Close();
+            //    });
         }
+
+        // singleton instance to block multiple instances 
+        private static CmInspView _instance;
+        public static CmInspView Instance => _instance ?? (_instance = new CmInspView());
     }
 }

@@ -23,5 +23,9 @@ namespace BDC_V1.Views
         {
             InitializeComponent();
         }
+
+        // singleton instance to block multiple instances 
+        private static AddSystemView _instance;
+        public static AddSystemView Instance => _instance ?? (_instance = new AddSystemView());
     }
 }

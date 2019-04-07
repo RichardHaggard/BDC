@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 
-namespace BDC_V1.Services
+namespace BDC_V1.Mock_Data
 {
     public class MockInventorySection : InventorySection
     {

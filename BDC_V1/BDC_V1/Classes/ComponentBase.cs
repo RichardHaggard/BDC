@@ -21,7 +21,7 @@ namespace BDC_V1.Classes
 
         // **************** Class properties ************************************************ //
 
-        public EnumComponentTypes ComponentType
+        public virtual EnumComponentTypes ComponentType
         {
             get => _componentType;
             set => SetProperty(ref _componentType, value);
@@ -51,15 +51,15 @@ namespace BDC_V1.Classes
         public virtual bool HasImages             => false;
         public virtual bool HasInspections        => false;
         public virtual bool HasDetailComments     => false;
-        public virtual bool HasQaIssues           => false;
+        public virtual bool HasQaIssues           => HasInspectionIssues || HasInventoryIssues;
         public virtual bool HasInspectionIssues   => false;
         public virtual bool HasInventoryIssues    => false;
         
         // These queries will check the selected component and all of it's children
-        public virtual bool HasAnyQaIssues         => HasQaIssues         || Components.Any(item => item.HasQaIssues);
-        public virtual bool HasAnyInspectionIssues => HasInspectionIssues || Components.Any(item => item.HasInspectionIssues);
-        public virtual bool HasAnyInventoryIssues  => HasInventoryIssues  || Components.Any(item => item.HasInventoryIssues);
-        public virtual bool HasAnyInspections      => HasInspections      || Components.Any(item => item.HasInspections);
+        public virtual bool HasAnyQaIssues         => HasQaIssues         || Components.Any(item => item.HasAnyQaIssues);
+        public virtual bool HasAnyInspectionIssues => HasInspectionIssues || Components.Any(item => item.HasAnyInspectionIssues);
+        public virtual bool HasAnyInventoryIssues  => HasInventoryIssues  || Components.Any(item => item.HasAnyInventoryIssues);
+        public virtual bool HasAnyInspections      => HasInspections      || Components.Any(item => item.HasAnyInspections);
 
         // Subsystems
         public bool HasComponents => Components.HasItems;
@@ -75,8 +75,8 @@ namespace BDC_V1.Classes
 
         // **************** Class members *************************************************** //
         // getters for the desired component children, these only work for unique keys
-        // the find key is ComponentType+ComponentName by default,
-        // Set the ComponentType = None to do a name-only search
+        // the find key is InventoryType+ComponentName by default,
+        // Set the InventoryType = None to do a name-only search
         // should the keys not be unique, these will return the first found
 
         public IComponentBase GetComponent(EnumComponentTypes type, string name) =>

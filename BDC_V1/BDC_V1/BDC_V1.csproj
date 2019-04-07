@@ -164,25 +164,25 @@
     <Compile Include="Interfaces\ITimeStamp.cs" />
     <Compile Include="Interfaces\IValidUsers.cs" />
     <Compile Include="Services\AppController.cs" />
-    <Compile Include="Services\MockBredInfo.cs" />
-    <Compile Include="Services\MockConfigInfo.cs" />
-    <Compile Include="Services\MockFacility.cs" />
-    <Compile Include="Services\MockInspectionInfo.cs" />
-    <Compile Include="Services\MockInventoryDetails.cs" />
-    <Compile Include="Services\MockInventorySection.cs" />
-    <Compile Include="Services\MockValidUsers.cs" />
+    <Compile Include="Mock Data\MockBredInfo.cs" />
+    <Compile Include="Mock Data\MockConfigInfo.cs" />
+    <Compile Include="Mock Data\MockFacility.cs" />
+    <Compile Include="Mock Data\MockInspectionInfo.cs" />
+    <Compile Include="Mock Data\MockInventoryDetails.cs" />
+    <Compile Include="Mock Data\MockInventorySection.cs" />
+    <Compile Include="Mock Data\MockValidUsers.cs" />
     <Compile Include="Utils\BitmapExtension.cs" />
     <Compile Include="Utils\BitmapSourceExtension.cs" />
     <Compile Include="Utils\DialogCloserExtension.cs" />
-    <Compile Include="Utils\EnumBooleanConverter.cs" />
+    <Compile Include="Converters\EnumBooleanConverter.cs" />
     <Compile Include="Utils\FacilitySystemTypesExtension.cs" />
     <Compile Include="Utils\GetEnumDescription.cs" />
     <Compile Include="Utils\MakeBitmapTransparent.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
-    <Compile Include="Utils\RtgToBackgroundConverter.cs" />
-    <Compile Include="Utils\SystemElementBackgroundConverter.cs" />
-    <Compile Include="Utils\SystemElementFontSizeConverter.cs" />
-    <Compile Include="Utils\SystemElementFontWeightConverter.cs" />
+    <Compile Include="Converters\RtgToBackgroundConverter.cs" />
+    <Compile Include="Converters\SystemElementBackgroundConverter.cs" />
+    <Compile Include="Converters\SystemElementFontSizeConverter.cs" />
+    <Compile Include="Converters\SystemElementFontWeightConverter.cs" />
     <Compile Include="Utils\WindowPlacement.cs" />
     <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
@@ -192,7 +192,7 @@
     <Compile Include="ViewModels\CameraViewModel.cs" />
     <Compile Include="ViewModels\CloseableWindow.cs" />
     <Compile Include="ViewModels\CmInspViewModel.cs" />
-    <Compile Include="ViewModels\CmViewModel.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\CommentWindows.cs" />
     <Compile Include="ViewModels\CpyCmViewModel.cs" />
     <Compile Include="ViewModels\CpyInvViewModel.cs" />
@@ -222,8 +222,8 @@
     <Compile Include="Views\CmInspView.xaml.cs">
       <DependentUpon>CmInspView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CmView.xaml.cs">
-      <DependentUpon>CmView.xaml</DependentUpon>
+    <Compile Include="Views\CommentView.xaml.cs">
+      <DependentUpon>CommentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CpyCmView.xaml.cs">
       <DependentUpon>CpyCmView.xaml</DependentUpon>
@@ -308,7 +308,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CmView.xaml">
+    <Page Include="Views\CommentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
