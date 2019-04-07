@@ -15,17 +15,17 @@ using System.Windows.Shapes;
 namespace BDC_V1.Views
 {
     /// <summary>
-    /// Interaction logic for CpyCmView.xaml
+    /// Interaction logic for CopyInventoryView.xaml
     /// </summary>
-    public partial class CpyCmView : Window
+    public partial class CopyInventoryView : Window
     {
-        public CpyCmView()
+        public CopyInventoryView()
         {
             InitializeComponent();
         }
 
         // singleton instance to block multiple instances 
-        private static CpyCmView _instance;
-        public static CpyCmView Instance => _instance ?? (_instance = new CpyCmView());
+        private static CopyInventoryView _instance;
+        public static CopyInventoryView Instance => _instance ?? (_instance = new CopyInventoryView());
     }
 }

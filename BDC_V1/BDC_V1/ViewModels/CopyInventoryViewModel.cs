@@ -12,7 +12,7 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class CpyInvViewModel : CloseableWindow
+    public class CopyInventoryViewModel : CloseableWindow
     {
         // **************** Class enumerations ********************************************** //
 
@@ -41,7 +41,7 @@ namespace BDC_V1.ViewModels
 
         // **************** Class constructors ********************************************** //
 
-        public CpyInvViewModel()
+        public CopyInventoryViewModel()
         {
             CmdCancelButton = new DelegateCommand(OnCancelButton);
             CmdCopyButton   = new DelegateCommand(OnCopyButton  );

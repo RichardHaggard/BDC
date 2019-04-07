@@ -379,7 +379,7 @@ namespace BDC_V1.ViewModels
 
         private void OnCopyCommentary()
         {
-            var dlg = new CpyCmView();
+            var dlg = new CopyCommentView();
             dlg.ShowDialog();
         }
 
@@ -503,7 +503,7 @@ namespace BDC_V1.ViewModels
 
         private void OnCopyInventory()
         {
-            var dlg = new CpyInvView();
+            var dlg = new CopyInventoryView();
             dlg.ShowDialog();
         }
 

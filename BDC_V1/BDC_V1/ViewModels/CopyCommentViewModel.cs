@@ -18,7 +18,7 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class CpyCmViewModel : CloseableWindow
+    public class CopyCommentViewModel : CloseableWindow
     {
         // **************** Class enumerations ********************************************** //
 
@@ -113,7 +113,7 @@ namespace BDC_V1.ViewModels
 
         // **************** Class constructors ********************************************** //
 
-        public CpyCmViewModel()
+        public CopyCommentViewModel()
         {
             CmdNextButton   = new DelegateCommand(OnNextButton);
             CmdPrevButton   = new DelegateCommand(OnPrevButton);

@@ -194,8 +194,8 @@
     <Compile Include="ViewModels\CmInspViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\CommentWindows.cs" />
-    <Compile Include="ViewModels\CpyCmViewModel.cs" />
-    <Compile Include="ViewModels\CpyInvViewModel.cs" />
+    <Compile Include="ViewModels\CopyCommentViewModel.cs" />
+    <Compile Include="ViewModels\CopyInventoryViewModel.cs" />
     <Compile Include="ViewModels\FacilityBaseClass.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="ViewModels\ImagesModelBase.cs" />
@@ -225,11 +225,11 @@
     <Compile Include="Views\CommentView.xaml.cs">
       <DependentUpon>CommentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CpyCmView.xaml.cs">
-      <DependentUpon>CpyCmView.xaml</DependentUpon>
+    <Compile Include="Views\CopyCommentView.xaml.cs">
+      <DependentUpon>CopyCommentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CpyInvView.xaml.cs">
-      <DependentUpon>CpyInvView.xaml</DependentUpon>
+    <Compile Include="Views\CopyInventoryView.xaml.cs">
+      <DependentUpon>CopyInventoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FacilityView.xaml.cs">
       <DependentUpon>FacilityView.xaml</DependentUpon>
@@ -312,11 +312,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CpyCmView.xaml">
+    <Page Include="Views\CopyCommentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CpyInvView.xaml">
+    <Page Include="Views\CopyInventoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

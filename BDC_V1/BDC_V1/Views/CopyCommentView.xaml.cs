@@ -15,17 +15,17 @@ using System.Windows.Shapes;
 namespace BDC_V1.Views
 {
     /// <summary>
-    /// Interaction logic for CpyInvView.xaml
+    /// Interaction logic for CopyCommentView.xaml
     /// </summary>
-    public partial class CpyInvView : Window
+    public partial class CopyCommentView : Window
     {
-        public CpyInvView()
+        public CopyCommentView()
         {
             InitializeComponent();
         }
 
         // singleton instance to block multiple instances 
-        private static CpyInvView _instance;
-        public static CpyInvView Instance => _instance ?? (_instance = new CpyInvView());
+        private static CopyCommentView _instance;
+        public static CopyCommentView Instance => _instance ?? (_instance = new CopyCommentView());
     }
 }
