@@ -54,7 +54,7 @@
             </MenuItem>
 
             <MenuItem Header="Reports" >
-                <MenuItem Header="_Inspection Summary" Command="{Binding CmdMenuInspectionSummary}"/>
+                <MenuItem Header="_InspectionComment Summary" Command="{Binding CmdMenuInspectionSummary}"/>
                 <MenuItem Header="_QC Reports" Command="{Binding CmdMenuQcReports}"/>
             </MenuItem>
 
@@ -98,14 +98,14 @@
 
             <!--Inspection mode button-->
             <Button Grid.Column="1"
-                    ToolTip="Inspection Mode"
+                    ToolTip="InspectionComment Mode"
                     Command="{Binding CmdInspectionMode}"
                     Style="{DynamicResource TransparentBitmap}">
                 <Image Height="72" Width="72" Source="/BDC_V1;component/Resources/Inspection (1).png"/>
             </Button>
             
             <!--Add System-->
-            <!--Visible when Facility active-->
+            <!--Visible when ComponentFacility active-->
             <Button Grid.Column="2"
                     ToolTip="Add System"
                     Command="{Binding CmdAddSystem}"
@@ -115,7 +115,7 @@
             </Button>
 
             <!--Delete System-->
-            <!--Visible when Facility active-->
+            <!--Visible when ComponentFacility active-->
             <Button Grid.Column="3"
                     ToolTip="Delete System"
                     Command="{Binding CmdDeleteSystem}"
@@ -127,7 +127,7 @@
             <!--Add Component-->
             <!--Visible when Inventory active-->
             <Button Grid.Column="4"
-                    ToolTip="Add Component"
+                    ToolTip="Add ComponentInventory"
                     Command="{Binding CmdAddComponent}"
                     Visibility="{Binding VisibilityAddComponentButton}"
                     Style="{DynamicResource TransparentBitmap}">
@@ -167,7 +167,7 @@
             <!--Copy Inspection-->
             <!--Visible when Inspection active-->
             <Button Grid.Column="8"
-                    ToolTip="Copy Inspection"
+                    ToolTip="Copy InspectionComment"
                     Command="{Binding CmdCopyInspection}"
                     Visibility="{Binding VisibilityCopyInspectionButton}"
                     Style="{DynamicResource TransparentBitmap}">
@@ -239,7 +239,7 @@
 
                 <!--  these colors should be done with a selection style -->
                 <TabItem 
-                    Name="Facility" 
+                    Name="ComponentFacility" 
                     Header="FACILITY" 
                     Background="{Binding FacilityTabBackgroundColor}"
                     HorizontalContentAlignment="Left"

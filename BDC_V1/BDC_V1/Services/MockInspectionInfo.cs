@@ -10,8 +10,10 @@ using BDC_V1.Enumerations;
 
 namespace BDC_V1.Services
 {
-    public class MockInspectionInfo : InspectionInfoType
+    public class MockInspectionInfo : InspectionInfo
     {
+#if DEBUG
+#warning Using MOCK data for InspectionInfo
         public MockInspectionInfo()
         {
             // get rid of some bad binding messages
@@ -24,11 +26,17 @@ namespace BDC_V1.Services
             ComponentType     = "General";
             Quantity          = 2000.00M;
             InspectionDate    = DateTime.Parse("12/18/2012");
-            Note              = "Note: Inspection Comment & Photo required.";
-            InspectionComment = 
-                @"[Darrell Setser on 1/18/2018 6:19:55 PM]" +
-                @"DAMAGED - All the wood doors have 70% severe moisture damage.  CRACKED - All of the doors have 65% severe cracking and splintering. " +
-                @"Replacement is recommended.";
+            Note              = "Note: InspectionComment Comment & Photo required.";
+
+            InspectionComments.Add(
+                new CommentInspection
+                {
+                    EntryUser = new Person("Darrell", "Setser"),
+                    EntryTime = new DateTime(2018, 1, 18, 18, 19, 55),
+                    CommentText = @"DAMAGED - All the wood doors have 70% severe moisture damage.  CRACKED - All of the doors have 65% severe cracking and splintering. " +
+                                  @"Replacement is recommended."
+                });
         }
+#endif
     }
 }

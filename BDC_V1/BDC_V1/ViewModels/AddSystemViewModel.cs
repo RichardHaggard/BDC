@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using BDC_V1.Classes;
 using BDC_V1.Enumerations;
+using BDC_V1.Interfaces;
 using Prism.Commands;
 
 namespace BDC_V1.ViewModels
@@ -28,24 +30,24 @@ namespace BDC_V1.ViewModels
         private string _component;
 
 
-        public List<string> Components
+        public INotifyingCollection<string> Components
         {
             get => _components;
             set => SetProperty(ref _components, value);
         }
-        private List<string> _components = new List<string>();
+        private INotifyingCollection<string> _components = new NotifyingCollection<string>();
 
         /// <summary>
-        /// EnumCommentResult.ResultCancelled indicates cancellation.
-        /// EnumCommentResult.ResultDeferred  is defer result.
-        /// EnumCommentResult.ResultSaveNow   is save Comment now.
+        /// EnumControlResult.ResultCancelled indicates cancellation.
+        /// EnumControlResult.ResultDeferred  is defer result.
+        /// EnumControlResult.ResultSaveNow   is save Comment now.
         /// </summary>
-        public EnumCommentResult Result
+        public EnumControlResult Result
         {
             get => _result;
             set => SetProperty(ref _result, value);
         }
-        private EnumCommentResult _result;
+        private EnumControlResult _result;
 
 
 
@@ -53,17 +55,23 @@ namespace BDC_V1.ViewModels
 
         public AddSystemViewModel()
         {
-            CmdCancelUndo  = new DelegateCommand(OnCancelUndo );
-            CmdOkCommand   = new DelegateCommand(OnOkCommand  );
+            CmdCancelUndo = new DelegateCommand(OnCancelUndo);
+            CmdOkCommand = new DelegateCommand(OnOkCommand);
 
-            Components.Add("F10 SPECIAL CONSTRUCTION");
-            Components.Add("F20 SELECTIVE BUILDING DEMOLITION");
-            Components.Add("G10 SITE PREPARATIONS");
-            Components.Add("G90 OTHER SITE CONSTRUCTION");
-            Components.Add("H30 COASTAL PROTECTION");
-            Components.Add("H40 NAV DREDGING/RECLAMATION");
-            Components.Add("H60 WATERFRONT DEMOLITION");
-            Components.Add("H70 WATERFRONT ATFP");
+#if DEBUG
+#warning Using MOCK data for AddNewComponentViewModel
+            Components.AddRange(new []
+            {
+                "F10 SPECIAL CONSTRUCTION"         ,
+                "F20 SELECTIVE BUILDING DEMOLITION",
+                "G10 SITE PREPARATIONS"            ,
+                "G90 OTHER SITE CONSTRUCTION"      ,
+                "H30 COASTAL PROTECTION"           ,
+                "H40 NAV DREDGING/RECLAMATION"     ,
+                "H60 WATERFRONT DEMOLITION"        ,
+                "H70 WATERFRONT ATFP"
+            });
+#endif
         }
 
 
@@ -71,13 +79,13 @@ namespace BDC_V1.ViewModels
 
         private void OnCancelUndo()
         {
-            Result = EnumCommentResult.ResultCancelled;
+            Result = EnumControlResult.ResultCancelled;
             DialogResultEx = false;
         }
 
         private void OnOkCommand()
         {
-            Result = EnumCommentResult.ResultSaveNow;
+            Result = EnumControlResult.ResultSaveNow;
             DialogResultEx = true;
         }
     }

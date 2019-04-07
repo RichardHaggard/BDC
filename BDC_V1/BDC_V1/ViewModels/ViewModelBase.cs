@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
@@ -7,6 +8,7 @@ using System.Windows.Input;
 using BDC_V1.Classes;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
+using BDC_V1.Utils;
 using CommonServiceLocator;
 using JetBrains.Annotations;
 using Prism.Events;
@@ -16,7 +18,7 @@ using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.ViewModels
 {
-    public class ViewModelBase : BindableBase
+    public class ViewModelBase : PropertyBase, INotifyPropertyChanged
     {
         // **************** Class enumerations ********************************************** //
 

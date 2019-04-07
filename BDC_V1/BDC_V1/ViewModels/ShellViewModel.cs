@@ -137,11 +137,7 @@ namespace BDC_V1.ViewModels
         public string BredFilename
         {
             get => _bredFilename;
-            set
-            {
-                if (SetProperty(ref _bredFilename, value))
-                    RaisePropertyChanged(nameof(Title));
-            }
+            set => SetPropertyFlagged(ref _bredFilename, value, nameof(Title));
         }
         private string _bredFilename;
 
@@ -149,11 +145,7 @@ namespace BDC_V1.ViewModels
         public DateTime StatusDateTime
         {
             get => _statusDateTime;
-            private set
-            {
-                if (SetProperty(ref _statusDateTime, value))
-                    RaisePropertyChanged(nameof(StatusDateTimeString));
-            }
+            private set => SetPropertyFlagged(ref _statusDateTime, value, nameof(StatusDateTimeString));
         }
         private DateTime _statusDateTime;
 
@@ -162,11 +154,7 @@ namespace BDC_V1.ViewModels
         public IPerson SelectedLoginUser
         {
             get => _selectedLoginUser;
-            set
-            {
-                if (SetProperty(ref _selectedLoginUser, value))
-                    RaisePropertyChanged(nameof(StatusInspector));
-            } 
+            set => SetPropertyFlagged(ref _selectedLoginUser, value, nameof(StatusInspector));
         }
         private IPerson _selectedLoginUser;
 
@@ -174,29 +162,22 @@ namespace BDC_V1.ViewModels
         public string LookupField
         {
             get => _lookupField;
-            set
-            {
-                if (SetProperty(ref _lookupField, value))
-                    RaisePropertyChanged(nameof(StatusLookup));;
-            }
+            set => SetPropertyFlagged(ref _lookupField, value, nameof(StatusLookup));
         }
         private string _lookupField;
 
 
         [CanBeNull]
-        public IInspection InspectedByUser
+        public ICommentInspection InspectedByUser
         {
             get => _inspectedByUser;
-            private set
+            private set => SetProperty(ref _inspectedByUser, value, () =>
             {
-                if (SetProperty(ref _inspectedByUser, value))
-                {
-                    StatusDateTime = _inspectedByUser?.EntryTime?? DateTime.Now;
-                    RaisePropertyChanged(nameof(StatusInspectedBy));
-                }
-            }
+                StatusDateTime = _inspectedByUser?.EntryTime ?? DateTime.Now;
+                RaisePropertyChanged(nameof(StatusInspectedBy));
+            });
         }
-        private IInspection _inspectedByUser;
+        private ICommentInspection _inspectedByUser;
 
 
         // Used to force the Tab selection internally
@@ -211,11 +192,10 @@ namespace BDC_V1.ViewModels
         public TabItem ViewTabItem
         {
             get => _viewTabItem;
-            set
+            set => SetProperty(ref _viewTabItem, value, () =>
             {
-                if (SetProperty(ref _viewTabItem, value))
-                    UpdateTreeView(_viewTabItem);
-            }
+                UpdateTreeView(_viewTabItem);
+            });
         }
         private TabItem _viewTabItem;
 
@@ -284,15 +264,15 @@ namespace BDC_V1.ViewModels
         private Visibility _visibilityInspectionButton = Visibility.Collapsed;
 
 
-        public ObservableCollection<TreeViewItem> TreeItemsViewSource =>
-            _treeItemsViewSource ?? (_treeItemsViewSource = new QuickObservableCollection<TreeViewItem>());
+        public INotifyingCollection<TreeViewItem> TreeItemsViewSource =>
+            PropertyCollection<TreeViewItem>(ref _treeItemsViewSource);
 
-        private QuickObservableCollection<TreeViewItem> _treeItemsViewSource;
+        [CanBeNull] private INotifyingCollection<TreeViewItem> _treeItemsViewSource;
 
-        public ObservableCollection<Control> ToolbarMenuItems =>
-            _toolbarMenuItems ?? (_toolbarMenuItems = new QuickObservableCollection<Control>());
+        public INotifyingCollection<Control> ToolbarMenuItems =>
+            PropertyCollection<Control>(ref _toolbarMenuItems);
 
-        private QuickObservableCollection<Control> _toolbarMenuItems;
+        [CanBeNull] private INotifyingCollection<Control> _toolbarMenuItems;
 
 
         // **************** Class data members ********************************************** //
@@ -548,7 +528,7 @@ namespace BDC_V1.ViewModels
 
             if ((tabItem != null) && (LocalBredInfo != null))
             {
-                Predicate<IFacilitySystems> filter = (arg) => true;;
+                Predicate<IComponentFacility> filter = (arg) => true;;
 
                 VisibilityAddComponentButton   =
                 VisibilityAddSectionButton     =
@@ -580,8 +560,7 @@ namespace BDC_V1.ViewModels
 
                             filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
                                                (arg.ComponentType == EnumComponentTypes.SystemType) ||
-                                               ((arg.ComponentType == EnumComponentTypes.SubsystemType) &&
-                                                arg.HasAnyComponents));
+                                               (arg.ComponentType == EnumComponentTypes.SubsystemType));
                             break;
                         }
 
@@ -591,15 +570,13 @@ namespace BDC_V1.ViewModels
 
                             filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
                                                (arg.ComponentType == EnumComponentTypes.SystemType) ||
-                                               ((arg.ComponentType == EnumComponentTypes.SubsystemType) &&
-                                                arg.HasAnyComponents));
+                                               (arg.ComponentType == EnumComponentTypes.SubsystemType));
                             break;
                         }
 
                     case "QaInventory":
                     case "QaInspection":
                         {
-
                             filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
                                                (arg.ComponentType == EnumComponentTypes.SystemType));
                             break;
@@ -624,7 +601,7 @@ namespace BDC_V1.ViewModels
             var facilitiesList = new List<TreeViewItem>();
 
             // ReSharper disable once PossibleNullReferenceException
-            foreach (var item in LocalBredInfo.FacilityInfo.SubSystems)
+            foreach (var item in LocalBredInfo.FacilityInfo)
             {
                 var treeItem = BuildTreeItems(item);
                 if (treeItem != null) facilitiesList.Add(treeItem);
@@ -634,7 +611,7 @@ namespace BDC_V1.ViewModels
         }
 
         [CanBeNull]
-        protected TreeViewItem BuildTreeItems([CanBeNull] ISystemElement component)
+        protected TreeViewItem BuildTreeItems([CanBeNull] IComponentBase component)
         {
             if (component == null) return null;
 
@@ -672,9 +649,9 @@ namespace BDC_V1.ViewModels
             bindsBackground.Bindings.Add(new Binding("HasQaIssues"  ));
             node.SetBinding(Control.BackgroundProperty, bindsBackground);
 
-            if ((component is IFacilitySystems facSystem) && facSystem.HasSubsystems.Equals(true))
+            if ((component is IComponentFacility facSystem) && facSystem.HasComponents)
             {
-                foreach (var item in facSystem.SubSystems)
+                foreach (var item in facSystem.Components)
                 {
                     var treeItem = BuildTreeItems(item);
                     if (treeItem != null) node.Items.Add(treeItem);
@@ -684,7 +661,7 @@ namespace BDC_V1.ViewModels
             return node;
         }
 
-        protected void FilterNodeTree([CanBeNull] ItemCollection nodeList, [NotNull] Predicate<IFacilitySystems> filter)
+        protected void FilterNodeTree([CanBeNull] ItemCollection nodeList, [NotNull] Predicate<IComponentFacility> filter)
         {
             if (nodeList == null) return;
 
@@ -692,11 +669,11 @@ namespace BDC_V1.ViewModels
                 FilterNodeTree(node as TreeViewItem, filter);
         }
 
-        protected void FilterNodeTree([CanBeNull] TreeViewItem treeNode, [NotNull] Predicate<IFacilitySystems> filter)
+        protected void FilterNodeTree([CanBeNull] TreeViewItem treeNode, [NotNull] Predicate<IComponentFacility> filter)
         {
             if (treeNode == null) return;
 
-            if (treeNode.DataContext is IFacilitySystems component)
+            if (treeNode.DataContext is IComponentFacility component)
             {
                 if (filter(component))
                 {
@@ -713,7 +690,7 @@ namespace BDC_V1.ViewModels
             if (treeNode.Items.Count > 0) FilterNodeTree(treeNode.Items, filter);
         }
 
-        protected void FilterNodeTree([CanBeNull] IEnumerable<TreeViewItem> nodeList, [NotNull] Predicate<IFacilitySystems> filter)
+        protected void FilterNodeTree([CanBeNull] IEnumerable<TreeViewItem> nodeList, [NotNull] Predicate<IComponentFacility> filter)
         {
             if (nodeList == null) return;
 
@@ -742,7 +719,7 @@ namespace BDC_V1.ViewModels
             _toolBarMenuItemsDictionary.Clear();
 
             // ******************************
-            // Facility Menu
+            // ComponentFacility Menu
             // ******************************
             var lFacilityMenuItems = new List<Control>
             {
@@ -815,7 +792,7 @@ namespace BDC_V1.ViewModels
                 new Button
                 {
                     Name = "AddComponent",
-                    ToolTip = "Add Component",
+                    ToolTip = "Add ComponentInventory",
                     IsEnabled = true,
                     Command = new DelegateCommand(OnAddComponent),
                     Content = new System.Windows.Controls.Image
@@ -872,7 +849,7 @@ namespace BDC_V1.ViewModels
             _toolBarMenuItemsDictionary.Add("Inventory", lInventoryMenuItems);
 
             // ******************************
-            // Inspection Menu
+            // InspectionComment Menu
             // ******************************
             var lInspectionMenuItems = new List<Control>
             {
@@ -894,7 +871,7 @@ namespace BDC_V1.ViewModels
                 new Button
                 {
                     Name = "CopyInspection",
-                    ToolTip = "Copy Inspection",
+                    ToolTip = "Copy InspectionComment",
                     IsEnabled = true,
                     Command = new DelegateCommand(OnCopyInspection),
                     Content = new System.Windows.Controls.Image
@@ -906,7 +883,7 @@ namespace BDC_V1.ViewModels
                 }
             };
 
-            _toolBarMenuItemsDictionary.Add("Inspection", lInspectionMenuItems);
+            _toolBarMenuItemsDictionary.Add("InspectionComment", lInspectionMenuItems);
 
             // ******************************
             // QaInventory Menu

@@ -13,7 +13,11 @@ namespace BDC_V1.Classes
 {
     public class ConfigInfoContainer : IGlobalContainer<IConfigInfo>
     {
-        [CanBeNull] 
+        // **************** Class enumerations ********************************************** //
+
+
+        // **************** Class properties ************************************************ //
+
         public IConfigInfo GlobalValue
         {
             get => _globalValue ?? _defaultValue;
@@ -33,9 +37,17 @@ namespace BDC_V1.Classes
         private IConfigInfo _globalValue;
         private readonly IConfigInfo _defaultValue;
 
+        // **************** Class data members ********************************************** //
+
+
+        // **************** Class constructors ********************************************** //
+
         public ConfigInfoContainer([CanBeNull] IConfigInfo defaultValue = null)
         {
             _defaultValue = defaultValue;
         }
+
+        // **************** Class members *************************************************** //
+
     }
 }

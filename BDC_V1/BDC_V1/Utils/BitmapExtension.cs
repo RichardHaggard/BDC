@@ -35,6 +35,5 @@ namespace BDC_V1.Utils
 
             return retval;
         }
-
     }
 }

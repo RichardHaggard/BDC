@@ -21,11 +21,7 @@ namespace BDC_V1.ViewModels
         public string UserPass
         {
             get => _userPass;
-            set
-            {
-                if (SetProperty(ref _userPass, value))
-                    RaisePropertyChanged(nameof(ValidateButtonEnabled));
-            }
+            set => SetPropertyFlagged(ref _userPass, value, nameof(ValidateButtonEnabled));
         }
         private string _userPass;
 

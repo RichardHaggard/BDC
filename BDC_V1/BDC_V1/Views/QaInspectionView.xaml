@@ -185,10 +185,10 @@
         <DataGrid.Columns>
           <DataGridTextColumn Header=" Facility ID" Binding="{Binding Path=FacilityId}"  Width="100" />
           <DataGridTextColumn Header=" System ID"   Binding="{Binding Path=SystemId}"    Width="100" />
-          <DataGridTextColumn Header=" Component"   Binding="{Binding Path=ComponentId}" Width="100" />
+          <DataGridTextColumn Header=" Inventory"   Binding="{Binding Path=ComponentId}" Width="100" />
           <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"    Width="100" />
           <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}" Width="100" />
-          <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=RatingText}" Width="40"
+          <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=RatingText}"  Width="40"
                               ElementStyle="{StaticResource RtgStyle}">
             <DataGridTextColumn.CellStyle>
               <Style TargetType="DataGridCell" >
@@ -197,7 +197,7 @@
               </Style>
             </DataGridTextColumn.CellStyle>
           </DataGridTextColumn>
-          <DataGridTextColumn Header=" Inspection Issue" Binding="{Binding Path=InspectIssue}" Width="590" />
+          <DataGridTextColumn Header=" InspectionComment Issue" Binding="{Binding Path=InspectIssue}" Width="590" />
         </DataGrid.Columns>
       </DataGrid>
     </Grid>

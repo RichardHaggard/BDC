@@ -44,16 +44,16 @@ namespace BDC_V1.ViewModels
         private string _commentText;
 
         /// <summary>
-        /// EnumCommentResult.ResultCancelled indicates cancellation.
-        /// EnumCommentResult.ResultDeferred  is defer result.
-        /// EnumCommentResult.ResultSaveNow   is save Comment now.
+        /// EnumControlResult.ResultCancelled indicates cancellation.
+        /// EnumControlResult.ResultDeferred  is defer result.
+        /// EnumControlResult.ResultSaveNow   is save Comment now.
         /// </summary>
-        public EnumCommentResult Result
+        public EnumControlResult Result
         {
             get => _result;
             set => SetProperty(ref _result, value);
         }
-        private EnumCommentResult _result;
+        private EnumControlResult _result;
 
         // **************** Class constructors ********************************************** //
 
@@ -72,19 +72,19 @@ namespace BDC_V1.ViewModels
 
         private void OnCancelUndo()
         {
-            Result = EnumCommentResult.ResultCancelled;
+            Result = EnumControlResult.ResultCancelled;
             DialogResultEx = false;
         }
 
         private void OnReviewLater()
         {
-            Result = EnumCommentResult.ResultDeferred;
+            Result = EnumControlResult.ResultDeferred;
             DialogResultEx = false;
         }
 
         private void OnOkCommand()
         {
-            Result = EnumCommentResult.ResultSaveNow;
+            Result = EnumControlResult.ResultSaveNow;
             DialogResultEx = true;
         }
 

@@ -48,7 +48,7 @@ namespace BDC_V1.ViewModels
         public ICommand CmdSelectInspector { get; }
         
         [CanBeNull]
-        public IReadOnlyCollection<IPerson> LoginUserList => LocalValidUsers?.GetValidUsers;
+        public IReadOnlyCollection<IPerson> LoginUserList => LocalValidUsers?.Users;
 
         
         [CanBeNull]
@@ -58,10 +58,7 @@ namespace BDC_V1.ViewModels
             set
             {
                 if ((value == null) || ((LoginUserList == null) || LoginUserList.Contains(value)))
-                {
-                    if (SetProperty(ref _selectedLoginUser, value))
-                        RaisePropertyChanged(nameof(LoginButtonEnabled));
-                }
+                    SetPropertyFlagged(ref _selectedLoginUser, value, nameof(LoginButtonEnabled));
             }
         }
         private IPerson _selectedLoginUser;
@@ -70,15 +67,12 @@ namespace BDC_V1.ViewModels
         public string ConfigurationFilename
         {
             get => _configurationFilename;
-            set
+            set => SetProperty(ref _configurationFilename, value, () =>
             {
-                if (SetProperty(ref _configurationFilename, value))
-                {
-                    RaisePropertyChanged(nameof(LoginButtonEnabled));
-                    Properties.Settings.Default.ConfigurationFilename = value;
-                    Properties.Settings.Default.Save();
-                }
-            }
+                RaisePropertyChanged(nameof(LoginButtonEnabled));
+                Properties.Settings.Default.ConfigurationFilename = value;
+                Properties.Settings.Default.Save();
+            });
         }
         private string _configurationFilename;
 
@@ -86,15 +80,12 @@ namespace BDC_V1.ViewModels
         public string BredFilename
         {
             get => _bredFilename;
-            set
+            set => SetProperty(ref _bredFilename, value, () =>
             {
-                if (SetProperty(ref _bredFilename, value))
-                {
-                    RaisePropertyChanged(nameof(LoginButtonEnabled));
-                    Properties.Settings.Default.BredFilename = value;
-                    Properties.Settings.Default.Save();
-                }
-            }
+                RaisePropertyChanged(nameof(LoginButtonEnabled));
+                Properties.Settings.Default.BredFilename = value;
+                Properties.Settings.Default.Save();
+            });
         }
         private string _bredFilename;
 
@@ -125,7 +116,7 @@ namespace BDC_V1.ViewModels
                     _localValidUsers = value;
 
                     // make sure the current user is still valid
-                    if ((SelectedLoginUser == null) || !_localValidUsers.GetValidUsers.Contains(SelectedLoginUser))
+                    if ((SelectedLoginUser == null) || !_localValidUsers.Users.Contains(SelectedLoginUser))
                         SelectedLoginUser = new Person();
 
                     RaisePropertyChanged(nameof(LoginUserList));
@@ -176,6 +167,7 @@ namespace BDC_V1.ViewModels
             //CompanyLogo = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/CardnoLogo.bmp");
 
 #if DEBUG
+#warning Using MOCK data for LoginViewModel
             GetConfigInfo(@"This_is_a_fake_config_file.cfg");
             GetBredInfo(@"My Documents\ProjectName\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb");
 #endif

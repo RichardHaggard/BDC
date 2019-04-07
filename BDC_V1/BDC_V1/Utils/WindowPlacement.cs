@@ -282,7 +282,7 @@ namespace BDC_V1.Utils
         /// <returns>XML string containing the placement values.</returns>
         private static string GetPlacement( IntPtr windowHandle )
         {
-            // Get the window's current placement values as a WINDOWPLACEMENT structure.
+            // GetComponent the window's current placement values as a WINDOWPLACEMENT structure.
             WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
             GetWindowPlacement( windowHandle, out placement );
 

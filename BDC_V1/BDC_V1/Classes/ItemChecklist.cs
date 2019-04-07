@@ -8,7 +8,7 @@ using Prism.Mvvm;
 
 namespace BDC_V1.Classes
 {
-    public class ItemChecklist : BindableBase, IItemChecklist
+    public class ItemChecklist : PropertyBase, IItemChecklist
     {
         public string ItemName
         {

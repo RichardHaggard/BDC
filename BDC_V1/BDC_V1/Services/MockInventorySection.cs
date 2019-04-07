@@ -8,8 +8,10 @@ using BDC_V1.Classes;
 
 namespace BDC_V1.Services
 {
-    public class MockInventorySection : InventorySectionType
+    public class MockInventorySection : InventorySection
     {
+#if DEBUG
+#warning Using MOCK data for InventorySection
         public MockInventorySection()
         {
             // get rid of some bad binding messages
@@ -28,25 +30,34 @@ namespace BDC_V1.Services
 
             YearPc = "2007";
 
-            PcTypes.Add("Heat-Resist 400 degF Enml");
-            PcTypes.Add("Moderate 300 degF Enml");
-            PcTypes.Add("Extreme 1400 degF Enml");
-            PcType = "Heat-Resist 400 degF Enml";
+            PcTypes.AddRange(new[]
+            {
+                "Heat-Resist 400 degF Enml",
+                "Moderate 300 degF Enml",
+                "Extreme 1400 degF Enml"
+            });
+            PcType = PcTypes[0];
 
             SectionComment = "[Jane Doe on 1/18/2018 6:19:55 PM]\nThis unit was in a locked room and not visible.\n(Text box large enough for STAMP on line 1 and at least 3 lines of actual comment.)";
 
             Date = DateTime.Now.ToShortDateString();
 
-            Dcrs.Add("D1");
-            Dcrs.Add("D2");
-            Dcrs.Add("D3");
-            Dcr = "D2";
+            Dcrs.AddRange(new[]
+            {
+                "D1",
+                "D2",
+                "D3"
+            });
+            Dcr = Dcrs[1];
 
-            PcRatings.Add("PcRating1");
-            PcRatings.Add("PcRating2");
-            PcRatings.Add("PcRating3");
-            PcRating = "PcRating2";
+            PcRatings.AddRange(new[]
+            {
+                "PcRating1",
+                "PcRating2",
+                "PcRating3"
+            });
+            PcRating = PcRatings[1];
         }
+#endif
     }
-
 }

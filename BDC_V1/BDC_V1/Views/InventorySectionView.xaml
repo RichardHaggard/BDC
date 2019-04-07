@@ -85,7 +85,7 @@
                 />
 
             <Label Grid.Row="2" Grid.Column="0"
-                Content="Component Type:"
+                Content="ComponentInventory Type:"
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="9"
                 ItemsSource="{Binding InventorySection.ComponentTypes}"
@@ -266,7 +266,7 @@
                     Style="{StaticResource LabelCJ}"/>
             </Grid>
 
-            <Border x:Name="ItemsBorder" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+            <Border Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
                     Style="{StaticResource BorderYO}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">

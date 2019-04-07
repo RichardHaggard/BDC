@@ -46,29 +46,35 @@ namespace BDC_V1.ViewModels
         }
         private bool _isPainted;
 
-        public IInspectionInfoType InspectionInfo
+        [NotNull]
+        public IInspectionInfo InspectionInfo
         {
             get => _inspectionInfo;
-            private set
+#if ! DEBUG
+            private set => SetProperty(ref _inspectionInfo, value);
+#else
+#warning Using MOCK data for Inspection images 
+            private set => SetProperty(ref _inspectionInfo, value, () =>
             {
-                if (SetProperty(ref _inspectionInfo, value))
-                {
-                }
-            }
+                _inspectionInfo.Images.Clear();
+                _inspectionInfo.Images.AddRange(LocalFacilityInfo?.Images);
+            });
+#endif
         }
-        private IInspectionInfoType _inspectionInfo;
+        private IInspectionInfo _inspectionInfo = new InspectionInfo();
 
-        public override IFacility LocalFacilityInfo
+        public override IComponentFacility LocalFacilityInfo
         {
             get => base.LocalFacilityInfo;
             set
             {
                 base.LocalFacilityInfo = value;
-
+#if DEBUG
+#warning Using MOCK data for Inspection images
                 InspectionInfo.Images.Clear();
                 InspectionInfo.Images.AddRange(LocalFacilityInfo?.Images);
-
-                // QuickObservableCollection should raise it's own notify
+#endif
+                // NotifyingCollection should raise it's own notify
                 //RaisePropertyChanged(nameof(InspectionInfo));
             }
         }
@@ -88,7 +94,10 @@ namespace BDC_V1.ViewModels
 
             IsPainted    = false;
             IsRemembered = false;
+#if DEBUG
+#warning Using MOCK data for InspectionInfo
             InspectionInfo = new MockInspectionInfo();
+#endif
         }
 
         // **************** Class members *************************************************** //

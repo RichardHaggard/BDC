@@ -10,9 +10,12 @@ namespace BDC_V1.Services
 {
     public class MockBredInfo : BredInfo
     {
+#if DEBUG
+#warning Using MOCK data for BredInfo
         public MockBredInfo()
         {
-            FacilityInfo.SubSystems.AddRange(MockFacility.Facilities);
+            FacilityInfo.AddRange(MockFacility.Facilities);
         }
+#endif
     }
 }

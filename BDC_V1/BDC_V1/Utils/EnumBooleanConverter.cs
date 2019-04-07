@@ -10,7 +10,6 @@ namespace BDC_V1.Utils
 {
     public class EnumBooleanConverter : DependencyObject, IValueConverter
     {
-        #region IValueConverter Members
         public object Convert(object value, Type targetType, object parameter, 
             System.Globalization.CultureInfo culture)
         {
@@ -33,5 +32,4 @@ namespace BDC_V1.Utils
 
             return DependencyProperty.UnsetValue;
         }
-        #endregion
     }}

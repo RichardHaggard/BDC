@@ -9,9 +9,12 @@ namespace BDC_V1.Services
 {
     public class MockConfigInfo : ConfigInfo
     {
+#if DEBUG
+#warning Using MOCK data for ConfigInfo
         public MockConfigInfo()
         {
             ValidUsers = new MockValidUsers();
         }
+#endif
     }
 }
