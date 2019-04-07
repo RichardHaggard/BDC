@@ -11,8 +11,8 @@
              xmlns:utils="clr-namespace:BDC_V1.Utils"
              xmlns:converters="clr-namespace:BDC_V1.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="700"
-             d:DesignWidth="850">
+             MaxHeight="750" MaxWidth="875"
+             d:DesignHeight="750" d:DesignWidth="875">
 
   <i:Interaction.Triggers>
     <i:EventTrigger EventName="Loaded">
@@ -72,19 +72,19 @@
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="5"    /> <!--  0 - white space at top -->
-        <RowDefinition Height="Auto" /> <!--  1 - Component -->
-        <RowDefinition Height="Auto" /> <!--  2 - Equip/Mat -->
-        <RowDefinition Height="Auto" /> <!--  3 - Component Type -->
-        <RowDefinition Height="Auto" /> <!--  4 - Section Quantity -->
-        <RowDefinition Height="Auto" /> <!--  5 - Inspection Date -->
-        <RowDefinition Height="Auto" /> <!--  6 - Painted & Direct -->
-        <RowDefinition Height="Auto" /> <!--  7 - Inspection Comment -->
+        <RowDefinition Height="38" /> <!--  1 - Component -->
+        <RowDefinition Height="38" /> <!--  2 - Equip/Mat -->
+        <RowDefinition Height="38" /> <!--  3 - Component Type -->
+        <RowDefinition Height="38" /> <!--  4 - Section Quantity -->
+        <RowDefinition Height="38" /> <!--  5 - Inspection Date -->
+        <RowDefinition Height="170"  /> <!--  6 - Painted & Direct -->
+        <RowDefinition Height="100"  /> <!--  7 - Inspection Comment -->
         <RowDefinition Height="10"   /> <!--  8 - white space -->
-        <RowDefinition Height="Auto" /> <!--  9 - Remember -->
+        <RowDefinition Height="55" /> <!--  9 - Remember -->
         <RowDefinition Height="10"   /> <!-- 10 - white space -->
-        <RowDefinition Height="Auto" /> <!-- 11 - Inspection Photos -->
+        <RowDefinition Height="128" /> <!-- 11 - Inspection Photos -->
         <RowDefinition Height="10"   /> <!-- 12 - white space -->
-        <RowDefinition Height="Auto" /> <!-- 13 - Action Buttons -->
+        <RowDefinition Height="60" /> <!-- 13 - Action Buttons -->
         <RowDefinition Height="5"    /> <!-- 14 - white space at bottom -->
       </Grid.RowDefinitions>
 
@@ -216,6 +216,7 @@
           <ColumnDefinition Width="100"/>
           <ColumnDefinition Width="90"/>
           <ColumnDefinition Width="80"/>
+          <ColumnDefinition Width="25"/>
         </Grid.ColumnDefinitions>
 
         <!--Background for some cells-->
@@ -223,8 +224,10 @@
             Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3"
             Background="LightBlue" />
         <Border
-            Grid.Row="1" Grid.RowSpan="3"  Grid.Column="4" Grid.ColumnSpan="4"
-            Background="LightBlue" />
+            Grid.Row="0" Grid.RowSpan="4"  Grid.Column="4" Grid.ColumnSpan="5"
+            Margin="25,0,0,0"
+            Background="LightBlue" 
+          />
 
         <!--Row 0-->
         <Label
@@ -241,9 +244,10 @@
             Style="{StaticResource cbBase}"
                     />
         <Label
-            Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3"
+            Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="4"
             Content="Paint/Coating Condition Rating:"
-            Margin="0,-5,0,-5"
+            Margin="25,0,0,0"
+          HorizontalContentAlignment="Left"
             Style="{StaticResource LabelCJ}"
                     />
 
@@ -503,7 +507,7 @@
 
         <!--Content="{Binding InspectionInfo.Note}"-->
         <Label
-            Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="7"
+            Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="8"
             Background="Orange"
             Content="Note: Inspection Comment &amp; Photo required."
             Style="{StaticResource LabelRO}"/>

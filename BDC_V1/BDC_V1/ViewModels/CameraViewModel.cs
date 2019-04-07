@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using BDC_V1.Enumerations;
+using BDC_V1.Views;
 using Prism.Commands;
 
 namespace BDC_V1.ViewModels
@@ -70,7 +71,12 @@ namespace BDC_V1.ViewModels
             DialogResultEx = true;
         }
 
-        private void OnCameraButton   () { Debug.WriteLine("OnCameraButton    is not implemented"); }
+        private void OnCameraButton()
+        {
+            var view = new CameraView();
+            view.ShowDialog();
+        }
+
         private void OnCropPhoto      () { Debug.WriteLine("OnCropPhoto       is not implemented"); }
         private void OnRotateClockwise() { Debug.WriteLine("OnRotateClockwise is not implemented"); }
         private void OnRotateCounter  () { Debug.WriteLine("OnRotateCounter   is not implemented"); }

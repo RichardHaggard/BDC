@@ -385,7 +385,7 @@ namespace BDC_V1.ViewModels
 
         private void OnAbout()
         {
-            Debug.WriteLine("OnCmdAbout not implemented");
+            MessageBox.Show("About BDC", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnAddComponent()
@@ -402,22 +402,22 @@ namespace BDC_V1.ViewModels
 
         private void OnAddSection()
         {
-            Debug.WriteLine("OnAddSection not implemented");
+            MessageBox.Show("Add Section", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnBluebeam()
         {
-            Debug.WriteLine("CmdBluebeam not implemented");
+            MessageBox.Show("Bluebeam", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnCalculators()
         {
-            Debug.WriteLine("CmdCalculators not implemented");
+            MessageBox.Show("Calculators", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnDefaultInventoryMode()
         {
-            Debug.WriteLine("OnDefaultInventoryMode not implemented");
+            MessageBox.Show("Default Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnExit()
@@ -427,7 +427,7 @@ namespace BDC_V1.ViewModels
 
         private void OnInspectionMode()
         {
-            Debug.WriteLine("OnInspectionMode not implemented");
+            MessageBox.Show("Inspection Mode", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInspectionSummary()
@@ -438,67 +438,67 @@ namespace BDC_V1.ViewModels
 
         private void OnMicOff()
         {
-            Debug.WriteLine("CmdMicOff not implemented");
+            MessageBox.Show("Microphone Off", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnMicOn()
         {
-            Debug.WriteLine("CmdMicOn not implemented");
+            MessageBox.Show("Microphone On", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnQcReport()
         {
-            MessageBox.Show( "CmdQcReports not implemented");
+            MessageBox.Show("QC Report", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnSwitchFile()
         {
-            Debug.WriteLine("CmdSwitchFile not implemented");
+            MessageBox.Show("Switch File", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnViewAllSystems()
         {
-            Debug.WriteLine("CmdViewAllSystems not implemented");
+            MessageBox.Show("View All Systems", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnViewAssignedSystems()
         {
-            Debug.WriteLine("CmdViewAssignedSystems not implemented");
+            MessageBox.Show("View Assigned Systems", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInv2InspFacility()
         {
-            Debug.WriteLine("OnInv2InspFacility not implemented");
+            MessageBox.Show("Inventory to Inspection, Facility", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInv2InspInventory()
         {
-            Debug.WriteLine("OnInv2InspInventory not implemented");
+            MessageBox.Show("Inventory to Inspection, Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInv2InspInspection()
         {
-            Debug.WriteLine("OnInv2InspInspection not implemented");
+            MessageBox.Show("Inventory to Inspection, Inspection", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInv2InspQcInventory()
         {
-            Debug.WriteLine("OnInv2InspQcInventory not implemented");
+            MessageBox.Show("Inventory to Inspection, QC Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInv2InspQcInspection()
         {
-            Debug.WriteLine("OnInv2InspQcInspection not implemented");
+            MessageBox.Show("Inventory to Inspection, QC Inspection", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnDeleteSystem()
         {
-            Debug.WriteLine("OnDeleteSystem not implemented");
+            MessageBox.Show("Delete System", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnCopySections()
         {
-            Debug.WriteLine("OnCopySections not implemented");
+            MessageBox.Show("Copy Sections", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnCopyInventory()
@@ -509,7 +509,7 @@ namespace BDC_V1.ViewModels
 
         private void OnCopyInspection()
         {
-            Debug.WriteLine("OnCopyInspection not implemented");
+            MessageBox.Show("Copy Inspection", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnTabSelectionChanged([CanBeNull] TabItem tabItem)
