@@ -141,6 +141,7 @@
                         <ControlTemplate TargetType="TabItem">
                             <Border 
                                 Name="Border"
+                                Background="{TemplateBinding Background}"
                                 BorderBrush="Black" 
                                 BorderThickness="1,1,1,0" 
                                 CornerRadius="4,4,0,0" 
@@ -154,12 +155,12 @@
                                     Margin="40,0"/>
                             </Border>
                             <ControlTemplate.Triggers>
+                                <!--<Setter TargetName="Border" Property="Background" Value="Yellow" />-->
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="FontWeight" Value="Bold" />
                                     <Setter TargetName="ContentSite"  Property="Height" Value="50"/>
                                     <Setter TargetName="Border" Property="Margin" Value="5,0,5,0"/>
                                     <Setter TargetName="Border" Property="BorderThickness" Value="3,3,3,0" />
-                                    <Setter TargetName="Border" Property="Background" Value="Yellow" />
                                 </Trigger>
                                 <!--<Trigger Property="IsSelected" Value="False">
                                     <Setter TargetName="Border" Property="Background" Value="White" />

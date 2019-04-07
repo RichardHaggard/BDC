@@ -238,7 +238,6 @@
                 </i:Interaction.Triggers> 
 
                 <!--  these colors should be done with a selection style -->
-                <!--Background="{Binding FacilityTabBackgroundColor}"-->
                 <TabItem 
                     Name="Facility" 
                     Header="FACILITY" 
@@ -247,7 +246,7 @@
                     VerticalContentAlignment="Top">
                     <local:FacilityView />
                 </TabItem>
-                
+
                 <TabItem 
                     Name="Inventory" 
                     Header="INVENTORY"  
@@ -265,7 +264,7 @@
                     VerticalContentAlignment="Top">
                     <local:InspectionView />
                 </TabItem>
-                
+
                 <TabItem 
                     Name="QaInventory" 
                     Header="QA - INVENTORY"  
@@ -274,7 +273,7 @@
                     VerticalContentAlignment="Top">
                     <local:QaInspectionView />
                 </TabItem>
-                
+
                 <TabItem 
                     Name="QaInspection" 
                     Header="QA - INSPECTION"  

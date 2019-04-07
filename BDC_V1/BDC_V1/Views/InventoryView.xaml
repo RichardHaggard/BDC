@@ -13,11 +13,15 @@
 
   <Grid>
         <TabControl>
-            <TabItem Header="SECTION">
+            <TabItem 
+                Background="#FFE699"
+                Header="SECTION">
                 <local:InventorySectionView/>
             </TabItem>
 
-            <TabItem Header="DETAILS">
+            <TabItem 
+                Background="#FFFF00"
+                Header="DETAILS">
                 <local:InventoryDetailsView />
             </TabItem>
                 
