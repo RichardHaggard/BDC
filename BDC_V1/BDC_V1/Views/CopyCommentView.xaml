@@ -225,7 +225,7 @@
               VerticalAlignment="Top"
               ItemsSource="{Binding FilteredCommentary, Mode=OneWay}">
       <DataGrid.Columns>
-        <DataGridTextColumn Header=" ComponentFacility" Binding="{Binding Path=FacilityId }" Width="100" />
+        <DataGridTextColumn Header=" Facility" Binding="{Binding Path=FacilityId }" Width="100" />
         <DataGridTextColumn Header=" Code"     Binding="{Binding Path=CodeIdText }" Width="100" />
         <DataGridTextColumn Header=" DCR"      Binding="{Binding Path=DCRText    }" Width="50" />
         <DataGridTextColumn Header=" Comment"  Binding="{Binding Path=CommentText}" Width="*" />
