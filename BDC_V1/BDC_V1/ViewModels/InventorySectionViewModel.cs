@@ -36,20 +36,20 @@ namespace BDC_V1.ViewModels
 
         // **************** Class data members ********************************************** //
 
-        public override IComponentFacility LocalFacilityInfo
-        {
-            get => base.LocalFacilityInfo;
-            set
-            {
-                base.LocalFacilityInfo = value;
+        //public override IComponentFacility LocalFacilityInfo
+        //{
+        //    get => base.LocalFacilityInfo;
+        //    set
+        //    {
+        //        base.LocalFacilityInfo = value;
 
-                InventorySection.Images.Clear();
-                InventorySection.Images.AddRange(base.LocalFacilityInfo?.Images);
+        //        InventorySection.Images.Clear();
+        //        InventorySection.Images.AddRange(base.LocalFacilityInfo?.Images);
 
-                // NotifyingCollection should raise it's own notify
-                //RaisePropertyChanged(nameof(InventorySection));
-            }
-        }
+        //        // NotifyingCollection should raise it's own notify
+        //        //RaisePropertyChanged(nameof(InventorySection));
+        //    }
+        //}
 
         //protected override IConfigInfo LocalConfigInfo
         //{
@@ -77,6 +77,8 @@ namespace BDC_V1.ViewModels
 #endif
         }
 
+        protected override void CreateImages() =>  
+            CreateImages(InventorySection.HasImages? InventorySection.Images : null);
 
         // **************** Class members *************************************************** //
 

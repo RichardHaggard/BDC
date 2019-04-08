@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using BDC_V1.Enumerations;
 using BDC_V1.Views;
+using JetBrains.Annotations;
+using Microsoft.Win32;
 using Prism.Commands;
 
 namespace BDC_V1.ViewModels
@@ -19,15 +26,25 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdCameraButton    { get; }
-        public ICommand CmdCropPhoto       { get; }
-        public ICommand CmdRotateClockwise { get; }
-        public ICommand CmdRotateCounter   { get; }
-        public ICommand CmdSizeStandard    { get; }
-        public ICommand CmdSizeLarge       { get; }
-        public ICommand CmdExtraSizeLarge  { get; }
-        public ICommand CmdCancelUndo      { get; }
-        public ICommand CmdOkCommand       { get; }
+        [NotNull] public ICommand CmdCameraButton    { get; }
+        [NotNull] public ICommand CmdCropPhoto       { get; }
+        [NotNull] public ICommand CmdRotateClockwise { get; }
+        [NotNull] public ICommand CmdRotateCounter   { get; }
+        [NotNull] public ICommand CmdSizeStandard    { get; }
+        [NotNull] public ICommand CmdSizeLarge       { get; }
+        [NotNull] public ICommand CmdExtraSizeLarge  { get; }
+        [NotNull] public ICommand CmdCancelUndo      { get; }
+        [NotNull] public ICommand CmdOkCommand       { get; }
+        [NotNull] public ICommand CmdDeleteCommand   { get; }
+
+        [CanBeNull] 
+        public ImageSource SourceImage
+        {
+            get => _sourceImage ?? (_sourceImage = new BitmapImage());
+            set => SetProperty(ref _sourceImage, value);
+        }
+        private ImageSource _sourceImage;
+
 
         /// <summary>
         /// EnumControlResult.ResultCancelled indicates cancellation.
@@ -55,9 +72,22 @@ namespace BDC_V1.ViewModels
             CmdExtraSizeLarge  = new DelegateCommand(OnExtraSizeLarge );
             CmdCancelUndo      = new DelegateCommand(OnCancelUndo     );
             CmdOkCommand       = new DelegateCommand(OnOkCommand      );
+            CmdDeleteCommand   = new DelegateCommand(OnDeleteCommand  );
+
+#if DEBUG
+#warning Using MOCK data for CameraViewModel
+            SourceImage = new BitmapImage(new Uri(@"pack://application:,,,/Images/Reactor.png"));
+#endif
         }
 
         // **************** Class members *************************************************** //
+
+        // currently not implemented
+        private void OnDeleteCommand()
+        {
+            Result = EnumControlResult.ResultDeleteItem;
+            DialogResultEx = true;
+        }
 
         private void OnCancelUndo()
         {
@@ -73,8 +103,42 @@ namespace BDC_V1.ViewModels
 
         private void OnCameraButton()
         {
-            var view = new CameraView();
-            view.ShowDialog();
+            var picFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+
+            var dlg = new OpenFileDialog
+            {
+                Title            = "Open Image",
+                FileName         = "",
+                InitialDirectory = picFolder,
+                ReadOnlyChecked  = true,
+                Multiselect      = false,
+                ShowReadOnly     = false,
+                AddExtension     = true,
+                CheckFileExists  = true,
+                CheckPathExists  = true,
+                RestoreDirectory = true,
+                Filter = "All files (*.*)|*.*" +
+                         "|bmp files (*.bmp)|*.bmp" +
+                         "|jpg files (*.jpg)|*.jpg" +
+                         "|gif files (*.gif)|*.gif" +
+                         "|png files (*.png)|*.png" +
+                         "|tif files (*.tif)|*.tif" +
+                         "|tiff files (*.tiff)|*.tiff"
+            };
+
+            if ((dlg.ShowDialog() == true) && !string.IsNullOrEmpty(dlg.FileName))
+            {
+                try
+                {
+                    SourceImage = new BitmapImage(new Uri(dlg.FileName));
+                }
+                catch
+                {
+                    MessageBox.Show(
+                        "Selected file \"" + dlg.FileName + "\" failed to load, try again.",
+                        "IMAGE ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private void OnCropPhoto      () { Debug.WriteLine("OnCropPhoto       is not implemented"); }

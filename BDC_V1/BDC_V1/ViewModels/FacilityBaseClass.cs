@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using BDC_V1.Classes;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
@@ -63,37 +64,22 @@ namespace BDC_V1.ViewModels
             }
         }
 
-        [CanBeNull] 
-        protected ItemsControl ItemsControl { get; set; }
-
         protected override bool GetRegionManager()
         {
             if (!base.GetRegionManager() || (RegionManager == null)) return false;
 
-            ItemsControl = GetItemsControl(RegionManager);
+            ImageItemsControl = GetIImageItemControl(RegionManager);
             CreateImages();
 
             return true;
         }
 
-        protected void CreateImages()
+        protected virtual void CreateImages()
         {
-            if ((LocalFacilityInfo?.Images == null) || (ItemsControl == null)) 
-                return;
-
-            if (ItemsControl.ItemsSource is NotifyingCollection<Border> oldItems)
-                oldItems.Clear();
-
-            var imageSize = new System.Windows.Size()
+            if (LocalFacilityInfo != null)
             {
-                Height = 120, // ItemsControl.ActualHeight, 
-                Width  = 20   // minimum width
-            };
-
-            var itemList = base.CreateImages(imageSize, LocalFacilityInfo.Images);
-
-            // ReSharper disable once PossibleNullReferenceException
-            ItemsControl.ItemsSource = new NotifyingCollection<Border>(itemList);
+                CreateImages(LocalFacilityInfo.HasImages? LocalFacilityInfo.Images : null);
+            }
         }
     }
 }

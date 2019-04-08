@@ -108,6 +108,7 @@
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\PropertyBase.cs" />
     <Compile Include="Classes\CommentSection.cs" />
+    <Compile Include="Converters\ImageButtonConverter.cs" />
     <Compile Include="Interfaces\ICommentInventory.cs" />
     <Compile Include="Interfaces\IComponentSection.cs" />
     <Compile Include="Interfaces\IComponentSystem.cs" />
@@ -191,7 +192,7 @@
     <Compile Include="ViewModels\AddSystemViewModel.cs" />
     <Compile Include="ViewModels\CameraViewModel.cs" />
     <Compile Include="ViewModels\CloseableWindow.cs" />
-    <Compile Include="ViewModels\CmInspViewModel.cs" />
+    <Compile Include="ViewModels\CommentInspectionViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\CommentWindows.cs" />
     <Compile Include="ViewModels\CopyCommentViewModel.cs" />
@@ -219,8 +220,8 @@
     <Compile Include="Views\CameraView.xaml.cs">
       <DependentUpon>CameraView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CmInspView.xaml.cs">
-      <DependentUpon>CmInspView.xaml</DependentUpon>
+    <Compile Include="Views\CommentInspectionView.xaml.cs">
+      <DependentUpon>CommentInspectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommentView.xaml.cs">
       <DependentUpon>CommentView.xaml</DependentUpon>
@@ -304,7 +305,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CmInspView.xaml">
+    <Page Include="Views\CommentInspectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -429,13 +430,6 @@
     <Resource Include="Resources\Unlink.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\EmeraldHils.jpg" />
-    <Resource Include="Resources\FlamingoWater.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Reactor.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\AddComponent.png" />
   </ItemGroup>
   <ItemGroup>
@@ -460,8 +454,6 @@
     <Resource Include="Resources\DeleteSystem.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\GilletteStadium_1.jpg" />
-    <Resource Include="Resources\GilletteStadium_2.jpg" />
     <Resource Include="Resources\Filter %281%29.png" />
     <Resource Include="Resources\Remember %281%29.png" />
     <Resource Include="Resources\Distress_Selector %281%29.png" />
@@ -487,6 +479,27 @@
     <Resource Include="Resources\Cancel_Undo %281%29.png" />
     <Resource Include="Resources\Camera_cropped %281%29.png" />
     <Resource Include="Resources\Cancel %281%29.png" />
+    <Resource Include="Images\EmeraldHils.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\FlamingoWater.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\GilletteStadium_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\GilletteStadium_2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Reactor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\th1.jpg" />
+    <Resource Include="Images\th2.jpg" />
+    <Resource Include="Images\th3.jpg" />
+    <Resource Include="Images\th4.jpg" />
+    <Resource Include="Images\th5.jpg" />
+    <Resource Include="Images\th6.jpg" />
     <Content Include="Resources\Cardno_reg_rgb.wmf" />
     <Resource Include="Resources\Cardno_rgb %281%29.png" />
     <Resource Include="Resources\DeleteComponent %281%29.png" />

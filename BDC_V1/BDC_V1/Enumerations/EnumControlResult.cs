@@ -8,6 +8,7 @@ namespace BDC_V1.Enumerations
 {
     public enum EnumControlResult
     {
+        ResultDeleteItem = -2,
         ResultCancelled = -1,
         ResultDeferred,
         ResultSaveNow

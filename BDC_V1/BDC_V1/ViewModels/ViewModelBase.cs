@@ -145,12 +145,12 @@ namespace BDC_V1.ViewModels
             {
                 foreach (var region in viewsCollections)
                 {
-                    if (region is ItemsControl itemsControl)
+                    if (region is ItemsControl imageItems)
                     {
-                        if (itemsControl.ItemsSource is IList borderCollie)
+                        if (imageItems.ItemsSource is IList borderCollie)
                             borderCollie.Clear();
 
-                        itemsControl.ItemsSource = null;
+                        imageItems.ItemsSource = null;
                     }
 
                     RegionManager.Regions[RegionManagerName].Remove(region);

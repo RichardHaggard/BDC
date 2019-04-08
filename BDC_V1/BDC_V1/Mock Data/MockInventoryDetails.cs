@@ -11,9 +11,6 @@ namespace BDC_V1.Mock_Data
 #warning Using MOCK data for InventoryDetail
         public MockInventoryDetails()
         {
-            // get rid of some bad binding messages
-            Images.AddRange(Enumerable.Repeat(new BitmapImage(), 5));
-
             CurrentSection = "11057 - EAST BAY - D501003 INTERIOR DISTRIBUTION SERVICES dry-type, 480V primary 120/208V secondary, 225kVA";
 
             DetailSelectors.Add("FL2 - TL12412C - GE - Rm207 - DAMAGED - The nameplate on component was missing ...");
@@ -69,6 +66,13 @@ namespace BDC_V1.Mock_Data
                             " Section Detail fields have been populated and fields with NA represent data not found.";
 
             InventoryDetails = "What is supposed to go here?";
+
+            Images.AddRange(new[]
+            {
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/th1.jpg")),
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/th2.jpg")),
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/th3.jpg"))
+            });
         }
 #endif
     }

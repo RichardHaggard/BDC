@@ -13,7 +13,7 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class CmInspViewModel : CommentWindows
+    public class CommentInspectionViewModel : CommentWindows
     {
         // **************** Class enumerations ********************************************** //
 
@@ -33,12 +33,12 @@ namespace BDC_V1.ViewModels
 
         // **************** Class constructors ********************************************** //
 
-        public CmInspViewModel()
+        public CommentInspectionViewModel()
         {
             CmdDistressed = new DelegateCommand(OnDistressed);
 
 #if DEBUG
-#warning Using MOCK data for CmInspViewModel
+#warning Using MOCK data for CommentInspectionViewModel
             HeaderText1 = "<TYPE> Comments for <IDENTIFIER>";
             HeaderText2 = "<IDENTIFIER CONTINUED>";
             CommentText =

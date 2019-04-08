@@ -16,11 +16,11 @@ using BDC_V1.Events;
 namespace BDC_V1.Views
 {
     /// <summary>
-    /// Interaction logic for CmInspView.xaml
+    /// Interaction logic for CommentInspectionView.xaml
     /// </summary>
-    public partial class CmInspView : Window
+    public partial class CommentInspectionView : Window
     {
-        public CmInspView()
+        public CommentInspectionView()
         {
             InitializeComponent();
 
@@ -33,7 +33,7 @@ namespace BDC_V1.Views
         }
 
         // singleton instance to block multiple instances 
-        private static CmInspView _instance;
-        public static CmInspView Instance => _instance ?? (_instance = new CmInspView());
+        private static CommentInspectionView _instance;
+        public static CommentInspectionView Instance => _instance ?? (_instance = new CommentInspectionView());
     }
 }

@@ -260,6 +260,8 @@ namespace BDC_V1.ViewModels
         {
             var openFileDlg = new OpenFileDialog
             {
+                Title            = "Configuration File",
+                FileName         = ConfigurationFilename,
                 ReadOnlyChecked  = true,
                 Multiselect      = false,
                 ShowReadOnly     = false,
@@ -268,10 +270,8 @@ namespace BDC_V1.ViewModels
                 CheckPathExists  = true,
                 RestoreDirectory = true,
                 DefaultExt       = "cfg",
-                Filter           = "cfg files (*.cfg)|*.cfg|All files (*.*)|*.*",
                 FilterIndex      = 1,
-                FileName         = ConfigurationFilename,
-                Title            = "Configuration File"
+                Filter           = "Config files (*.cfg)|*.cfg|All files (*.*)|*.*"
             };
 
             if (openFileDlg.ShowDialog() == true)

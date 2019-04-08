@@ -12,9 +12,6 @@ namespace BDC_V1.Mock_Data
 #warning Using MOCK data for InspectionInfo
         public MockInspectionInfo()
         {
-            // get rid of some bad binding messages
-            Images.AddRange(Enumerable.Repeat(new BitmapImage(), 5));
-
             InspectionType    = EnumInspectionType.DirectRating;
             Component         = "D3020 - HEAT GENERATING SYSTEMS";
             Section           = "Northside";
@@ -32,6 +29,13 @@ namespace BDC_V1.Mock_Data
                     CommentText = @"DAMAGED - All the wood doors have 70% severe moisture damage.  CRACKED - All of the doors have 65% severe cracking and splintering. " +
                                   @"Replacement is recommended."
                 });
+
+            Images.AddRange(new[]
+            {
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/th4.jpg")),
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/th5.jpg")),
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/th6.jpg"))
+            });
         }
 #endif
     }

@@ -51,34 +51,35 @@ namespace BDC_V1.ViewModels
         public IInspectionInfo InspectionInfo
         {
             get => _inspectionInfo;
-#if ! DEBUG
-            private set => SetProperty(ref _inspectionInfo, value);
-#else
-#warning Using MOCK data for Inspection images 
-            private set => SetProperty(ref _inspectionInfo, value, () =>
+            set
             {
-                _inspectionInfo.Images.Clear();
-                _inspectionInfo.Images.AddRange(LocalFacilityInfo?.Images);
-            });
-#endif
+                if (SetProperty(ref _inspectionInfo, value))
+                {
+//#if DEBUG
+//#warning Overriding Inspection images 
+//                    _inspectionInfo.Images.Clear();
+//                    _inspectionInfo.Images.AddRange(LocalFacilityInfo?.Images);
+//#endif
+                }
+            }
         }
         private IInspectionInfo _inspectionInfo = new InspectionInfo();
 
-        public override IComponentFacility LocalFacilityInfo
-        {
-            get => base.LocalFacilityInfo;
-            set
-            {
-                base.LocalFacilityInfo = value;
-#if DEBUG
-#warning Using MOCK data for Inspection images
-                InspectionInfo.Images.Clear();
-                InspectionInfo.Images.AddRange(LocalFacilityInfo?.Images);
-#endif
-                // NotifyingCollection should raise it's own notify
-                //RaisePropertyChanged(nameof(InspectionInfo));
-            }
-        }
+//        public override IComponentFacility LocalFacilityInfo
+//        {
+//            get => base.LocalFacilityInfo;
+//            set
+//            {
+//                base.LocalFacilityInfo = value;
+//#if DEBUG
+//#warning Overriding Inspection images
+//                InspectionInfo.Images.Clear();
+//                InspectionInfo.Images.AddRange(LocalFacilityInfo?.Images);
+//#endif
+//                // NotifyingCollection should raise it's own notify
+//                //RaisePropertyChanged(nameof(InspectionInfo));
+//            }
+//        }
 
         // **************** Class data members ********************************************** //
 
@@ -103,11 +104,14 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
+        protected override void CreateImages() =>  
+            CreateImages(InspectionInfo.HasImages? InspectionInfo.Images : null);
+
         protected override bool GetRegionManager()
         {
             if (!base.GetRegionManager() || (RegionManager == null)) return false;
 
-            ItemsControl = GetItemsControl(RegionManager);
+            ImageItemsControl = GetIImageItemControl(RegionManager);
             CreateImages();
 
             return true;
@@ -120,7 +124,7 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdInspectionComment()
         {
-            var view = new CmInspView();
+            var view = new CommentInspectionView();
             view.ShowDialog();
         }
 

@@ -11,9 +11,6 @@ namespace BDC_V1.Mock_Data
 #warning Using MOCK data for InventorySection
         public MockInventorySection()
         {
-            // get rid of some bad binding messages
-            Images.AddRange(Enumerable.Repeat(new BitmapImage(), 5));
-
             SectionNames.Add("Heating System");
             SectionName = "Heating System";
 
@@ -54,6 +51,13 @@ namespace BDC_V1.Mock_Data
                 "PcRating3"
             });
             PcRating = PcRatings[1];
+
+            Images.AddRange(new[]
+            {
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/th4.jpg")),
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/th5.jpg")),
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/th6.jpg"))
+            });
         }
 #endif
     }

@@ -322,9 +322,12 @@ namespace BDC_V1.Mock_Data
                 EMail = "robert.murphy@somedomain.mil"
             };
 
-            facility1.Images.Add(new BitmapImage(new Uri(@"pack://application:,,,/Resources/EmeraldHils.jpg")));
-            facility1.Images.Add(new BitmapImage(new Uri(@"pack://application:,,,/Resources/FlamingoWater.jpg")));
-            facility1.Images.Add(new BitmapImage(new Uri(@"pack://application:,,,/Resources/Reactor.png")));
+            facility1.Images.AddRange(new[]
+            {
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/EmeraldHils.jpg")),
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/FlamingoWater.jpg")),
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/Reactor.png"))
+            });
 
             facility1.Inspections.Add(new InspectionInfo
             {
@@ -566,8 +569,11 @@ namespace BDC_V1.Mock_Data
                 EMail = "Lance_Armstrong@gillette.org"
             };
 
-            facility2.Images.Add(new BitmapImage(new Uri(@"pack://application:,,,/Resources/GilletteStadium_1.jpg")));
-            facility2.Images.Add(new BitmapImage(new Uri(@"pack://application:,,,/Resources/GilletteStadium_2.jpg")));
+            facility2.Images.AddRange(new[]
+            {
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/GilletteStadium_1.jpg")),
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/GilletteStadium_2.jpg"))
+            });
 
             facility2.Inspections.AddRange(new[]
             {

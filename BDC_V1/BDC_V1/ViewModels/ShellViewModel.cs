@@ -432,7 +432,7 @@ namespace BDC_V1.ViewModels
 
         private void OnInspectionSummary()
         {
-           var dlg = new CmInspView();
+           var dlg = new CommentInspectionView();
            dlg.ShowDialog();
         }
 
@@ -650,8 +650,8 @@ namespace BDC_V1.ViewModels
             bindsBackground.Converter = new SystemElementBackgroundConverter();
             bindsBackground.Bindings.AddRange(new[]
             {
-                new Binding("ComponentType"),
-                new Binding("HasAnyQaIssues"),
+                new Binding("ComponentType" ) { RelativeSource = new RelativeSource(RelativeSourceMode.Self) },
+                new Binding("HasAnyQaIssues") { RelativeSource = new RelativeSource(RelativeSourceMode.Self) }
             });
             node.SetBinding(Control.BackgroundProperty, bindsBackground);
 

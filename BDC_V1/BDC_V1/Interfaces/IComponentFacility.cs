@@ -41,6 +41,9 @@ namespace BDC_V1.Interfaces
         /// <remarks>
         /// on-demand collection storage is allocated on first us
         /// use the <see cref="HasImages"/> property to check for not empty
+        ///
+        /// If you are going to modify one of these images the ImagesModelBase class may require that
+        /// you delete and add the item to get the view to update
         /// </remarks>
         [NotNull] INotifyingCollection<ImageSource> Images { get; }
 
