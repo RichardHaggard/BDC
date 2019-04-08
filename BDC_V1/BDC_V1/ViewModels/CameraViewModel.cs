@@ -101,14 +101,15 @@ namespace BDC_V1.ViewModels
             DialogResultEx = true;
         }
 
+        private string PictureFilename { get; set; }
         private void OnCameraButton()
         {
             var picFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
-            var dlg = new OpenFileDialog
+            var openFileDlg = new OpenFileDialog
             {
                 Title            = "Open Image",
-                FileName         = "",
+                FileName         = PictureFilename,
                 InitialDirectory = picFolder,
                 ReadOnlyChecked  = true,
                 Multiselect      = false,
@@ -126,16 +127,18 @@ namespace BDC_V1.ViewModels
                          "|tiff files (*.tiff)|*.tiff"
             };
 
-            if ((dlg.ShowDialog() == true) && !string.IsNullOrEmpty(dlg.FileName))
+            if ((openFileDlg.ShowDialog() == true) && !string.IsNullOrEmpty(openFileDlg.FileName))
             {
+                PictureFilename = openFileDlg.FileName;
+
                 try
                 {
-                    SourceImage = new BitmapImage(new Uri(dlg.FileName));
+                    SourceImage = new BitmapImage(new Uri(PictureFilename));
                 }
                 catch
                 {
                     MessageBox.Show(
-                        "Selected file \"" + dlg.FileName + "\" failed to load, try again.",
+                        "Selected file \"" + PictureFilename + "\" failed to load, try again.",
                         "IMAGE ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }

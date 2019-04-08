@@ -258,10 +258,13 @@ namespace BDC_V1.ViewModels
 
         private void OnConfigFile()
         {
+            var docFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
             var openFileDlg = new OpenFileDialog
             {
                 Title            = "Configuration File",
                 FileName         = ConfigurationFilename,
+                InitialDirectory = docFolder,
                 ReadOnlyChecked  = true,
                 Multiselect      = false,
                 ShowReadOnly     = false,
@@ -283,8 +286,13 @@ namespace BDC_V1.ViewModels
 
         private void OnQcFile()
         {
+            var docFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
             var openFileDlg = new OpenFileDialog
             {
+                Title            = "BRED QC File",
+                FileName         = BredFilename,
+                InitialDirectory = docFolder,
                 ReadOnlyChecked  = true,
                 Multiselect      = false,
                 ShowReadOnly     = false,
@@ -293,10 +301,8 @@ namespace BDC_V1.ViewModels
                 CheckPathExists  = true,
                 RestoreDirectory = true,
                 DefaultExt       = "mdb",
-                Filter           = "mdb files (*.mdb)|*.mdb|All files (*.*)|*.*",
                 FilterIndex      = 1,
-                FileName         = BredFilename,
-                Title            = "BRED QC File"
+                Filter           = "BRED files (*.mdb)|*.mdb|All files (*.*)|*.*"
             };
 
             if (openFileDlg.ShowDialog() == true)

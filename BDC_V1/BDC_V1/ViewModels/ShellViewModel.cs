@@ -21,6 +21,7 @@ using BDC_V1.Utils;
 using BDC_V1.Views;
 using JetBrains.Annotations;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
 using EventAggregator = BDC_V1.Events.EventAggregator;
@@ -405,10 +406,39 @@ namespace BDC_V1.ViewModels
             MessageBox.Show("Add Section", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
+        // ReSharper disable IdentifierTypo
+        // ReSharper disable StringLiteralTypo
+        private string BluebeamFilename { get; set; }
+
         private void OnBluebeam()
         {
-            MessageBox.Show("Bluebeam", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            var docFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            var openFileDlg = new OpenFileDialog
+            {
+                // ReSharper disable once StringLiteralTypo
+                Title            = "Select Bluebeam Excel File",
+                FileName         = BluebeamFilename,
+                InitialDirectory = docFolder,
+                ReadOnlyChecked  = true,
+                Multiselect      = false,
+                ShowReadOnly     = false,
+                AddExtension     = true,
+                CheckFileExists  = true,
+                CheckPathExists  = true,
+                RestoreDirectory = true,
+                DefaultExt       = "xlsx",
+                FilterIndex      = 1,
+                Filter           = "Excel Workbook (*.xlsx)|*.xlsx|Excel 97-2003 Workbook (*.xls)|*.xls|All files (*.*)|*.*"
+            };
+
+            if (openFileDlg.ShowDialog() == true)
+            {
+                BluebeamFilename = openFileDlg.FileName;
+            }
         }
+        // ReSharper restore StringLiteralTypo
+        // ReSharper restore IdentifierTypo
 
         private void OnCalculators()
         {
@@ -493,7 +523,8 @@ namespace BDC_V1.ViewModels
 
         private void OnDeleteSystem()
         {
-            MessageBox.Show("Delete System", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("Do you want to delete the currently-selected System for Facility #####?", 
+                "DELETE SYSTEM?", MessageBoxButton.OKCancel, MessageBoxImage.Question);
         }
 
         private void OnCopySections()
