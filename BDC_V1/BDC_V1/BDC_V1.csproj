@@ -479,21 +479,11 @@
     <Resource Include="Resources\Cancel_Undo %281%29.png" />
     <Resource Include="Resources\Camera_cropped %281%29.png" />
     <Resource Include="Resources\Cancel %281%29.png" />
-    <Resource Include="Images\EmeraldHils.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\FlamingoWater.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\GilletteStadium_1.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\GilletteStadium_2.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\Reactor.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\EmeraldHils.jpg" />
+    <Resource Include="Images\FlamingoWater.jpg" />
+    <Resource Include="Images\GilletteStadium_1.jpg" />
+    <Resource Include="Images\GilletteStadium_2.jpg" />
+    <Resource Include="Images\Reactor.png" />
     <Resource Include="Images\th1.jpg" />
     <Resource Include="Images\th2.jpg" />
     <Resource Include="Images\th3.jpg" />
