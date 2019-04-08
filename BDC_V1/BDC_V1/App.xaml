@@ -137,6 +137,12 @@
                 <Setter Property="Margin" Value="3" />
             </Style>
 
+            <!--Label that is soft yellow with a black border. Indicates to user that contents are RO
+            and an external editor exists to modify cell contents.-->
+            <Style TargetType="Label" x:Key="LabelROExtEd" BasedOn="{StaticResource LabelRO}">
+                <Setter Property="Background" Value="LightYellow"/>
+            </Style>
+
             <!--Label that is bold.-->
             <Style TargetType="Label" x:Key="LabelBold" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="FontWeight" Value="Bold" />
