@@ -21,6 +21,7 @@ namespace BDC_V1.Interfaces
         string DetailComment     { get; set; }
         string DetailIdNumber    { get; set; }
         string DetailPhotosCount { get; set; }
+        int DetailSelectedIndex  { get; set; }
         string DetailSelector    { get; set; }
         string EquipmentMake     { get; set; }
         string EquipmentType     { get; set; }

@@ -460,6 +460,7 @@
     <Resource Include="Resources\DeleteSystem.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\GreenDownArrow.png" />
     <Resource Include="Resources\GilletteStadium_1.jpg" />
     <Resource Include="Resources\GilletteStadium_2.jpg" />
     <Resource Include="Resources\Filter %281%29.png" />

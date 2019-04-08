@@ -4,53 +4,61 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:local="clr-namespace:BDC_V1">
-    
+
     <Application.Resources>
         <ResourceDictionary>
-      <Style x:Key="ImageClickBlockButtonStyle" TargetType="Button">
-        <Setter Property="Height" Value="118" />
-        <Setter Property="Width" Value="130" />
-        <Setter Property="Background" Value="LightBlue" />
-        <Setter Property="BorderBrush" Value="Black" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Margin" Value="5" />
-      </Style>
 
-      <Style x:Key="FacilityBlockButtonStyle" TargetType="Button"
+            <Style TargetType="Button" x:Key="btnImageText">
+                <Setter Property="Background" Value="#9BC2E6"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Width" Value="150"/>
+            </Style>
+
+            <Style x:Key="ImageClickBlockButtonStyle" TargetType="Button">
+                <Setter Property="Height" Value="118" />
+                <Setter Property="Width" Value="130" />
+                <Setter Property="Background" Value="LightBlue" />
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+
+            <Style x:Key="FacilityBlockButtonStyle" TargetType="Button"
              BasedOn="{StaticResource ImageClickBlockButtonStyle}">
-        <Setter Property="Height" Value="95" />
-        <Setter Property="Width" Value="160" />
-        <Setter Property="Margin" Value="5,5,5,0" />
-      </Style>
+                <Setter Property="Height" Value="95" />
+                <Setter Property="Width" Value="160" />
+                <Setter Property="Margin" Value="5,5,5,0" />
+            </Style>
 
-      <Style x:Key="ImageClickBlockPanelStyle" TargetType="StackPanel">
-        <Setter Property="Margin" Value="5" />
-        <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-      </Style>
+            <Style x:Key="ImageClickBlockPanelStyle" TargetType="StackPanel">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
 
-      <Style x:Key="ImageClickBlockImageStyle" TargetType="Image">
-        <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Margin" Value="0" />
-        <Setter Property="Height" Value="50" />
-      </Style>
+            <Style x:Key="ImageClickBlockImageStyle" TargetType="Image">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Height" Value="50" />
+            </Style>
 
-      <!-- Offset needed to visually center the image -->
-      <Style x:Key="ImageClickBlockCommentImageStyle" TargetType="Image"
+            <!-- Offset needed to visually center the image -->
+            <Style x:Key="ImageClickBlockCommentImageStyle" TargetType="Image"
              BasedOn="{StaticResource ImageClickBlockImageStyle}">
-        <Setter Property="Margin" Value="5,0,0,0" />
-      </Style>
+                <Setter Property="Margin" Value="5,0,0,0" />
+            </Style>
 
-      <Style x:Key="ImageClickBlockTextStyle" TargetType="Label">
-        <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Margin" Value="0" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="FontWeight" Value="Bold" />
-      </Style>
+            <Style x:Key="ImageClickBlockTextStyle" TargetType="Label">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
 
             <!--Menu separator-->
             <Style x:Key="MenuSeparatorStyle" TargetType="{x:Type Separator}">
@@ -97,7 +105,7 @@
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
-            
+
             <!--Base for Labels. Sets the font size, vertical alignment and margin-->
             <Style TargetType="Label" x:Key="LabelBase">
                 <Setter Property="FontSize" Value="15" />
@@ -133,6 +141,15 @@
             <Style TargetType="Label" x:Key="LabelBold" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="FontWeight" Value="Bold" />
             </Style>
+
+
+            <!--Label that is used in the thin bottom row image + text buttons.-->
+            <Style TargetType="Label" x:Key="lblText" BasedOn="{StaticResource LabelBold}">
+                <Setter Property="Margin" Value="0,0,0,0"/>
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
 
             <!--Black border.-->
             <Style TargetType="Border" x:Key="BorderBlack" >
@@ -227,9 +244,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Purple.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
-            
+
         </ResourceDictionary>
 
     </Application.Resources>
-    
+
 </prism:PrismApplication>

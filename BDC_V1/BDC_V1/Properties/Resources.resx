@@ -202,7 +202,10 @@
   <data name="Folder_Closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folder_Closed.png          ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-   <data name="Inventory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="GreenDownArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GreenDownArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Inventory" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Inventory.png              ;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MicrophoneOFF_Rnd_Slash" type="System.Resources.ResXFileRef, System.Windows.Forms">
