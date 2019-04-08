@@ -454,6 +454,7 @@
     <Resource Include="Resources\DeleteSystem.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\GreenDownArrow.png" />
     <Resource Include="Resources\Filter %281%29.png" />
     <Resource Include="Resources\Remember %281%29.png" />
     <Resource Include="Resources\Distress_Selector %281%29.png" />

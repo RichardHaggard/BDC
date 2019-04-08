@@ -87,7 +87,7 @@
                 />
 
             <Label Grid.Row="2" Grid.Column="0"
-                Content="ComponentInventory Type:"
+                Content="Component Type:"
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"
                 ItemsSource="{Binding InventorySection.ComponentTypes}"
@@ -154,18 +154,29 @@
                 Style="{StaticResource LabelRJ}"/>
             <DatePicker 
                 Grid.Row="4" Grid.Column="1"
+                Background="{Binding YearInstalledBg}"
                 Style="{StaticResource dpBase}"
                 Text="{Binding InventorySection.YearInstalledRenewed}"
                 />
-            <CheckBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"
+            <CheckBox 
+                Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"
                 FontSize="15"
                 Content="Estimated"
+                IsChecked="{Binding Estimated}"  
                 />
 
-            <Label Grid.Row="5" Grid.Column="0"
+            <Label 
+                Grid.Row="5" Grid.Column="0"
                 Content="NOT Energy Efficient:"
                 Style="{StaticResource LabelRJ}"/>
-            <CheckBox Grid.Row="5" Grid.Column="1" FontSize="15"/>
+            <CheckBox 
+                Grid.Row="5" Grid.Column="1" FontSize="15"/>
+            <Border
+                Grid.Row="5" Grid.RowSpan="2" Grid.Column="2"  Grid.ColumnSpan="7"
+                Background="#D9D9D9"
+                BorderBrush="Transparent"
+                Visibility="{Binding InventorySection.YearPcVisibility}"
+                />
 
             <Label Grid.Row="6" Grid.Column="0" 
                 Content="Painted/Coated:"
@@ -244,6 +255,7 @@
             <TextBox 
                 Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
                 Background="LightYellow"
+                IsReadOnly="True"
                 Margin="5"
                 Style="{StaticResource TextBoxWrap}"
                 Text="{Binding InventorySection.SectionComment}"
@@ -270,7 +282,14 @@
               <ItemsControl x:Name="ImagesList" prism:RegionManager.RegionName="InventorySectionItemControl" />
             </Border>
 
-            <CheckBox Grid.Row="9" Grid.Column="0" 
+            <Border
+                Grid.Row="9" Grid.Column="0"  Grid.ColumnSpan="5"
+                Background="#C6E0B4"
+                BorderBrush="Transparent"
+                />
+
+            <CheckBox 
+                Grid.Row="9" Grid.Column="0" 
                 Content="Add current inspector"
                 FontSize="15"
                 Margin="5"
@@ -293,33 +312,98 @@
                 SelectedItem="{Binding InventorySection.Dcr}"
                 Style="{StaticResource ComboBase}"
                 />
+            <Border
+                Grid.Row="9" Grid.Column="5"  Grid.ColumnSpan="4"
+                Background="#D9D9D9"
+                BorderBrush="Transparent"
+                Visibility="{Binding InventorySection.YearPcVisibility}"
+                />
             <Label Grid.Row="9" Grid.Column="5" 
                 Content="P/C Rating:"
                 Style="{StaticResource LabelRJ}"
+                Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
             <ComboBox Grid.Row="9" Grid.Column="6" 
                 FontSize="15"
+                ItemsSource="{Binding InventorySection.PcRatings}"
+                SelectedItem="{Binding InventorySection.PcRating}"
                 Style="{StaticResource ComboBase}"
+                Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
 
-            <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
-                    Content="Cancel Edit"
-                    HorizontalAlignment="Left"
-                    Margin="25, 5, 0, 5"
-                    Width="125"
-                    Command="{Binding CmdCancelEdit}"/>
-            <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
-                    Content="Delete Section"
-                    HorizontalAlignment="Center"
-                    Margin="5"
-                    Width="125"
-                    Command="{Binding CmdDeleteSection}"/>
-            <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
-                    Content="Add Section"
-                    HorizontalAlignment="Right"
-                    Margin="0,5,25,5"
-                    Width="125"
-                    Command="{Binding CmdAddSection}"/>
+            <Button 
+                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
+                Command="{Binding CmdCancelEdit}"
+                HorizontalAlignment="Left"
+                Style="{StaticResource btnImageText}"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                            Grid.Column="0" 
+                            Height="20"
+                            Source="/BDC_V1;component/Resources/Cancel_Undo.png"
+                            />
+                    <Label 
+                            Grid.Column="1"
+                            Content="Cancel Edit" 
+                            Foreground="Red" 
+                            Style="{StaticResource lblText}" />
+                </Grid>
+            </Button>
+
+            <Button 
+                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
+                HorizontalAlignment="Center"
+                Command="{Binding CmdDeleteSection}"
+                Style="{StaticResource btnImageText}"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                            Grid.Column="0" 
+                            Height="20"
+                            Source="/BDC_V1;component/Resources/Delete.png"
+                            />
+                    <Label 
+                            Grid.Column="1"
+                            Content="Delete Section"
+                            Foreground="Red" 
+                            Style="{StaticResource lblText}" />
+                </Grid>
+            </Button>
+
+
+            <Button 
+                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
+                HorizontalAlignment="Right"
+                Command="{Binding CmdAddSection}"
+                Style="{StaticResource btnImageText}"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Column="0" 
+                        Height="20"
+                        Source="/BDC_V1;component/Resources/Add.png"
+                        />
+                    <Label 
+                            Grid.Column="1"
+                            Content="Add Section"
+                            Foreground="#00B050" 
+                            Style="{StaticResource lblText}" />
+                </Grid>
+            </Button>
 
         </Grid>
     </ScrollViewer>

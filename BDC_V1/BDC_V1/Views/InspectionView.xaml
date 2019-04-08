@@ -49,21 +49,21 @@
        TargetType="Button"
        BasedOn="{StaticResource btnStatusBase}">
       <Setter Property="Foreground"
-        Value="Green" />
+        Value="#00B050" />
     </Style>
 
     <Style x:Key="btnAmberStatus"
        TargetType="Button"
        BasedOn="{StaticResource btnStatusBase}">
       <Setter Property="Foreground"
-        Value="#FFBF00" />
+        Value="#BF8F00" />
     </Style>
 
     <Style x:Key="btnRedStatus"
        TargetType="Button"
        BasedOn="{StaticResource btnStatusBase}">
       <Setter Property="Foreground"
-        Value="Red" />
+        Value="#FF0000" />
     </Style>
   </UserControl.Resources>
 
@@ -84,7 +84,7 @@
         <RowDefinition Height="10"   /> <!-- 10 - white space -->
         <RowDefinition Height="128" /> <!-- 11 - Inspection Photos -->
         <RowDefinition Height="10"   /> <!-- 12 - white space -->
-        <RowDefinition Height="60" /> <!-- 13 - Action Buttons -->
+        <RowDefinition Height="40" /> <!-- 13 - Action Buttons -->
         <RowDefinition Height="5"    /> <!-- 14 - white space at bottom -->
       </Grid.RowDefinitions>
 
@@ -109,7 +109,7 @@
       <Label
           Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"
           Content="{Binding InspectionInfo.Component}"
-          Style="{StaticResource LabelRO}"
+          Style="{StaticResource LabelROExtEd}"
                 />
       <Label
           Grid.Row="1" Grid.Column="5"
@@ -119,7 +119,7 @@
       <Label
           Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3"
           Content="{Binding InspectionInfo.Section}"
-          Style="{StaticResource LabelRO}"
+          Style="{StaticResource LabelROExtEd}"
                 />
 
       <!-- Equip / Mat Category -->
@@ -131,7 +131,7 @@
       <Label
           Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"
           Content="{Binding InspectionInfo.Category}"
-          Style="{StaticResource LabelRO}"/>
+          Style="{StaticResource LabelROExtEd}"/>
 
       <!-- Component Type -->
       <Label
@@ -142,7 +142,7 @@
       <Label
           Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8"
           Content="{Binding InspectionInfo.ComponentType}"
-          Style="{StaticResource LabelRO}"/>
+          Style="{StaticResource LabelROExtEd}"/>
 
       <!-- Section Quantity -->
       <Label
@@ -153,7 +153,7 @@
           Grid.Row="4" Grid.Column="1"
           Content="{Binding InspectionInfo.Quantity}"
           ContentStringFormat="{}{0:#,#.00}"
-          Style="{StaticResource LabelRO}"/>
+          Style="{StaticResource LabelROExtEd}"/>
       <Label
           Grid.Row="4" Grid.Column="2"
           Content="MBH"
@@ -165,7 +165,11 @@
           Content="Inspection Date:"
           Style="{StaticResource LabelRJ}"/>
       <DatePicker
-          Grid.Row="5" Grid.Column="1"
+          Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+          Height="35"
+          HorizontalAlignment="Left"
+          Width="150"
+          Style="{StaticResource dpBase}"
           Text="{Binding InspectionInfo.InspectionDate, StringFormat=d}" />
 
       <StackPanel
@@ -191,6 +195,7 @@
             Margin="20 0 0 0"
             GroupName="InspectionType"
             Content="Distress Survey"
+            IsEnabled="false"
             VerticalContentAlignment="Center"
             IsChecked="{Binding Path=InspectionInfo.InspectionType, 
                             Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
@@ -222,11 +227,11 @@
         <!--Background for some cells-->
         <Border
             Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3"
-            Background="LightBlue" />
+            Background="#DDEBF7" />
         <Border
-            Grid.Row="0" Grid.RowSpan="4"  Grid.Column="4" Grid.ColumnSpan="5"
-            Margin="25,0,0,0"
-            Background="LightBlue" 
+            Grid.Row="1" Grid.RowSpan="4"  Grid.Column="4" Grid.ColumnSpan="4"
+            Margin="0,0,0,0"
+            Background="#DDEBF7" 
           />
 
         <!--Row 0-->
@@ -244,7 +249,7 @@
             Style="{StaticResource cbBase}"
                     />
         <Label
-            Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="4"
+            Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3"
             Content="Paint/Coating Condition Rating:"
             Margin="25,0,0,0"
           HorizontalContentAlignment="Left"
@@ -256,7 +261,7 @@
             Grid.Row="1" Grid.Column="0"
             Content="Direct Condition Rating:"
             Style="{StaticResource LabelRJ}"
-                    />
+            />
 
         <Button
             Grid.Row="1" Grid.Column="1"
@@ -556,8 +561,9 @@
           Style="{StaticResource BorderYO}">
         <TextBox
             VerticalContentAlignment="Top"
-            HorizontalContentAlignment="Left"
             Background="LightYellow"
+            HorizontalContentAlignment="Left"
+            IsReadOnly="True"
             Style="{StaticResource TextBoxWrap}"
             Text="{Binding InspectionInfo.InspectionComment}" />
       </Border>
@@ -587,82 +593,60 @@
                 prism:RegionManager.RegionName="InspectionItemControl" />
       </Border>
 
-      <!-- Action Buttons -->
-      <StackPanel
-          Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="4"
-          Orientation="Horizontal"
-          Grid.RowSpan="2">
-        <Button
-            Margin="0 0 5 0"
-            Width="175"
-            HorizontalContentAlignment="Left"
-            Command="{Binding CmdCancelEdit}">
-          <StackPanel Orientation="Horizontal">
-            <Image Source="/BDC_V1;component/Resources/Cancel_Undo (1).png"
-               Width="24"
-               HorizontalAlignment="Left" />
-            <Label Margin="0 -4 0 0"
-               Content="Cancel Edit"
-               HorizontalAlignment="Right" />
-          </StackPanel>
-        </Button>
-        <Button
-            Margin="5 0 0 0"
-            Width="175"
-            HorizontalContentAlignment="Left"
-            Command="{Binding CmdDeleteInspection}">
-          <StackPanel Orientation="Horizontal">
-            <Image Source="/BDC_V1;component/Resources/Delete.png"
-                HorizontalAlignment="Left" />
-            <Label
-                Margin="0 -2 0 0"
-                Content="Delete Inspection"
-                HorizontalAlignment="Right" />
-          </StackPanel>
-        </Button>
-      </StackPanel>
-
-    <Border 
-            Grid.Row="11"
-            Grid.Column="1"
-            Grid.ColumnSpan="8"
-            Style="{StaticResource BorderYO}"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch">
-      <ItemsControl prism:RegionManager.RegionName="InspectionCommentItemControl" />
-    </Border>
-
     <!-- Action Buttons -->
-    <StackPanel Grid.Row="13"
-                Grid.Column="0"
-                Grid.ColumnSpan="4"
-                Orientation="Horizontal"
-                Grid.RowSpan="2">
-      <Button Margin="0 0 5 0"
-              Width="175"
-              HorizontalContentAlignment="Left"
-              Command="{Binding CmdCancelEdit}">
-        <StackPanel Orientation="Horizontal">
-          <Image Source="/BDC_V1;component/Resources/Cancel_Undo (1).png"
-                 Height="24"
-                 HorizontalAlignment="Left" />
-          <Label Margin="0 -4 0 0"
-                 Content="Cancel Edit"
-                 HorizontalAlignment="Right" />
-        </StackPanel>
+    <StackPanel 
+        Grid.Row="13"
+        Grid.Column="0"
+        Grid.ColumnSpan="4"
+        Orientation="Horizontal"
+        Grid.RowSpan="1">
+        
+      <Button 
+        Width="160"
+        Command="{Binding CmdCancelEdit}"
+        Style="{StaticResource btnImageText}"
+        >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Image
+                Grid.Column="0" 
+                Height="20"
+                Source="/BDC_V1;component/Resources/Cancel_Undo (1).png"
+                />
+            <Label 
+                Grid.Column="1"
+                Content="Cancel Edit" 
+                Foreground="Red" 
+                Style="{StaticResource lblText}" />
+        </Grid>
       </Button>
-      <Button Margin="5 0 0 0"
-              Width="175"
-              HorizontalContentAlignment="Left"
-              Command="{Binding CmdDeleteInspection}">
-        <StackPanel Orientation="Horizontal">
-          <Image Source="/BDC_V1;component/Resources/Delete.png"
-                 Height="24"
-                 HorizontalAlignment="Left" />
-          <Label Margin="0 -2 0 0"
-                 Content="Delete InspectionComment"
-                 HorizontalAlignment="Right" />
-        </StackPanel>
+        
+      <Button 
+          Width="160"
+        Command="{Binding CmdDeleteInspection}"
+        Style="{StaticResource btnImageText}"
+        >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Image
+                Grid.Column="0" 
+                Height="20"
+                Source="/BDC_V1;component/Resources/Delete.png"
+                />
+            <Label 
+                Grid.Column="1"
+                Content="Delete Inspection"
+                Foreground="Red" 
+                Style="{StaticResource lblText}" />
+        </Grid>
       </Button>
     </StackPanel>
 

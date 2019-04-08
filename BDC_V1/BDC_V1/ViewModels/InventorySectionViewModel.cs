@@ -31,6 +31,28 @@ namespace BDC_V1.ViewModels
         public ICommand CmdAddSection     { get; }
         public ICommand CmdSectionComment { get; }
 
+        public bool Estimated
+        {
+            get { return _Estimated; }
+            set 
+            { 
+                if ( SetProperty(ref _Estimated, value) )
+                {
+                    YearInstalledBg = (value) ? "Yellow" : "Transparent";
+                }
+            }
+        }
+        private bool _Estimated;
+
+
+        public string YearInstalledBg
+        {
+            get { return _YearInstalledBg; }
+            set { SetProperty(ref _YearInstalledBg, value); }
+        }
+        private string _YearInstalledBg;
+
+
         [NotNull]
         public IInventorySection InventorySection { get; }
 

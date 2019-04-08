@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -25,11 +26,13 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdCancelEdit     { get; }
-        public ICommand CmdDeleteDetail   { get; }
-        public ICommand CmdAddDetail      { get; }
-        public ICommand CmdCopyDetail     { get; }
-        public ICommand CmdDetailsComment { get; }
+        public ICommand CmdAddDetail          { get; }
+        public ICommand CmdCancelEdit         { get; }
+        public ICommand CmdCopyDetail         { get; }
+        public ICommand CmdDeleteDetail       { get; }
+        public ICommand CmdDetailsComment     { get; }
+        public ICommand CmdNextDetail         { get; }
+        public ICommand CmdShowBarcodeScanner { get; }
 
 
         [NotNull]
@@ -67,11 +70,13 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "InventoryDetailsItemControl";
 
-            CmdCancelEdit     = new DelegateCommand(OnCancelEdit    );
-            CmdDeleteDetail   = new DelegateCommand(OnDeleteDetail  );
-            CmdAddDetail      = new DelegateCommand(OnAddDetail     );
-            CmdCopyDetail     = new DelegateCommand(OnCopyDetail    );
-            CmdDetailsComment = new DelegateCommand(OnDetailsComment);
+            CmdAddDetail          = new DelegateCommand( OnAddDetail             );
+            CmdCancelEdit         = new DelegateCommand( OnCancelEdit            );
+            CmdCopyDetail         = new DelegateCommand( OnCopyDetail            );
+            CmdDeleteDetail       = new DelegateCommand( OnDeleteDetail          );
+            CmdDetailsComment     = new DelegateCommand( OnDetailsComment        );
+            CmdNextDetail         = new DelegateCommand( OnCmdNextDetails        );
+            CmdShowBarcodeScanner = new DelegateCommand( OnCmdShowBarcodeScanner );
 
 #if DEBUG
 #warning Using MOCK data for InventoryDetails
@@ -89,11 +94,24 @@ namespace BDC_V1.ViewModels
         private void OnAddDetail     () { Debug.WriteLine("OnAddDetail      is not implemented"); }
         private void OnCopyDetail    () { Debug.WriteLine("OnCopyDetail     is not implemented"); }
 
+        private void OnCmdNextDetails()
+        {
+            // Go to the next Details item in the list.
+            // If already at the last then wrap back to the first.
+            if (++InventoryDetails.DetailSelectedIndex >= InventoryDetails.DetailSelectors.Count)
+                InventoryDetails.DetailSelectedIndex = 0;
+        }
+
+
         private void OnDetailsComment() 
         {             
             var view = new CommentView();
             view.ShowDialog();
         }
 
+        private void OnCmdShowBarcodeScanner()
+        {
+            MessageBox.Show("Barcode Reader Launches", "Barcode Reader");
+        }
     }
 }

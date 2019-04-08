@@ -38,17 +38,29 @@ namespace BDC_V1.Mock_Data
 
             Dcrs.AddRange(new[]
             {
-                "D1",
-                "D2",
-                "D3"
+                "G+",
+                "G",
+                "G-",
+                "Y+",
+                "Y",
+                "Y-",
+                "R+",
+                "R",
+                "R-"
             });
             Dcr = Dcrs[1];
 
             PcRatings.AddRange(new[]
             {
-                "PcRating1",
-                "PcRating2",
-                "PcRating3"
+                "G+",
+                "G",
+                "G-",
+                "Y+",
+                "Y",
+                "Y-",
+                "R+",
+                "R",
+                "R-"
             });
             PcRating = PcRatings[1];
 
