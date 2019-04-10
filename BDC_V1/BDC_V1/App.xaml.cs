@@ -35,7 +35,12 @@ namespace BDC_V1
 
         protected override Window CreateShell()
         {
-            return Container.Resolve<ShellView>();
+            var window = Container.Resolve<ShellView>();
+
+            // does this get rid of the start-up flash?
+            window.Visibility = Visibility.Collapsed;
+
+            return window;
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -45,6 +50,15 @@ namespace BDC_V1
             PresentationTraceSources.DataBindingSource.Listeners.Add(new DebugTraceListener());
             PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning | SourceLevels.Error;
 
+            // does this get rid of the start-up flash?
+            if (MainWindow != null)
+            {
+                MainWindow.Visibility = Visibility.Collapsed;
+
+                if (MainWindow.DataContext is ShellViewModel shellViewModel)
+                    shellViewModel.WindowVisibility = Visibility.Collapsed;
+            }
+
             base.OnStartup(e);
         }
 
@@ -52,11 +66,9 @@ namespace BDC_V1
         {
             base.OnInitialized();
 
-            if (MainWindow == null) return;
-
-            if (MainWindow.DataContext is ShellViewModel shellViewModel)
+            if (MainWindow?.DataContext is ShellViewModel shellViewModel)
             {
-                shellViewModel.WindowVisibility = Visibility.Hidden;
+                shellViewModel.WindowVisibility = Visibility.Collapsed;
 
                 var loginView = new LoginView(new LoginViewModel());
                 loginView.ShowDialog();

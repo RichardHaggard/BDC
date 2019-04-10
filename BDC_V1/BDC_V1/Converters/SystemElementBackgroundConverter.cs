@@ -8,6 +8,14 @@ namespace BDC_V1.Converters
 {
     public class SystemElementBackgroundConverter : DependencyObject, IMultiValueConverter
     {
+        private readonly BoolToObjectConverter _converter = new BoolToObjectConverter();
+
+        private readonly object[] _brushes =
+        {
+            System.Windows.Media.Brushes.Red,       // 1+ QA issues
+            System.Windows.Media.Brushes.LightGreen // All QA passes
+        };
+
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if ((values.Length == 2) &&
@@ -15,17 +23,13 @@ namespace BDC_V1.Converters
                 (enumComponent == EnumComponentTypes.FacilityType) &&
                 (values[1] is bool hasAnyQaIssues))
             {
-                return hasAnyQaIssues
-                    ? System.Windows.Media.Brushes.Red // 1+ QA issues
-                    : System.Windows.Media.Brushes.LightGreen; // All QA passes
+                return _converter.Convert(_brushes, targetType, hasAnyQaIssues, culture);
             }
 
             return Binding.DoNothing;
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException("SystemElementBackgroundConverter.ConvertBack");
-        }
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) =>
+            _converter.ConvertBack(value, targetTypes, parameter, culture);
     }
 }

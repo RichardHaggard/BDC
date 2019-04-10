@@ -367,6 +367,14 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
+        protected override void ViewActivatedEventHandler(object sender, object e)
+        {
+            base.ViewActivatedEventHandler(sender, e);
+
+            // does this get rid of the start-up flash?
+            WindowVisibility = Visibility.Collapsed;
+        }
+
         protected override bool GetRegionManager()
         {
             return false;
@@ -624,16 +632,12 @@ namespace BDC_V1.ViewModels
         {
             if (!(LocalBredInfo?.HasFacilities).Equals(true)) return null;
 
-            var facilitiesList = new List<TreeViewItem>();
-
             // ReSharper disable once PossibleNullReferenceException
-            foreach (var item in LocalBredInfo.FacilityInfo)
-            {
-                var treeItem = BuildTreeItems(item);
-                if (treeItem != null) facilitiesList.Add(treeItem);
-            }
 
-            return facilitiesList;
+            return LocalBredInfo.FacilityInfo
+                .Select(BuildTreeItems)
+                .Where(treeItem => treeItem != null)
+                .ToList();
         }
 
         [CanBeNull]
@@ -675,8 +679,8 @@ namespace BDC_V1.ViewModels
             bindsBackground.Converter = new SystemElementBackgroundConverter();
             bindsBackground.Bindings.AddRange(new[]
             {
-                new Binding("ComponentType" ) { RelativeSource = new RelativeSource(RelativeSourceMode.Self) },
-                new Binding("HasAnyQaIssues") { RelativeSource = new RelativeSource(RelativeSourceMode.Self) }
+                new Binding("ComponentType" ),
+                new Binding("HasAnyQaIssues")
             });
             node.SetBinding(Control.BackgroundProperty, bindsBackground);
 

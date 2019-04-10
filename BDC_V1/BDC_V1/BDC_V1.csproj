@@ -86,6 +86,7 @@
     <Compile Include="Classes\Address.cs" />
     <Compile Include="Classes\BredInfo.cs" />
     <Compile Include="Classes\BredInfoContainer.cs" />
+    <Compile Include="Classes\Comment.cs" />
     <Compile Include="Classes\CommentBase.cs" />
     <Compile Include="Classes\Commentary.cs" />
     <Compile Include="Classes\CommentInventory.cs" />
@@ -97,6 +98,8 @@
     <Compile Include="Classes\CommentDetail.cs" />
     <Compile Include="Classes\ComponentFacility.cs" />
     <Compile Include="Classes\CommentFacility.cs" />
+    <Compile Include="Classes\FacilityInfo.cs" />
+    <Compile Include="Classes\IndexedCollection.cs" />
     <Compile Include="Classes\InspectionInfo.cs" />
     <Compile Include="Classes\IssueInspection.cs" />
     <Compile Include="Classes\CommentInspection.cs" />
@@ -108,10 +111,17 @@
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\PropertyBase.cs" />
     <Compile Include="Classes\CommentSection.cs" />
+    <Compile Include="Converters\BoolToObjectConverter.cs" />
     <Compile Include="Converters\ImageButtonConverter.cs" />
+    <Compile Include="Interfaces\IComment.cs" />
+    <Compile Include="Interfaces\ICommentCollection.cs" />
     <Compile Include="Interfaces\ICommentInventory.cs" />
     <Compile Include="Interfaces\IComponentSection.cs" />
     <Compile Include="Interfaces\IComponentSystem.cs" />
+    <Compile Include="Interfaces\IDynamicWindowTitle.cs" />
+    <Compile Include="Interfaces\IFacilityInfo.cs" />
+    <Compile Include="Interfaces\IImageCollection.cs" />
+    <Compile Include="Interfaces\IIndexedCollection.cs" />
     <Compile Include="Interfaces\INotifyingCollection.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -278,13 +288,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Documents\BDC mockup feedback 3-30.docx" />
-    <None Include="Documents\BDC Progress &amp; Feedback.xlsx" />
-    <None Include="Documents\BDC Treeview details_S10.Q1.xlsx" />
-    <None Include="Documents\BDC_Wireframe_UI_2019-3-26.xlsx" />
-    <None Include="Documents\BDC_Wireframe_UI_2019-4-8.xlsx" />
-    <None Include="Documents\Tasks.xlsx" />
-    <None Include="Documents\Tasks_4-08.xlsx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -487,6 +490,9 @@
     <Resource Include="Resources\Unlink.png" />
     <Resource Include="Resources\ViewAll.jpg" />
     <Resource Include="Resources\ViewAll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Documents\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

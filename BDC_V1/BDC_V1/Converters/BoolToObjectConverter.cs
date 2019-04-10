@@ -11,6 +11,10 @@ namespace BDC_V1.Converters
     public class BoolToObjectConverter : IMultiValueConverter
     {
         /// <inheritdoc />
+        /// <remarks>
+        /// parameter == true  : Returns values[0] 
+        /// parameter == false : Returns values[1] 
+        /// </remarks>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if ((values.Length == 2) && (parameter is bool bWhich))

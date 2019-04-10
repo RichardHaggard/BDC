@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -28,15 +29,13 @@ namespace BDC_V1.Classes
 
         protected virtual bool SetPropertyFlagged<T>(ref T storage, 
             [CanBeNull] T value,
-            [NotNull] string[] flags,
+            [NotNull] IEnumerable<string> flags,
             [CanBeNull, CallerMemberName] string propertyName = null)
         {
             if (!base.SetProperty(ref storage, value, propertyName)) 
                 return false;
 
-            foreach (var flag in flags.Where(flag => ! string.IsNullOrEmpty(flag)))
-                RaisePropertyChanged(flag);
-
+            RaisePropertyChanged(flags.Where(flag => ! string.IsNullOrEmpty(flag)));
             return true;
         }
 
@@ -46,7 +45,7 @@ namespace BDC_V1.Classes
             [CanBeNull] Action onChanged,
             [CanBeNull, CallerMemberName] string propertyName = null)
         {
-            if (!base.SetProperty(ref storage, value, onChanged, propertyName)) 
+            if (base.SetProperty(ref storage, value, onChanged, propertyName))
                 return false;
 
             if (! string.IsNullOrEmpty(flag)) 
@@ -57,15 +56,15 @@ namespace BDC_V1.Classes
 
         protected virtual bool SetPropertyFlagged<T>(ref T storage,
             [CanBeNull] T value, 
-            [NotNull] string[] flags, 
+            [NotNull] IEnumerable<string> flags, 
             [CanBeNull] Action onChanged,
             [CanBeNull, CallerMemberName] string propertyName = null)
         {
             if (!base.SetProperty(ref storage, value, onChanged, propertyName)) 
                 return false;
 
-            foreach (var flag in flags.Where(flag => ! string.IsNullOrEmpty(flag)))
-                RaisePropertyChanged(flag);
+            RaisePropertyChanged(flags
+                .Where(flag => ! string.IsNullOrEmpty(flag)));
 
             return true;
         }
@@ -80,7 +79,7 @@ namespace BDC_V1.Classes
                 onChanged?.Invoke();
             }
 
-            return collection ?? (collection = new NotifyingCollection<T>());
+            return collection;
         }
 
         protected INotifyingCollection<T> PropertyCollection<T>(
@@ -91,8 +90,10 @@ namespace BDC_V1.Classes
             if (collection == null)
             {
                 collection = new NotifyingCollection<T>();
+
                 if (!string.IsNullOrEmpty(propertyName))
-                    collection.CollectionChanged += (o, i) => RaisePropertyChanged(propertyName);
+                    collection.CollectionChanged += (o, i) => 
+                        RaisePropertyChanged(propertyName);
 
                 RaisePropertyChanged(propertyName);
                 onChanged?.Invoke();
@@ -103,30 +104,30 @@ namespace BDC_V1.Classes
 
         protected INotifyingCollection<T> PropertyCollection<T>(
             [NotNull] ref INotifyingCollection<T> collection, 
-            [NotNull] string[] propertyNames,
+            [NotNull] IEnumerable<string> propertyNames,
             [CanBeNull] Action onChanged = null) 
         {
             if (collection == null)
             {
                 collection = new NotifyingCollection<T>();
 
-                var items = propertyNames.Where(item => !string.IsNullOrEmpty(item)).ToArray();
-                if (items.Any())
-                {
-                    collection.CollectionChanged += (o, i) =>
-                    {
-                        foreach (var propertyName in items)
-                            RaisePropertyChanged(propertyName);
-                    };
+                collection.CollectionChanged += (o, i) =>
+                    RaisePropertyChanged(propertyNames
+                        .Where(item => !string.IsNullOrEmpty(item)));
 
-                    foreach (var propertyName in items)
-                        RaisePropertyChanged(propertyName);
-                }
+                RaisePropertyChanged(propertyNames
+                    .Where(item => !string.IsNullOrEmpty(item)));
 
                 onChanged?.Invoke();
             }
 
             return collection;
+        }
+
+        protected void RaisePropertyChanged(IEnumerable<string> propertyNames)
+        {
+            foreach (var propertyName in propertyNames)
+                RaisePropertyChanged(propertyName);
         }
     }
 }
