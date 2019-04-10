@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Windows.Data;
-using BDC_V1.Enumerations;
+﻿using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
-using Prism.Mvvm;
 
 namespace BDC_V1.Classes
 {

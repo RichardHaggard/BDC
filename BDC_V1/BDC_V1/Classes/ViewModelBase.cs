@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
-using BDC_V1.Classes;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
 using CommonServiceLocator;
 using JetBrains.Annotations;
 using Prism.Events;
-using Prism.Mvvm;
 using Prism.Regions;
-using EventAggregator = BDC_V1.Events.EventAggregator;
 
-namespace BDC_V1.ViewModels
+namespace BDC_V1.Classes
 {
     public class ViewModelBase : PropertyBase, INotifyPropertyChanged
     {
@@ -77,7 +72,7 @@ namespace BDC_V1.ViewModels
         {
             // subscribe to updates of the global information
             // it get's updated when the config file is opened at LoginView or when a new file->open occurs
-            Events.EventAggregator.GetEvent<PubSubEvent<GlobalDataEvent>>()
+            Events.EventTypeAggregator.GetEvent<PubSubEvent<GlobalDataEvent>>()
                 .Subscribe((item) =>
                 {
                     if ((item.GlobalType == typeof(IConfigInfo)) &&
@@ -87,7 +82,7 @@ namespace BDC_V1.ViewModels
                     }
                 });
 
-            EventAggregator.GetEvent<PubSubEvent<GlobalDataEvent>>()
+            EventTypeAggregator.GetEvent<PubSubEvent<GlobalDataEvent>>()
                 .Subscribe((item) =>
                 {
                     if ((item.GlobalType == typeof(IBredInfo)) &&

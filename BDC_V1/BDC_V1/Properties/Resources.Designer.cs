@@ -153,29 +153,9 @@ namespace BDC_V1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Cardno_reg_rgb {
-            get {
-                object obj = ResourceManager.GetObject("Cardno_reg_rgb", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Cardno_rgb {
             get {
                 object obj = ResourceManager.GetObject("Cardno_rgb", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap CardnoLogo {
-            get {
-                object obj = ResourceManager.GetObject("CardnoLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

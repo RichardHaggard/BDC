@@ -214,7 +214,7 @@ namespace BDC_V1.ViewModels
             // published would be an instantiation of an object with various properties
             // filled out. This simple short but is a proof of concept and should be replaced
             // in the real code.
-            //EventAggregator.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
+            //EventTypeAggregator.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
 
         #if USE_PASSWORD
             var view = new PasswordView(new PasswordViewModel());
@@ -229,7 +229,7 @@ namespace BDC_V1.ViewModels
                 DialogResultEx  = true;
 
                 //Publish event to close this window
-                EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+                EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                     .Publish(new CloseWindowEvent(typeof(LoginView).Name));
             }
 
@@ -241,7 +241,7 @@ namespace BDC_V1.ViewModels
                 DialogResultEx  = false;
 
                 //Publish event to close this window
-                EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+                EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                     .Publish(new CloseWindowEvent(typeof(LoginView).Name));
             }
         #else
@@ -249,7 +249,7 @@ namespace BDC_V1.ViewModels
 
         #if false
             //Publish event to close this window
-            EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+            EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                 .Publish(new CloseWindowEvent(typeof(LoginView).Name));
         #endif
         #endif

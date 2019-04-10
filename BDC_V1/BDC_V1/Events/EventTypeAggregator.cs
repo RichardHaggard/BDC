@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommonServiceLocator;
+﻿using CommonServiceLocator;
 using Prism.Events;
 
 namespace BDC_V1.Events
 {
-    public static class EventAggregator
+    public static class EventTypeAggregator
     {
         private static IEventAggregator _eventAggregator;
 

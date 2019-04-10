@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows.Input;
 using BDC_V1.Enumerations;
 using Prism.Commands;
 
-namespace BDC_V1.ViewModels
+namespace BDC_V1.Classes
 {
     public class CommentWindows : CloseableWindow
     {

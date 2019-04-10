@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using BDC_V1.Classes;
 using BDC_V1.Events;
 using BDC_V1.Views;
 using JetBrains.Annotations;
 using Prism.Commands;
 using Prism.Events;
-using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.ViewModels
 {
@@ -52,7 +47,7 @@ namespace BDC_V1.ViewModels
             DialogResultEx = true;
 
             //Publish event to close this window
-            EventAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+            EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                 .Publish(new CloseWindowEvent(typeof(PasswordView).Name));
         }
     }

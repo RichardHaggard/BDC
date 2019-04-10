@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Input;
+using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 using BDC_V1.Events;
 using BDC_V1.Views;

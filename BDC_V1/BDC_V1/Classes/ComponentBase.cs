@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
-using BDC_V1.Utils;
 using JetBrains.Annotations;
-using Prism.Mvvm;
 
 namespace BDC_V1.Classes
 {

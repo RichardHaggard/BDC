@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using Prism.Events;
-using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.Services
 {
@@ -21,7 +16,7 @@ namespace BDC_V1.Services
 
         public AppController()
         {
-            EventAggregator.GetEvent<PubSubEvent<string>>().Subscribe(OnUserAction);
+            EventTypeAggregator.GetEvent<PubSubEvent<string>>().Subscribe(OnUserAction);
         }
 
         // **************** Class members *************************************************** //

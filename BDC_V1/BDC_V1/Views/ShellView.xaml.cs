@@ -23,7 +23,7 @@ namespace BDC_V1.Views
         {
             InitializeComponent();
 
-            //EventAggregator.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
+            //EventTypeAggregator.GetEvent<PubSubEvent<WindowVisibilityEvent>>()
             //    .Subscribe((item) =>
             //{
             //    if ((item == null) || (item.WindowName != this.GetType().Name)) return;

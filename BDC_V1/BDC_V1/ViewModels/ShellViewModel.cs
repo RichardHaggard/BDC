@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,17 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Converters;
-using BDC_V1.Enumerations;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
-using BDC_V1.Utils;
 using BDC_V1.Views;
 using JetBrains.Annotations;
-using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
-using EventAggregator = BDC_V1.Events.EventAggregator;
 
 namespace BDC_V1.ViewModels
 {
@@ -549,7 +543,7 @@ namespace BDC_V1.ViewModels
             {
                 SetToolbarMenuItems(tabItem);
 
-                EventAggregator.GetEvent<PubSubEvent<TabChangeEvent>>()
+                EventTypeAggregator.GetEvent<PubSubEvent<TabChangeEvent>>()
                     .Publish(new TabChangeEvent("ViewTabControl", tabItem.Name));
             }
         }
@@ -862,7 +856,7 @@ namespace BDC_V1.ViewModels
                     Command = new DelegateCommand(OnCopySections),
                     Content = new System.Windows.Controls.Image
                     {
-                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.jpg")),
+                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.png")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
@@ -876,7 +870,7 @@ namespace BDC_V1.ViewModels
                     Command = new DelegateCommand(OnCopyInventory),
                     Content = new System.Windows.Controls.Image
                     {
-                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.jpg")),
+                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.png")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }
@@ -913,7 +907,7 @@ namespace BDC_V1.ViewModels
                     Command = new DelegateCommand(OnCopyInspection),
                     Content = new System.Windows.Controls.Image
                     {
-                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.jpg")),
+                        Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/Copy.png")),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     }

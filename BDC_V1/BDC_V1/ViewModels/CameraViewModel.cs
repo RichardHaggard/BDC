@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 using BDC_V1.Views;
 using JetBrains.Annotations;

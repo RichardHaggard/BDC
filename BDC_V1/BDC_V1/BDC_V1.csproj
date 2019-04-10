@@ -136,7 +136,7 @@
     <Compile Include="Enumerations\EnumTreeNodeType.cs" />
     <Compile Include="Interfaces\ICommentDetail.cs" />
     <Compile Include="Events\CloseWindowEvent.cs" />
-    <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Events\EventTypeAggregator.cs" />
     <Compile Include="Events\GlobalDataEvent.cs" />
     <Compile Include="Events\TabChangeEvent.cs" />
     <Compile Include="Events\WindowVisibilityEvent.cs" />
@@ -191,15 +191,15 @@
     <Compile Include="ViewModels\AddNewComponentViewModel.cs" />
     <Compile Include="ViewModels\AddSystemViewModel.cs" />
     <Compile Include="ViewModels\CameraViewModel.cs" />
-    <Compile Include="ViewModels\CloseableWindow.cs" />
+    <Compile Include="Classes\CloseableWindow.cs" />
     <Compile Include="ViewModels\CommentInspectionViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
-    <Compile Include="ViewModels\CommentWindows.cs" />
+    <Compile Include="Classes\CommentWindows.cs" />
     <Compile Include="ViewModels\CopyCommentViewModel.cs" />
     <Compile Include="ViewModels\CopyInventoryViewModel.cs" />
-    <Compile Include="ViewModels\FacilityBaseClass.cs" />
+    <Compile Include="Classes\FacilityBaseClass.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
-    <Compile Include="ViewModels\ImagesModelBase.cs" />
+    <Compile Include="Classes\ImagesModelBase.cs" />
     <Compile Include="ViewModels\InspectionViewModel.cs" />
     <Compile Include="ViewModels\InventoryDetailsViewModel.cs" />
     <Compile Include="ViewModels\InventorySectionViewModel.cs" />
@@ -210,7 +210,7 @@
     <Compile Include="ViewModels\QaInspectionViewModel.cs" />
     <Compile Include="ViewModels\QaInventoryViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Classes\ViewModelBase.cs" />
     <Compile Include="Views\AddNewComponentView.xaml.cs">
       <DependentUpon>AddNewComponentView.xaml</DependentUpon>
     </Compile>
@@ -295,6 +295,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\Testing.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AddNewComponentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -381,107 +385,6 @@
     <PackageReference Include="Prism.Unity" Version="7.1.0.431&#xD;&#xA;" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Bluebeam.jpg" />
-    <Resource Include="Resources\Calculator.png" />
-    <Resource Include="Resources\Copy.jpg" />
-    <Resource Include="Resources\OpenFile.jpg" />
-    <Resource Include="Resources\Photos_cropped %281%29.jpg" />
-    <Resource Include="Resources\Report.jpg" />
-    <Resource Include="Resources\Summary.png" />
-    <Resource Include="Resources\ViewAll.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Add.png" />
-    <Resource Include="Resources\BarcodeScan2.png" />
-    <Resource Include="Resources\Camera.png" />
-    <Resource Include="Resources\Camera_cropped.png" />
-    <Resource Include="Resources\Cancel.png" />
-    <Resource Include="Resources\Cancel_Undo.png" />
-    <Resource Include="Resources\CardnoLogo.bmp" />
-    <Resource Include="Resources\Checkbox.png" />
-    <Resource Include="Resources\Checkbox_Sm.png" />
-    <Resource Include="Resources\checkedbox_checked.png" />
-    <Resource Include="Resources\Crop.png" />
-    <Resource Include="Resources\Delete.png" />
-    <Resource Include="Resources\Distress_Selector.png" />
-    <Resource Include="Resources\DownArrow.png" />
-    <Resource Include="Resources\Edit.png" />
-    <Resource Include="Resources\EditText_Comments.png" />
-    <Resource Include="Resources\Filter_Clear.png" />
-    <Resource Include="Resources\Filter_Green.jpg" />
-    <Resource Include="Resources\Folder_Closed.png" />
-    <Resource Include="Resources\Inspection.png" />
-    <Resource Include="Resources\Inventory.png" />
-    <Resource Include="Resources\MicrophoneOFF_Rnd_Slash.png" />
-    <Resource Include="Resources\MicrophoneON_Rnd.png" />
-    <Resource Include="Resources\OK.png" />
-    <Resource Include="Resources\OK_ReviewLater.png" />
-    <Resource Include="Resources\PhotoIcon.jpg" />
-    <Resource Include="Resources\Photos_cropped.jpg" />
-    <Resource Include="Resources\ProgressStatus.jpg" />
-    <Resource Include="Resources\RadioBtn_Checked.png" />
-    <Resource Include="Resources\RadioBtn_Unchecked.png" />
-    <Resource Include="Resources\Refresh.png" />
-    <Resource Include="Resources\Remember.png" />
-    <Resource Include="Resources\ReviewIssue.png" />
-    <Resource Include="Resources\ReviewLater.png" />
-    <Resource Include="Resources\RotateLeft.png" />
-    <Resource Include="Resources\RotateRight.png" />
-    <Resource Include="Resources\Slider.png" />
-    <Resource Include="Resources\SpellCheck.png" />
-    <Resource Include="Resources\Unlink.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\AddComponent.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\AddSection.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\AddSystem.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Cardno_reg_rgb.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Cardno_rgb.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\DeleteComponent.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\DeleteSection.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\DeleteSystem.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\GreenDownArrow.png" />
-    <Resource Include="Resources\Filter %281%29.png" />
-    <Resource Include="Resources\Remember %281%29.png" />
-    <Resource Include="Resources\Distress_Selector %281%29.png" />
-    <Resource Include="Resources\OK %281%29.png" />
-    <Resource Include="Resources\OK_ReviewLater %281%29.png" />
-    <Resource Include="Resources\Crop %281%29.png" />
-    <Resource Include="Resources\RotateLeft %281%29.png" />
-    <Resource Include="Resources\RotateRight %281%29.png" />
-    <Resource Include="Resources\Photos_cropped %281%29.png" />
-    <Resource Include="Resources\EditText_Comments %281%29.png" />
-    <Resource Include="Resources\MicrophoneOFF_Rnd_Slash %281%29.png" />
-    <Resource Include="Resources\MicrophoneON_Rnd %281%29.png" />
-    <Resource Include="Resources\Inspection %281%29.png" />
-    <Resource Include="Resources\Inventory %281%29.png" />
-    <Resource Include="Resources\Filter_Clear %281%29.png" />
-    <Resource Include="Resources\ReviewIssue %281%29.png" />
-    <Resource Include="Resources\Copy.png" />
-    <Resource Include="Resources\Filter.png" />
-    <Resource Include="Resources\AddComponent %281%29.png" />
-    <Resource Include="Resources\AddSection %281%29.png" />
-    <Resource Include="Resources\AddSystem %281%29.png" />
-    <Resource Include="Resources\Cardno_reg_rgb %281%29.png" />
-    <Resource Include="Resources\Cancel_Undo %281%29.png" />
-    <Resource Include="Resources\Camera_cropped %281%29.png" />
-    <Resource Include="Resources\Cancel %281%29.png" />
     <Resource Include="Images\EmeraldHils.jpg" />
     <Resource Include="Images\FlamingoWater.jpg" />
     <Resource Include="Images\GilletteStadium_1.jpg" />
@@ -493,11 +396,97 @@
     <Resource Include="Images\th4.jpg" />
     <Resource Include="Images\th5.jpg" />
     <Resource Include="Images\th6.jpg" />
-    <Content Include="Resources\Cardno_reg_rgb.wmf" />
-    <Resource Include="Resources\Cardno_rgb %281%29.png" />
+    <Resource Include="Images\th7.jpg" />
+    <Resource Include="Images\th8.jpg" />
+    <Resource Include="Images\th9.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Add.png" />
+    <Resource Include="Resources\AddComponent %281%29.png" />
+    <Resource Include="Resources\AddComponent.png" />
+    <Resource Include="Resources\AddSection %281%29.png" />
+    <Resource Include="Resources\AddSection.png" />
+    <Resource Include="Resources\AddSystem %281%29.png" />
+    <Resource Include="Resources\AddSystem.png" />
+    <Resource Include="Resources\BarcodeScan2.png" />
+    <Resource Include="Resources\Bluebeam.jpg" />
+    <Resource Include="Resources\Bluebeam.png" />
+    <Resource Include="Resources\Calculator.png" />
+    <Resource Include="Resources\Camera.png" />
+    <Resource Include="Resources\Camera_cropped %281%29.png" />
+    <Resource Include="Resources\Camera_cropped.png" />
+    <Resource Include="Resources\Cancel %281%29.png" />
+    <Resource Include="Resources\Cancel.png" />
+    <Resource Include="Resources\Cancel_Undo %281%29.png" />
+    <Resource Include="Resources\Cancel_Undo.png" />
+    <Resource Include="Resources\Cardno_rgb.png" />
+    <Resource Include="Resources\Checkbox.png" />
+    <Resource Include="Resources\Checkbox_Sm.png" />
+    <Resource Include="Resources\checkedbox_checked.png" />
+    <Resource Include="Resources\Copy.png" />
+    <Resource Include="Resources\Crop %281%29.png" />
+    <Resource Include="Resources\Crop.png" />
+    <Resource Include="Resources\Delete.png" />
     <Resource Include="Resources\DeleteComponent %281%29.png" />
+    <Resource Include="Resources\DeleteComponent.png" />
     <Resource Include="Resources\DeleteSection %281%29.png" />
+    <Resource Include="Resources\DeleteSection.png" />
     <Resource Include="Resources\DeleteSystem %281%29.png" />
+    <Resource Include="Resources\DeleteSystem.png" />
+    <Resource Include="Resources\Distress_Selector %281%29.png" />
+    <Resource Include="Resources\Distress_Selector.png" />
+    <Resource Include="Resources\DownArrow.png" />
+    <Resource Include="Resources\Edit.png" />
+    <Resource Include="Resources\EditText_Comments %281%29.png" />
+    <Resource Include="Resources\EditText_Comments.png" />
+    <Resource Include="Resources\Filter %281%29.png" />
+    <Resource Include="Resources\Filter.png" />
+    <Resource Include="Resources\Filter_Clear %281%29.png" />
+    <Resource Include="Resources\Filter_Clear.png" />
+    <Resource Include="Resources\Filter_Green.jpg" />
+    <Resource Include="Resources\Filter_Green.png" />
+    <Resource Include="Resources\Flasch-OFF-75_icons8.png" />
+    <Resource Include="Resources\Flash-on-75_icons8.png" />
+    <Resource Include="Resources\Folder_Closed.png" />
+    <Resource Include="Resources\GreenDownArrow.png" />
+    <Resource Include="Resources\Inspection %281%29.png" />
+    <Resource Include="Resources\Inspection.png" />
+    <Resource Include="Resources\Inventory %281%29.png" />
+    <Resource Include="Resources\Inventory.png" />
+    <Resource Include="Resources\MicrophoneOFF_Rnd_Slash %281%29.png" />
+    <Resource Include="Resources\MicrophoneOFF_Rnd_Slash.png" />
+    <Resource Include="Resources\MicrophoneON_Rnd %281%29.png" />
+    <Resource Include="Resources\MicrophoneON_Rnd.png" />
+    <Resource Include="Resources\OK %281%29.png" />
+    <Resource Include="Resources\OK.png" />
+    <Resource Include="Resources\OK_ReviewLater %281%29.png" />
+    <Resource Include="Resources\OK_ReviewLater.png" />
+    <Resource Include="Resources\OpenFile.jpg" />
+    <Resource Include="Resources\OpenFile.png" />
+    <Resource Include="Resources\PhotoIcon.jpg" />
+    <Resource Include="Resources\PhotoIcon.png" />
+    <Resource Include="Resources\Photos_cropped.png" />
+    <Resource Include="Resources\ProgressStatus.jpg" />
+    <Resource Include="Resources\ProgressStatus.png" />
+    <Resource Include="Resources\RadioBtn_Checked.png" />
+    <Resource Include="Resources\RadioBtn_Unchecked.png" />
+    <Resource Include="Resources\Refresh.png" />
+    <Resource Include="Resources\Remember %281%29.png" />
+    <Resource Include="Resources\Remember.png" />
+    <Resource Include="Resources\Report.jpg" />
+    <Resource Include="Resources\ReviewIssue %281%29.png" />
+    <Resource Include="Resources\ReviewIssue.png" />
+    <Resource Include="Resources\ReviewLater.png" />
+    <Resource Include="Resources\RotateLeft %281%29.png" />
+    <Resource Include="Resources\RotateLeft.png" />
+    <Resource Include="Resources\RotateRight %281%29.png" />
+    <Resource Include="Resources\RotateRight.png" />
+    <Resource Include="Resources\Slider.png" />
+    <Resource Include="Resources\SpellCheck.png" />
+    <Resource Include="Resources\Summary.png" />
+    <Resource Include="Resources\Unlink.png" />
+    <Resource Include="Resources\ViewAll.jpg" />
+    <Resource Include="Resources\ViewAll.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
