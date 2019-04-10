@@ -282,7 +282,9 @@
     <None Include="Documents\BDC Progress &amp; Feedback.xlsx" />
     <None Include="Documents\BDC Treeview details_S10.Q1.xlsx" />
     <None Include="Documents\BDC_Wireframe_UI_2019-3-26.xlsx" />
+    <None Include="Documents\BDC_Wireframe_UI_2019-4-8.xlsx" />
     <None Include="Documents\Tasks.xlsx" />
+    <None Include="Documents\Tasks_4-08.xlsx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
