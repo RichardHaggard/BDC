@@ -192,8 +192,6 @@ namespace BDC_V1.Classes
 
 
         public bool HasImages => Images.HasItems;
-
-
         public INotifyingCollection<ImageSource> Images => 
             PropertyCollection<ImageSource>(ref _images, nameof(HasImages));
         [CanBeNull] private INotifyingCollection<ImageSource> _images;

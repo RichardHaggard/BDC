@@ -48,5 +48,23 @@ namespace BDC_V1.Interfaces
         /// The collection
         /// </summary>
         [NotNull] INotifyingCollection<T> ItemCollection { get; }
+
+        /// <summary>
+        /// Add multiple items
+        /// </summary>
+        /// <remarks>
+        /// Suppresses notifications until complete
+        /// </remarks>
+        /// <param name="list"></param>
+        void AddRange(IEnumerable<T> list);
+
+        /// <summary>
+        /// Remove multiple items
+        /// </summary>
+        /// <remarks>
+        /// Suppresses notifications until complete
+        /// </remarks>
+        /// <param name="list"></param>
+        IEnumerable<T> RemoveRange([CanBeNull] IEnumerable<T> list);
     }
 }

@@ -14,11 +14,13 @@
              MaxHeight="750" MaxWidth="875"
              d:DesignHeight="750" d:DesignWidth="875">
 
+<!--
   <i:Interaction.Triggers>
     <i:EventTrigger EventName="Loaded">
       <i:InvokeCommandAction Command="{Binding ViewActivated}" />
     </i:EventTrigger>
   </i:Interaction.Triggers>
+-->
 
   <UserControl.Resources>
     <Style x:Key="FacilityBlockButtonStyle" TargetType="Button" 
@@ -26,12 +28,6 @@
       <Setter Property="Height" Value="95" />
       <Setter Property="Width" Value="160" />
       <Setter Property="Margin" Value="5,5,5,0" />
-    </Style>
-
-    <!-- Offset needed to visually center the image -->
-    <Style x:Key="ImageClickBlockCommentImageStyle" TargetType="Image" 
-           BasedOn="{StaticResource ImageClickBlockImageStyle}">
-      <Setter Property="Margin" Value="5,0,0,0" />
     </Style>
 
     <Style x:Key="PhotosBlockButtonStyle" TargetType="Button" 

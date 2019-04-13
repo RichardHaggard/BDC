@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Converters;
+using BDC_V1.Enumerations;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Views;
@@ -259,17 +260,20 @@ namespace BDC_V1.ViewModels
         }
         private Visibility _visibilityInspectionButton = Visibility.Collapsed;
 
+        // DON'T USE INTERFACES AS ITEM SOURCE - It breaks the Hierarchical templating
+        public ObservableCollection<ComponentBase> TreeItemsViewSource
+        {
+            get => _treeItemsViewSource ?? (_treeItemsViewSource = new ObservableCollection<ComponentBase>());
+            set => SetProperty(ref _treeItemsViewSource, value);
+        }
+        private ObservableCollection<ComponentBase> _treeItemsViewSource;
 
-        public INotifyingCollection<TreeViewItem> TreeItemsViewSource =>
-            PropertyCollection<TreeViewItem>(ref _treeItemsViewSource);
-
-        [CanBeNull] private INotifyingCollection<TreeViewItem> _treeItemsViewSource;
-
-        public INotifyingCollection<Control> ToolbarMenuItems =>
-            PropertyCollection<Control>(ref _toolbarMenuItems);
-
-        [CanBeNull] private INotifyingCollection<Control> _toolbarMenuItems;
-
+        public IIndexedCollection<Control> ToolbarMenuItems
+        {
+            get => _toolbarMenuItems;
+            private set => SetProperty(ref _toolbarMenuItems, value);
+        }
+        private IIndexedCollection<Control> _toolbarMenuItems = new IndexedCollection<Control>();
 
         // **************** Class data members ********************************************** //
 
@@ -296,12 +300,15 @@ namespace BDC_V1.ViewModels
                 {
                     BredFilename = base.LocalBredInfo?.FileName;
                     UpdateTreeView(ViewTabItem);
+
+                    TreeItemsViewSource = base.LocalBredInfo?.FacilityInfo;
                 }
 
                 else
                 {
                     BredFilename = string.Empty;
-                    TreeItemsViewSource.Clear();
+
+                    TreeItemsViewSource = null;
                     InspectedByUser = null;
                 }
             }
@@ -558,8 +565,7 @@ namespace BDC_V1.ViewModels
 
         private void UpdateTreeView([CanBeNull] TabItem tabItem)
         {
-            TreeItemsViewSource.Clear();
-
+            // this is a total hack to get the tree view to update when the filter changes
             if ((tabItem != null) && (LocalBredInfo != null))
             {
                 Predicate<IComponentBase> filter = (arg) => true;;
@@ -572,165 +578,72 @@ namespace BDC_V1.ViewModels
                 VisibilityCopySectionsButton   =
                 VisibilityDeleteSystemButton   = Visibility.Collapsed;
 
-                // build the total list of treeItem nodes
-                TreeItemsViewSource.AddRange(BuildTreeItems());
-
                 // Filter (hide) items that shouldn't be displayed
+                // TODO: Filters aren't working... They set the internal IsActive state but the tree view doesn't update.
                 switch (tabItem.Name)
                 {
                     case "Facility":
-                        {
-                            VisibilityAddSystemButton    = 
-                            VisibilityDeleteSystemButton = Visibility.Visible;
-                            break;
-                        }
+                        VisibilityAddSystemButton    =
+                        VisibilityDeleteSystemButton = Visibility.Visible;
+                        break;
 
                     case "Inventory":
-                        {
-                            VisibilityAddComponentButton =
-                            VisibilityAddSectionButton =
-                            VisibilityCopyInventoryButton =
-                            VisibilityCopySectionsButton = Visibility.Visible;
+                        VisibilityAddComponentButton  =
+                        VisibilityAddSectionButton    =
+                        VisibilityCopyInventoryButton =
+                        VisibilityCopySectionsButton  = Visibility.Visible;
 
-                            //filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
-                            //                   (arg.ComponentType == EnumComponentTypes.SystemType) ||
-                            //                   (arg.ComponentType == EnumComponentTypes.SectionType));
-                            break;
-                        }
+                        filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
+                                           (arg.ComponentType == EnumComponentTypes.SystemType  ) ||
+                                           (arg.ComponentType == EnumComponentTypes.SectionType));
+                        break;
 
                     case "Inspection":
-                        {
-                            VisibilityCopyInspectionButton = Visibility.Visible;
+                        VisibilityCopyInspectionButton = Visibility.Visible;
 
-                            //filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
-                            //                   (arg.ComponentType == EnumComponentTypes.SystemType) ||
-                            //                   (arg.ComponentType == EnumComponentTypes.SectionType));
-                            break;
-                        }
+                        filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
+                                           (arg.ComponentType == EnumComponentTypes.SystemType  ) ||
+                                           (arg.ComponentType == EnumComponentTypes.SectionType));
+                        break;
 
                     case "QaInventory":
                     case "QaInspection":
-                        {
-                            //filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
-                            //                   (arg.ComponentType == EnumComponentTypes.SystemType));
-                            break;
-                        }
+                        filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
+                                           (arg.ComponentType == EnumComponentTypes.SystemType));
+                        break;
 
                     default:
-                        //filter = (arg) => false;
+                        filter = (arg) => false;
                         break;
                 }
 
-                FilterNodeTree(TreeItemsViewSource, filter);
+                // Filter the tree
+                // TODO: This will leave tree items that all the children are collapsed showing
+                //       expand arrows that don't work
+                FilterComponentTree(TreeItemsViewSource, filter);
             }
-
-            RaisePropertyChanged(nameof(TreeItemsViewSource));
         }
 
-        [CanBeNull]
-        protected IList<TreeViewItem> BuildTreeItems()
+        protected void FilterComponentTree(
+            [CanBeNull] IEnumerable<ComponentBase> componentList, 
+            [NotNull] Predicate<IComponentBase> filter)
         {
-            if (!(LocalBredInfo?.HasFacilities).Equals(true)) return null;
+            if (componentList == null) return;
 
-            // ReSharper disable once PossibleNullReferenceException
-
-            return LocalBredInfo.FacilityInfo
-                .Select(BuildTreeItems)
-                .Where(treeItem => treeItem != null)
-                .ToList();
+            foreach (var facility in componentList)
+                FilterComponentTree(facility, filter);
         }
 
-        [CanBeNull]
-        protected TreeViewItem BuildTreeItems([CanBeNull] IComponentBase component)
+        protected void FilterComponentTree(
+            [CanBeNull] IComponentBase component, 
+            [NotNull] Predicate<IComponentBase> filter)
         {
-            if (component == null) return null;
+            if (component == null) return;
 
-            var safeName = new string(component.ComponentName.Where(char.IsLetterOrDigit).ToArray());
+            component.IsActive = filter(component);
 
-            var node = new TreeViewItem
-            {
-                Name                       = safeName,
-                Foreground                 = Brushes.Black,
-                HorizontalContentAlignment = HorizontalAlignment.Left,  // removes some mysterious runtime warnings
-                VerticalContentAlignment   = VerticalAlignment.Center,
-                DataContext                = component,
-            };
-
-            node.SetBinding(HeaderedItemsControl.HeaderProperty, new Binding
-            {
-                Path = new PropertyPath("ComponentName")
-            });
-
-            node.SetBinding(Control.FontWeightProperty, new Binding
-            {
-                Path      = new PropertyPath("ComponentType"),
-                Converter = new SystemElementFontWeightConverter()
-            });
-
-            node.SetBinding(Control.FontSizeProperty, new Binding
-            {
-                Path               = new PropertyPath("ComponentType"),
-                Converter          = new SystemElementFontSizeConverter(),
-                ConverterParameter = node.FontSize
-            });
-
-            // ReSharper disable once UseObjectOrCollectionInitializer
-            var bindsBackground = new MultiBinding();
-            bindsBackground.Converter = new SystemElementBackgroundConverter();
-            bindsBackground.Bindings.AddRange(new[]
-            {
-                new Binding("ComponentType" ),
-                new Binding("HasAnyQaIssues")
-            });
-            node.SetBinding(Control.BackgroundProperty, bindsBackground);
-
-            if (component.HasComponents)
-            {
-                foreach (var item in component.Components)
-                {
-                    var treeItem = BuildTreeItems(item);
-                    if (treeItem != null) node.Items.Add(treeItem);
-                }
-            }
-
-            return node;
-        }
-
-        protected void FilterNodeTree([CanBeNull] ItemCollection nodeList, [NotNull] Predicate<IComponentBase> filter)
-        {
-            if (nodeList == null) return;
-
-            foreach (var node in nodeList)
-                FilterNodeTree(node as TreeViewItem, filter);
-        }
-
-        protected void FilterNodeTree([CanBeNull] TreeViewItem treeNode, [NotNull] Predicate<IComponentBase> filter)
-        {
-            if (treeNode == null) return;
-
-            if (treeNode.DataContext is IComponentBase component)
-            {
-                if (filter(component))
-                {
-                    treeNode.Visibility = Visibility.Visible;
-                    treeNode.IsEnabled = true;
-                }
-                else
-                {
-                    treeNode.Visibility = Visibility.Collapsed;
-                    treeNode.IsEnabled = false;
-                }
-            }
-
-            if (treeNode.Items.Count > 0) FilterNodeTree(treeNode.Items, filter);
-        }
-
-        protected void FilterNodeTree([CanBeNull] IEnumerable<TreeViewItem> nodeList, [NotNull] Predicate<IComponentBase> filter)
-        {
-            if (nodeList == null) return;
-
-            foreach (var treeNode in nodeList)
-                FilterNodeTree(treeNode, filter);
+            if (component.HasComponents) 
+                FilterComponentTree(component.Children, filter);
         }
 
         public void SetToolbarMenuItems([NotNull] TabItem tabItem)
@@ -826,7 +739,7 @@ namespace BDC_V1.ViewModels
                 new Separator() {Style = sepStyle},
                 new Button
                 {
-                    Name = "AddComponent",
+                    Name = "AddChild",
                     ToolTip = "Add ComponentInventory",
                     IsEnabled = true,
                     Command = new DelegateCommand(OnAddComponent),

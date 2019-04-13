@@ -12,7 +12,7 @@ namespace BDC_V1.Mock_Data
 {
     public static class MockFacility
     {
-        public static IList<IComponentFacility> Facilities { get; } = new List<IComponentFacility>();
+        public static IList<ComponentFacility> Facilities { get; } = new List<ComponentFacility>();
 
 #if DEBUG
 #warning Using MOCK data for Facilities
@@ -23,13 +23,13 @@ namespace BDC_V1.Mock_Data
         }
 
         [NotNull]
-        private static IComponentFacility CreateFacilityFramework()
+        private static ComponentFacility CreateFacilityFramework()
         {
             var facility = new ComponentFacility();
 
             foreach (EnumFacilitySystemTypes item in Enum.GetValues(typeof(EnumFacilitySystemTypes)))
             {
-                facility.Components.Add(new ComponentSystem()
+                facility.AddChild(new ComponentSystem()
                 {
                     ComponentType = EnumComponentTypes.SystemType,
                     ComponentName = item.GetSystemName()
@@ -49,7 +49,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            a10.Components.Add(new ComponentSection
+                            a10.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -69,7 +69,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            a20.Components.Add(new ComponentSection
+                            a20.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -89,7 +89,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            b10.Components.Add(new ComponentSection
+                            b10.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -109,7 +109,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            b20.Components.Add(new ComponentSection
+                            b20.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -129,7 +129,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            b30.Components.Add(new ComponentSection
+                            b30.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -149,7 +149,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            c10.Components.Add(new ComponentSection
+                            c10.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -169,7 +169,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            c20.Components.Add(new ComponentSection
+                            c20.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -189,7 +189,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            c30.Components.Add(new ComponentSection
+                            c30.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -209,7 +209,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            d10.Components.Add(new ComponentSection
+                            d10.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -229,7 +229,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            d20.Components.Add(new ComponentSection
+                            d20.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -249,7 +249,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            d30.Components.Add(new ComponentSection
+                            d30.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -269,7 +269,7 @@ namespace BDC_V1.Mock_Data
                     {
                         if (subType.ToString() != "None")
                         {
-                            d40.Components.Add(new ComponentSection
+                            d40.AddChild(new ComponentSection
                             {
                                 ComponentType = EnumComponentTypes.SectionType,
                                 ComponentName = subType.GetSystemName()
@@ -282,7 +282,7 @@ namespace BDC_V1.Mock_Data
             return facility;
         }
 
-        private static IComponentFacility MockFacility1()
+        private static ComponentFacility MockFacility1()
         {
             var facility1 = CreateFacilityFramework();
             facility1.ConstType = EnumConstType.Permanent;
@@ -366,7 +366,7 @@ namespace BDC_V1.Mock_Data
                         ComponentType = EnumComponentTypes.InventoryType
                     };
 
-                    c3010.Components.Add(c301001);
+                    c3010.AddChild(c301001);
                 }
             }
 
@@ -377,7 +377,7 @@ namespace BDC_V1.Mock_Data
             {
                 if (tmp is IComponentSection c3020)
                 {
-                    var list = new List<IComponentInventory>
+                    var list = new List<ComponentInventory>
                     {
                         new ComponentInventory()
                         {
@@ -391,7 +391,7 @@ namespace BDC_V1.Mock_Data
                         }
                     };
 
-                    c3020.Components.AddRange(list);
+                    c3020.AddChildren(list);
                 }
             }
 
@@ -408,7 +408,7 @@ namespace BDC_V1.Mock_Data
                         ComponentType = EnumComponentTypes.InventoryType
                     };
 
-                    d3010.Components.Add(d3010002);
+                    d3010.AddChild(d3010002);
                 }
             }
 
@@ -425,7 +425,7 @@ namespace BDC_V1.Mock_Data
             {
                 if (tmp is IComponentSection d3010)
                 {
-                    d3010.Components.Add(d3020001);
+                    d3010.AddChild(d3020001);
                 }
             }
 
@@ -440,7 +440,7 @@ namespace BDC_V1.Mock_Data
                     ComponentType = EnumComponentTypes.InventoryType
                 };
 
-                fNode.Components.Add(northSide);
+                fNode.AddChild(northSide);
 
                 fNode.InspectionIssues.Add(new IssueInspection
                 {
@@ -476,7 +476,7 @@ namespace BDC_V1.Mock_Data
             {
                 if (tmp is IComponentSection d3010)
                 {
-                    d3010.Components.Add(d5010001);
+                    d3010.AddChild(d5010001);
                 }
             }
 
@@ -530,7 +530,7 @@ namespace BDC_V1.Mock_Data
             return facility1;
         }
 
-        private static IComponentFacility MockFacility2()
+        private static ComponentFacility MockFacility2()
         {
             var facility2 = CreateFacilityFramework();
             facility2.ConstType = EnumConstType.Permanent;
@@ -651,7 +651,7 @@ namespace BDC_V1.Mock_Data
                         ComponentType = EnumComponentTypes.InventoryType
                     };
 
-                    c3010.Components.Add(c301001);
+                    c3010.AddChild(c301001);
                 }
             }
 
@@ -663,7 +663,7 @@ namespace BDC_V1.Mock_Data
                 if (tmp is IComponentSection c3030)
                 {
                     // ReSharper disable StringLiteralTypo
-                    var list = new List<IComponentInventory>
+                    var list = new List<ComponentInventory>
                     {
                         new ComponentInventory()
                         {
@@ -683,7 +683,7 @@ namespace BDC_V1.Mock_Data
                     };
                     // ReSharper restore StringLiteralTypo
 
-                    c3030.Components.AddRange(list);
+                    c3030.AddChildren(list);
                 }
             }
 
@@ -701,7 +701,7 @@ namespace BDC_V1.Mock_Data
             {
                 if (tmp is IComponentSection d3020)
                 {
-                    d3020.Components.Add(d3020001);
+                    d3020.AddChild(d3020001);
                 }
             }
 
@@ -709,7 +709,7 @@ namespace BDC_V1.Mock_Data
             tmp = facility2.GetComponent(d3020001);
             if (tmp is IComponentSystem fNode)
             {
-                var list = new List<IComponentInventory>
+                var list = new List<ComponentInventory>
                 {
                     new ComponentInventory()
                     {
@@ -728,7 +728,7 @@ namespace BDC_V1.Mock_Data
                     }
                 };
 
-                fNode.Components.AddRange(list);
+                fNode.AddChildren(list);
             }
 
             return facility2;

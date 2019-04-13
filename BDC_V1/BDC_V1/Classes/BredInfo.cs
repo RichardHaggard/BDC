@@ -27,16 +27,22 @@ namespace BDC_V1.Classes
         }
         private string _fileName;
 
-        public bool HasFacilities => FacilityInfo.HasItems;
-        public INotifyingCollection<IComponentFacility> FacilityInfo =>
-            PropertyCollection<IComponentFacility>(ref _facilityInfo, nameof(HasFacilities));
-        [CanBeNull] private INotifyingCollection<IComponentFacility> _facilityInfo;
+        public bool HasFacilities => FacilityInfo.Any();
+
+        public ObservableCollection<ComponentBase> FacilityInfo { get; }
+        //PropertyCollection<IComponentFacility>(ref _facilityInfo, nameof(HasFacilities));
+        //[CanBeNull] private INotifyingCollection<IComponentFacility> _facilityInfo;
 
         // **************** Class data members ********************************************** //
 
 
         // **************** Class constructors ********************************************** //
 
+        public BredInfo()
+        {
+            FacilityInfo = new ObservableCollection<ComponentBase>();
+            FacilityInfo.CollectionChanged += (o, i) => { RaisePropertyChanged(nameof(HasFacilities)); };
+        }
 
         // **************** Class members *************************************************** //
 

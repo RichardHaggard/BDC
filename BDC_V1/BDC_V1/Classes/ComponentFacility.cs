@@ -120,24 +120,19 @@ namespace BDC_V1.Classes
 
         // on-demand collection storage is allocated on first use
         // use the Has... properties to check for not empty
-        public override bool HasImages => Images.HasItems;
         public INotifyingCollection<ImageSource> Images =>
             PropertyCollection<ImageSource>(ref _images, nameof(HasImages));
         [CanBeNull] private INotifyingCollection<ImageSource> _images;
 
         // Facility Comments
-        public override bool HasFacilityComments => FacilityComments.HasItems;
+        public override bool HasFacilityComments => (base.HasFacilityComments = FacilityComments.HasItems);
         public INotifyingCollection<ICommentFacility> FacilityComments =>
             PropertyCollection<ICommentFacility>(ref _facilityComments, nameof(HasFacilityComments));
         [CanBeNull] private INotifyingCollection<ICommentFacility> _facilityComments;
 
-        public override bool HasInspections => Inspections.HasItems;
+        public override bool HasInspections => (base.HasInspections = Inspections.HasItems);
         public INotifyingCollection<IInspectionInfo> Inspections =>
-            PropertyCollection<IInspectionInfo>(ref _inspections, new []
-            {
-                nameof(HasInspections),
-                nameof(HasAnyInspections)
-            });
+            PropertyCollection<IInspectionInfo>(ref _inspections, nameof(HasInspections));
         [CanBeNull] private INotifyingCollection<IInspectionInfo> _inspections;
 
         // **************** Class data members ********************************************** //

@@ -191,9 +191,6 @@
     <Compile Include="Utils\MakeBitmapTransparent.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
     <Compile Include="Converters\RtgToBackgroundConverter.cs" />
-    <Compile Include="Converters\SystemElementBackgroundConverter.cs" />
-    <Compile Include="Converters\SystemElementFontSizeConverter.cs" />
-    <Compile Include="Converters\SystemElementFontWeightConverter.cs" />
     <Compile Include="Utils\WindowPlacement.cs" />
     <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
@@ -293,6 +290,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\Add_75.gfie" />
+    <None Include="Resources\Delete_75.gfie" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -493,6 +492,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Documents\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AddComponent_75.png" />
+    <Resource Include="Resources\AddSection_75.png" />
+    <Resource Include="Resources\AddSystem_75.png" />
+    <Resource Include="Resources\CopyComment_75_C.png" />
+    <Resource Include="Resources\CopyInventory_75_C.png" />
+    <Resource Include="Resources\CopySection_75.png" />
+    <Resource Include="Resources\Copy_75.png" />
+    <Resource Include="Resources\DeleteComponent_75.png" />
+    <Resource Include="Resources\DeleteSection_75.png" />
+    <Resource Include="Resources\DeleteSystem_75.png" />
+    <Resource Include="Resources\Inspection_75.png" />
+    <Resource Include="Resources\MicrophoneOFF_75.png" />
+    <Resource Include="Resources\MicrophoneON_75.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

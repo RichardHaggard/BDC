@@ -9,6 +9,10 @@
         xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:local="clr-namespace:BDC_V1.Views"
+        xmlns:interfaces="clr-namespace:BDC_V1.Interfaces"
+        xmlns:converters="clr-namespace:BDC_V1.Converters"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:classes="clr-namespace:BDC_V1.Classes"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         mc:Ignorable="d"
@@ -26,10 +30,10 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
+          </ResourceDictionary.MergedDictionaries>
 
           <Style x:Key="TransparentBitmap" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
             <Setter Property="Height" Value="82" />
@@ -37,6 +41,8 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Margin" Value="10" />
           </Style>
+
+          <!--<system:Double x:Key="FacilityFontSize">14</system:Double>-->
         </ResourceDictionary>
     </Window.Resources>
 
@@ -200,24 +206,79 @@
         <!--Primary working area-->
         <!--A column for a tree, a splitter column and a column for a Tab Control.-->
         <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+          <Grid.Resources>
+           <!-- 
+            Notes
+            * Cannot place this in the TreeView, Causes a exception
+              "Add value to collection of type 'System.Windows.Controls.ItemCollection' threw an exception"
+            
+            * HierarchicalDataTemplate doesn't work with collections of interfaces
+            -->
+
+            <!-- recurse the tree in the proper manner -->
+            <!-- Sets the style for the all the child items -->
+            <HierarchicalDataTemplate DataType="{x:Type classes:ComponentBase}" 
+                                      ItemsSource="{Binding Path=Children}">
+              <Label Content="{Binding Path=ComponentName}" />  <!-- THIS WORKS -->
+
+              <HierarchicalDataTemplate.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                  <!--By default, a tree displays its items condensed. We want all items in the tree to be expanded.-->
+                  <Setter Property="IsExpanded" Value="True"/>
+
+                  <!-- Set the default font style for non-facility nodes --> 
+                  <Setter Property="FontWeight" Value="Normal" />
+                  <Setter Property="Background" Value="White"  />
+                  <Setter Property="Foreground" Value="Black"  />
+                  <Setter Property="FontSize"   Value="12"     />
+
+                  <!-- 
+                  Show or hide this node based on the "IsVisible" flag of each component 
+                  NOTE: A hidden node will also conceal all of it's children
+                  -->
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsActive}" Value="False">
+                      <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </HierarchicalDataTemplate.ItemContainerStyle>
+            </HierarchicalDataTemplate>
+          </Grid.Resources>
+
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
 
             <!--Inventory tree, the selected Tree item.-->
-            <TreeView 
-                Grid.Column="0" 
-                ItemsSource="{Binding TreeItemsViewSource}"  >
-                
-                <!--By default, a tree displays its items condensed. We want all items in the tree to be expanded.-->
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="IsExpanded" Value="True" />
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                
+            <TreeView Grid.Column="0" 
+                      ItemsSource="{Binding TreeItemsViewSource}"
+                      VirtualizingStackPanel.IsVirtualizing="True"
+                      VirtualizingStackPanel.VirtualizationMode="Recycling" 
+                      >
+              <!-- Sets the style for the top-level (Facility) items only -->
+              <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                  <!--By default, a tree displays its items condensed. We want all items in the tree to be expanded.-->
+                  <Setter Property="IsExpanded" Value="True"/>
+
+                  <!-- Set the font weight based on the node type -->
+                  <Setter Property="FontWeight" Value="Bold" />
+                  <Setter Property="Background" Value="LightGreen" />
+                  <Setter Property="Foreground" Value="Black" />
+                  <Setter Property="FontSize"   Value="14" />
+
+                  <!-- Set the font color based on the existence of issues -->
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding HasAnyQaIssues}" Value="True">
+                      <Setter Property="Foreground" Value="White"/>   <!-- TODO: Setting foreground here Doesn't work !!! -->
+                      <Setter Property="Background" Value="Red"/>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </TreeView.ItemContainerStyle>
             </TreeView>
 
             <!--Put a splitter between the inventory tree and the TabControl where most activities take place.-->
@@ -286,8 +347,8 @@
         </Grid>
         
         <!--Bottom status bar-->
-        <Border Grid.Row="4" BorderThickness="0" Background="Gray" />
-        <StatusBar Grid.Row="4">
+        <Border Grid.Row="3" BorderThickness="0" Background="Gray" />
+        <StatusBar Grid.Row="3">
             <Label Content="{Binding StatusLookup        }" />
             <Label Content="{Binding StatusInspector     }" />
             <Label Content="{Binding StatusInspectedBy   }" />

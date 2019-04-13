@@ -17,7 +17,7 @@ namespace BDC_V1.Converters
         /// </remarks>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((values.Length == 2) && (parameter is bool bWhich))
+            if ((values.Length >= 2) && (parameter is bool bWhich))
                 return bWhich ? values[0] : values[1];
 
             return Binding.DoNothing;

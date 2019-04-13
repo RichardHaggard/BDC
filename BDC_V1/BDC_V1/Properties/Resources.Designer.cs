@@ -73,16 +73,6 @@ namespace BDC_V1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AddComponent {
-            get {
-                object obj = ResourceManager.GetObject("AddComponent", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap AddSection {
             get {
                 object obj = ResourceManager.GetObject("AddSection", resourceCulture);

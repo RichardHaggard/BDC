@@ -8,7 +8,7 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <Style TargetType="Button" x:Key="btnImageText">
+            <Style x:Key="btnImageText" TargetType="Button">
                 <Setter Property="Background" Value="#9BC2E6"/>
                 <Setter Property="BorderBrush" Value="Black"/>
                 <Setter Property="Margin" Value="5"/>
@@ -16,8 +16,6 @@
             </Style>
 
             <Style x:Key="ImageClickBlockButtonStyle" TargetType="Button">
-                <Setter Property="Height" Value="118" />
-                <Setter Property="Width" Value="130" />
                 <Setter Property="Background" Value="LightBlue" />
                 <Setter Property="BorderBrush" Value="Black" />
                 <Setter Property="BorderThickness" Value="1" />
@@ -32,33 +30,78 @@
             </Style>
 
             <Style x:Key="ImageClickBlockPanelStyle" TargetType="StackPanel">
-                <Setter Property="Margin" Value="5" />
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+              <Setter Property="HorizontalAlignment" Value="Stretch" />
+              <Setter Property="VerticalAlignment" Value="Stretch" />
+              <Setter Property="Margin" Value="5" />
             </Style>
 
             <Style x:Key="ImageClickBlockImageStyle" TargetType="Image">
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="Height" Value="50" />
+              <Setter Property="HorizontalAlignment" Value="Stretch" />
+              <Setter Property="VerticalAlignment" Value="Top" />
+              <Setter Property="Margin" Value="0" />
+              <Setter Property="Height" Value="50" />
             </Style>
 
-            <!-- Offset needed to visually center the image -->
-            <Style x:Key="ImageClickBlockCommentImageStyle" TargetType="Image"
-             BasedOn="{StaticResource ImageClickBlockImageStyle}">
-                <Setter Property="Margin" Value="5,0,0,0" />
-            </Style>
+          <!-- Offset needed to visually center the image -->
+          <Style x:Key="ImageClickBlockCommentImageStyle" TargetType="Image" 
+                 BasedOn="{StaticResource ImageClickBlockImageStyle}">
+            <Setter Property="Margin" Value="5,0,0,0" />
+          </Style>
 
-            <Style x:Key="ImageClickBlockTextStyle" TargetType="Label">
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="FontWeight" Value="Bold" />
-            </Style>
+          <Style x:Key="ImageClickBlockTextStyle" TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold" />
+          </Style>
+
+          <Style x:Key="ImageClickBlockTextStyle1" TargetType="Label" 
+                 BasedOn="{StaticResource ImageClickBlockTextStyle}">
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+          </Style>
+
+          <Style x:Key="ImageClickBlockTextStyle2" TargetType="Label" 
+                 BasedOn="{StaticResource ImageClickBlockTextStyle}">
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+          </Style>
+
+          <Style x:Key="CommentButtonStyle" TargetType="{x:Type Button}"
+                 BasedOn="{StaticResource ImageClickBlockButtonStyle}">
+            <Setter Property="Content">
+              <Setter.Value>
+                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+                  <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
+                         Margin="5,0,0,0"
+                         Style="{StaticResource ImageClickBlockImageStyle}"/>
+                  <Label Content="{Binding CommentTypeName1, FallbackValue=Comment_Type}"
+                         Visibility="{Binding CommentTypeVisibility1, FallbackValue=Collapsed}"
+                         Style="{StaticResource ImageClickBlockTextStyle1}" />
+                  <Label Content="{Binding CommentTypeName2, FallbackValue=Comment}" 
+                         Style="{StaticResource ImageClickBlockTextStyle2}" />
+                </StackPanel >
+              </Setter.Value>
+            </Setter>
+          </Style>
+
+          <Style x:Key="PhotoButtonStyle" TargetType="{x:Type Button}"
+                 BasedOn="{StaticResource ImageClickBlockButtonStyle}">
+            <Setter Property="Content">
+              <Setter.Value>
+                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+                  <Image Source="/BDC_V1;component/Resources/Photos_cropped.png"
+                         Style="{StaticResource ImageClickBlockImageStyle}"/>
+                  <Label Content="Photo(s)"
+                         Style="{StaticResource ImageClickBlockTextStyle1}" />
+                  <Label Content="{Binding Count, FallbackValue=0}"
+                         Style="{StaticResource ImageClickBlockTextStyle2}" />
+                </StackPanel >
+              </Setter.Value>
+            </Setter>
+          </Style>
 
             <!--Menu separator-->
             <Style x:Key="MenuSeparatorStyle" TargetType="{x:Type Separator}">

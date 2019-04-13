@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BDC_V1.Classes;
 using JetBrains.Annotations;
 
 namespace BDC_V1.Interfaces
@@ -16,6 +17,6 @@ namespace BDC_V1.Interfaces
         bool HasFacilities { get; }
 
         [NotNull]
-        INotifyingCollection<IComponentFacility> FacilityInfo { get; }
+        ObservableCollection<ComponentBase> FacilityInfo { get; }
     }
 }

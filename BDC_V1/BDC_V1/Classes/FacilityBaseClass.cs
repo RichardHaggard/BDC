@@ -28,7 +28,7 @@ namespace BDC_V1.Classes
             get => _facilityIndex;
             set
             {
-                if ((LocalBredInfo != null) && LocalBredInfo.FacilityInfo.HasItems)
+                if ((LocalBredInfo != null) && LocalBredInfo.HasFacilities)
                 {
                     value = Math.Max(0, value);
                     value = Math.Min(value, LocalBredInfo.FacilityInfo.Count - 1);
@@ -36,7 +36,7 @@ namespace BDC_V1.Classes
                     SetProperty(ref _facilityIndex, value);
 
                     // ReSharper disable once PossibleNullReferenceException
-                    LocalFacilityInfo = LocalBredInfo.FacilityInfo[_facilityIndex];
+                    LocalFacilityInfo = LocalBredInfo.FacilityInfo[_facilityIndex] as IComponentFacility;
                     return;
                 }
 

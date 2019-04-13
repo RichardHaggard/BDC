@@ -120,23 +120,11 @@ namespace BDC_V1.Classes
         public bool IsReadOnly => 
             ItemCollection.IsReadOnly;
 
-        /// <summary>
-        /// Add multiple items
-        /// </summary>
-        /// <remarks>
-        /// Suppresses notifications until complete
-        /// </remarks>
-        /// <param name="list"></param>
+        /// <inheritdoc />
         public void AddRange(IEnumerable<T> list) => 
             ItemCollection.AddRange(list);
 
-        /// <summary>
-        /// Remove multiple items
-        /// </summary>
-        /// <remarks>
-        /// Suppresses notifications until complete
-        /// </remarks>
-        /// <param name="list"></param>
+        /// <inheritdoc />
         public IEnumerable<T> RemoveRange([CanBeNull] IEnumerable<T> list) => 
             ItemCollection.RemoveRange(list);
 
@@ -151,6 +139,7 @@ namespace BDC_V1.Classes
         /// initializing ctor
         /// </summary>
         public IndexedCollection([NotNull] IList<T> list)
+            : this()
         {
             AddRange(list);
         }
@@ -159,6 +148,7 @@ namespace BDC_V1.Classes
         /// initializing ctor
         /// </summary>
         public IndexedCollection([NotNull] IEnumerable<T> collection)
+            : this()
         {
             AddRange(collection);
         }

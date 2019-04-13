@@ -11,33 +11,33 @@ using Prism.Mvvm;
 namespace BDC_V1.Classes
 {
     /// <inheritdoc cref="T:INotifyingCollection"/>
-    public class NotifyingCollection<T> : BindableBase, INotifyPropertyChanged, INotifyingCollection<T>
+    public class NotifyingCollection<T> : BindableBase, INotifyingCollection<T>
     {
         public bool SuppressNotifications { get; set; }
 
         [NotNull]
         protected ObservableCollection<T> Collection
         {
-            get
+            get => _collection;
+            set
             {
-                if (_collection == null)
+                var oldCollection = _collection;
+                SetProperty(ref _collection, value, () =>
                 {
-                    _collection = new ObservableCollection<T>();
+                    if (oldCollection != null)
+                    {
+                        oldCollection.CollectionChanged -= OnCollectionChanged;
+                        oldCollection.Clear();
+                    }
+
                     _collection.CollectionChanged += OnCollectionChanged;
 
-                    CollectionChanged += (o, i) =>
-                    {
-                        RaisePropertyChanged(nameof(HasItems));
-                    };
-
+                    CollectionChanged += (o, i) => { RaisePropertyChanged(nameof(HasItems)); };
                     RaisePropertyChanged(nameof(HasItems));
-                }
-
-                // ReSharper disable once AssignNullToNotNullAttribute
-                return _collection;
+                });
             }
         }
-        [CanBeNull] private ObservableCollection<T> _collection;
+        private ObservableCollection<T> _collection;
 
         public bool HasItems => _collection?.Any() ?? false;
 
@@ -49,6 +49,12 @@ namespace BDC_V1.Classes
 
         /// <inheritdoc />
         public int IndexOf(T val) => Collection.IndexOf(val);
+
+        /// <inheritdoc />
+        public void Insert(int index, T item) => Collection.Insert(index, item);
+
+        /// <inheritdoc />
+        public void RemoveAt(int index) => Collection.RemoveAt(index);
 
         /// <inheritdoc />
         public IEnumerator<T> GetEnumerator() => Collection.GetEnumerator();
@@ -160,6 +166,7 @@ namespace BDC_V1.Classes
         /// <summary>Void ctor</summary>
         public NotifyingCollection()
         {
+            Collection = new ObservableCollection<T>();
         }
  
         /// <summary>List initializing ctor</summary>
@@ -178,7 +185,11 @@ namespace BDC_V1.Classes
 
         ~NotifyingCollection()
         {
-            Collection.CollectionChanged -= OnCollectionChanged;
+            if (_collection == null) return;
+
+            _collection.CollectionChanged -= OnCollectionChanged;
+            _collection.Clear();
+            _collection = null;
         }
 
         /// <inheritdoc />
