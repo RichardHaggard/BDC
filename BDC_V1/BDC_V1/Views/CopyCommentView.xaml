@@ -259,7 +259,7 @@
             <ColumnDefinition Width="Auto" />
           </Grid.ColumnDefinitions>
 
-          <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Copy.png" />
+          <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Copy_75.png" />
           <Label Grid.Column="1" 
                  HorizontalAlignment="Center"
                  Margin="20,-2,0,0">

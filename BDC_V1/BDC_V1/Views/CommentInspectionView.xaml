@@ -72,17 +72,17 @@
 
         <Button Grid.Column="0" Style="{StaticResource bTB}"
                 Command="{Binding CmdMicOn}">
-          <Image Source="/BDC_V1;component/Resources/MicrophoneON_Rnd (1).png" />
+          <Image Source="/BDC_V1;component/Resources/MicrophoneON_75.png" />
         </Button>
 
         <Button Grid.Column="1" Style="{StaticResource bTB}"
                 Command="{Binding CmdMicOff}">
-          <Image Source="/BDC_V1;component/Resources/MicrophoneOFF_Rnd_Slash (1).png" />
+          <Image Source="/BDC_V1;component/Resources/MicrophoneOFF_75.png" />
         </Button>
 
         <Button Grid.Column="2" Style="{StaticResource bTB}"
                 Command="{Binding CmdCopy}">
-          <Image Source="/BDC_V1;component/Resources/Copy.png" />
+          <Image Source="/BDC_V1;component/Resources/Copy_75.png" />
         </Button>
 
         <Button Grid.Column="3" Style="{StaticResource bTB}"

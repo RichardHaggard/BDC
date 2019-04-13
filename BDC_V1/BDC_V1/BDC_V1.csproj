@@ -283,6 +283,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Documents\Tasks.xlsx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -488,9 +489,7 @@
     <Resource Include="Resources\ViewAll.jpg" />
     <Resource Include="Resources\ViewAll.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Documents\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\AddComponent_75.png" />
     <Resource Include="Resources\AddSection_75.png" />
