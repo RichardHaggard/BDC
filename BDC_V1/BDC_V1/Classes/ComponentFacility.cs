@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Media;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
 using JetBrains.Annotations;
@@ -120,26 +122,39 @@ namespace BDC_V1.Classes
 
         // on-demand collection storage is allocated on first use
         // use the Has... properties to check for not empty
-        public INotifyingCollection<ImageSource> Images =>
-            PropertyCollection<ImageSource>(ref _images, nameof(HasImages));
-        [CanBeNull] private INotifyingCollection<ImageSource> _images;
+        public override bool HasImages => Images.Any();
+        public ObservableCollection<ImageSource> Images { get; } =
+            new ObservableCollection<ImageSource>();
 
         // Facility Comments
-        public override bool HasFacilityComments => (base.HasFacilityComments = FacilityComments.HasItems);
-        public INotifyingCollection<ICommentFacility> FacilityComments =>
-            PropertyCollection<ICommentFacility>(ref _facilityComments, nameof(HasFacilityComments));
-        [CanBeNull] private INotifyingCollection<ICommentFacility> _facilityComments;
+        public override bool HasFacilityComments => FacilityComments.Any();
+        public ObservableCollection<CommentFacility> FacilityComments { get; } =
+            new ObservableCollection<CommentFacility>();
 
-        public override bool HasInspections => (base.HasInspections = Inspections.HasItems);
-        public INotifyingCollection<IInspectionInfo> Inspections =>
-            PropertyCollection<IInspectionInfo>(ref _inspections, nameof(HasInspections));
-        [CanBeNull] private INotifyingCollection<IInspectionInfo> _inspections;
+        public override bool HasInspections => Inspections.Any();
+        public ObservableCollection<InspectionInfo> Inspections { get; } =
+            new ObservableCollection<InspectionInfo>();
 
         // **************** Class data members ********************************************** //
 
 
         // **************** Class constructors ********************************************** //
 
+        public ComponentFacility()
+        {
+            Images.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(nameof(HasImages));
+
+            FacilityComments.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(nameof(HasFacilityComments));
+
+            Inspections.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(new []
+                {
+                    nameof(HasInspections   ), 
+                    nameof(HasAnyInspections)
+                });
+        }
 
         // **************** Class members *************************************************** //
 

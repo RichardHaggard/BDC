@@ -53,12 +53,12 @@ namespace BDC_V1.Classes
         };
 
         [NotNull]
-        private INotifyingCollection<Button> ImagesItem
+        private ObservableCollection<Button> ImagesItem
         {
             get
             {
-                if (!(ImageItemsControl?.ItemsSource is INotifyingCollection<Button> items))
-                    return _imagesItem ?? (_imagesItem = new NotifyingCollection<Button>());
+                if (!(ImageItemsControl?.ItemsSource is ObservableCollection<Button> items))
+                    return _imagesItem ?? (_imagesItem = new ObservableCollection<Button>());
 
                 return items;
             }
@@ -73,7 +73,7 @@ namespace BDC_V1.Classes
                 }
             }
         }
-        private INotifyingCollection<Button> _imagesItem;
+        private ObservableCollection<Button> _imagesItem;
 
         // **************** Class constructors ********************************************** //
 
@@ -229,7 +229,7 @@ namespace BDC_V1.Classes
             ImagesItem = imageItems;
         }
 
-        protected virtual void CreateImages([CanBeNull] INotifyingCollection<ImageSource> srcImages)
+        protected virtual void CreateImages([CanBeNull] ObservableCollection<ImageSource> srcImages)
         {
             if (ImageItemsControl == null) return;
 
@@ -276,10 +276,10 @@ namespace BDC_V1.Classes
                         foreach (var imageSource in delImageSourceList)
                         {
                             var delImages = imageItems
-                                .Where(image => (image.Content as Image)?.Source == imageSource)
-                                .ToArray();
+                                .Where(image => (image.Content as Image)?.Source == imageSource);
 
-                            imageItems.RemoveRange(delImages);
+                            foreach (var item in delImages)
+                                imageItems.Remove(item);
                         }
                     }            
                         

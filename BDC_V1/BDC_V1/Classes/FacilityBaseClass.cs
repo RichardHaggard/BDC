@@ -15,7 +15,7 @@ namespace BDC_V1.Classes
                 if (_localFacilityInfo != null)
                 {
                     CreateImages();
-                    // NotifyingCollection should raise it's own notify
+                    // ObservableCollection should raise it's own notify
                     //RaisePropertyChanged(Images);
                 }
             });

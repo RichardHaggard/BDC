@@ -36,9 +36,9 @@ namespace BDC_V1.Interfaces
         string YearInstalled     { get; set; }
         string InventoryDetails  { get; set; }
 
-        [NotNull] INotifyingCollection<string> DetailSelectors { get; }
-        [NotNull] INotifyingCollection<string> EquipmentMakes  { get; }
-        [NotNull] INotifyingCollection<string> Manufacturers   { get; }
+        [NotNull] ObservableCollection<string> DetailSelectors { get; }
+        [NotNull] ObservableCollection<string> EquipmentMakes  { get; }
+        [NotNull] ObservableCollection<string> Manufacturers   { get; }
 
         /// <remarks>
         /// on-demand collection storage is allocated on first use
@@ -47,7 +47,7 @@ namespace BDC_V1.Interfaces
         /// If you are going to modify one of these images the ImagesModelBase class may require that
         /// you delete and add the item to get the view to update
         /// </remarks>>
-        [NotNull] INotifyingCollection<ImageSource> Images { get; }
+        [NotNull] ObservableCollection<ImageSource> Images { get; }
         bool HasImages { get; }
     }
 }

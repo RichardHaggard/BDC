@@ -1,4 +1,6 @@
-﻿using BDC_V1.Interfaces;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using BDC_V1.Interfaces;
 using JetBrains.Annotations;
 
 namespace BDC_V1.Classes
@@ -40,9 +42,20 @@ namespace BDC_V1.Classes
         }
         private string _sectionName;
 
-        public bool HasInventoryComments => InventoryComments.HasItems;
-        public INotifyingCollection<ICommentInventory> InventoryComments => 
-            PropertyCollection<ICommentInventory>(ref _inventoryComments, nameof(HasInventoryComments));
-        [CanBeNull] private INotifyingCollection<ICommentInventory> _inventoryComments;
+        public virtual bool HasInventoryComments    => InventoryComments.Any();
+        public virtual bool HasAnyInventoryComments => HasInventoryComments;
+
+        public ObservableCollection<CommentInventory> InventoryComments { get; } =
+            new ObservableCollection<CommentInventory>();
+
+        public IssueInventory()
+        {
+            InventoryComments.CollectionChanged += (o, i) =>
+                RaisePropertyChanged(new[]
+                {
+                    nameof(HasInventoryComments),
+                    nameof(HasAnyInventoryComments)
+                });
+        }
     }
 }

@@ -10,26 +10,35 @@ namespace BDC_V1.Classes
     public class ValidUsers : BindableBase, IValidUsers
     {
         [NotNull] 
-        protected readonly Dictionary<IPerson, string> ValidUserDictionary =
-            new Dictionary<IPerson, string>();
+        protected readonly Dictionary<Person, string> ValidUserDictionary =
+            new Dictionary<Person, string>();
 
         [NotNull] 
-        protected IReadOnlyDictionary<IPerson, string> ReadOnlyUserDictionary => 
+        protected IReadOnlyDictionary<Person, string> ReadOnlyUserDictionary => 
             ValidUserDictionary;
 
-        public ReadOnlyObservableCollection<IPerson> Users => 
-            _users ?? (_users = new ReadOnlyObservableCollection<IPerson>(
-                new ObservableCollection<IPerson>(ValidUserDictionary.Keys)));
+        public ReadOnlyObservableCollection<Person> Users
+        {
+            get
+            {
+                if (_users != null) return _users;
 
-        [CanBeNull] private ReadOnlyObservableCollection<IPerson> _users;
+                var baseObject = new ObservableCollection<Person>();
+                baseObject.AddRange(ReadOnlyUserDictionary.Keys);
+
+                return _users = new ReadOnlyObservableCollection<Person>(baseObject);
+            }
+        }
+
+        [CanBeNull] private ReadOnlyObservableCollection<Person> _users;
             
-        public bool ValidateUser(IPerson person, string password)
+        public bool ValidateUser(Person person, string password)
         {
             return ValidUserDictionary.TryGetValue(person, out var validPass) && 
                    (validPass == password);
         }
 
-        protected bool Add([NotNull] IPerson person, [CanBeNull] string password)
+        protected bool Add([NotNull] Person person, [CanBeNull] string password)
         {
             // Don't attempt to overwrite an existing user
             if (ValidUserDictionary.ContainsKey(person)) 
@@ -42,7 +51,7 @@ namespace BDC_V1.Classes
             return true;
         }
 
-        protected bool Remove(IPerson person, string password)
+        protected bool Remove(Person person, string password)
         {
             if (! ValidateUser(person, password))
                 return false;
@@ -54,7 +63,7 @@ namespace BDC_V1.Classes
             return true;
         }
 
-        protected bool Clear(IPerson person, string password)
+        protected bool Clear(Person person, string password)
         {
             if (! ValidUserDictionary.Any()) 
                 return false;

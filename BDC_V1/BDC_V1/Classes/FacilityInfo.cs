@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -134,15 +135,15 @@ namespace BDC_V1.Classes
         private IContact _contact;
 
         /// <inheritdoc />
-        public IIndexedCollection<IInspectionInfo> Inspections { get; } =
-            new IndexedCollection<IInspectionInfo>();
+        public ObservableCollection<InspectionInfo> Inspections { get; } =
+            new ObservableCollection<InspectionInfo>();
 
         /// <inheritdoc />
-        public IIndexedCollection<ImageSource> Images { get; } =
-            new IndexedCollection<ImageSource>();
+        public ObservableCollection<ImageSource> Images { get; } =
+            new ObservableCollection<ImageSource>();
 
         /// <inheritdoc />
-        public IIndexedCollection<IComment> Comments { get; } =
-            new IndexedCollection<IComment>();
+        public ObservableCollection<Comment> Comments { get; } =
+            new ObservableCollection<Comment>();
     }
 }

@@ -219,7 +219,7 @@
             <!-- Sets the style for the all the child items -->
             <HierarchicalDataTemplate DataType="{x:Type classes:ComponentBase}" 
                                       ItemsSource="{Binding Path=Children}">
-              <Label Content="{Binding Path=ComponentName}" />  <!-- THIS WORKS -->
+              <Label Content="{Binding Path=ComponentName}" />
 
               <HierarchicalDataTemplate.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BDC_V1.Classes;
 using JetBrains.Annotations;
 
 namespace BDC_V1.Interfaces
@@ -21,7 +23,8 @@ namespace BDC_V1.Interfaces
         /// use the <see cref="HasInventoryComments"/> property to check for not empty
         /// </remarks>
         [NotNull] 
-        INotifyingCollection<ICommentInventory> InventoryComments { get; }
-        bool HasInventoryComments { get; }
+        ObservableCollection<CommentInventory> InventoryComments { get; }
+        bool HasInventoryComments    { get; }
+        bool HasAnyInventoryComments { get; }
     }
 }

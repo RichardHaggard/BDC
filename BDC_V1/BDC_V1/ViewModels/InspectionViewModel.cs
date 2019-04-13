@@ -76,7 +76,7 @@ namespace BDC_V1.ViewModels
 //                InspectionInfo.Images.Clear();
 //                InspectionInfo.Images.AddRange(LocalFacilityInfo?.Images);
 //#endif
-//                // NotifyingCollection should raise it's own notify
+//                // ObservableCollection should raise it's own notify
 //                //RaisePropertyChanged(nameof(InspectionInfo));
 //            }
 //        }

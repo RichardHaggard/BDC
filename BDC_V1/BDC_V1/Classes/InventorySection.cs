@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using BDC_V1.Interfaces;
 using JetBrains.Annotations;
@@ -112,32 +114,55 @@ namespace BDC_V1.Classes
         }
         private Visibility _yearPcVisibility = Visibility.Hidden;
 
-        public INotifyingCollection<string> ComponentTypes { get; } = 
-            new NotifyingCollection<string>();
+        public ObservableCollection<string> ComponentTypes { get; } = 
+            new ObservableCollection<string>();
 
-        public INotifyingCollection<string> Dcrs { get; } = 
-            new NotifyingCollection<string>();
+        public ObservableCollection<string> Dcrs { get; } = 
+            new ObservableCollection<string>();
 
-        public INotifyingCollection<string> EquipmentCategories { get; } = 
-            new NotifyingCollection<string>();
+        public ObservableCollection<string> EquipmentCategories { get; } = 
+            new ObservableCollection<string>();
 
-        public INotifyingCollection<string> PcRatings { get; } = 
-            new NotifyingCollection<string>();
+        public ObservableCollection<string> PcRatings { get; } = 
+            new ObservableCollection<string>();
 
-        public INotifyingCollection<string> PcTypes { get; } = 
-            new NotifyingCollection<string>();
+        public ObservableCollection<string> PcTypes { get; } = 
+            new ObservableCollection<string>();
 
-        public INotifyingCollection<string> SectionNames { get; } = 
-            new NotifyingCollection<string>();
+        public ObservableCollection<string> SectionNames { get; } = 
+            new ObservableCollection<string>();
 
-        public bool HasSectionComments => SectionComments.HasItems;
-        public INotifyingCollection<ICommentSection> SectionComments => 
-            PropertyCollection<ICommentSection>(ref _sectionComments, nameof(HasSectionComments));
-        [CanBeNull] private INotifyingCollection<ICommentSection> _sectionComments;
+        public virtual bool HasSectionComments    => SectionComments.Any();
+        public virtual bool HasAnySectionComments => HasSectionComments;
 
-        public bool HasImages => Images.HasItems;
-        public INotifyingCollection<ImageSource> Images =>
-            PropertyCollection<ImageSource>(ref _images, nameof(HasImages));
-        [CanBeNull] private INotifyingCollection<ImageSource> _images;
+        public ObservableCollection<CommentSection> SectionComments { get; } =
+            new ObservableCollection<CommentSection>();
+
+        public virtual bool HasImages => Images.Any();
+
+        public ObservableCollection<ImageSource> Images { get; } =
+            new ObservableCollection<ImageSource>();
+
+        // **************** Class data members ********************************************** //
+
+
+        // **************** Class constructors ********************************************** //
+
+        public InventorySection()
+        {
+            SectionComments.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(new []
+                {
+                    nameof(HasSectionComments),
+                    nameof(HasAnySectionComments)
+                });
+
+            Images.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(nameof(HasImages));
+        }
+
+        // **************** Class members *************************************************** //
+
+
     }
 }

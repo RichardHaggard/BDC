@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -26,8 +27,9 @@ namespace BDC_V1.Interfaces
         /// on-demand collection storage is allocated on first use
         /// use the <see cref="HasInspectionComments"/> property to check for not empty
         /// </remarks>>
-        INotifyingCollection<CommentInspection> InspectionComments { get; }
-        bool HasInspectionComments { get; }
+        ObservableCollection<CommentInspection> InspectionComments { get; }
+        bool HasInspectionComments    { get; }
+        bool HasAnyInspectionComments { get; }
 
         /// <remarks>
         /// on-demand collection storage is allocated on first use
@@ -36,7 +38,7 @@ namespace BDC_V1.Interfaces
         /// If you are going to modify one of these images the ImagesModelBase class may require that
         /// you delete and add the item to get the view to update
         /// </remarks>>
-        INotifyingCollection<ImageSource> Images { get; }
+        ObservableCollection<ImageSource> Images { get; }
         bool HasImages { get; }
     }
 }

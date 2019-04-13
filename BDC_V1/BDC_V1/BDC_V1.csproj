@@ -107,7 +107,6 @@
     <Compile Include="Classes\InventorySection.cs" />
     <Compile Include="Classes\IssueInventory.cs" />
     <Compile Include="Classes\ItemChecklist.cs" />
-    <Compile Include="Classes\NotifyingCollection.cs" />
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\PropertyBase.cs" />
     <Compile Include="Classes\CommentSection.cs" />
@@ -122,7 +121,6 @@
     <Compile Include="Interfaces\IFacilityInfo.cs" />
     <Compile Include="Interfaces\IImageCollection.cs" />
     <Compile Include="Interfaces\IIndexedCollection.cs" />
-    <Compile Include="Interfaces\INotifyingCollection.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

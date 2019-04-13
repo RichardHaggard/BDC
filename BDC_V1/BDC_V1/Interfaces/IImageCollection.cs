@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,6 @@ namespace BDC_V1.Interfaces
         /// <remarks>
         /// Contains default value, selected index, selected item and <see cref="System.Collections.ICollection"/> functionality
         /// </remarks>
-        [NotNull] IIndexedCollection<ImageSource> Images { get; }
+        [NotNull] ObservableCollection<ImageSource> Images { get; }
     }
 }

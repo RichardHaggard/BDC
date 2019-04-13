@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -39,8 +40,8 @@ namespace BDC_V1.ViewModels
         }
         private string _description;
 
-        public INotifyingCollection<IIssueInspection> InspectionInfo { get; } =
-            new NotifyingCollection<IIssueInspection>();
+        public ObservableCollection<IssueInspection> InspectionInfo { get; } =
+            new ObservableCollection<IssueInspection>();
 
         // **************** Class data members ********************************************** //
         // **************** Class constructors ********************************************** //

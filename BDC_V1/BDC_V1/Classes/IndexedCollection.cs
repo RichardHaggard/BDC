@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.SqlTypes;
@@ -14,11 +15,9 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Classes
 {
+#if false
     public class IndexedCollection<T> : PropertyBase, IIndexedCollection<T>
     {
-        /// <inheritdoc />>
-        public bool HasContent => ItemCollection.HasItems;
-
         /// <inheritdoc />>
         public int SelectedIndex
         {
@@ -65,21 +64,26 @@ namespace BDC_V1.Classes
         }
 
         /// <inheritdoc />>
-        public INotifyingCollection<T> ItemCollection =>
-            PropertyCollection<T>(ref _itemCollection, string.Empty, () =>
-                {
-                    ItemCollection.CollectionChanged += (o, i) =>
-                    {
-                        RaisePropertyChanged(nameof(ItemCollection));
-                        RaisePropertyChanged(nameof(SelectedItem)  );
-                        RaisePropertyChanged(nameof(SelectedIndex) );
-                        RaisePropertyChanged(nameof(HasContent)    );
+        public ObservableCollection<T> ItemCollection { get; } =
+            new ObservableCollection<T>();
 
-                        CollectionChanged?.Invoke(o, i);
-                    };
-                });
+        /// <inheritdoc />>
+        public virtual bool HasContent => ItemCollection.Any();
 
-        [CanBeNull] private INotifyingCollection<T> _itemCollection;
+
+
+            //PropertyCollection<T>(ref _itemCollection, string.Empty, () =>
+            //    {
+            //        ItemCollection.CollectionChanged += (o, i) =>
+            //        {
+            //            RaisePropertyChanged(nameof(ItemCollection));
+            //            RaisePropertyChanged(nameof(SelectedItem)  );
+            //            RaisePropertyChanged(nameof(SelectedIndex) );
+            //            RaisePropertyChanged(nameof(HasContent)    );
+
+            //            CollectionChanged?.Invoke(o, i);
+            //        };
+            //    });
 
         /// <inheritdoc />>
         public event NotifyCollectionChangedEventHandler CollectionChanged;
@@ -125,8 +129,19 @@ namespace BDC_V1.Classes
             ItemCollection.AddRange(list);
 
         /// <inheritdoc />
-        public IEnumerable<T> RemoveRange([CanBeNull] IEnumerable<T> list) => 
-            ItemCollection.RemoveRange(list);
+        public IEnumerable<T> RemoveRange([CanBeNull] IEnumerable<T> removeList)
+        {
+            var returnList = new List<T>();
+
+            if (removeList != null)
+            {
+                // insure we are only removing items contained within the collection
+                returnList.AddRange(removeList.Where(item => ItemCollection.Contains(item)));
+                foreach (var item in returnList) ItemCollection.Remove(item);
+            }
+
+            return returnList;
+        }
 
         /// <summary>
         /// void ctor
@@ -153,4 +168,5 @@ namespace BDC_V1.Classes
             AddRange(collection);
         }
     }
+#endif
 }

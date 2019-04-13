@@ -294,7 +294,7 @@
                   Style="{StaticResource ImageClickBlockButtonStyle}"
                   Command="{Binding CmdPhotosButton}">
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                    <Image Source="/BDC_V1;component/Resources/Photos_cropped (1).png"
+                    <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
                      Style="{StaticResource ImageClickBlockImageStyle}"/>
                     <Label Content="Photo(s)"
                      Style="{StaticResource ImageClickBlockTextStyle}" />

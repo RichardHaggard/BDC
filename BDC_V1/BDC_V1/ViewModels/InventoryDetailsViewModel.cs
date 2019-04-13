@@ -50,7 +50,7 @@ namespace BDC_V1.ViewModels
         //        InventoryDetails.Images.Clear();
         //        InventoryDetails.Images.AddRange(base.LocalFacilityInfo?.Images);
 
-        //        // NotifyingCollection should raise it's own notify
+        //        // ObservableCollection should raise it's own notify
         //        //RaisePropertyChanged(nameof(InventorySection));
         //    }
         //}

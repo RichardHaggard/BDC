@@ -60,8 +60,8 @@ namespace BDC_V1.ViewModels
         }
         private string _sectionNameText;
 
-        public ObservableCollection<IItemChecklist> ListOfSystems { get; } = 
-            new ObservableCollection<IItemChecklist>();
+        public ObservableCollection<ItemChecklist> ListOfSystems { get; } = 
+            new ObservableCollection<ItemChecklist>();
 
         public string YearBuilt
         {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Media;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
@@ -64,16 +66,32 @@ namespace BDC_V1.Classes
         }
         private string _note;
 
-        public bool HasInspectionComments => InspectionComments.HasItems;
-        public INotifyingCollection<CommentInspection> InspectionComments =>
-            PropertyCollection<CommentInspection>(ref _inspectionComments, nameof(HasImages));
-        [CanBeNull] private INotifyingCollection<CommentInspection> _inspectionComments;
+        public virtual bool HasInspectionComments    => InspectionComments.Any();
+        public virtual bool HasAnyInspectionComments => HasInspectionComments;
+
+        public ObservableCollection<CommentInspection> InspectionComments { get; } =
+            new ObservableCollection<CommentInspection>();
 
         // on-demand collection storage is allocated on first use
         // use the Has... properties to check for not empty
-        public bool HasImages => Images.HasItems;
-        public INotifyingCollection<ImageSource> Images =>
-            PropertyCollection<ImageSource>(ref _images, nameof(HasImages));
-        [CanBeNull] private INotifyingCollection<ImageSource> _images;
+        public virtual bool HasImages => Images.Any();
+
+        public ObservableCollection<ImageSource> Images { get; } =
+            new ObservableCollection<ImageSource>();
+
+        /******************** Constructors ******************************/
+
+        public InspectionInfo()
+        {
+            InspectionComments.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(new []
+                {
+                    nameof(HasInspectionComments),
+                    nameof(HasAnyInspectionComments)
+                });
+
+            Images.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(nameof(HasImages));
+        }
     }
 }

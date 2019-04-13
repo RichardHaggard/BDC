@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,12 +31,12 @@ namespace BDC_V1.ViewModels
         private string _component;
 
 
-        public INotifyingCollection<string> Components
+        public ObservableCollection<string> Components
         {
             get => _components;
             set => SetProperty(ref _components, value);
         }
-        private INotifyingCollection<string> _components = new NotifyingCollection<string>();
+        private ObservableCollection<string> _components = new ObservableCollection<string>();
 
         /// <summary>
         /// EnumControlResult.ResultCancelled indicates cancellation.

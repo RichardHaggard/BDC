@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -9,6 +10,8 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Interfaces
 {
+#if false
+// TODO: We need an indexed ObservableCollection to reduce code load
     public interface IIndexedCollection<T> :  
         ICollection<T>, 
         INotifyPropertyChanged,
@@ -47,7 +50,7 @@ namespace BDC_V1.Interfaces
         /// <summary>
         /// The collection
         /// </summary>
-        [NotNull] INotifyingCollection<T> ItemCollection { get; }
+        [NotNull] ObservableCollection<T> ItemCollection { get; }
 
         /// <summary>
         /// Add multiple items
@@ -67,4 +70,5 @@ namespace BDC_V1.Interfaces
         /// <param name="list"></param>
         IEnumerable<T> RemoveRange([CanBeNull] IEnumerable<T> list);
     }
+#endif
 }

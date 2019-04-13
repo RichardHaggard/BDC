@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 using BDC_V1.Utils;
 using JetBrains.Annotations;
@@ -45,18 +46,18 @@ namespace BDC_V1.Interfaces
         /// If you are going to modify one of these images the ImagesModelBase class may require that
         /// you delete and add the item to get the view to update
         /// </remarks>
-        [NotNull] INotifyingCollection<ImageSource> Images { get; }
+        [NotNull] ObservableCollection<ImageSource> Images { get; }
 
         /// <remarks>
         /// on-demand collection storage is allocated on first us
         /// use the <see cref="HasInspections"/> property to check for not empty
         /// </remarks>
-        [NotNull] INotifyingCollection<IInspectionInfo> Inspections { get; }
+        [NotNull] ObservableCollection<InspectionInfo> Inspections { get; }
 
         /// <remarks>
         /// on-demand collection storage is allocated on first us
         /// use the  <see cref="HasFacilityComments"/> property to check for not empty
         /// </remarks>
-        [NotNull] INotifyingCollection<ICommentFacility> FacilityComments { get; }
+        [NotNull] ObservableCollection<CommentFacility> FacilityComments { get; }
     }
 }

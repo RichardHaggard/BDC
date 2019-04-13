@@ -30,8 +30,6 @@ namespace BDC_V1.Classes
         public bool HasFacilities => FacilityInfo.Any();
 
         public ObservableCollection<ComponentBase> FacilityInfo { get; }
-        //PropertyCollection<IComponentFacility>(ref _facilityInfo, nameof(HasFacilities));
-        //[CanBeNull] private INotifyingCollection<IComponentFacility> _facilityInfo;
 
         // **************** Class data members ********************************************** //
 

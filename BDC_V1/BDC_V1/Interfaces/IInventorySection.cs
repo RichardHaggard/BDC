@@ -29,19 +29,20 @@ namespace BDC_V1.Interfaces
         string YearPc               { get; set; }
         Visibility YearPcVisibility { get; set; }
 
-        [NotNull] INotifyingCollection<string> ComponentTypes      { get; }
-        [NotNull] INotifyingCollection<string> Dcrs                { get; }
-        [NotNull] INotifyingCollection<string> EquipmentCategories { get; } 
-        [NotNull] INotifyingCollection<string> PcRatings           { get; } 
-        [NotNull] INotifyingCollection<string> PcTypes             { get; } 
-        [NotNull] INotifyingCollection<string> SectionNames        { get; } 
+        [NotNull] ObservableCollection<string> ComponentTypes      { get; }
+        [NotNull] ObservableCollection<string> Dcrs                { get; }
+        [NotNull] ObservableCollection<string> EquipmentCategories { get; } 
+        [NotNull] ObservableCollection<string> PcRatings           { get; } 
+        [NotNull] ObservableCollection<string> PcTypes             { get; } 
+        [NotNull] ObservableCollection<string> SectionNames        { get; } 
 
         /// <remarks>
         /// on-demand collection storage is allocated on first use
         /// use the <see cref="HasSectionComments"/> property to check for not empty
         /// </remarks>>
-        INotifyingCollection<ICommentSection> SectionComments { get; }
-        bool HasSectionComments { get; }
+        ObservableCollection<CommentSection> SectionComments { get; }
+        bool HasSectionComments    { get; }
+        bool HasAnySectionComments { get; }
 
         /// <remarks>
         /// on-demand collection storage is allocated on first use
@@ -50,7 +51,7 @@ namespace BDC_V1.Interfaces
         /// If you are going to modify one of these images the ImagesModelBase class may require that
         /// you delete and add the item to get the view to update
         /// </remarks>>
-        [NotNull] INotifyingCollection<ImageSource> Images { get; }
+        [NotNull] ObservableCollection<ImageSource> Images { get; }
         bool HasImages { get; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Media;
 using BDC_V1.Interfaces;
 using JetBrains.Annotations;
 
@@ -69,10 +71,10 @@ namespace BDC_V1.Classes
 
         public int DetailSelectedIndex
         {
-            get => _DetailSelectedIndex;
-            set => SetProperty(ref _DetailSelectedIndex, value);
+            get => _detailSelectedIndex;
+            set => SetProperty(ref _detailSelectedIndex, value);
         }
-        private int _DetailSelectedIndex;
+        private int _detailSelectedIndex;
 
 
         public string DetailSelector
@@ -179,23 +181,19 @@ namespace BDC_V1.Classes
         private string _inventoryDetails;
 
 
-        public INotifyingCollection<string> DetailSelectors { get; } = 
-            new NotifyingCollection<string>();
+        public ObservableCollection<string> DetailSelectors { get; } = 
+            new ObservableCollection<string>();
 
+        public ObservableCollection<string> EquipmentMakes { get; } = 
+            new ObservableCollection<string>();
 
-        public INotifyingCollection<string> EquipmentMakes { get; } = 
-            new NotifyingCollection<string>();
+        public ObservableCollection<string> Manufacturers { get; } = 
+            new ObservableCollection<string>();
 
+        public virtual bool HasImages => Images.Any();
 
-        public INotifyingCollection<string> Manufacturers { get; } = 
-            new NotifyingCollection<string>();
-
-
-        public bool HasImages => Images.HasItems;
-        public INotifyingCollection<ImageSource> Images => 
-            PropertyCollection<ImageSource>(ref _images, nameof(HasImages));
-        [CanBeNull] private INotifyingCollection<ImageSource> _images;
-
+        public ObservableCollection<ImageSource> Images { get; } =
+            new ObservableCollection<ImageSource>();
 
         // **************** Class data members ********************************************** //
 
@@ -204,6 +202,9 @@ namespace BDC_V1.Classes
 
         public InventoryDetail()
         {
+
+            Images.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(nameof(HasImages));
         }
 
         // **************** Class members *************************************************** //

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using BDC_V1.Enumerations;
@@ -44,7 +45,8 @@ namespace BDC_V1.Classes
         public bool IsActive
         {
             get => _isActive;
-            set => SetProperty(ref _isActive, value);
+            set => SetPropertyFlagged(ref _isActive, value,
+                nameof(AreAnyActive));
         }
         private bool _isActive = true;
 
@@ -63,136 +65,73 @@ namespace BDC_V1.Classes
         public bool HasQaIssues => HasInspectionIssues || HasInventoryIssues;
 
         /// <inheritdoc />
-        public bool HasAnyQaIssues
-        {
-            get => _hasAnyQaIssues |= HasQaIssues;
-            set => SetProperty(ref _hasAnyQaIssues, value);
-        }
-        private bool _hasAnyQaIssues;
-        // *******************************************************
-
-        // *******************************************************
-        /// <inheritdoc />
         public virtual bool HasInspectionIssues
         {
             get => _hasInspectionIssues;
-            set => SetProperty(ref _hasInspectionIssues, value, () =>
+            set => SetPropertyFlagged(ref _hasInspectionIssues, value, new [] 
             {
-                HasAnyInspectionIssues |= _hasInspectionIssues;
-                RaisePropertyChanged(new [] {nameof(HasQaIssues), nameof(HasAnyQaIssues)});
+                nameof(HasQaIssues), 
+                nameof(HasAnyQaIssues), 
+                nameof(HasAnyInspectionIssues)
             });
         }
         private bool _hasInspectionIssues;
 
         /// <inheritdoc />
-        public bool HasAnyInspectionIssues
-        {
-            get => _hasAnyInspectionIssues;
-            set => SetProperty(ref _hasAnyInspectionIssues, value);
-        }
-        private bool _hasAnyInspectionIssues;
-        // *******************************************************
-
-        // *******************************************************
-        /// <inheritdoc />
         public virtual bool HasInventoryIssues
         {
             get => _hasInventoryIssues;
-            set => SetProperty(ref _hasInventoryIssues, value, () =>
+            set => SetPropertyFlagged(ref _hasInventoryIssues, value, new [] 
             {
-                HasAnyInventoryIssues |= _hasInventoryIssues;
-                RaisePropertyChanged(new [] {nameof(HasQaIssues), nameof(HasAnyQaIssues)});
+                nameof(HasQaIssues), 
+                nameof(HasAnyQaIssues), 
+                nameof(HasAnyInventoryIssues)
             });
         }
         private bool _hasInventoryIssues;
 
         /// <inheritdoc />
-        public bool HasAnyInventoryIssues
-        {
-            get => _hasAnyInventoryIssues;
-            set => SetProperty(ref _hasAnyInventoryIssues, value);
-        }
-        private bool _hasAnyInventoryIssues;
-        // *******************************************************
-
-        // *******************************************************
-        /// <inheritdoc />
         public virtual bool HasInspections
         {
             get => _hasInspections;
-            set => SetProperty(ref _hasInspections, value, () =>
-            {
-                HasAnyInspections |= _hasInspections;
-            });
+            set => SetPropertyFlagged(ref _hasInspections, value, 
+                nameof(HasAnyInspections));
         }
         private bool _hasInspections;
 
-        /// <inheritdoc />
-        public bool HasAnyInspections
-        {
-            get => _hasAnyInspections;
-            set => SetProperty(ref _hasAnyInspections, value);
-        }
-        private bool _hasAnyInspections;
+        // *******************************************************
+        // Derived properties
         // *******************************************************
 
-        // *******************************************************
-        // the rest of these are just for this component
-        // *******************************************************
+        // I don't see these being overridden
+        public bool HasAnyQaIssues         => HasQaIssues         | Children.Any(item => item.HasAnyQaIssues        );       
+        public bool HasAnyInspectionIssues => HasInspectionIssues | Children.Any(item => item.HasAnyInspectionIssues); 
+        public bool HasAnyInventoryIssues  => HasInventoryIssues  | Children.Any(item => item.HasAnyInventoryIssues ); 
+        public bool HasAnyInspections      => HasInspections      | Children.Any(item => item.HasAnyInspections     );
 
-        /// <inheritdoc />
-        public virtual bool HasComments
-        {
-            get => _hasComments;
-            set => SetProperty(ref _hasComments, value);
-        }
-        private bool _hasComments;
+        // this one could possibly need to be overridden
+        public virtual bool AreAnyActive => IsActive | Children.Any(item => item.AreAnyActive);
 
-        /// <inheritdoc />
-        public virtual bool HasFacilityComments
-        {
-            get => _hasFacilityComments;
-            set => SetProperty(ref _hasFacilityComments, value);
-        }
-        private bool _hasFacilityComments;
+        // these should be overridden in any class that implements the specified collection
+        public virtual bool HasComments           => false;
+        public virtual bool HasFacilityComments   => false;
+        public virtual bool HasInspectionComments => false;
+        public virtual bool HasDetailComments     => false;
+        public virtual bool HasImages             => false;
 
-        /// <inheritdoc />
-        public virtual bool HasInspectionComments
-        {
-            get => _hasInspectionComments;
-            set => SetProperty(ref _hasInspectionComments, value);
-        }
-        private bool _hasInspectionComments;
-
-        /// <inheritdoc />
-        public virtual bool HasDetailComments
-        {
-            get => _hasDetailComments;
-            set => SetProperty(ref _hasDetailComments, value);
-        }
-        private bool _hasDetailComments;
-
-        /// <inheritdoc />
-        public virtual bool HasImages
-        {
-            get => _hasImages;
-            set => SetProperty(ref _hasImages, value);
-        }
-        private bool _hasImages;
-
-        /// <inheritdoc />
-        public bool HasComponents => Children.Any();
+        // should not be overridden
+        public bool HasChildren => Children.Any();
 
         // *******************************************************
         // Component children
         // *******************************************************
 
-        // Methods to add children ??? TODO: must block direct additions!!!
+        // TODO: must block direct additions!!!
         /// <inheritdoc />
-        public ObservableCollection<ComponentBase> Children { get; }
-        
-        //PropertyCollection<IComponentBase>(ref _components, nameof(HasComponents));
-        //[CanBeNull] private INotifyingCollection<IComponentBase> _components;
+        public ReadOnlyObservableCollection<ComponentBase> Children { get; } 
+
+        // ReSharper disable once InconsistentNaming
+        private ObservableCollection<ComponentBase> _children { get; }
 
         // **************** Class data members ********************************************** //
 
@@ -201,23 +140,40 @@ namespace BDC_V1.Classes
 
         public ComponentBase()
         {
-            Children = new ObservableCollection<ComponentBase>();
-            Children.CollectionChanged += (o, i) => { RaisePropertyChanged(nameof(HasComponents)); };
+            _children = new ObservableCollection<ComponentBase>();
+            _children.CollectionChanged += (o, e) => RaisePropertyChanged(new[]
+            {
+                nameof(HasChildren           ),
+                nameof(HasAnyQaIssues        ),
+                nameof(HasAnyInspectionIssues),
+                nameof(HasAnyInventoryIssues ),
+                nameof(HasAnyInspections     ),
+                nameof(AreAnyActive          )
+            });
+
+            Children = new ReadOnlyObservableCollection<ComponentBase>(_children);
         }
 
         // **************** Class members *************************************************** //
-        // Methods to add children ??? TODO: must block direct additions!!!
 
         private void OnChildPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(! (sender is IComponentBase child)) throw new InvalidCastException("object is not a child");
+            if(! (sender is IComponentBase child)) 
+                throw new InvalidCastException("object is not a child");
 
             switch (e.PropertyName)
             {
-                case nameof(HasAnyQaIssues):         HasAnyQaIssues         = child.HasAnyQaIssues         | HasQaIssues        ; break;
-                case nameof(HasAnyInspectionIssues): HasAnyInspectionIssues = child.HasAnyInspectionIssues | HasInspectionIssues; break;
-                case nameof(HasAnyInventoryIssues):  HasAnyInventoryIssues  = child.HasAnyInventoryIssues  | HasInventoryIssues ; break;
-                case nameof(HasAnyInspections):      HasAnyInspections      = child.HasAnyInspections      | HasInspections     ; break;
+                case nameof(HasAnyQaIssues        ):         
+                case nameof(HasAnyInspectionIssues): 
+                case nameof(HasAnyInventoryIssues ):  
+                case nameof(HasAnyInspections     ):
+                case nameof(AreAnyActive          ):
+                    RaisePropertyChanged(e.PropertyName);
+                    break;
+
+                //case nameof(IsActive) :
+                //    RaisePropertyChanged(nameof(AreAnyActive));
+                //    break;
             }
 
             // does this kludge get things to update in the tree view?
@@ -227,13 +183,15 @@ namespace BDC_V1.Classes
 
         // ******************************************************************* 
         // Add children access, the only proper way
+        //
+        // Methods to add children ??? TODO: must block direct additions!!!
         // ******************************************************************* 
 
         /// <inheritdoc />
         public virtual void AddChild(ComponentBase child)
         {
             child.PropertyChanged += OnChildPropertyChanged;
-            Children.Add(child);
+            _children.Add(child);
         }
 
         /// <inheritdoc />
@@ -276,7 +234,7 @@ namespace BDC_V1.Classes
                 return true;
             }
 
-            if (HasComponents)
+            if (HasChildren)
             {
                 foreach (var item in Children)
                 {
@@ -303,7 +261,7 @@ namespace BDC_V1.Classes
                 itemList.Add(this);
             }
 
-            if (HasComponents)
+            if (HasChildren)
             {
                 foreach (var item in Children)
                 {

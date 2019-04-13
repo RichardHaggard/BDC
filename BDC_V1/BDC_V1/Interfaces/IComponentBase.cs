@@ -36,6 +36,11 @@ namespace BDC_V1.Interfaces
         /// </summary>
         bool IsActive { get; set; }
 
+        /// <summary>
+        /// Are any of the children active
+        /// </summary>
+        bool AreAnyActive { get; }
+
         // Queries to bring derived class features up front
         // These queries won't instantiate storage if it is on-demand
         // checks and returns for the selected component only
@@ -105,14 +110,15 @@ namespace BDC_V1.Interfaces
         /// </summary>
         bool HasImages { get; }
 
-        // Subsystems
-        bool HasComponents { get; }
+        /// <summary>
+        /// Returns true if there are any children
+        /// </summary>
+        bool HasChildren { get; }
 
         /// <summary>
-        /// Component children of this one
+        /// Component children of this one, Blocks external collection changes
         /// </summary>
-        [NotNull] ObservableCollection<ComponentBase> Children { get; }
-        //[NotNull] INotifyingCollection<IComponentBase> Children { get; }
+        [NotNull] ReadOnlyObservableCollection<ComponentBase> Children { get; }
 
         // getters for the desired component children, these only work for unique keys
         // the find key is InventoryType+ComponentName by default,

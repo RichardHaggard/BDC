@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 using JetBrains.Annotations;
 
@@ -24,7 +26,8 @@ namespace BDC_V1.Interfaces
         /// use the <see cref="HasInspectionComments"/> property to check for not empty
         /// </remarks>
         [NotNull] 
-        INotifyingCollection<ICommentInspection> InspectionComments { get; }
-        bool HasInspectionComments { get; }
+        ObservableCollection<CommentInspection> InspectionComments { get; }
+        bool HasInspectionComments    { get; }
+        bool HasAnyInspectionComments { get; }
     }
 }

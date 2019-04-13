@@ -268,12 +268,12 @@ namespace BDC_V1.ViewModels
         }
         private ObservableCollection<ComponentBase> _treeItemsViewSource;
 
-        public IIndexedCollection<Control> ToolbarMenuItems
+        public ObservableCollection<Control> ToolbarMenuItems
         {
             get => _toolbarMenuItems;
             private set => SetProperty(ref _toolbarMenuItems, value);
         }
-        private IIndexedCollection<Control> _toolbarMenuItems = new IndexedCollection<Control>();
+        private ObservableCollection<Control> _toolbarMenuItems = new ObservableCollection<Control>();
 
         // **************** Class data members ********************************************** //
 
@@ -642,7 +642,7 @@ namespace BDC_V1.ViewModels
 
             component.IsActive = filter(component);
 
-            if (component.HasComponents) 
+            if (component.HasChildren) 
                 FilterComponentTree(component.Children, filter);
         }
 

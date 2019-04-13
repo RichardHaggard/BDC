@@ -1,4 +1,7 @@
-﻿using BDC_V1.Enumerations;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
 using JetBrains.Annotations;
 
@@ -17,25 +20,48 @@ namespace BDC_V1.Classes
         public IInventoryDetail  Detail  { get; } = new InventoryDetail ();
 
         // Images
-        public override bool HasImages => (base.HasImages = Section.HasImages || Detail.HasImages);
+        public override bool HasImages => Section.HasImages || Detail.HasImages;
 
         // Inspection Issues
-        public override bool HasInspectionIssues => (base.HasInspectionIssues = InspectionIssues.HasItems);
-        public INotifyingCollection<IIssueInspection> InspectionIssues => 
-            PropertyCollection<IIssueInspection>(ref _inspectionIssues, nameof(HasInspectionIssues));
-        [CanBeNull] private INotifyingCollection<IIssueInspection> _inspectionIssues;
+        public override bool HasInspectionIssues => InspectionIssues.Any();
+        public ObservableCollection<IssueInspection> InspectionIssues { get; } =
+            new ObservableCollection<IssueInspection>();
 
         // Inventory Issues
-        public override bool HasInventoryIssues => (base.HasInventoryIssues = InventoryIssues.HasItems);
-        public INotifyingCollection<IIssueInventory> InventoryIssues => 
-            PropertyCollection<IIssueInventory>(ref _inventoryIssues, nameof(HasInventoryIssues));
-        [CanBeNull] private INotifyingCollection<IIssueInventory> _inventoryIssues;
+        public override bool HasInventoryIssues => InventoryIssues.Any();
+        public ObservableCollection<IssueInventory> InventoryIssues { get; } =
+            new ObservableCollection<IssueInventory>();
 
         // **************** Class data members ********************************************** //
 
 
         // **************** Class constructors ********************************************** //
 
+        public ComponentInventory()
+        {
+            InspectionIssues.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(new []
+                {
+                    nameof(HasInspectionIssues   ), 
+                    nameof(HasAnyInspectionIssues)
+                });
+
+            InventoryIssues.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(new []
+                {
+                    nameof(HasInventoryIssues    ), 
+                    nameof(HasAnyInventoryIssues )
+                });
+
+            Section.PropertyChanged += OnItemPropertyChanged;
+            Detail .PropertyChanged += OnItemPropertyChanged;
+        }
+
+        private void OnItemPropertyChanged(object o, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(HasImages)) 
+                RaisePropertyChanged(e.PropertyName);
+        }
 
         // **************** Class members *************************************************** //
 

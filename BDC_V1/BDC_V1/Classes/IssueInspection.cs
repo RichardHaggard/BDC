@@ -1,4 +1,6 @@
-﻿using BDC_V1.Enumerations;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
 using JetBrains.Annotations;
@@ -51,9 +53,20 @@ namespace BDC_V1.Classes
         }
         private EnumRatingType _rating;
 
-        public  bool HasInspectionComments => InspectionComments.HasItems;
-        public INotifyingCollection<ICommentInspection> InspectionComments => 
-            PropertyCollection<ICommentInspection>(ref _inspectionComments, nameof(HasInspectionComments));
-        [CanBeNull] private INotifyingCollection<ICommentInspection> _inspectionComments;
+        public virtual bool HasInspectionComments    => InspectionComments.Any();
+        public virtual bool HasAnyInspectionComments => HasInspectionComments;
+
+        public ObservableCollection<CommentInspection> InspectionComments { get; }
+            = new ObservableCollection<CommentInspection>();
+
+        public IssueInspection()
+        {
+            InspectionComments.CollectionChanged += (o, i) =>
+                RaisePropertyChanged(new[]
+                {
+                    nameof(HasInspectionComments),
+                    nameof(HasAnyInspectionComments)
+                });
+        }
     }
 }

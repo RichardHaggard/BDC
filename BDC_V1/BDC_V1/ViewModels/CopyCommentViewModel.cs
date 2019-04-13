@@ -102,14 +102,14 @@ namespace BDC_V1.ViewModels
         }
         private string _matchingResultsText;
 
-        public INotifyingCollection<string> ListOfFacilities { get; } =
-            new NotifyingCollection<string>();
+        public ObservableCollection<string> ListOfFacilities { get; } =
+            new ObservableCollection<string>();
 
-        public INotifyingCollection<ICommentary> FilteredCommentary { get; } =
-            new NotifyingCollection<ICommentary>();
+        public ObservableCollection<Commentary> FilteredCommentary { get; } =
+            new ObservableCollection<Commentary>();
 
-        public INotifyingCollection<ICommentary> UnFilteredCommentary { get; } =
-            new NotifyingCollection<ICommentary>();
+        public ObservableCollection<Commentary> UnFilteredCommentary { get; } =
+            new ObservableCollection<Commentary>();
 
         // **************** Class constructors ********************************************** //
 
@@ -201,7 +201,7 @@ namespace BDC_V1.ViewModels
 
         private void OnChangeFilter()
         {
-            IEnumerable<ICommentary> filterList = new List<ICommentary>(UnFilteredCommentary);
+            IEnumerable<Commentary> filterList = new List<Commentary>(UnFilteredCommentary);
 
             // ??? don't know what to do here ???
             switch (FilterSource)
