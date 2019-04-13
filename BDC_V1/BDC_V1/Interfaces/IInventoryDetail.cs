@@ -40,6 +40,10 @@ namespace BDC_V1.Interfaces
         [NotNull] ObservableCollection<string> EquipmentMakes  { get; }
         [NotNull] ObservableCollection<string> Manufacturers   { get; }
 
+        [NotNull] ObservableCollection<CommentBase> DetailComments { get; }
+        bool HasDetailComments    { get; }
+        bool HasAnyDetailComments { get; }
+
         /// <remarks>
         /// on-demand collection storage is allocated on first use
         /// use the <see cref="HasImages"/> property to check for not empty

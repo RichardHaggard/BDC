@@ -33,24 +33,24 @@ namespace BDC_V1.ViewModels
 
         public bool Estimated
         {
-            get { return _Estimated; }
+            get => _estimated;
             set 
             { 
-                if ( SetProperty(ref _Estimated, value) )
+                if ( SetProperty(ref _estimated, value) )
                 {
                     YearInstalledBg = (value) ? "Yellow" : "Transparent";
                 }
             }
         }
-        private bool _Estimated;
+        private bool _estimated;
 
 
         public string YearInstalledBg
         {
-            get { return _YearInstalledBg; }
-            set { SetProperty(ref _YearInstalledBg, value); }
+            get => _yearInstalledBg;
+            set => SetProperty(ref _yearInstalledBg, value);
         }
-        private string _YearInstalledBg;
+        private string _yearInstalledBg;
 
 
         [NotNull]
@@ -82,6 +82,12 @@ namespace BDC_V1.ViewModels
         //    }
         //}
 
+        public override ObservableCollection<CommentBase> CommentContainer =>
+            InventorySection.SectionComments;   // TODO: Fix this
+
+        public override ObservableCollection<ImageSource> ImageContainer => 
+            InventorySection.Images;
+
         // **************** Class constructors ********************************************** //
 
         public InventorySectionViewModel()
@@ -99,9 +105,6 @@ namespace BDC_V1.ViewModels
 #endif
         }
 
-        protected override void CreateImages() =>  
-            CreateImages(InventorySection.HasImages? InventorySection.Images : null);
-
         // **************** Class members *************************************************** //
 
         private void OnCancelEdit    () { Debug.WriteLine("OnCancelEdit     is not implemented"); }
@@ -110,8 +113,7 @@ namespace BDC_V1.ViewModels
 
         private void OnSectionComment() 
         {             
-            var view = new CommentView();
-            view.ShowDialog();
+            OnSelectedComment(null);
         }
     }
 }

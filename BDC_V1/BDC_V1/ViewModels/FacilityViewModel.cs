@@ -27,6 +27,12 @@ namespace BDC_V1.ViewModels
 
         public ICommand CmdFacilityComment { get; }
 
+        public override ObservableCollection<CommentBase> CommentContainer =>
+            LocalFacilityInfo?.FacilityComments;
+
+        public override ObservableCollection<ImageSource> ImageContainer => 
+            LocalFacilityInfo?.Images;
+
         // **************** Class constructors ********************************************** //
 
         public FacilityViewModel()
@@ -40,9 +46,7 @@ namespace BDC_V1.ViewModels
 
         private void OnFacilityComment() 
         {             
-            var view = new CommentView();
-            view.ShowDialog();
+            OnSelectedComment(null);
         }
-
     }
 }

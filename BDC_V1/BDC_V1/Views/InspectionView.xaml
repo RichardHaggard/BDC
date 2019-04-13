@@ -67,21 +67,21 @@
                 VerticalScrollBarVisibility="Auto">
     <Grid>
       <Grid.RowDefinitions>
-        <RowDefinition Height="5"    /> <!--  0 - white space at top -->
-        <RowDefinition Height="38" /> <!--  1 - Component -->
-        <RowDefinition Height="38" /> <!--  2 - Equip/Mat -->
-        <RowDefinition Height="38" /> <!--  3 - Component Type -->
-        <RowDefinition Height="38" /> <!--  4 - Section Quantity -->
-        <RowDefinition Height="38" /> <!--  5 - Inspection Date -->
-        <RowDefinition Height="170"  /> <!--  6 - Painted & Direct -->
-        <RowDefinition Height="100"  /> <!--  7 - Inspection Comment -->
-        <RowDefinition Height="10"   /> <!--  8 - white space -->
+        <RowDefinition Height="5"  /> <!--  0 - white space at top -->
+        <RowDefinition Height="40" /> <!--  1 - Component -->
+        <RowDefinition Height="40" /> <!--  2 - Equip/Mat -->
+        <RowDefinition Height="40" /> <!--  3 - Component Type -->
+        <RowDefinition Height="40" /> <!--  4 - Section Quantity -->
+        <RowDefinition Height="40" /> <!--  5 - Inspection Date -->
+        <RowDefinition Height="180"/> <!--  6 - Painted & Direct --> <!-- TODO: Merge this style with the InventorySection -->
+        <RowDefinition Height="100"/> <!--  7 - Inspection Comment -->
+        <RowDefinition Height="5"  /> <!--  8 - white space -->
         <RowDefinition Height="55" /> <!--  9 - Remember -->
-        <RowDefinition Height="10"   /> <!-- 10 - white space -->
-        <RowDefinition Height="128" /> <!-- 11 - Inspection Photos -->
-        <RowDefinition Height="10"   /> <!-- 12 - white space -->
-        <RowDefinition Height="40" /> <!-- 13 - Action Buttons -->
-        <RowDefinition Height="5"    /> <!-- 14 - white space at bottom -->
+        <RowDefinition Height="5"  /> <!-- 10 - white space -->
+        <RowDefinition Height="130"/> <!-- 11 - Inspection Photos -->
+        <RowDefinition Height="10" /> <!-- 12 - white space -->
+        <RowDefinition Height="60" /> <!-- 13 - Action Buttons -->
+        <RowDefinition Height="5"  /> <!-- 14 - white space at bottom -->
       </Grid.RowDefinitions>
 
       <Grid.ColumnDefinitions>
@@ -552,17 +552,30 @@
         </Grid>
       </Border>
 
-      <Border
-          Grid.Row="7" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="8"
-          Style="{StaticResource BorderYO}">
-        <TextBox
-            VerticalContentAlignment="Top"
-            Background="LightYellow"
-            HorizontalContentAlignment="Left"
-            IsReadOnly="True"
-            Style="{StaticResource TextBoxWrap}"
-            Text="{Binding InspectionInfo.InspectionComment}" />
-      </Border>
+      <ListBox Grid.Row="7" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="8"
+               Name="CommentListBox"
+               Style="{StaticResource CommentBoxStyle}"
+               ScrollViewer.VerticalScrollBarVisibility="Auto"
+               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+               ItemsSource="{Binding InspectionInfo.InspectionComment}"
+      >
+        <i:Interaction.Triggers>
+          <i:EventTrigger EventName="MouseDoubleClick">
+            <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}" 
+                                   CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"/>
+          </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock TextWrapping="Wrap"  
+                       Text="{Binding Path=.}"
+                       Width="{Binding Path=Width,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+            />
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
 
       <!-- Photos -->
       <Button Grid.Row="11" Grid.Column="0"
@@ -573,21 +586,45 @@
                  Style="{StaticResource ImageClickBlockImageStyle}"/>
           <Label Content="Photo(s)"
                  Style="{StaticResource ImageClickBlockTextStyle}" />
-          <Label Content="{Binding ElementName=ImagesList, Path=Items.Count}"
+          <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
                  Style="{StaticResource ImageClickBlockTextStyle}" />
         </StackPanel >
       </Button>
 
-      <Border 
-          Grid.Row="11"
-          Grid.Column="1"
-          Grid.ColumnSpan="8"
-          Style="{StaticResource BorderYO}"
-          HorizontalAlignment="Stretch"
-          VerticalAlignment="Stretch">
-        <ItemsControl x:Name="ImagesList"
-                prism:RegionManager.RegionName="InspectionItemControl" />
-      </Border>
+      <ListBox Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="8"
+               Name="ImageListBox"
+               Style="{StaticResource ImageBoxStyle}"
+               ScrollViewer.VerticalScrollBarVisibility="Disabled"
+               ScrollViewer.HorizontalScrollBarVisibility="Auto"
+               ItemsSource="{Binding InspectionInfo.Images}"
+      >
+        <i:Interaction.Triggers>
+          <i:EventTrigger EventName="MouseDoubleClick">
+            <i:InvokeCommandAction Command="{Binding CmdImageDoubleClicked}"  
+                                   CommandParameter="{Binding ElementName=ImageListBox, Path=SelectedItem}"/>
+          </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+        <ListBox.ItemsPanel>
+          <ItemsPanelTemplate>
+            <StackPanel IsItemsHost="True" 
+                        Orientation="Horizontal"
+            />
+          </ItemsPanelTemplate>
+        </ListBox.ItemsPanel>
+
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <WrapPanel>
+              <Image Stretch="UniformToFill" 
+                     Source="{Binding Path=.}"
+                     Height="{Binding Path=Height,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+              />
+            </WrapPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
 
     <!-- Action Buttons -->
     <StackPanel 

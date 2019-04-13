@@ -30,5 +30,10 @@ namespace BDC_V1.Views
         {
             set => DataContext = value;
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

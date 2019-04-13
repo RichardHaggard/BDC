@@ -8,6 +8,20 @@
     <Application.Resources>
         <ResourceDictionary>
 
+          <Style x:Key="CommentBoxStyle" TargetType="ListBox">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="Background" Value="LightYellow" />
+            <Setter Property="SelectionMode" Value="Single" />
+          </Style>
+
+          <Style x:Key="ImageBoxStyle" TargetType="ListBox" BasedOn="{StaticResource CommentBoxStyle}" >
+            <Setter Property="Background" Value="Moccasin" />
+          </Style>
+
             <Style x:Key="btnImageText" TargetType="Button">
                 <Setter Property="Background" Value="#9BC2E6"/>
                 <Setter Property="BorderBrush" Value="Black"/>

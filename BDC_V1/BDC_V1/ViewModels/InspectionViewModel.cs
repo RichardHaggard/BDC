@@ -81,6 +81,12 @@ namespace BDC_V1.ViewModels
 //            }
 //        }
 
+        public override ObservableCollection<CommentBase> CommentContainer =>
+            InspectionInfo.InspectionComments;
+
+        public override ObservableCollection<ImageSource> ImageContainer => 
+            InspectionInfo.Images;
+
         // **************** Class data members ********************************************** //
 
         // **************** Class constructors ********************************************** //
@@ -104,16 +110,9 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
-        protected override void CreateImages() =>  
-            CreateImages(InspectionInfo.HasImages? InspectionInfo.Images : null);
-
         protected override bool GetRegionManager()
         {
             if (!base.GetRegionManager() || (RegionManager == null)) return false;
-
-            ImageItemsControl = GetIImageItemControl(RegionManager);
-            CreateImages();
-
             return true;
         }
 
@@ -124,8 +123,18 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdInspectionComment()
         {
+            OnSelectedComment(null);
+        }
+
+        protected override void OnSelectedComment([CanBeNull] CommentBase comment)
+        {
             var view = new CommentInspectionView();
-            view.ShowDialog();
+            if (!(view.DataContext is CommentInspectionViewModel model)) return;
+
+            if (view.ShowDialog() != true) return;
+
+            // TODO: Fix the CommentViewModel to return a CommentBase class on success
+            DoSelectedComment(model.Result, comment, null);
         }
 
         private void OnDeleteInspection()

@@ -22,7 +22,7 @@ using Prism.Regions;
 
 namespace BDC_V1.Classes
 {
-    public class ImagesModelBase : ViewModelBase
+    public abstract class ImagesModelBase : ViewModelBase
     {
         // **************** Class enumerations ********************************************** //
 
@@ -30,289 +30,103 @@ namespace BDC_V1.Classes
 
         // **************** Class properties ************************************************ //
 
-        public    ICommand CmdPhotosButton  { get; }
-        protected ICommand CmdSelectedImage { get; }
-
-        [CanBeNull]
-        protected virtual ItemsControl ImageItemsControl
-        {
-            get => _imageItemsControl;
-            set => SetProperty(ref _imageItemsControl, value);
-        }
-        [CanBeNull] private ItemsControl _imageItemsControl;
-
-        protected virtual Size ImageSize
-        {
-            get => _imageSize;
-            set => SetProperty(ref _imageSize, value);
-        }
-        private Size _imageSize = new Size
-        {
-            Height = 120, // ImageItemsControl.ActualHeight, ???
-            Width  = 20   // minimum width ???
-        };
-
-        [NotNull]
-        private ObservableCollection<Button> ImagesItem
-        {
-            get
-            {
-                if (!(ImageItemsControl?.ItemsSource is ObservableCollection<Button> items))
-                    return _imagesItem ?? (_imagesItem = new ObservableCollection<Button>());
-
-                return items;
-            }
-
-            set
-            {
-                if (ImageItemsControl == null) SetProperty(ref _imagesItem, value);
-                else 
-                {
-                    ImageItemsControl.ItemsSource = value;
-                    RaisePropertyChanged(nameof(ImageItemsControl));
-                }
-            }
-        }
-        private ObservableCollection<Button> _imagesItem;
+        public ICommand CmdPhotosButton         { get; }
+        public ICommand CmdCommentDoubleClicked { get; }
+        public ICommand CmdImageDoubleClicked   { get; }
 
         // **************** Class constructors ********************************************** //
 
-        public ImagesModelBase()
+        protected ImagesModelBase()
         {
             RegionManagerName = "FacilityItemControl";
 
-            CmdPhotosButton  = new DelegateCommand        (OnPhotosButton );
-            CmdSelectedImage = new DelegateCommand<object>(OnSelectedImage);
+            CmdPhotosButton         = new DelegateCommand(OnPhotosButton );
+            CmdCommentDoubleClicked = new DelegateCommand<object>(OnCommentDoubleClicked);
+            CmdImageDoubleClicked   = new DelegateCommand<object>(OnImageDoubleClicked  );
         }
 
         // **************** Class members *************************************************** //
 
+        // TODO: Have to figure out how to get the selected item and it's index into here
+        private void OnCommentDoubleClicked([CanBeNull] object obj)
+        {
+            OnSelectedComment(obj as CommentBase);
+        }
+
+        private void OnImageDoubleClicked([CanBeNull] object obj) 
+        {             
+            OnSelectedImage(obj as ImageSource);
+        }
+
         protected virtual void OnPhotosButton()
         {
-#if false
-            // this almost works... just have to close all the dangling windows on App exit
-            // ??? should we open this in a new thread ???
-            var view = CameraView.Instance;
-            if(view.IsVisible) view.Topmost = true;
-            else               view.Show();
-#else
-            //var view = new CameraView();
-            //view.ShowDialog();
             OnSelectedImage(null);
-#endif
         }
 
         [CanBeNull]
-        protected ItemsPanelTemplate ImagePanelTemplate()
-        {
-            const string xaml = "<ItemsPanelTemplate\r\n" +
-                                "  xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'\r\n" +
-                                "  xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>\r\n" +
-                                "  <StackPanel Orientation=\"Horizontal\"\r\n" +
-                                "              VerticalAlignment=\"Center\"\r\n" +
-                                "              HorizontalAlignment=\"Left\"/>\r\n" +
-                                "</ItemsPanelTemplate>";
+        public abstract ObservableCollection<CommentBase> CommentContainer { get; }
 
-            return XamlReader.Parse(xaml) as ItemsPanelTemplate;
+        protected virtual void OnSelectedComment([CanBeNull] CommentBase comment)
+        {
+            var view = new CommentView();
+            if (!(view.DataContext is CommentViewModel model)) return;
+
+            if (view.ShowDialog() != true) return;
+
+            // TODO: Fix the CommentViewModel to return a CommentBase class on success
+            DoSelectedComment(model.Result, comment, null);
         }
 
-        [NotNull]
-        protected ItemsControl GetIImageItemControl([NotNull] IRegionManager regionManager)
+        // these two members are separated so they can be overriden separately
+        protected virtual void DoSelectedComment(EnumControlResult result, [CanBeNull] CommentBase itemText, [CanBeNull] CommentBase modelText)
         {
-            var imageItems = new ItemsControl {ItemsPanel = ImagePanelTemplate()};
-
-            regionManager.Regions[RegionManagerName].RemoveAll();
-            regionManager.Regions[RegionManagerName].Add(imageItems);
-
-            return imageItems;
+            // TODO: Do something useful here...
         }
 
-        [NotNull]
-        protected Image CreateImage([NotNull] ImageSource source)
-        {
-            return new Image
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment   = VerticalAlignment.Stretch,
-                Stretch = Stretch.Uniform,
-                Source  = source
-            };
-        }
+        [CanBeNull]
+        public abstract ObservableCollection<ImageSource> ImageContainer { get; }
 
-        [NotNull]
-        protected Button CreateButton(Size imageSize)
-        {
-            var button = new Button
-            {
-                BorderThickness = new Thickness(0),
-                BorderBrush = Brushes.Black,
-                Background  = Brushes.Transparent, //Brushes.White, 
-                Height      = imageSize.Height,
-                MinWidth    = imageSize.Width,
-                Margin      = new Thickness(0) {Right = 5},
-                Tag         = Guid.NewGuid(),    // hack to identify this button
-                Command     = CmdSelectedImage
-            };
-
-            // ReSharper disable once UseObjectOrCollectionInitializer
-            var binds = new MultiBinding();
-            binds.Converter = new ImageButtonConverter();
-            binds.Bindings.AddRange(new[]
-            {
-                new Binding("Content") { RelativeSource = new RelativeSource(RelativeSourceMode.Self) },
-                new Binding("Tag"    ) { RelativeSource = new RelativeSource(RelativeSourceMode.Self) }
-            });
-
-            button.SetBinding(ButtonBase.CommandParameterProperty, binds);
-
-            return button;
-        }
-
-        [NotNull]
-        protected Button CreateImageButton(Size imageSize, [NotNull] ImageSource source)
-        {
-            var button = CreateButton(imageSize);
-            button.Content = CreateImage(source);
-
-            return button;
-        }
-
-        [NotNull]
-        protected IEnumerable<Button> CreateImageButtons(Size imageSize, [NotNull] IEnumerable<ImageSource> images)
-        {
-            var items = images.Select(item => CreateImageButton(imageSize, item)).ToList();
-            return items;
-        }
-
-        private void OnSelectedImage([CanBeNull] object obj)
+        // these two members are separated so they can be overriden separately
+        protected virtual void OnSelectedImage([CanBeNull] ImageSource image)
         {
             var view = new CameraView();
             if (!(view.DataContext is CameraViewModel model)) return;
 
-            var param = ((IEnumerable) obj)?.Cast<object>().ToArray();
-            var image = (param?.Length >= 1)? param[0] as Image : null;
-            var guid  = (param?.Length >= 2)? param[1] as Guid? : null;
-
-            model.SourceImage = image?.Source;
+            model.SourceImage = image;
             if (view.ShowDialog() != true) return;
 
-            var imageItems = ImagesItem;
+            DoSelectedImage(model.Result, image, model.SourceImage);
+        }
 
-            // ??? this is a hack, there should be a better way to get the button that issues this command ???
-            var button = (guid != null) ? imageItems.FirstOrDefault(g => (g.Tag as Guid?) == guid) : null;
-
-            switch (model.Result)
+        protected virtual void DoSelectedImage(EnumControlResult result, [CanBeNull] ImageSource itemImage, [CanBeNull] ImageSource modelImage)
+        {
+            switch (result)
             {
                 case EnumControlResult.ResultDeleteItem:
-                    if (button != null) imageItems.Remove(button);
+                    if (itemImage != null) ImageContainer?.Remove(itemImage);
                     break;
 
                 case EnumControlResult.ResultDeferred:
                 case EnumControlResult.ResultSaveNow:
-                    if (image != null) image.Source = model.SourceImage;
-                    else if (model.SourceImage != null)
+                    if ((modelImage != null) && (ImageContainer != null))
                     {
-                        if (button != null)
+                        if ((itemImage != null) && 
+                            (modelImage != itemImage) &&
+                            ImageContainer.Contains(itemImage))
                         {
-                            button.Content = CreateImage(model.SourceImage);
+                            var imageIdx = ImageContainer.IndexOf(itemImage);
+                            ImageContainer[imageIdx] = modelImage;
                         }
-                        else
-                        {
-                            button = CreateImageButton(ImageSize, model.SourceImage);
-                            imageItems.Add(button);
-                        }
+
+                        else ImageContainer.Add(modelImage);
                     }
 
                     break;
-            }
 
-            ImagesItem = imageItems;
-        }
-
-        protected virtual void CreateImages([CanBeNull] ObservableCollection<ImageSource> srcImages)
-        {
-            if (ImageItemsControl == null) return;
-
-            var imageItems = ImagesItem;
-            imageItems.Clear();
-
-            if (srcImages != null)
-            {
-                // make sure we don't double up on the notifications
-                srcImages.CollectionChanged -= OnImageCollectionChanged;   
-                srcImages.CollectionChanged += OnImageCollectionChanged;
-
-                var itemList = CreateImageButtons(ImageSize, srcImages);
-                imageItems.AddRange(itemList);
-            }
-
-            // ReSharper disable once PossibleNullReferenceException
-            ImagesItem = imageItems;
-        }
-
-        protected virtual void OnImageCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            var imageItems = ImagesItem;
-
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                {
-                    var addImageSourceList = e.NewItems?.Cast<ImageSource>().ToArray();
-                    if (addImageSourceList?.Any() == true)
-                    {
-                        var addImageList = CreateImageButtons(ImageSize, addImageSourceList);
-                        imageItems.AddRange(addImageList);
-                    }            
-                        
-                    break;
-                }
-
-                case NotifyCollectionChangedAction.Remove:
-                {
-                    var delImageSourceList = e.OldItems?.Cast<ImageSource>().ToArray();
-                    if (delImageSourceList?.Any() == true)
-                    {
-                        foreach (var imageSource in delImageSourceList)
-                        {
-                            var delImages = imageItems
-                                .Where(image => (image.Content as Image)?.Source == imageSource);
-
-                            foreach (var item in delImages)
-                                imageItems.Remove(item);
-                        }
-                    }            
-                        
-                    break;
-                }
-
-                case NotifyCollectionChangedAction.Replace:
-                {
-                    var delArg = new NotifyCollectionChangedEventArgs(
-                        NotifyCollectionChangedAction.Remove, 
-                        new List<ImageSource>(), e.OldItems);
-
-                    OnImageCollectionChanged(sender, delArg);
-
-                    var addArg = new NotifyCollectionChangedEventArgs(
-                        NotifyCollectionChangedAction.Add, 
-                        e.NewItems, new List<ImageSource>());
-
-                    OnImageCollectionChanged(sender, addArg);
-                        
-                    break;
-                }
-
-                case NotifyCollectionChangedAction.Reset:
-                    imageItems.Clear();
+                case EnumControlResult.ResultCancelled:
+                default:
                     break;
             }
-
-            ImagesItem = imageItems;
         }
-
-        protected virtual void AddImage([NotNull] Button image) => 
-            ImagesItem.Add(image);
-
     }
 }

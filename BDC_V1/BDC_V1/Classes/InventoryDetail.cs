@@ -190,6 +190,13 @@ namespace BDC_V1.Classes
         public ObservableCollection<string> Manufacturers { get; } = 
             new ObservableCollection<string>();
 
+
+        public virtual bool HasDetailComments    => DetailComments.Any();
+        public virtual bool HasAnyDetailComments => HasDetailComments;
+
+        public ObservableCollection<CommentBase> DetailComments { get; } =
+            new ObservableCollection<CommentBase>();
+
         public virtual bool HasImages => Images.Any();
 
         public ObservableCollection<ImageSource> Images { get; } =
@@ -202,6 +209,12 @@ namespace BDC_V1.Classes
 
         public InventoryDetail()
         {
+            DetailComments.CollectionChanged += (o, e) => 
+                RaisePropertyChanged(new []
+                {
+                    nameof(HasDetailComments   ),
+                    nameof(HasAnyDetailComments)
+                });
 
             Images.CollectionChanged += (o, e) => 
                 RaisePropertyChanged(nameof(HasImages));

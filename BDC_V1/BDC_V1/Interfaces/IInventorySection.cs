@@ -40,7 +40,7 @@ namespace BDC_V1.Interfaces
         /// on-demand collection storage is allocated on first use
         /// use the <see cref="HasSectionComments"/> property to check for not empty
         /// </remarks>>
-        ObservableCollection<CommentSection> SectionComments { get; }
+        ObservableCollection<CommentBase> SectionComments { get; }
         bool HasSectionComments    { get; }
         bool HasAnySectionComments { get; }
 

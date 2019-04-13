@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows.Media;
 using BDC_V1.Interfaces;
 using JetBrains.Annotations;
 
 namespace BDC_V1.Classes
 {
-    public class FacilityBaseClass : ImagesModelBase
+    public abstract class FacilityBaseClass : ImagesModelBase
     {
         [CanBeNull] 
         public virtual IComponentFacility LocalFacilityInfo
@@ -14,7 +16,6 @@ namespace BDC_V1.Classes
             {
                 if (_localFacilityInfo != null)
                 {
-                    CreateImages();
                     // ObservableCollection should raise it's own notify
                     //RaisePropertyChanged(Images);
                 }
@@ -37,6 +38,9 @@ namespace BDC_V1.Classes
 
                     // ReSharper disable once PossibleNullReferenceException
                     LocalFacilityInfo = LocalBredInfo.FacilityInfo[_facilityIndex] as IComponentFacility;
+
+                    // necessary for comments and images to update. TODO: Might be needed elsewhere as well
+                    RaisePropertyChanged(new[] {nameof(ImageContainer), nameof(CommentContainer)});
                     return;
                 }
 
@@ -58,19 +62,7 @@ namespace BDC_V1.Classes
         protected override bool GetRegionManager()
         {
             if (!base.GetRegionManager() || (RegionManager == null)) return false;
-
-            ImageItemsControl = GetIImageItemControl(RegionManager);
-            CreateImages();
-
             return true;
-        }
-
-        protected virtual void CreateImages()
-        {
-            if (LocalFacilityInfo != null)
-            {
-                CreateImages(LocalFacilityInfo.HasImages? LocalFacilityInfo.Images : null);
-            }
         }
     }
 }

@@ -327,7 +327,10 @@ namespace BDC_V1.Mock_Data
             {
                 new BitmapImage(new Uri(@"pack://application:,,,/Images/EmeraldHils.jpg")),
                 new BitmapImage(new Uri(@"pack://application:,,,/Images/FlamingoWater.jpg")),
-                new BitmapImage(new Uri(@"pack://application:,,,/Images/Reactor.png"))
+                new BitmapImage(new Uri(@"pack://application:,,,/Images/Reactor.png")),
+                //new BitmapImage(new Uri(@"pack://application:,,,/Images/th1.jpg")),
+                //new BitmapImage(new Uri(@"pack://application:,,,/Images/th2.jpg")),
+                //new BitmapImage(new Uri(@"pack://application:,,,/Images/th3.jpg"))
             });
 
             facility1.Inspections.Add(new InspectionInfo

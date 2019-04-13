@@ -128,8 +128,8 @@ namespace BDC_V1.Classes
 
         // Facility Comments
         public override bool HasFacilityComments => FacilityComments.Any();
-        public ObservableCollection<CommentFacility> FacilityComments { get; } =
-            new ObservableCollection<CommentFacility>();
+        public ObservableCollection<CommentBase> FacilityComments { get; } =
+            new ObservableCollection<CommentBase>();
 
         public override bool HasInspections => Inspections.Any();
         public ObservableCollection<InspectionInfo> Inspections { get; } =

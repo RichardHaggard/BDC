@@ -58,6 +58,6 @@ namespace BDC_V1.Interfaces
         /// on-demand collection storage is allocated on first us
         /// use the  <see cref="HasFacilityComments"/> property to check for not empty
         /// </remarks>
-        [NotNull] ObservableCollection<CommentFacility> FacilityComments { get; }
+        [NotNull] ObservableCollection<CommentBase> FacilityComments { get; }
     }
 }

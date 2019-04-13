@@ -28,20 +28,19 @@
                 VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="130" />
+                <RowDefinition Height="130" />
+                <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -281,14 +280,30 @@
                      Style="{StaticResource ImageClickBlockTextStyle}" />
                 </StackPanel>
             </Button>
-            <TextBox
-                Grid.Row="10" Grid.Column="1"  Grid.ColumnSpan="3"
-                Background="LightYellow"
-                IsReadOnly="True"
-                Margin="5"
-                Style="{StaticResource TextBoxWrap}"
-                Text="{Binding InventoryDetails.DetailComment}"
-                />
+
+            <ListBox Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3"
+                     Name="CommentListBox"
+                     Style="{StaticResource CommentBoxStyle}"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ItemsSource="{Binding InventoryDetails.FacilityComments}"
+            >
+              <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                  <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
+                                         CommandParameter="{Binding ElementName=ImageListBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+              </i:Interaction.Triggers>
+
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock TextWrapping="Wrap"  
+                             Text="{Binding Path=.}"
+                             Width="{Binding Path=Width,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                  />
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
 
             <Button Grid.Row="11" Grid.Column="0"
                   Style="{StaticResource ImageClickBlockButtonStyle}"
@@ -298,16 +313,44 @@
                      Style="{StaticResource ImageClickBlockImageStyle}"/>
                     <Label Content="Photo(s)"
                      Style="{StaticResource ImageClickBlockTextStyle}" />
-                    <Label Content="{Binding ElementName=ImagesList, Path=Items.Count}"
+                    <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
                      Style="{StaticResource ImageClickBlockTextStyle}" />
                 </StackPanel >
             </Button>
-            <Border Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"
-                  Style="{StaticResource BorderYO}"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch">
-                <ItemsControl x:Name="ImagesList" prism:RegionManager.RegionName="InventoryCommentDetailsItemControl" />
-            </Border>
+
+            <ListBox Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"
+                     Name="ImageListBox"
+                     Style="{StaticResource ImageBoxStyle}"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                     ItemsSource="{Binding InventoryDetails.Images}"
+            >
+              <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                  <i:InvokeCommandAction Command="{Binding CmdImageDoubleClicked}"  
+                                         CommandParameter="{Binding ElementName=ImageListBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+              </i:Interaction.Triggers>
+
+              <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel IsItemsHost="True" 
+                              Orientation="Horizontal"
+                  />
+                </ItemsPanelTemplate>
+              </ListBox.ItemsPanel>
+
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <WrapPanel>
+                    <Image Stretch="UniformToFill" 
+                           Source="{Binding Path=.}"
+                           Height="{Binding Path=Height,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                    />
+                  </WrapPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
 
             <Grid
                 Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4"

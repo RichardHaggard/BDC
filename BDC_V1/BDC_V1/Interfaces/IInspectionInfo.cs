@@ -27,7 +27,7 @@ namespace BDC_V1.Interfaces
         /// on-demand collection storage is allocated on first use
         /// use the <see cref="HasInspectionComments"/> property to check for not empty
         /// </remarks>>
-        ObservableCollection<CommentInspection> InspectionComments { get; }
+        ObservableCollection<CommentBase> InspectionComments { get; }
         bool HasInspectionComments    { get; }
         bool HasAnyInspectionComments { get; }
 

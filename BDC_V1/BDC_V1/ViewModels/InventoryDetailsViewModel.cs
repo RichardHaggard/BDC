@@ -64,6 +64,12 @@ namespace BDC_V1.ViewModels
         //    }
         //}
 
+        public override ObservableCollection<CommentBase> CommentContainer =>
+            null;   // TODO: Fix this
+
+        public override ObservableCollection<ImageSource> ImageContainer => 
+            InventoryDetails.Images;
+
         // **************** Class constructors ********************************************** //
 
         public InventoryDetailsViewModel()
@@ -86,9 +92,6 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
-        protected override void CreateImages() =>  
-            CreateImages(InventoryDetails.HasImages? InventoryDetails.Images : null);
-
         private void OnCancelEdit    () { Debug.WriteLine("OnCancelEdit     is not implemented"); }
         private void OnDeleteDetail  () { Debug.WriteLine("OnDeleteDetail   is not implemented"); }
         private void OnAddDetail     () { Debug.WriteLine("OnAddDetail      is not implemented"); }
@@ -102,11 +105,9 @@ namespace BDC_V1.ViewModels
                 InventoryDetails.DetailSelectedIndex = 0;
         }
 
-
         private void OnDetailsComment() 
         {             
-            var view = new CommentView();
-            view.ShowDialog();
+            OnSelectedComment(null);
         }
 
         private void OnCmdShowBarcodeScanner()
