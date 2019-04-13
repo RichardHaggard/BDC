@@ -349,10 +349,23 @@
         <!--Bottom status bar-->
         <Border Grid.Row="3" BorderThickness="0" Background="Gray" />
         <StatusBar Grid.Row="3">
-            <Label Content="{Binding StatusLookup        }" />
-            <Label Content="{Binding StatusInspector     }" />
-            <Label Content="{Binding StatusInspectedBy   }" />
-            <Label Content="{Binding StatusDateTimeString}" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal">
+                    <Label Style="{StaticResource LabelRO}" Content="{Binding StatusLookup        }" />
+                    <Label Style="{StaticResource LabelRO}" Content="{Binding StatusInspector     }" />
+                    <Label Style="{StaticResource LabelRO}" Content="{Binding StatusInspectedBy   }" />
+                    <Label Style="{StaticResource LabelRO}" Content="{Binding StatusDateTimeString}" />
+                </StackPanel>
+                <Label 
+                    Grid.Row="1"
+                    Style="{StaticResource LabelRO}" Content="{Binding BredFilename}" />
+            </Grid>
         </StatusBar>
 
     </Grid>

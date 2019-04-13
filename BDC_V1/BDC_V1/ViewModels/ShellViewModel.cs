@@ -54,7 +54,7 @@ namespace BDC_V1.ViewModels
         public ICommand CmdCopyCommentary          { get; }
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
-        public string Title => @"Builder DC - " + BredFilename;
+        public string Title => @"Builder DC";
 
         public string StatusLookup => "Lookup: " + LookupField;
 
