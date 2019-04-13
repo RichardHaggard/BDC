@@ -57,14 +57,18 @@ namespace BDC_V1.Mock_Data
 
             ControlTypeMake = "N/A";
 
-            WarrantyCompany = "";
-            WarrantyDate = "";
+            WarrantyCompany  = "";
+            WarrantyDate     = "";
             WarrantyCompany2 = "";
-            WarrantyDate2 = "";
+            WarrantyDate2    = "";
 
-            DetailComment = "[Kurt Benson on 1/17/2019 10:13:03 AM]\n" +
-                            "The nameplate on the component was missing certain Section Detail fields." + 
-                            " Section Detail fields have been populated and fields with NA represent data not found.";
+            DetailComments.Add(new CommentBase
+            {
+                EntryUser = new Person() {FirstName = "Kurt", LastName = "Benson"},
+                EntryTime = new DateTime(2019, 1, 17, 10, 13, 03),
+                CommentText = "The nameplate on the component was missing certain Section Detail fields." + 
+                              " Section Detail fields have been populated and fields with NA represent data not found."
+            });
 
             InventoryDetails = "What is supposed to go here?";
 

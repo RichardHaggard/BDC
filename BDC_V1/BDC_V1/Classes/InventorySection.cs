@@ -79,12 +79,12 @@ namespace BDC_V1.Classes
         }
         private string _quantity = "";
 
-        public string SectionComment
-        {
-            get => _sectionComment;
-            set => SetProperty(ref _sectionComment, value);
-        }
-        private string _sectionComment;
+        //public string SectionComment
+        //{
+        //    get => _sectionComment;
+        //    set => SetProperty(ref _sectionComment, value);
+        //}
+        //private string _sectionComment;
 
         public string SectionName
         {

@@ -131,10 +131,11 @@ namespace BDC_V1.ViewModels
             var view = new CommentInspectionView();
             if (!(view.DataContext is CommentInspectionViewModel model)) return;
 
+            model.CommentText = comment?.CommentText;
             if (view.ShowDialog() != true) return;
 
             // TODO: Fix the CommentViewModel to return a CommentBase class on success
-            DoSelectedComment(model.Result, comment, null);
+            DoSelectedComment(model.Result, comment, model.CommentText);
         }
 
         private void OnDeleteInspection()

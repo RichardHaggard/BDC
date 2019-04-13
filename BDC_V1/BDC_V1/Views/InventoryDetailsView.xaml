@@ -286,12 +286,12 @@
                      Style="{StaticResource CommentBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ItemsSource="{Binding InventoryDetails.FacilityComments}"
+                     ItemsSource="{Binding CommentContainer}"
             >
               <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                   <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
-                                         CommandParameter="{Binding ElementName=ImageListBox, Path=SelectedItem}"/>
+                                         CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"/>
                 </i:EventTrigger>
               </i:Interaction.Triggers>
 
@@ -323,7 +323,7 @@
                      Style="{StaticResource ImageBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ItemsSource="{Binding InventoryDetails.Images}"
+                     ItemsSource="{Binding ImageContainer}"
             >
               <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

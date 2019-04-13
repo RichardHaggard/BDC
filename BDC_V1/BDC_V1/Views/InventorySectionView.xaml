@@ -260,7 +260,7 @@
             <i:Interaction.Triggers>
               <i:EventTrigger EventName="MouseDoubleClick">
                 <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
-                                       CommandParameter="{Binding ElementName=ImageListBox, Path=SelectedItem}"/>
+                                       CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"/>
               </i:EventTrigger>
             </i:Interaction.Triggers>
 

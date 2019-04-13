@@ -65,7 +65,7 @@ namespace BDC_V1.ViewModels
         //}
 
         public override ObservableCollection<CommentBase> CommentContainer =>
-            null;   // TODO: Fix this
+            InventoryDetails.DetailComments;
 
         public override ObservableCollection<ImageSource> ImageContainer => 
             InventoryDetails.Images;

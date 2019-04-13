@@ -45,12 +45,12 @@ namespace BDC_V1.Classes
         private string _dateManufactured;
 
 
-        public string DetailComment
-        {
-            get => _detailComment;
-            set => SetProperty(ref _detailComment, value);
-        }
-        private string _detailComment;
+        //public string DetailComment
+        //{
+        //    get => _detailComment;
+        //    set => SetProperty(ref _detailComment, value);
+        //}
+        //private string _detailComment;
 
 
         public string DetailIdNumber
@@ -196,6 +196,7 @@ namespace BDC_V1.Classes
 
         public ObservableCollection<CommentBase> DetailComments { get; } =
             new ObservableCollection<CommentBase>();
+
 
         public virtual bool HasImages => Images.Any();
 

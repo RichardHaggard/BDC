@@ -71,16 +71,44 @@ namespace BDC_V1.Classes
             var view = new CommentView();
             if (!(view.DataContext is CommentViewModel model)) return;
 
+            model.CommentText = comment?.CommentText;
             if (view.ShowDialog() != true) return;
 
             // TODO: Fix the CommentViewModel to return a CommentBase class on success
-            DoSelectedComment(model.Result, comment, null);
+            DoSelectedComment(model.Result, comment, model.CommentText);
         }
 
         // these two members are separated so they can be overriden separately
-        protected virtual void DoSelectedComment(EnumControlResult result, [CanBeNull] CommentBase itemText, [CanBeNull] CommentBase modelText)
+        protected virtual void DoSelectedComment(EnumControlResult result, [CanBeNull] CommentBase itemBase, [CanBeNull] string modelText)
         {
-            // TODO: Do something useful here...
+            switch (result)
+            {
+                case EnumControlResult.ResultDeleteItem:
+                    // TODO: ???
+                    break;
+
+                case EnumControlResult.ResultDeferred:
+                case EnumControlResult.ResultSaveNow:
+                    if (! string.IsNullOrEmpty(modelText))
+                    {
+                        // TODO: Change the timestamp OR should we add this comment with a new timestamp ???
+                        // TODO: Need to add the proper kind of comment here...
+                        var newComment = new CommentBase
+                        {
+                            EntryUser = new Person() {FirstName = "John", LastName = "Doe"},
+                            EntryTime = DateTime.Now,
+                            CommentText = modelText
+                        };
+
+                        CommentContainer?.Add(newComment);
+                    }
+
+                    break;
+
+                case EnumControlResult.ResultCancelled:
+                default:
+                    break;
+            }
         }
 
         [CanBeNull]

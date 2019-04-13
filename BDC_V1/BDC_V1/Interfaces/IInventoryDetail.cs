@@ -18,7 +18,7 @@ namespace BDC_V1.Interfaces
         string ControlTypeMake   { get; set; }
         string CurrentSection    { get; set; }
         string DateManufactured  { get; set; }
-        string DetailComment     { get; set; }
+        //string DetailComment     { get; set; }
         string DetailIdNumber    { get; set; }
         string DetailPhotosCount { get; set; }
         int DetailSelectedIndex  { get; set; }

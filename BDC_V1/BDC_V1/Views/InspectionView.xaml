@@ -557,7 +557,7 @@
                Style="{StaticResource CommentBoxStyle}"
                ScrollViewer.VerticalScrollBarVisibility="Auto"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-               ItemsSource="{Binding InspectionInfo.InspectionComment}"
+               ItemsSource="{Binding CommentContainer}"
       >
         <i:Interaction.Triggers>
           <i:EventTrigger EventName="MouseDoubleClick">
@@ -596,7 +596,7 @@
                Style="{StaticResource ImageBoxStyle}"
                ScrollViewer.VerticalScrollBarVisibility="Disabled"
                ScrollViewer.HorizontalScrollBarVisibility="Auto"
-               ItemsSource="{Binding InspectionInfo.Images}"
+               ItemsSource="{Binding ImageContainer}"
       >
         <i:Interaction.Triggers>
           <i:EventTrigger EventName="MouseDoubleClick">
