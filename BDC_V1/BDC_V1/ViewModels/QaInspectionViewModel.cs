@@ -70,13 +70,13 @@ namespace BDC_V1.ViewModels
                 ComponentId  = "D3010",
                 TypeName     = "D301002",
                 SectionName  = "N/A",
-                Rating       = EnumRatingType.RPlus
-            });
-            InspectionInfo[0].InspectionComments.Add(new CommentInspection
-            {
-                EntryUser = new Person(),
-                EntryTime = new DateTime(),
-                CommentText = "Missing Photo"
+                Rating       = EnumRatingType.RPlus,
+                InspectionComment = new CommentInspection
+                {
+                    EntryUser = new Person(),
+                    EntryTime = new DateTime(),
+                    CommentText = "Missing Photo"
+                }
             });
 
             InspectionInfo.Add(new IssueInspection()
@@ -87,12 +87,12 @@ namespace BDC_V1.ViewModels
                 TypeName     = "D301002",
                 SectionName  = "N/A",
                 Rating       = EnumRatingType.RPlus,
-            });
-            InspectionInfo[1].InspectionComments.Add(new CommentInspection
-            {
-                EntryUser = new Person(),
-                EntryTime = new DateTime(),
-                CommentText = "Missing Comment"
+                InspectionComment = new CommentInspection
+                {
+                    EntryUser = new Person(),
+                    EntryTime = new DateTime(),
+                    CommentText = "Missing Comment"
+                }
             });
 
             InspectionInfo.Add(new IssueInspection()
@@ -103,12 +103,12 @@ namespace BDC_V1.ViewModels
                 TypeName     = "D302001",
                 SectionName  = "N/A",
                 Rating       = EnumRatingType.YMinus,
-            });
-            InspectionInfo[2].InspectionComments.Add(new CommentInspection
-            {
-                EntryUser = new Person(),
-                EntryTime = new DateTime(),
-                CommentText = "Missing InspectionComment photo for Y+ rating"
+                InspectionComment = new CommentInspection
+                {
+                    EntryUser = new Person(),
+                    EntryTime = new DateTime(),
+                    CommentText = "Missing Inspection Comment photo for Y+ rating"
+                }
             });
 
             InspectionInfo.Add(new IssueInspection()
@@ -119,12 +119,12 @@ namespace BDC_V1.ViewModels
                 TypeName     = "D303001",
                 SectionName  = "N/A",
                 Rating       = EnumRatingType.Unknown,
-            });
-            InspectionInfo[3].InspectionComments.Add(new CommentInspection
-            {
-                EntryUser = new Person(),
-                EntryTime = new DateTime(),
-                CommentText = "Missing InspectionCommen"
+                InspectionComment = new CommentInspection
+                {
+                    EntryUser = new Person(),
+                    EntryTime = new DateTime(),
+                    CommentText = "Missing Inspection Comment"
+                }
             });
 
             Description = "Filter: 11057";

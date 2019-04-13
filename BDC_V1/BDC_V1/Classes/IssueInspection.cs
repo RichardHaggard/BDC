@@ -53,20 +53,11 @@ namespace BDC_V1.Classes
         }
         private EnumRatingType _rating;
 
-        public virtual bool HasInspectionComments    => InspectionComments.Any();
-        public virtual bool HasAnyInspectionComments => HasInspectionComments;
-
-        public ObservableCollection<CommentInspection> InspectionComments { get; }
-            = new ObservableCollection<CommentInspection>();
-
-        public IssueInspection()
+        public CommentBase InspectionComment
         {
-            InspectionComments.CollectionChanged += (o, i) =>
-                RaisePropertyChanged(new[]
-                {
-                    nameof(HasInspectionComments),
-                    nameof(HasAnyInspectionComments)
-                });
+            get => _inspectionComment;
+            set => SetProperty(ref _inspectionComment, value);
         }
+        private CommentBase _inspectionComment;
     }
 }

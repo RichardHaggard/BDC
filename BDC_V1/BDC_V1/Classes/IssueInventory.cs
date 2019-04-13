@@ -42,20 +42,11 @@ namespace BDC_V1.Classes
         }
         private string _sectionName;
 
-        public virtual bool HasInventoryComments    => InventoryComments.Any();
-        public virtual bool HasAnyInventoryComments => HasInventoryComments;
-
-        public ObservableCollection<CommentInventory> InventoryComments { get; } =
-            new ObservableCollection<CommentInventory>();
-
-        public IssueInventory()
+        public CommentBase InventoryComment
         {
-            InventoryComments.CollectionChanged += (o, i) =>
-                RaisePropertyChanged(new[]
-                {
-                    nameof(HasInventoryComments),
-                    nameof(HasAnyInventoryComments)
-                });
+            get => _inventoryComment;
+            set => SetProperty(ref _inventoryComment, value);
         }
+        private CommentBase _inventoryComment;
     }
 }

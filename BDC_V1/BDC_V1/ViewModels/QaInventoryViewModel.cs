@@ -70,12 +70,12 @@ namespace BDC_V1.ViewModels
                 ComponentId = "D3010",
                 TypeName = "",
                 SectionName = "",
-            });
-            InventoryInfo[0].InventoryComments.Add(new CommentInventory
-            {
-                EntryUser = new Person(),
-                EntryTime = new DateTime(),
-                CommentText = "Missing Section"
+                InventoryComment = new CommentInventory
+                {
+                    EntryUser = new Person(),
+                    EntryTime = new DateTime(),
+                    CommentText = "Missing Section"
+                }
             });
 
             InventoryInfo.Add(new IssueInventory()
@@ -85,12 +85,12 @@ namespace BDC_V1.ViewModels
                 ComponentId = "D3010",
                 TypeName = "D302001",
                 SectionName = "N/A",
-            });
-            InventoryInfo[1].InventoryComments.Add(new CommentInventory
-            {
-                EntryUser = new Person(),
-                EntryTime = new DateTime(),
-                CommentText = "Missing Photo"
+                InventoryComment = new CommentInventory
+                {
+                    EntryUser = new Person(),
+                    EntryTime = new DateTime(),
+                    CommentText = "Missing Photo"
+                }
             });
 
             Description = "Filter: 11057";

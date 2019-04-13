@@ -819,7 +819,7 @@ namespace BDC_V1.ViewModels
                 new Button
                 {
                     Name = "CopyInspection",
-                    ToolTip = "Copy InspectionComment",
+                    ToolTip = "Copy Inspection",
                     IsEnabled = true,
                     Command = new DelegateCommand(OnCopyInspection),
                     Content = new System.Windows.Controls.Image
@@ -831,7 +831,7 @@ namespace BDC_V1.ViewModels
                 }
             };
 
-            _toolBarMenuItemsDictionary.Add("InspectionComment", lInspectionMenuItems);
+            _toolBarMenuItemsDictionary.Add("Inspection", lInspectionMenuItems);
 
             // ******************************
             // QaInventory Menu

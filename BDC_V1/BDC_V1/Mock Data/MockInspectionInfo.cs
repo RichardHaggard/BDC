@@ -20,7 +20,7 @@ namespace BDC_V1.Mock_Data
             ComponentType     = "General";
             Quantity          = 2000.00M;
             InspectionDate    = DateTime.Parse("12/18/2012");
-            Note              = "Note: InspectionComment Comment & Photo required.";
+            Note              = "Note: Inspection Comment & Photo required.";
 
             InspectionComments.Add(
                 new CommentInspection

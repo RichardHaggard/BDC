@@ -110,7 +110,7 @@
 
             <!--Inspection mode button-->
             <Button Grid.Column="1"
-                    ToolTip="InspectionComment Mode"
+                    ToolTip="Inspection Mode"
                     Command="{Binding CmdInspectionMode}"
                     Style="{DynamicResource TransparentBitmap}">
                 <Image Height="72" Width="72" Source="/BDC_V1;component/Resources/Inspection (1).png"/>
@@ -179,7 +179,7 @@
             <!--Copy Inspection-->
             <!--Visible when Inspection active-->
             <Button Grid.Column="8"
-                    ToolTip="Copy InspectionComment"
+                    ToolTip="Copy Inspection"
                     Command="{Binding CmdCopyInspection}"
                     Visibility="{Binding VisibilityCopyInspectionButton}"
                     Style="{DynamicResource TransparentBitmap}">

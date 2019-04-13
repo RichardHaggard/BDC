@@ -30,6 +30,7 @@ namespace BDC_V1.ViewModels
         public ICommand CmdDeleteSection  { get; }
         public ICommand CmdAddSection     { get; }
         public ICommand CmdSectionComment { get; }
+        public ICommand CmdNextSection    { get; }
 
         public bool Estimated
         {
@@ -52,6 +53,13 @@ namespace BDC_V1.ViewModels
         }
         private string _yearInstalledBg;
 
+
+        public bool IsRemembered
+        {
+            get => _isRemembered;
+            set =>  SetProperty(ref _isRemembered, value);
+        }
+        private bool _isRemembered;
 
         [NotNull]
         public IInventorySection InventorySection { get; }
@@ -98,6 +106,7 @@ namespace BDC_V1.ViewModels
             CmdAddSection     = new DelegateCommand(OnAddSection    );
             CmdDeleteSection  = new DelegateCommand(OnDeleteSection );
             CmdSectionComment = new DelegateCommand(OnSectionComment);
+            CmdNextSection    = new DelegateCommand(OnNextSection   );
 
 #if DEBUG
 #warning Using MOCK data for InventorySection
@@ -107,9 +116,10 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
-        private void OnCancelEdit    () { Debug.WriteLine("OnCancelEdit     is not implemented"); }
-        private void OnAddSection    () { Debug.WriteLine("OnAddSection     is not implemented"); }
-        private void OnDeleteSection () { Debug.WriteLine("OnDeleteSection  is not implemented"); }
+        private void OnCancelEdit   () { Debug.WriteLine("OnCancelEdit    is not implemented"); }
+        private void OnAddSection   () { Debug.WriteLine("OnAddSection    is not implemented"); }
+        private void OnDeleteSection() { Debug.WriteLine("OnDeleteSection is not implemented"); }
+        private void OnNextSection  () { Debug.WriteLine("OnNextSection   is not implemented"); }
 
         private void OnSectionComment() 
         {             

@@ -18,13 +18,6 @@ namespace BDC_V1.Interfaces
         string TypeName    { get; set; }
         string SectionName { get; set; }
 
-        /// <remarks>
-        /// on-demand collection storage is allocated on first us
-        /// use the <see cref="HasInventoryComments"/> property to check for not empty
-        /// </remarks>
-        [NotNull] 
-        ObservableCollection<CommentInventory> InventoryComments { get; }
-        bool HasInventoryComments    { get; }
-        bool HasAnyInventoryComments { get; }
+        CommentBase InventoryComment { get; set; }
     }
 }

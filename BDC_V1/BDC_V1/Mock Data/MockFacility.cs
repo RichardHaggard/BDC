@@ -448,24 +448,23 @@ namespace BDC_V1.Mock_Data
 
                 fNode.InspectionIssues.Add(new IssueInspection
                 {
-                    FacilityId     = facility1.BuildingId,
-                    SystemId       = EnumFacilitySystemTypes.C30.GetSystemName(),
-                    SectionName    = Enum_D30_SubsystemTypes.D3020.GetSystemName(),
-                    ComponentId    = tmp.ComponentName,
-                    TypeName       = tmp.ComponentType.Description(),
-                    Rating         = EnumRatingType.RMinus,
+                    FacilityId  = facility1.BuildingId,
+                    SystemId    = EnumFacilitySystemTypes.C30.GetSystemName(),
+                    SectionName = Enum_D30_SubsystemTypes.D3020.GetSystemName(),
+                    ComponentId = tmp.ComponentName,
+                    TypeName    = tmp.ComponentType.Description(),
+                    Rating      = EnumRatingType.RMinus,
+                    InspectionComment =
+                        new CommentInspection
+                        {
+                            EntryUser = new Person("Darrell", "Setser"),
+                            EntryTime = new DateTime(2018, 1, 18, 18, 19, 55),
+                            CommentText = "DAMAGED - All the wood doors have 70% severe structure damage. " +
+                                          "CRACKED - All of the doors have 65% severe cracking and splintering. " +
+                                          "Replacement is recommended."
+                        }
                 });
-
-                fNode.InspectionIssues[0].InspectionComments.Add(
-                    new CommentInspection()
-                    {
-                        EntryUser = new Person("Darrell", "Setser"),
-                        EntryTime = new DateTime(2018, 1, 18, 18, 19, 55),
-                        CommentText = "DAMAGED - All the wood doors have 70% severe structure damage. " +
-                                      "CRACKED - All of the doors have 65% severe cracking and splintering. " +
-                                      "Replacement is recommended."
-                    });
-                }
+            }
 
             var d5010001 = new ComponentInventory()
             {
@@ -495,15 +494,14 @@ namespace BDC_V1.Mock_Data
                         SectionName = "D3020",
                         ComponentId = tmp.ComponentName,
                         TypeName    = tmp.ComponentType.Description(),
+                        InventoryComment = 
+                            new CommentInventory()
+                            {
+                                EntryUser = new Person("George", "Jetson"),
+                                EntryTime = new DateTime(2014, 11, 1, 17, 13, 15),
+                                CommentText = "Toilet paper was strewn all about the facility by halloween \"trick or treat\" hooligans."
+                            }
                     });
-
-                    comp.InventoryIssues.Last().InventoryComments.Add(
-                        new CommentInventory()
-                        {
-                            EntryUser = new Person("George", "Jetson"),
-                            EntryTime = new DateTime(2014, 11, 1, 17, 13, 15),
-                            CommentText = "Toilet paper was strewn all about the facility by halloween \"trick or treat\" hooligans."
-                         });
                 }
             }
 
@@ -518,16 +516,15 @@ namespace BDC_V1.Mock_Data
                         SectionName = "D5010",
                         ComponentId = tmp.ComponentName,
                         TypeName    = tmp.ComponentType.Description(),
+                        InventoryComment =
+                            new CommentInventory()
+                            {
+                                EntryUser = new Person("Kurt", "Benson"),
+                                EntryTime = new DateTime(2019, 1, 17, 10, 13, 3),
+                                CommentText = "The nameplate on the component was missing certain Section Detail fields. " +
+                                              "Section Detail fields have been populated and fields with NA representing data not found."
+                            }
                     });
-
-                    comp.InventoryIssues.Last().InventoryComments.Add(
-                        new CommentInventory()
-                        {
-                            EntryUser = new Person("Kurt", "Benson"),
-                            EntryTime = new DateTime(2019, 1, 17, 10, 13, 3),
-                            CommentText = "The nameplate on the component was missing certain Section Detail fields. " +
-                                          "Section Detail fields have been populated and fields with NA representing data not found."
-                        });
                 }
             }
 

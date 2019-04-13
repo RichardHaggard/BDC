@@ -198,7 +198,7 @@
               </Style>
             </DataGridTextColumn.CellStyle>
           </DataGridTextColumn>
-          <DataGridTextColumn Header=" InspectionComment Issue" Binding="{Binding Path=InspectIssue}" Width="590" />
+          <DataGridTextColumn Header=" InspectionComment Issue" Binding="{Binding Path=InspectionComment.CommentText}" Width="590" />
         </DataGrid.Columns>
       </DataGrid>
     </Grid>
