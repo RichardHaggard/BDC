@@ -78,6 +78,7 @@
 
             <Button
                 Grid.Column="1"
+                Command="{Binding CmdSelectPhoto}"
                 Height="40"
                 HorizontalAlignment="Right"
                 Margin="5"
@@ -109,6 +110,9 @@
 
         <ListBox
             Grid.Row="2"
+            DisplayMemberPath="Filename"
+            ItemsSource="{Binding PendingList}"
+            SelectedItem="{Binding PendingItem}"            
             />
 
         <Grid
@@ -120,6 +124,7 @@
             </Grid.ColumnDefinitions>
             <Button
                 Grid.Column="0"
+                Command="{Binding CmdAddAllPending}"
                 Content="Add All Pending"
                 Height="40"
                 HorizontalAlignment="Left"
@@ -129,6 +134,7 @@
 
             <Button
                 Grid.Column="1"
+                Command="{Binding CmdRemoveSelected}"
                 Content="RemoveSelected"
                 Foreground="Red"
                 Height="40"
@@ -151,6 +157,7 @@
 
         <Button
             Grid.Row="9"
+            Command="{Binding CmdUnlinkExistingPhoto}"
             Height="40"
             HorizontalAlignment="Left"
             Margin="5"

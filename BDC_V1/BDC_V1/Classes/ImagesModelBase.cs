@@ -123,14 +123,19 @@ namespace BDC_V1.Classes
         // these two members are separated so they can be overriden separately
         protected virtual void OnSelectedImage([CanBeNull] ImageSource image)
         {
-            var view = new CameraView();
-            if (!(view.DataContext is CameraViewModel model))       
-                throw new InvalidCastException("Invalid View Model");
+            //var view = new CameraView();
+            //if (!(view.DataContext is CameraViewModel model))       
+            //    throw new InvalidCastException("Invalid View Model");
 
-            model.SourceImage = image;
-            if (view.ShowDialog() != true) return;
+            //model.SourceImage = image;
+            //if (view.ShowDialog() != true) return;
 
-            DoSelectedImage(model.Result, image, model.SourceImage);
+            //DoSelectedImage(model.Result, image, model.SourceImage);
+
+            // Simplistic launcher of the PM view. If this were real we'd pass in
+            // info from the caller and upon return there would be an update of the photo carousel.
+            PhotoManagementView View = new PhotoManagementView();
+            View.ShowDialog();
         }
 
         protected virtual void DoSelectedImage(EnumControlResult result, [CanBeNull] ImageSource itemImage, [CanBeNull] ImageSource modelImage)
