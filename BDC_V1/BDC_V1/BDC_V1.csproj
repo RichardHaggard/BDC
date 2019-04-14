@@ -125,6 +125,7 @@
     <Compile Include="Interfaces\IFacilityInfo.cs" />
     <Compile Include="Interfaces\IImageCollection.cs" />
     <Compile Include="Interfaces\IIndexedCollection.cs" />
+    <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
