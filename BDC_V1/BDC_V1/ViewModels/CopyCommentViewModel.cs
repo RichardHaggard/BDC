@@ -43,18 +43,14 @@ namespace BDC_V1.ViewModels
         public ICommand CmdCopyButton   { get; }
         public ICommand CmdCancelButton { get; }
 
-        /// <summary>
-        /// EnumControlResult.ResultCancelled indicates cancellation.
-        /// EnumControlResult.ResultDeferred  is defer result.
-        /// EnumControlResult.ResultSaveNow   is save Comment now.
-        /// </summary>
-        public EnumControlResult Result
+        public string WindowTitle
         {
-            get => _result;
-            set => SetProperty(ref _result, value);
+            get => _windowTitle;
+            set => SetProperty(ref _windowTitle, value);
         }
+        private string _windowTitle = "COPY COMMENTS";
 
-        private EnumControlResult _result;
+        // TODO: Move these properties into a separate interface / class
 
         [CanBeNull]
         public string SelectedFacility
@@ -132,36 +128,6 @@ namespace BDC_V1.ViewModels
             // Hook changes in the Commentary list changes
             UnFilteredCommentary.CollectionChanged +=
                 new NotifyCollectionChangedEventHandler(OnCommentaryCollectionChanged);
-#if DEBUG
-#warning Using MOCK data for CpyCmModel
-            ListOfFacilities.AddRange(new[]
-            {
-                "<ANY FACILITY>",
-                "17180 - ARNG ARMORY",
-                "11057 - Facility #2"
-            });
-
-            SelectedFacility = ListOfFacilities[0];
-
-            UnFilteredCommentary.Add(new Commentary()
-            {
-                FacilityId = "11057",
-                CodeIdText = "C102001",
-                Rating = EnumRatingType.R,
-                CommentText = "DAMAGED - All the wood doors have 70% severe moisture damage. " +
-                              "CRACKED - All of the doors have 65% severe cracking and splintering."
-            });
-
-            UnFilteredCommentary.Add(new Commentary()
-            {
-                FacilityId = "17180",
-                CodeIdText = "C102002",
-                Rating = EnumRatingType.Y,
-                CommentText = "HOLED - Holes have been punched thru 20% of the doors."
-            });
-
-            OnChangeFilter();
-#endif
         }
 
         // **************** Class members *************************************************** //
@@ -220,10 +186,11 @@ namespace BDC_V1.ViewModels
                     }
 
                     break;
-
+#if DEBUG
                 default:
                     throw new ArgumentOutOfRangeException(nameof(FilterSource),
                         FilterSource, @"Invalid FilterSource");
+#endif
             }
 
             // ??? don't know what to do here ???
@@ -234,14 +201,16 @@ namespace BDC_V1.ViewModels
 
                 case EnumFilterRelatedType.ComponentFilter:
                     break;
-
+#if DEBUG
                 default:
                     throw new ArgumentOutOfRangeException(nameof(RelatedSource),
                         RelatedSource, @"Invalid RelatedSource");
+#endif
             }
 
             switch (FilterRatingColor)
             {
+                case EnumRatingColors.None:
                 case EnumRatingColors.Green:
                     break;
 
@@ -259,10 +228,11 @@ namespace BDC_V1.ViewModels
                     filterList = filterList.Where(item =>
                         item.Rating.ToRatingColor() == EnumRatingColors.Red);
                     break;
-
+#if DEBUG
                 default:
                     throw new ArgumentOutOfRangeException(nameof(FilterRatingColor),
                         FilterRatingColor, @"Invalid FilterRatingColor");
+#endif
             }
 
             if (!string.IsNullOrEmpty(SearchTerm))

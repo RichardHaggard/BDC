@@ -12,7 +12,7 @@ namespace BDC_V1.Enumerations
     public enum EnumRatingType
     {
         [Description("?")]
-        None,
+        None = -1,
 
         [Description("G+")]
         GPlus,

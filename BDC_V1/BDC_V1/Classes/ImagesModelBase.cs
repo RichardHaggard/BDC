@@ -69,7 +69,8 @@ namespace BDC_V1.Classes
         protected virtual void OnSelectedComment([CanBeNull] CommentBase comment)
         {
             var view = new CommentView();
-            if (!(view.DataContext is CommentViewModel model)) return;
+            if (!(view.DataContext is CommentViewModel model)) 
+                throw new InvalidCastException("Invalid View Model");
 
             model.CommentText = comment?.CommentText;
             if (view.ShowDialog() != true) return;
@@ -118,7 +119,8 @@ namespace BDC_V1.Classes
         protected virtual void OnSelectedImage([CanBeNull] ImageSource image)
         {
             var view = new CameraView();
-            if (!(view.DataContext is CameraViewModel model)) return;
+            if (!(view.DataContext is CameraViewModel model))       
+                throw new InvalidCastException("Invalid View Model");
 
             model.SourceImage = image;
             if (view.ShowDialog() != true) return;

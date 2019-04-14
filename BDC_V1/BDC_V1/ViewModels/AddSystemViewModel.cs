@@ -38,19 +38,6 @@ namespace BDC_V1.ViewModels
         }
         private ObservableCollection<string> _components = new ObservableCollection<string>();
 
-        /// <summary>
-        /// EnumControlResult.ResultCancelled indicates cancellation.
-        /// EnumControlResult.ResultDeferred  is defer result.
-        /// EnumControlResult.ResultSaveNow   is save Comment now.
-        /// </summary>
-        public EnumControlResult Result
-        {
-            get => _result;
-            set => SetProperty(ref _result, value);
-        }
-        private EnumControlResult _result;
-
-
 
         // **************** Class constructors ********************************************** //
 

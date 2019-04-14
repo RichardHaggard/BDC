@@ -11,7 +11,7 @@ namespace BDC_V1.Enumerations
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum EnumRepairType
     {
-        None,
+        None = -1,
         Repair,
         Replace
     }

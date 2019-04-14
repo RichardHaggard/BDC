@@ -51,7 +51,6 @@ namespace BDC_V1.ViewModels
         public ICommand CmdMicOff                  { get; }
         public ICommand CmdTabSelectionChanged     { get; }
         public ICommand CmdCopyInspection          { get; }
-        public ICommand CmdCopyCommentary          { get; }
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
         public string Title => @"Builder DC";
@@ -368,9 +367,6 @@ namespace BDC_V1.ViewModels
             CmdMicOn                   = new DelegateCommand(OnMicOn                );
             CmdCopyInspection          = new DelegateCommand(OnCopyInspection       );
 
-            // DEBUG PURPOSES
-            CmdCopyCommentary          = new DelegateCommand(OnCopyCommentary       );
-
             CmdTabSelectionChanged     = new DelegateCommand<TabItem>(OnTabSelectionChanged);
 
             InvTreeBorderBackgroundColor = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGray);
@@ -411,15 +407,69 @@ namespace BDC_V1.ViewModels
             return false;
         }
 
+        // place holder
         private void OnCopyCommentary()
         {
-            var dlg = new CopyCommentView();
-            dlg.ShowDialog();
+            var view = new CopyCommentView();
+            if (!(view.DataContext is CopyCommentViewModel model))        
+                throw new InvalidCastException("Invalid View Model");
+
+            model.WindowTitle = "COPY COMMENT";
+            model.UnFilteredCommentary.Clear();
+
+            if (view.ShowDialog() != true) return;
+
+            switch (model.Result)
+            {
+                case EnumControlResult.ResultDeleteItem:
+                case EnumControlResult.ResultCancelled:
+                case EnumControlResult.ResultDeferred:
+                    break;
+
+                case EnumControlResult.ResultSaveNow:
+                    break;
+#if DEBUG
+                default:
+                    throw new ArgumentOutOfRangeException();
+#endif
+            }
+        }
+
+        // place holder
+        private void OnCopyInspectionCommentary()
+        {
+            var view = new CopyCommentView();
+            if (!(view.DataContext is CopyCommentViewModel model))        
+                throw new InvalidCastException("Invalid View Model");
+
+            model.WindowTitle = "COPY INSPECTION COMMENT";
+            model.UnFilteredCommentary.Clear();
+
+            if (view.ShowDialog() != true) return;
+
+            switch (model.Result)
+            {
+                case EnumControlResult.ResultDeleteItem:
+                case EnumControlResult.ResultCancelled:
+                case EnumControlResult.ResultDeferred:
+                    break;
+
+                case EnumControlResult.ResultSaveNow:
+                    break;
+#if DEBUG
+                default:
+                    throw new ArgumentOutOfRangeException();
+#endif
+            }
         }
 
         private void OnAbout()
         {
-            MessageBox.Show("About BDC", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            var view = new AboutBdcView();
+            if (!(view.DataContext is AboutBdcViewModel model)) 
+                throw new InvalidCastException("Invalid View Model");
+
+            view.ShowDialog();
         }
 
         private void OnAddComponent()
@@ -562,18 +612,74 @@ namespace BDC_V1.ViewModels
 
         private void OnCopySections()
         {
-            MessageBox.Show("Copy Sections", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            var view = new CopySectionView();
+            if (!(view.DataContext is CopySectionViewModel model))        
+                throw new InvalidCastException("Invalid View Model");
+
+            if (view.ShowDialog() != true) return;
+
+            switch (model.Result)
+            {
+                case EnumControlResult.ResultDeleteItem:
+                case EnumControlResult.ResultCancelled:
+                case EnumControlResult.ResultDeferred:
+                    break;
+
+                case EnumControlResult.ResultSaveNow:
+                    break;
+#if DEBUG
+                default:
+                    throw new ArgumentOutOfRangeException();
+#endif
+            }
         }
 
         private void OnCopyInventory()
         {
-            var dlg = new CopyInventoryView();
-            dlg.ShowDialog();
+            var view = new CopyInventoryView();
+            if (!(view.DataContext is CopyInventoryViewModel model))        
+                throw new InvalidCastException("Invalid View Model");
+
+            if (view.ShowDialog() != true) return;
+
+            switch (model.Result)
+            {
+                case EnumControlResult.ResultDeleteItem:
+                case EnumControlResult.ResultCancelled:
+                case EnumControlResult.ResultDeferred:
+                    break;
+
+                case EnumControlResult.ResultSaveNow:
+                    break;
+#if DEBUG
+                default:
+                    throw new ArgumentOutOfRangeException();
+#endif
+            }
         }
 
         private void OnCopyInspection()
         {
-            MessageBox.Show("Copy Inspection", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            var view = new CopyInspectionView();
+            if (!(view.DataContext is CopyInspectionViewModel model))        
+                throw new InvalidCastException("Invalid View Model");
+
+            if (view.ShowDialog() != true) return;
+
+            switch (model.Result)
+            {
+                case EnumControlResult.ResultDeleteItem:
+                case EnumControlResult.ResultCancelled:
+                case EnumControlResult.ResultDeferred:
+                    break;
+
+                case EnumControlResult.ResultSaveNow:
+                    break;
+#if DEBUG
+                default:
+                    throw new ArgumentOutOfRangeException();
+#endif
+            }
         }
 
         private void OnTabSelectionChanged([CanBeNull] TabItem tabItem)

@@ -11,6 +11,7 @@ namespace BDC_V1.Enumerations
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum EnumRatingColors
     {
+        None = -1,
         Green,
         Yellow,
         Amber,

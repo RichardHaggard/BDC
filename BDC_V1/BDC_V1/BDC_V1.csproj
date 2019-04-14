@@ -195,6 +195,7 @@
     <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ValidationRules\ValidationRulesBase.cs" />
+    <Compile Include="ViewModels\AboutBdcViewModel.cs" />
     <Compile Include="ViewModels\AddNewComponentViewModel.cs" />
     <Compile Include="ViewModels\AddSystemViewModel.cs" />
     <Compile Include="ViewModels\CameraViewModel.cs" />
@@ -203,8 +204,10 @@
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="Classes\CommentWindows.cs" />
     <Compile Include="ViewModels\CopyCommentViewModel.cs" />
+    <Compile Include="ViewModels\CopyInspectionViewModel.cs" />
     <Compile Include="ViewModels\CopyInventoryViewModel.cs" />
     <Compile Include="Classes\FacilityBaseClass.cs" />
+    <Compile Include="ViewModels\CopySectionViewModel.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="Classes\ImagesModelBase.cs" />
     <Compile Include="ViewModels\InspectionViewModel.cs" />
@@ -218,6 +221,9 @@
     <Compile Include="ViewModels\QaInventoryViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Classes\ViewModelBase.cs" />
+    <Compile Include="Views\AboutBdcView.xaml.cs">
+      <DependentUpon>AboutBdcView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddNewComponentView.xaml.cs">
       <DependentUpon>AddNewComponentView.xaml</DependentUpon>
     </Compile>
@@ -236,8 +242,14 @@
     <Compile Include="Views\CopyCommentView.xaml.cs">
       <DependentUpon>CopyCommentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CopyInspectionView.xaml.cs">
+      <DependentUpon>CopyInspectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CopyInventoryView.xaml.cs">
       <DependentUpon>CopyInventoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CopySectionView.xaml.cs">
+      <DependentUpon>CopySectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FacilityView.xaml.cs">
       <DependentUpon>FacilityView.xaml</DependentUpon>
@@ -302,6 +314,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\AboutBdcView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddNewComponentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -326,7 +342,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CopyInspectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CopyInventoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CopySectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

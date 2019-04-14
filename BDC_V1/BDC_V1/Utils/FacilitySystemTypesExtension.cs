@@ -15,10 +15,8 @@ namespace BDC_V1.Utils
             where T : struct
         {
             var type = enumerationValue.GetType();
-            if (!type.IsEnum)
-            {
+            if (! type.IsEnum)
                 throw new ArgumentException(@"EnumerationValue must be of Enum type", nameof(enumerationValue));
-            }
 
             var name = enumerationValue.ToString();
 

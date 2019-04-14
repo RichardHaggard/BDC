@@ -121,7 +121,8 @@ namespace BDC_V1.ViewModels
         protected override void OnSelectedComment([CanBeNull] CommentBase comment)
         {
             var view = new CommentInspectionView();
-            if (!(view.DataContext is CommentInspectionViewModel model)) return;
+            if (!(view.DataContext is CommentInspectionViewModel model))       
+                throw new InvalidCastException("Invalid View Model");
 
             model.CommentText = comment?.CommentText;
             if (view.ShowDialog() != true) return;

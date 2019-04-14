@@ -1,11 +1,17 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using BDC_V1.Enumerations;
+using BDC_V1.ViewModels;
+using BDC_V1.Views;
+using JetBrains.Annotations;
 using Prism.Commands;
 
 namespace BDC_V1.Classes
 {
-    public class CommentWindows : CloseableWindow
+    public abstract class CommentWindows : CloseableWindow
     {
         // **************** Class properties ************************************************ //
 
@@ -13,9 +19,7 @@ namespace BDC_V1.Classes
         public ICommand CmdMicOff      { get; }
         public ICommand CmdCopy        { get; }
         public ICommand CmdSpellCheck  { get; }
-        public ICommand CmdCancelUndo  { get; }
         public ICommand CmdReviewLater { get; }
-        public ICommand CmdOkCommand   { get; }
 
         public string HeaderText1
         {
@@ -38,54 +42,63 @@ namespace BDC_V1.Classes
         }
         private string _commentText;
 
-        /// <summary>
-        /// EnumControlResult.ResultCancelled indicates cancellation.
-        /// EnumControlResult.ResultDeferred  is defer result.
-        /// EnumControlResult.ResultSaveNow   is save Comment now.
-        /// </summary>
-        public EnumControlResult Result
-        {
-            get => _result;
-            set => SetProperty(ref _result, value);
-        }
-        private EnumControlResult _result;
 
         // **************** Class constructors ********************************************** //
 
-        public CommentWindows()
+        protected CommentWindows()
         {
             CmdMicOn       = new DelegateCommand(OnMicOn      );
             CmdMicOff      = new DelegateCommand(OnMicOff     );
             CmdCopy        = new DelegateCommand(OnCopy       );
             CmdSpellCheck  = new DelegateCommand(OnSpellCheck );
-            CmdCancelUndo  = new DelegateCommand(OnCancelUndo );
             CmdReviewLater = new DelegateCommand(OnReviewLater);
-            CmdOkCommand   = new DelegateCommand(OnOkCommand  );
         }
 
         // **************** Class members *************************************************** //
 
-        private void OnCancelUndo()
-        {
-            Result = EnumControlResult.ResultCancelled;
-            DialogResultEx = false;
-        }
-
-        private void OnReviewLater()
+        protected virtual void OnReviewLater()
         {
             Result = EnumControlResult.ResultDeferred;
             DialogResultEx = false;
         }
 
-        private void OnOkCommand()
+        [NotNull]   protected abstract List<Commentary> CommentaryList  { get; set; }
+        [CanBeNull] protected abstract string           CopyWindowTitle { get; }
+        protected virtual void OnCopy()
         {
-            Result = EnumControlResult.ResultSaveNow;
-            DialogResultEx = true;
+            var view = new CopyCommentView();
+            if (!(view.DataContext is CopyCommentViewModel model)) 
+                throw new InvalidCastException("Invalid View Model");
+
+            model.WindowTitle = (! string.IsNullOrEmpty(CopyWindowTitle)) 
+                ? CopyWindowTitle 
+                : "COPY INVENTORY";
+
+            model.UnFilteredCommentary.Clear();
+            model.UnFilteredCommentary.AddRange(CommentaryList);
+
+            if (view.ShowDialog() != true) return;
+
+            switch (model.Result)
+            {
+                case EnumControlResult.ResultDeleteItem:
+                case EnumControlResult.ResultCancelled:
+                case EnumControlResult.ResultDeferred:
+                    break;
+
+                case EnumControlResult.ResultSaveNow:
+                    CommentaryList.Clear();
+                    CommentaryList.AddRange(model.UnFilteredCommentary);
+                    break;
+#if DEBUG
+                default:
+                    throw new ArgumentOutOfRangeException();
+#endif
+            }
         }
 
-        private void OnMicOn      () { Debug.WriteLine("OnMicOn       not implemented"); }
-        private void OnMicOff     () { Debug.WriteLine("OnMicOff      not implemented"); }
-        private void OnCopy       () { Debug.WriteLine("OnCopy        not implemented"); }
-        private void OnSpellCheck () { Debug.WriteLine("OnSpellCheck  not implemented"); }
+        protected virtual void OnMicOn     () { Debug.WriteLine("OnMicOn      not implemented"); }
+        protected virtual void OnMicOff    () { Debug.WriteLine("OnMicOff     not implemented"); }
+        protected virtual void OnSpellCheck() { Debug.WriteLine("OnSpellCheck not implemented"); }
     }
 }

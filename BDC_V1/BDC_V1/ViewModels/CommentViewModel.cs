@@ -10,6 +10,8 @@ using System.Windows.Media;
 using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
+using BDC_V1.Views;
+using JetBrains.Annotations;
 using Prism.Commands;
 
 namespace BDC_V1.ViewModels
@@ -21,6 +23,8 @@ namespace BDC_V1.ViewModels
         // **************** Class data members ********************************************** //
 
         // **************** Class properties ************************************************ //
+
+        // TODO: Move these properties into a separate interface / class
 
         public string SourceFacility
         {
@@ -123,18 +127,21 @@ namespace BDC_V1.ViewModels
 
         public CommentViewModel()
         {
-            IsSectionNameEnabled       = false;  
-            IsOverYearChecked          = false;
-            IsSectionCommentsChecked   = false;
-            IsSectionDetailsChecked    = false;
-            IsDetailCommentsChecked    = false;
-            IsExistingInventoryChecked = false;
-            IsCopyInspectionsChecked   = false;
+            IsSectionNameEnabled       = 
+            IsOverYearChecked          = 
+            IsSectionCommentsChecked   = 
+            IsSectionDetailsChecked    = 
+            IsDetailCommentsChecked    = 
+            IsExistingInventoryChecked = 
+            IsCopyInspectionsChecked   = 
             IsIncludeCommentsChecked   = false;
 
             SectionNameBackground = Colors.LightGray;
 
             SourceFacility = "<SOURCE FACILITY>";
+
+            HeaderText1 = "COMMENTS";
+            HeaderText2 = "Comments for non-inspection items";
 
 #if DEBUG
 #warning Using MOCK data for CommentViewModel
@@ -155,11 +162,68 @@ namespace BDC_V1.ViewModels
             });
 
             SelectedFacility = ListOfFacilities[0];
+
+            // gets around the "cannot access virtual member in constructor" issue
+            _commentaryList.AddRange(new [] {
+                new Commentary
+                {
+                    FacilityId  = "0000",
+                    CodeIdText  = "000000",
+                    Rating      = EnumRatingType.GPlus,
+                    CommentText = "These comments come from the Comment Window"
+                },
+                new Commentary
+                {
+                    FacilityId  = "11057",
+                    CodeIdText  = "C102001",
+                    Rating      = EnumRatingType.R,
+                    CommentText = "DAMAGED - All the wood doors have 70% severe moisture damage. " +
+                                  "CRACKED - All of the doors have 65% severe cracking and splintering."
+                },
+                new Commentary
+                {
+                    FacilityId  = "11057",
+                    CodeIdText  = "C102001",
+                    Rating      = EnumRatingType.R,
+                    CommentText = "DAMAGED - All the wood doors have 70% severe moisture damage. " + 
+                                  "CRACKED - All of the doors have 65% severe cracking and splintering. " +
+                                  "Replacement is recommended"
+                },
+                new Commentary
+                {
+                    FacilityId  = "12022",
+                    CodeIdText  = "D501003",
+                    Rating      = EnumRatingType.G,
+                    CommentText = "The nameplate on the component was missing certain Section Detail fields. " +
+                                  "Section Detail fields have been populated and fields with NA represent data not found."
+                },
+                new Commentary
+                {
+                    FacilityId  = "17180",
+                    CodeIdText  = "D302001",
+                    Rating      = EnumRatingType.GPlus,
+                    CommentText = "This unit was in a locked room and not visible."
+                },
+                new Commentary
+                {
+                    FacilityId  = "17180",
+                    CodeIdText  = "D501003",
+                    Rating      = EnumRatingType.AMinus,
+                    CommentText = "No A20 and D10 systems present. Could not gain access to Supply RM C342."
+                }
+            });
 #endif
         }
 
         // **************** Class members *************************************************** //
 
+        protected override List<Commentary> CommentaryList
+        {
+            get => _commentaryList ?? (_commentaryList = new List<Commentary>());
+            set => SetProperty(ref _commentaryList, value);
+        }
+        private List<Commentary> _commentaryList = new List<Commentary>();
 
+        protected override string CopyWindowTitle => "COPY COMMENT";
     }
 }

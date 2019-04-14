@@ -220,7 +220,9 @@ namespace BDC_V1.ViewModels
             var view = new PasswordView(new PasswordViewModel());
             view.ShowDialog();
 
-            if (!(view.DataContext is PasswordViewModel viewModel)) return;
+            if (!(view.DataContext is PasswordViewModel viewModel))       
+                throw new InvalidCastException("Invalid View Model");
+
             if (viewModel.DialogResultEx != true) return;
 
             if (_localValidUsers.ValidateUser(SelectedLoginUser, viewModel.UserPass))
