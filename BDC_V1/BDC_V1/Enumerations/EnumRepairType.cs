@@ -8,7 +8,7 @@ using BDC_V1.Converters;
 
 namespace BDC_V1.Enumerations
 {
-    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    [TypeConverter(typeof(EnumDescriptionTypeConverter)), DefaultValue(None)]
     public enum EnumRepairType
     {
         None = -1,

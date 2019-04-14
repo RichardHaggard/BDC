@@ -545,8 +545,16 @@ namespace BDC_V1.ViewModels
 
         private void OnInspectionSummary()
         {
-           var dlg = new CommentInspectionView();
-           dlg.ShowDialog();
+            var view = new GeneralCommentView();
+            if (!(view.DataContext is GeneralCommentViewModel model)) 
+                throw new InvalidCastException("Invalid View Model");
+
+            model.IsDistressedEnabled = true;
+            model.CommentText = string.Empty;
+
+            if (view.ShowDialog() != true) return;
+
+            // TODO: Fix the CommentViewModel to return a CommentBase class on success
         }
 
         private void OnMicOff()

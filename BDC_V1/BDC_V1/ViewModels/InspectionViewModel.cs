@@ -115,13 +115,15 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdInspectionComment()
         {
-            OnSelectedComment(null);
+            OnSelectedComment(null, true);
         }
 
-        protected override void OnSelectedComment([CanBeNull] CommentBase comment)
+        protected override void OnSelectedComment(CommentBase comment, bool isInspection=false)
         {
-            var view = new CommentInspectionView();
-            if (!(view.DataContext is CommentInspectionViewModel model))       
+            base.OnSelectedComment(comment, true);
+#if false
+            var view = new GeneralCommentView();
+            if (!(view.DataContext is GeneralCommentViewModel model))       
                 throw new InvalidCastException("Invalid View Model");
 
             model.CommentText = comment?.CommentText;
@@ -129,6 +131,7 @@ namespace BDC_V1.ViewModels
 
             // TODO: Fix the CommentViewModel to return a CommentBase class on success
             DoSelectedComment(model.Result, comment, model.CommentText);
+#endif
         }
 
         private void OnDeleteInspection()

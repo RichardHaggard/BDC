@@ -4,11 +4,12 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace BDC_V1.Converters
 {
-    public class BoolToObjectConverter : IMultiValueConverter
+    public class BoolToObjectConverter : DependencyObject, IMultiValueConverter
     {
         /// <inheritdoc />
         /// <remarks>

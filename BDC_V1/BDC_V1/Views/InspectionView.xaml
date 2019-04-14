@@ -322,10 +322,13 @@
                     />
 
         <!--Row 1-->
-        <Label
-            Grid.Row="1" Grid.Column="0"
-            Content="Direct Condition Rating:"
-            Style="{StaticResource LabelRJ}"
+        <TextBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"
+                 Text="Direct Condition Rating:"
+                 HorizontalContentAlignment="Right"
+                 VerticalContentAlignment="Top"
+                 IsReadOnly="True" 
+                 Background="Transparent"
+                 Style="{StaticResource TextBoxWrap}"
             />
 
         <!-- ***************************************************** -->

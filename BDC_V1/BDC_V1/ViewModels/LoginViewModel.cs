@@ -169,7 +169,7 @@ namespace BDC_V1.ViewModels
 
 #if DEBUG
 #warning Using MOCK data for LoginViewModel
-            GetConfigInfo(@"This_is_a_fake_config_file.cfg");
+            GetConfigInfo(@"This_is_a_fake_config_file.mdb");
             GetBredInfo(@"My Documents\ProjectName\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb");
 #endif
             ConfigurationFilename = Properties.Settings.Default.ConfigurationFilename;
@@ -274,9 +274,9 @@ namespace BDC_V1.ViewModels
                 CheckFileExists  = true,
                 CheckPathExists  = true,
                 RestoreDirectory = true,
-                DefaultExt       = "cfg",
+                DefaultExt       = "mdb",
                 FilterIndex      = 1,
-                Filter           = "Config files (*.cfg)|*.cfg|All files (*.*)|*.*"
+                Filter           = "Config files (*.mdb)|*.mdb|All files (*.*)|*.*"
             };
 
             if (openFileDlg.ShowDialog() == true)
