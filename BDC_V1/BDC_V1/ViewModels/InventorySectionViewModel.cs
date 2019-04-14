@@ -32,26 +32,13 @@ namespace BDC_V1.ViewModels
         public ICommand CmdSectionComment { get; }
         public ICommand CmdNextSection    { get; }
 
+        // TODO: Should this be part of the IInventorySection instead of here ???
         public bool Estimated
         {
             get => _estimated;
-            set 
-            { 
-                if ( SetProperty(ref _estimated, value) )
-                {
-                    YearInstalledBg = (value) ? "Yellow" : "Transparent";
-                }
-            }
+            set => SetProperty(ref _estimated, value);
         }
         private bool _estimated;
-
-
-        public string YearInstalledBg
-        {
-            get => _yearInstalledBg;
-            set => SetProperty(ref _yearInstalledBg, value);
-        }
-        private string _yearInstalledBg;
 
 
         public bool IsRemembered

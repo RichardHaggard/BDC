@@ -152,11 +152,20 @@
                 Style="{StaticResource LabelRJ}"/>
             <DatePicker 
                 Grid.Row="4" Grid.Column="1"
-                Background="{Binding YearInstalledBg}"
-                Style="{StaticResource dpBase}"
-                Text="{Binding InventorySection.YearInstalledRenewed}"
-                />
-            <CheckBox 
+                Text="{Binding InventorySection.YearInstalledRenewed}">
+              <DatePicker.Style>
+                <Style TargetType="DatePicker" BasedOn="{StaticResource dpBase}">
+                  <Setter Property="Background" Value="Transparent" />
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=CheckboxEstimated, Path=IsChecked}" Value="True">
+                      <Setter Property="Background" Value="Yellow" />
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </DatePicker.Style>
+            </DatePicker>
+
+            <CheckBox Name="CheckboxEstimated"
                 Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"
                 FontSize="15"
                 Content="Estimated"
