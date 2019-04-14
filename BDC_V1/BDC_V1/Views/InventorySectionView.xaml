@@ -63,7 +63,7 @@
                     Width="60"
                     Command="{Binding CmdNextSection}"
                     >
-                    <Image Source="/BDC_V1;component/Resources/DownArrow.png"
+                    <Image Source="/BDC_V1;component/Resources/GreenDownArrow.png"
                    Width="24"
                    HorizontalAlignment="Left" />
                 </Button>
@@ -103,34 +103,64 @@
             <Label Grid.Row="3" Grid.Column="2"
                 Content="EA"
                 Style="{StaticResource LabelLJ}"/>
-            <Border Grid.Row="3" Grid.Column="3"
-                Background="Green"
-                BorderBrush="Black" BorderThickness="1"
+            
+            <Button
+                Grid.Row="3" Grid.Column="3"
+                Command="{Binding CmdIncValue}"
                 Height="35"
-                Margin="2, 2, 10, 2"
                 Width="35"
-                />
-            <Label Grid.Row="3" Grid.Column="3"
-                Content="+"
-                FontSize="30"
-                HorizontalContentAlignment="Center" 
-                Margin="2, 2, 10, 2"
-                VerticalContentAlignment="Center"
-                />
-            <Border Grid.Row="3" Grid.Column="4"
-                Background="Red"
-                BorderBrush="Black" BorderThickness="1"
+                >
+                <Button.Content>
+                    <Grid
+                        Height="35"
+                        Width="35"
+                        >
+                    <Border 
+                        Background="Green"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                            Margin="0"
+                        Height="35"
+                        Width="35"
+                        />
+                        <Label 
+                            Content="+" 
+                            FontSize="45"
+                            HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                            VerticalAlignment="Center" VerticalContentAlignment="Center"
+                            Margin="0"
+                            Height="35"
+                            Width="35"
+                            />
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button
+                Grid.Row="3" Grid.Column="4"
+                Command="{Binding CmdDecValue}"
                 Height="35"
-                Margin="2, 2, 10, 2"
                 Width="35"
-                />
-            <Label Grid.Row="3" Grid.Column="4"
-                Content="-"
-                FontSize="30"
-                HorizontalContentAlignment="Center" 
-                Margin="2, 2, 10, 2"
-                VerticalContentAlignment="Center"
-                />
+                >
+                <Button.Content>
+                    <Grid>
+                        <Border 
+                        Background="Red"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        />
+                        <Label 
+                            Content="-" 
+                            FontSize="45"
+                            HorizontalAlignment="Center"
+                            Margin="3,-25,0,0"
+                            VerticalAlignment="Center"
+                            Width="31"
+                            />
+                    </Grid>
+                </Button.Content>
+            </Button>
+
             <Label Grid.Row="3" Grid.Column="5"
                 Content="Select"
                 Style="{StaticResource LabelRJ}"/>

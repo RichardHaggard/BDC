@@ -72,7 +72,7 @@
                     Style="{StaticResource TitleTextStyle}"
                     HorizontalAlignment="Center"
                     Margin="2"
-                    Text="BUILDER Data Collector ~ Wireframe 1.0" />
+                    Text="BUILDER Data Collector ~ Mockup 1.0" />
 
                 <TextBlock 
                     Style="{StaticResource SubheadingTextStyle}"

@@ -26,11 +26,13 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdCancelEdit     { get; }
-        public ICommand CmdDeleteSection  { get; }
         public ICommand CmdAddSection     { get; }
-        public ICommand CmdSectionComment { get; }
+        public ICommand CmdCancelEdit     { get; }
+        public ICommand CmdDecValue       { get; }
+        public ICommand CmdDeleteSection  { get; }
+        public ICommand CmdIncValue       { get; }
         public ICommand CmdNextSection    { get; }
+        public ICommand CmdSectionComment { get; }
 
         // TODO: Should this be part of the IInventorySection instead of here ???
         public bool Estimated
@@ -89,11 +91,13 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "InventorySectionItemControl";
 
+            CmdAddSection     = new DelegateCommand(OnAddSection);
             CmdCancelEdit     = new DelegateCommand(OnCancelEdit    );
-            CmdAddSection     = new DelegateCommand(OnAddSection    );
+            CmdDecValue       = new DelegateCommand(OnCmdDecValue);
             CmdDeleteSection  = new DelegateCommand(OnDeleteSection );
+            CmdIncValue       = new DelegateCommand(OnCmdIncValue);
+            CmdNextSection    = new DelegateCommand(OnNextSection);
             CmdSectionComment = new DelegateCommand(OnSectionComment);
-            CmdNextSection    = new DelegateCommand(OnNextSection   );
 
 #if DEBUG
 #warning Using MOCK data for InventorySection
@@ -104,6 +108,21 @@ namespace BDC_V1.ViewModels
         // **************** Class members *************************************************** //
 
         private void OnCancelEdit   () { Debug.WriteLine("OnCancelEdit    is not implemented"); }
+
+        private void OnCmdDecValue ()
+        {
+            double d = 0;
+            if (double.TryParse(InventorySection.Quantity, out d))
+                InventorySection.Quantity = string.Format("{0:0.00}", --d);
+        }
+
+        private void OnCmdIncValue()
+        {
+            double d = 0;
+            if (double.TryParse(InventorySection.Quantity, out d))
+                InventorySection.Quantity = string.Format("{0:0.00}", ++d);
+        }
+
         private void OnAddSection   () { Debug.WriteLine("OnAddSection    is not implemented"); }
         private void OnDeleteSection() { Debug.WriteLine("OnDeleteSection is not implemented"); }
         private void OnNextSection  () { Debug.WriteLine("OnNextSection   is not implemented"); }

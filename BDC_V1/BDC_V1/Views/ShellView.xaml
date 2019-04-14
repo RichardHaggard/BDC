@@ -327,7 +327,7 @@
 
                 <TabItem 
                     Name="QaInventory" 
-                    Header="QA - INVENTORY"  
+                    Header="QC - INVENTORY"  
                     Background="{Binding QaInventoryTabBackgroundColor}"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Top">
@@ -336,7 +336,7 @@
 
                 <TabItem 
                     Name="QaInspection" 
-                    Header="QA - INSPECTION"  
+                    Header="QC - INSPECTION"  
                     Background="{Binding QaInspectionTabBackgroundColor}"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Top">
