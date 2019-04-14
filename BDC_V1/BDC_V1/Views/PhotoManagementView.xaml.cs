@@ -23,9 +23,5 @@ namespace BDC_V1.Views
         {
             InitializeComponent();
         }
-
-        // singleton instance to block multiple instances 
-        private static PhotoManagementView _instance;
-        public static PhotoManagementView Instance => _instance ?? (_instance = new PhotoManagementView());
     }
 }
