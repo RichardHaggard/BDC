@@ -20,9 +20,6 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdCancelUndo  { get; }
-        public ICommand CmdOkCommand   { get; }
-
         public string Component
         {
             get => _component;
@@ -43,9 +40,6 @@ namespace BDC_V1.ViewModels
 
         public AddNewComponentViewModel()
         {
-            CmdCancelUndo  = new DelegateCommand(OnCancelUndo );
-            CmdOkCommand   = new DelegateCommand(OnOkCommand  );
-
 #if DEBUG
 #warning Using MOCK data for AddNewComponentViewModel
             Components.AddRange(new[]
@@ -62,18 +56,6 @@ namespace BDC_V1.ViewModels
 
 
         // **************** Class members *************************************************** //
-
-        private void OnCancelUndo()
-        {
-            Result = EnumControlResult.ResultCancelled;
-            DialogResultEx = false;
-        }
-
-        private void OnOkCommand()
-        {
-            Result = EnumControlResult.ResultSaveNow;
-            DialogResultEx = true;
-        }
 
 
     }

@@ -34,8 +34,6 @@ namespace BDC_V1.ViewModels
         [NotNull] public ICommand CmdSizeStandard    { get; }
         [NotNull] public ICommand CmdSizeLarge       { get; }
         [NotNull] public ICommand CmdExtraSizeLarge  { get; }
-        [NotNull] public ICommand CmdCancelUndo      { get; }
-        [NotNull] public ICommand CmdOkCommand       { get; }
         [NotNull] public ICommand CmdDeleteCommand   { get; }
 
         [CanBeNull] 
@@ -58,8 +56,6 @@ namespace BDC_V1.ViewModels
             CmdSizeStandard    = new DelegateCommand(OnSizeStandard   );
             CmdSizeLarge       = new DelegateCommand(OnSizeLarge      );
             CmdExtraSizeLarge  = new DelegateCommand(OnExtraSizeLarge );
-            CmdCancelUndo      = new DelegateCommand(OnCancelUndo     );
-            CmdOkCommand       = new DelegateCommand(OnOkCommand      );
             CmdDeleteCommand   = new DelegateCommand(OnDeleteCommand  );
 
 #if DEBUG
@@ -74,18 +70,6 @@ namespace BDC_V1.ViewModels
         private void OnDeleteCommand()
         {
             Result = EnumControlResult.ResultDeleteItem;
-            DialogResultEx = true;
-        }
-
-        private void OnCancelUndo()
-        {
-            Result = EnumControlResult.ResultCancelled;
-            DialogResultEx = false;
-        }
-
-        private void OnOkCommand()
-        {
-            Result = EnumControlResult.ResultSaveNow;
             DialogResultEx = true;
         }
 

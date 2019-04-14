@@ -10,229 +10,232 @@
         xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:local="clr-namespace:BDC_V1.Views"
         xmlns:utils="clr-namespace:BDC_V1.Utils"
+        xmlns:converters="clr-namespace:BDC_V1.Converters"
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        MinHeight="545" MaxHeight="545" 
+        MinHeight="490" MaxHeight="940" Height="Auto"
         MinWidth="500" MaxWidth="800" 
-        d:DesignHeight="545" d:DesignWidth="500"
+        d:DesignHeight="550" d:DesignWidth="500"
         >
 
-  <Grid Margin="2,5,2,5">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" /> <!--  0 - Title -->
-      <RowDefinition Height="10"   /> <!--  1 - white space -->
-      <RowDefinition Height="Auto" /> <!--  2 - Source -->
-      <RowDefinition Height="Auto" /> <!--  3 - Target -->
-      <RowDefinition Height="Auto" /> <!--  4 - Section -->
-      <RowDefinition Height="Auto" /> <!--  5 - Systems -->
-      <RowDefinition Height="Auto" /> <!--  6 - Options -->
-      <RowDefinition Height="Auto" /> <!--  7 - Year Built -->
-      <RowDefinition Height="Auto" /> <!--  8 - Section Comments -->
-      <RowDefinition Height="Auto" /> <!--  9 - Section Details -->
-      <RowDefinition Height="Auto" /> <!-- 10 -   Detail Comments -->
-      <RowDefinition Height="Auto" /> <!-- 11 - Existing Inventory -->
-      <RowDefinition Height="10"   /> <!-- 12 - white space -->
-      <RowDefinition Height="Auto" /> <!-- 13 - Copy Inspections -->
-      <RowDefinition Height="Auto" /> <!-- 14 -   Include Comments -->
-      <RowDefinition Height="10"   /> <!-- 15 - white space -->
-      <RowDefinition Height="Auto" /> <!-- 16 - Command Buttons -->
-    </Grid.RowDefinitions>
+  <Window.Resources>
+    <converters:MultiBoolToObjectConverter x:Key="MultiBoolToObjectConverter" />
 
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto"/> <!-- offset for indented checkboxes -->
-      <ColumnDefinition Width="*"   /> <!-- TextBoxes -->
-    </Grid.ColumnDefinitions>
-        
-    <!--  0 - Title -->
-    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-           Background="LightGray"
-           HorizontalAlignment="Stretch">
-      COPY INVENTORY...
-    </Label>
+  </Window.Resources>
 
-    <!--  2 - Source -->
-    <Label Grid.Row="2" Grid.Column="0"
-           VerticalAlignment="Top">
-      Source Facility:
-    </Label>
-    <Label Grid.Row="2" Grid.Column="1"
-           Margin="0,5,0,5" 
-           Height="25"
-           Background="LightGray" Content="{Binding SourceFacility}">
-    </Label>
+  <ScrollViewer VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Auto">
+    <Grid Margin="2,5,2,5">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="1"    /> <!--  0 - deleted -->
+        <RowDefinition Height="1"    /> <!--  1 - white space -->
+        <RowDefinition Height="Auto" /> <!--  2 - Source -->
+        <RowDefinition Height="Auto" /> <!--  3 - Target -->
+        <RowDefinition Height="Auto" /> <!--  4 - Section -->
+        <RowDefinition Height="Auto" /> <!--  5 - Systems -->
+        <RowDefinition Height="Auto" /> <!--  6 - Options -->
+        <RowDefinition Height="Auto" /> <!--  7 - Year Built -->
+        <RowDefinition Height="Auto" /> <!--  8 - Section Comments -->
+        <RowDefinition Height="Auto" /> <!--  9 - Section Details -->
+        <RowDefinition Height="Auto" /> <!-- 10 -   Detail Comments -->
+        <RowDefinition Height="Auto" /> <!-- 11 - Existing Inventory -->
+        <RowDefinition Height="10"   /> <!-- 12 - white space -->
+        <RowDefinition Height="Auto" /> <!-- 13 - Copy Inspections -->
+        <RowDefinition Height="Auto" /> <!-- 14 -   Include Comments -->
+        <RowDefinition Height="10"   /> <!-- 15 - white space -->
+        <RowDefinition Height="Auto" /> <!-- 16 - Command Buttons -->
+      </Grid.RowDefinitions>
 
-    <!--  3 - Target -->
-    <Label Grid.Row="3" Grid.Column="0"
-           VerticalAlignment="Top">
-      Target Facility:
-    </Label>
-    <ComboBox Grid.Row="3" Grid.Column="1"
-              Margin="0,5,0,5"
-              ItemsSource="{Binding ListOfFacilities}"
-              SelectedItem="{Binding SelectedFacility}"
-              Style="{StaticResource ComboBase}" />
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/> <!-- offset for indented checkboxes -->
+        <ColumnDefinition Width="*"   /> <!-- TextBoxes -->
+      </Grid.ColumnDefinitions>
+          
+      <!--  0 - Title -->
 
-    <!--  4 - Section -->
-    <Label Grid.Row="4" Grid.Column="0"
-           VerticalAlignment="Top">
-      Section Name:
-    </Label>
-    <TextBox Grid.Row="4" Grid.Column="1"
+      <!--  2 - Source -->
+      <Label Grid.Row="2" Grid.Column="0"
+             VerticalAlignment="Top">
+        Source Facility:
+      </Label>
+      <Label Grid.Row="2" Grid.Column="1"
              Margin="0,5,0,5" 
              Height="25"
-             Background="{Binding SectionNameBackground}" 
-             IsEnabled="{Binding IsSectionNameEnabled}"
-             Text="{Binding SectionNameText}" 
-             Style="{StaticResource TextBoxNoWrap}" />
+             Background="LightGray" 
+             Content="{Binding SourceFacility, FallbackValue='&lt;SOURCE FACILITY&gt;'}">
+      </Label>
 
-    <!--  5 - Systems -->
-    <Label Grid.Row="5" Grid.Column="0"
-           VerticalAlignment="Top">
-      Systems to copy:
-    </Label>
-    <Border Grid.Row="5" Grid.Column="1" Margin="0,5,0,0"
-            BorderThickness="1"
-            BorderBrush="Black">
-      <ListView ItemsSource="{Binding ListOfSystems}"
-                Height="60"
-                MaxHeight="80"
-                >
-        <ItemsControl.ItemContainerStyle>
-          <Style TargetType="{x:Type ListViewItem}">
-            <Setter Property="Template">
-              <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                  <Border
-                    BorderBrush="Black"
-                    BorderThickness="1">
-                    <GridViewRowPresenter 
-                      HorizontalAlignment="Stretch" 
-                      VerticalAlignment="Stretch" 
-                      Width="Auto" 
-                      Margin="0" 
-                      Content="{TemplateBinding Content}"/>
-                  </Border>
-                </ControlTemplate>
-              </Setter.Value>
-            </Setter>
+      <!--  3 - Target -->
+      <Label Grid.Row="3" Grid.Column="0"
+             VerticalAlignment="Top">
+        Target Facility:
+      </Label>
+      <ComboBox Grid.Row="3" Grid.Column="1"
+                Margin="0,5,0,5"
+                ItemsSource="{Binding ListOfFacilities}"
+                SelectedItem="{Binding SelectedFacility}"
+                Style="{StaticResource ComboBase}" />
+
+      <!--  4 - Section -->
+      <Label Grid.Row="4" Grid.Column="0"
+             VerticalAlignment="Top">
+        Section Name:
+      </Label>
+      <TextBox Grid.Row="4" Grid.Column="1"
+               Margin="0,5,0,5" 
+               Height="25"
+               IsEnabled="{Binding IsSectionNameEnabled, FallbackValue=False}"
+               Text="{Binding SectionNameText, FallbackValue='SECTION NAME'}" 
+               >
+        <TextBox.Style>
+          <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxNoWrap}">
+            <Setter Property="Background" Value="LightGray" />
+            <Style.Triggers>
+              <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Background" Value="White" />
+              </Trigger>
+            </Style.Triggers>
           </Style>
-        </ItemsControl.ItemContainerStyle>
-        <ItemsControl.ItemTemplate>
+        </TextBox.Style>
+      </TextBox>
+
+      <!--  5 - Systems -->
+      <Label Grid.Row="5" Grid.Column="0"
+             VerticalAlignment="Top">
+        Systems to copy:
+
+      </Label>
+      <ListView Grid.Row="5" Grid.Column="1"
+                BorderBrush="Black"
+                BorderThickness="1"
+                ItemsSource="{Binding ListOfSystems}"
+                MinHeight="100"
+                MaxHeight="250"
+                >
+        <ListBox.ItemTemplate>
           <DataTemplate>
-            <CheckBox Content="{Binding ItemName}" IsChecked="{Binding ItemIsChecked}"/>
+            <StackPanel>
+              <CheckBox Content="{Binding ItemName}" IsChecked="{Binding ItemIsChecked}"/>
+            </StackPanel>
           </DataTemplate>
-        </ItemsControl.ItemTemplate>
+        </ListBox.ItemTemplate>
       </ListView>
-    </Border>
 
-    <!--  6 - Options -->
-    <Label Grid.Row="6" Grid.Column="0"
-           FontWeight="Bold">
-      Options:
-    </Label>
+      <!--  6 - Options -->
+      <Label Grid.Row="6" Grid.Column="0"
+             FontWeight="Bold">
+        Options:
+      </Label>
 
-    <!--  7 - Year Built -->
-    <CheckBox Name="OverYearCheckbox" Grid.Row="7" Grid.Column="0" 
-              VerticalAlignment="Top"
-              IsChecked="{Binding IsOverYearChecked}">
-      Override Year Built:
-    </CheckBox>
-    <TextBox Grid.Row="7" Grid.Column="1"
-             IsEnabled="{Binding ElementName=OverYearCheckbox, Path=IsChecked}"
-             Margin="0,5,0,5"
-             Text="{Binding YearBuilt}"
-             Style="{StaticResource TextBoxNoWrap}" />
+      <!--  7 - Year Built -->
+      <CheckBox Name="OverYearCheckbox" Grid.Row="7" Grid.Column="0" 
+                VerticalAlignment="Center"
+                IsChecked="{Binding IsOverYearChecked}">
+        Override Year Built:
+      </CheckBox>
+      <TextBox Grid.Row="7" Grid.Column="1"
+               Margin="0,5,0,5"
+               Width="50"
+               HorizontalAlignment="Left"
+               IsEnabled="{Binding ElementName=OverYearCheckbox, Path=IsChecked}"
+               Text="{Binding YearBuilt, FallbackValue=2019}"
+               Style="{StaticResource TextBoxNoWrap}" />
 
-    <!-- 8 - Section Comments -->
-    <CheckBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
-              Margin="0,5,0,5"
-              IsChecked="{Binding IsSectionCommentsChecked}">
-      Include Section Comments
-    </CheckBox>
+      <!-- 8 - Section Comments -->
+      <CheckBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+                Margin="0,5,0,5"
+                IsChecked="{Binding IsSectionCommentsChecked}">
+        Include Section Comments
+      </CheckBox>
 
-    <!-- 9 - Section Details -->
-    <CheckBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
-              Margin="0,5,0,5"
-              IsChecked="{Binding IsSectionDetailsChecked}">
-      Include Section CommentDetail
-    </CheckBox>
+      <!-- 9 - Section Details -->
+      <CheckBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
+                Name="IncludeSectionDetails"
+                Margin="0,5,0,5"
+                IsChecked="{Binding IsSectionDetailsChecked}">
+        Include Section Details
+      </CheckBox>
 
-    <!-- 10 -   Detail Comments -->
-    <CheckBox Grid.Row="10" Grid.Column="0"  Grid.ColumnSpan="2"
-              Margin="20,5,0,5"
-              IsChecked="{Binding IsDetailCommentsChecked}">
-      Include Detail Comments
-    </CheckBox>
+      <!-- 10 -   Detail Comments -->
+      <CheckBox Grid.Row="10" Grid.Column="0"  Grid.ColumnSpan="2"
+                Margin="20,5,0,5"
+                IsEnabled="{Binding ElementName=IncludeSectionDetails, Path=IsChecked}"
+                IsChecked="{Binding IsDetailCommentsChecked}">
+        Include Detail Comments
+      </CheckBox>
 
-    <!-- 11 - Existing Inventory -->
-    <CheckBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2"
-              Margin="0,5,0,5"
-              IsChecked="{Binding IsExistingInventoryChecked}">
-      Overwrite Existing Inventory
-    </CheckBox>
+      <!-- 11 - Existing Inventory -->
+      <CheckBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2"
+                Margin="0,5,0,5"
+                IsChecked="{Binding IsExistingInventoryChecked}">
+        Overwrite Existing Inventory
+      </CheckBox>
 
-    <!-- 13 - Copy Inspections -->
-    <CheckBox Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2"
-              Margin="0,5,0,5"
-              IsChecked="{Binding IsCopyInspectionsChecked}">
-      Copy InspectionComments
-    </CheckBox>
+      <!-- 13 - Copy Inspections -->
+      <CheckBox Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2"
+                Name="CopyInspections"
+                Margin="0,5,0,5"
+                IsChecked="{Binding IsCopyInspectionsChecked}">
+        Copy Inspections
+      </CheckBox>
 
-    <!-- 14 -   Include Comments -->
-    <CheckBox Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2"
-              Margin="20,5,0,5"
-              IsChecked="{Binding IsIncludeCommentsChecked}">
-      Include Comments
-    </CheckBox>
+      <!-- 14 -   Include Comments -->
+      <CheckBox Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2"
+                Margin="20,5,0,5"
+                IsEnabled="{Binding ElementName=CopyInspections, Path=IsChecked}"
+                IsChecked="{Binding IsIncludeCommentsChecked}">
+        Include Comments
+      </CheckBox>
 
-    <!-- 16 - Command Buttons -->
-    <Grid Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"    /> <!-- white space to the left -->
-        <ColumnDefinition Width="200" />
-        <ColumnDefinition Width="50"   /> <!-- white space between the buttons -->
-        <ColumnDefinition Width="200" />
-        <ColumnDefinition Width="*"    /> <!-- white space to the right -->
-      </Grid.ColumnDefinitions>
+      <!-- 16 - Command Buttons -->
+      <Grid Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"    /> <!-- white space to the left -->
+          <ColumnDefinition Width="200" />
+          <ColumnDefinition Width="50"   /> <!-- white space between the buttons -->
+          <ColumnDefinition Width="200" />
+          <ColumnDefinition Width="*"    /> <!-- white space to the right -->
+        </Grid.ColumnDefinitions>
 
-      <Button Grid.Column="1" Width="200"
-              Command="{Binding CmdCopyButton}">
-        <Grid>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="24" />
-            <ColumnDefinition Width="45" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="55" />
-          </Grid.ColumnDefinitions>
+        <Button Grid.Column="1" Width="200"
+                Command="{Binding CmdCopyButton}">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="24" />
+              <ColumnDefinition Width="45" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="55" />
+            </Grid.ColumnDefinitions>
 
-          <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Copy.Png" />
-          <Label Grid.Column="2" 
-                 HorizontalAlignment="Center"
-                 Margin="0,-2,0,0">
-            COPY
-          </Label>
-        </Grid>
-      </Button>
+            <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Copy.Png" />
+            <Label Grid.Column="2" 
+                   HorizontalAlignment="Center"
+                   Margin="0,-2,0,0">
+              COPY
+            </Label>
+          </Grid>
+        </Button>
 
-      <Button Grid.Column="3" Width="200"
-              Command="{Binding CmdCancelButton}">
-        <Grid>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="24" />
-            <ColumnDefinition Width="45" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="55" />
-          </Grid.ColumnDefinitions>
+        <Button Grid.Column="3" Width="200"
+                Command="{Binding CmdCancelButton}">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="24" />
+              <ColumnDefinition Width="45" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="55" />
+            </Grid.ColumnDefinitions>
 
-          <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Cancel_Undo (1).png" />
-          <Label Grid.Column="2" 
-                 HorizontalAlignment="Center"
-                 Margin="0,-2,0,0">
-            CANCEL
-          </Label>
-        </Grid>
-      </Button>
+            <Image Grid.Column="0" Source="/BDC_V1;component/Resources/Cancel_Undo (1).png" />
+            <Label Grid.Column="2" 
+                   HorizontalAlignment="Center"
+                   Margin="0,-2,0,0">
+              CANCEL
+            </Label>
+          </Grid>
+        </Button>
+      </Grid>
     </Grid>
-  </Grid>
+  </ScrollViewer>
 </Window>
