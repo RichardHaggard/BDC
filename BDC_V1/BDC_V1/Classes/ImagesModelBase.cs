@@ -68,12 +68,15 @@ namespace BDC_V1.Classes
 
         protected virtual void OnSelectedComment([CanBeNull] CommentBase comment, bool isInspection = false)
         {
-            var view = new CommentInspectionView();
-            if (!(view.DataContext is CommentInspectionViewModel model)) 
+            var view = new GeneralCommentView();
+            if (!(view.DataContext is GeneralCommentViewModel model)) 
                 throw new InvalidCastException("Invalid View Model");
 
             model.IsDistressedEnabled = isInspection;
             model.CommentText = comment?.CommentText;
+            model.WindowTitle = isInspection
+                ? "INSPECTION COMMENTS"
+                : "COMMENTS";
 
             if (view.ShowDialog() != true) return;
 

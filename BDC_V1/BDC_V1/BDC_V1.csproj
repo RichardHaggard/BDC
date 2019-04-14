@@ -201,8 +201,7 @@
     <Compile Include="ViewModels\AddSystemViewModel.cs" />
     <Compile Include="ViewModels\CameraViewModel.cs" />
     <Compile Include="Classes\CloseableWindow.cs" />
-    <Compile Include="ViewModels\CommentInspectionViewModel.cs" />
-    <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\GeneralCommentViewModel.cs" />
     <Compile Include="Classes\CommentWindows.cs" />
     <Compile Include="ViewModels\CopyCommentViewModel.cs" />
     <Compile Include="ViewModels\CopyInspectionViewModel.cs" />
@@ -234,11 +233,8 @@
     <Compile Include="Views\CameraView.xaml.cs">
       <DependentUpon>CameraView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CommentInspectionView.xaml.cs">
-      <DependentUpon>CommentInspectionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CommentView.xaml.cs">
-      <DependentUpon>CommentView.xaml</DependentUpon>
+    <Compile Include="Views\GeneralCommentView.xaml.cs">
+      <DependentUpon>GeneralCommentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CopyCommentView.xaml.cs">
       <DependentUpon>CopyCommentView.xaml</DependentUpon>
@@ -331,11 +327,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CommentInspectionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CommentView.xaml">
+    <Page Include="Views\GeneralCommentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

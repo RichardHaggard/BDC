@@ -1,5 +1,5 @@
-﻿<Window Title="INSPECTION COMMENT"
-        x:Class="BDC_V1.Views.CommentInspectionView"
+﻿<Window Title="{Binding WindowTitle, FallbackValue='INSPECTION COMMENT'}"
+        x:Class="BDC_V1.Views.GeneralCommentView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -152,7 +152,7 @@
                                 Mode=TwoWay}" />
       <RadioButton Margin="5,5,15,5"
                    GroupName="RepairType"
-                   Content="No recom." 
+                   Content="No recommendation" 
                    IsChecked="{Binding Path=RepairType, 
                                 Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                                 ConverterParameter=None,

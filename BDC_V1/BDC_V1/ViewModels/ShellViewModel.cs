@@ -545,8 +545,8 @@ namespace BDC_V1.ViewModels
 
         private void OnInspectionSummary()
         {
-            var view = new CommentInspectionView();
-            if (!(view.DataContext is CommentInspectionViewModel model)) 
+            var view = new GeneralCommentView();
+            if (!(view.DataContext is GeneralCommentViewModel model)) 
                 throw new InvalidCastException("Invalid View Model");
 
             model.IsDistressedEnabled = true;
