@@ -118,14 +118,16 @@ namespace BDC_V1.Classes
         // these two members are separated so they can be overriden separately
         protected virtual void OnSelectedImage([CanBeNull] ImageSource image)
         {
-            var view = new CameraView();
-            if (!(view.DataContext is CameraViewModel model))       
-                throw new InvalidCastException("Invalid View Model");
+            //var view = new CameraView();
+            //if (!(view.DataContext is CameraViewModel model))       
+            //    throw new InvalidCastException("Invalid View Model");
 
-            model.SourceImage = image;
-            if (view.ShowDialog() != true) return;
+            //model.SourceImage = image;
+            //if (view.ShowDialog() != true) return;
 
-            DoSelectedImage(model.Result, image, model.SourceImage);
+            //DoSelectedImage(model.Result, image, model.SourceImage);
+            PhotoManagementView View = new PhotoManagementView();
+            View.ShowDialog();
         }
 
         protected virtual void DoSelectedImage(EnumControlResult result, [CanBeNull] ImageSource itemImage, [CanBeNull] ImageSource modelImage)

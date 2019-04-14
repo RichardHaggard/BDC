@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using BDC_V1.Classes;
+using BDC_V1.Models;
+using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
 
@@ -71,6 +75,22 @@ namespace BDC_V1.ViewModels
         private IEventAggregator EventAggregator { get; set; }
 
 
+        public PhotoModel PendingItem
+        {
+            get { return _PendingItem; }
+            set { SetProperty(ref _PendingItem, value); }
+        }
+        private PhotoModel _PendingItem;
+
+
+        public ObservableCollection<PhotoModel> PendingList
+        {
+            get { return _PendingList; }
+            set { SetProperty(ref _PendingList, value); }
+        }
+        private ObservableCollection<PhotoModel> _PendingList = new ObservableCollection<PhotoModel>();
+
+
         public string Title
         {
             get { return _Title; }
@@ -88,6 +108,11 @@ namespace BDC_V1.ViewModels
             CmdRemoveSelected       = new DelegateCommand(OnCmdRemoveSelected);
             CmdSelectPhoto          = new DelegateCommand(OnCmdSelectPhoto);
             CmdUnlinkExistingPhoto  = new DelegateCommand(OnCmdUnlinkExistingPhoto);
+
+            PendingList.Add(new PhotoModel("EmeraldHils.jpg", "Emerald Hills", "3/13/2019"));
+            PendingList.Add(new PhotoModel("FlamingoWater.jpg.jpg", "FlamingoWater.jpg", "3/12/2019"));
+            PendingList.Add(new PhotoModel("th7.jpg", "Fans", "3/11/2019"));
+            PendingItem = PendingList[0];
         }
 
 
@@ -118,7 +143,17 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdSelectPhoto()
         {
-            MessageBox.Show("Select Photo");
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.CheckFileExists = true;
+            dlg.Filter = "Image files (*.jpg)|*.jpg|(*.png)|*.png|All files (*.*)|*.*";
+            dlg.Multiselect = false;
+            dlg.Title = "Select an Image File";
+            if (true == dlg.ShowDialog() )
+            {
+                PhotoModel pm = new PhotoModel(dlg.FileName, Path.GetFileNameWithoutExtension(dlg.FileName), DateTime.Now.ToShortDateString());
+                PendingList.Add(pm);
+                PendingItem = pm;
+            }
         }
 
         private void OnCmdUnlinkExistingPhoto()

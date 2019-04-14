@@ -124,6 +124,7 @@
     <Compile Include="Interfaces\IFacilityInfo.cs" />
     <Compile Include="Interfaces\IImageCollection.cs" />
     <Compile Include="Interfaces\IIndexedCollection.cs" />
+    <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -409,10 +410,18 @@
     <PackageReference Include="Prism.Unity" Version="7.1.0.431&#xD;&#xA;" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\EmeraldHils.jpg" />
-    <Resource Include="Images\FlamingoWater.jpg" />
-    <Resource Include="Images\GilletteStadium_1.jpg" />
-    <Resource Include="Images\GilletteStadium_2.jpg" />
+    <Resource Include="Images\EmeraldHils.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\FlamingoWater.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\GilletteStadium_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\GilletteStadium_2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Reactor.png" />
     <Resource Include="Images\th1.jpg" />
     <Resource Include="Images\th2.jpg" />
