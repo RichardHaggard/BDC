@@ -61,8 +61,8 @@
                 <MenuItem Header="_Bluebeam data"         Command="{Binding CmdMenuBluebeam}"/>
                 <MenuItem Header="_Calculators"           Command="{Binding CmdMenuCalculators}"/>
                 <MenuItem Header="_Switch file/inspector" Command="{Binding CmdMenuSwitchFile}"/>
-                <MenuItem Header="View _All Systems"      Command="{Binding CmdMenuViewAllSystems}"/>
-                <MenuItem Header="_View Assigned Systems" Command="{Binding CmdMenuViewAssignedSystems}"/>
+                <MenuItem Header="View _All Systems"      Command="{Binding CmdMenuViewAllSystems}"      IsCheckable="True" IsChecked="{Binding ViewAllSystems}"     />
+                <MenuItem Header="_View Assigned Systems" Command="{Binding CmdMenuViewAssignedSystems}" IsCheckable="True" IsChecked="{Binding ViewAssignedSystems}"/>
             </MenuItem>
 
             <MenuItem Header="Reports" >

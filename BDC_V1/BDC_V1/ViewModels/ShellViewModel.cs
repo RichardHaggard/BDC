@@ -177,6 +177,30 @@ namespace BDC_V1.ViewModels
         private ICommentInspection _inspectedByUser;
 
 
+        public bool ViewAllSystems
+        {
+            get { return _ViewAllSystems; }
+            set 
+                {
+                if (SetProperty(ref _ViewAllSystems, value))
+                    ViewAssignedSystems = !value;
+                }
+        }
+        private bool _ViewAllSystems = true;
+
+
+        public bool ViewAssignedSystems
+        {
+            get { return _ViewAssignedSystems; }
+            set 
+                {
+                if (SetProperty(ref _ViewAssignedSystems, value))
+                    ViewAllSystems = !value;
+                }
+        }
+        private bool _ViewAssignedSystems;
+
+
         // Used to force the Tab selection internally
         public int ViewTabIndex
         {
