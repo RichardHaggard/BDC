@@ -66,13 +66,15 @@ namespace BDC_V1.Classes
         [CanBeNull]
         public abstract ObservableCollection<CommentBase> CommentContainer { get; }
 
-        protected virtual void OnSelectedComment([CanBeNull] CommentBase comment)
+        protected virtual void OnSelectedComment([CanBeNull] CommentBase comment, bool isInspection = false)
         {
-            var view = new CommentView();
-            if (!(view.DataContext is CommentViewModel model)) 
+            var view = new CommentInspectionView();
+            if (!(view.DataContext is CommentInspectionViewModel model)) 
                 throw new InvalidCastException("Invalid View Model");
 
+            model.IsDistressedEnabled = isInspection;
             model.CommentText = comment?.CommentText;
+
             if (view.ShowDialog() != true) return;
 
             // TODO: Fix the CommentViewModel to return a CommentBase class on success

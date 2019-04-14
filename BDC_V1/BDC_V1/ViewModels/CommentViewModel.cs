@@ -24,8 +24,8 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        // TODO: Move these properties into a separate interface / class
-
+// TODO: How did this get here??? This all belongs in a different view
+#if false
         public string SourceFacility
         {
             get => _sourceFacility;
@@ -122,11 +122,17 @@ namespace BDC_V1.ViewModels
             set => SetProperty(ref _isIncludeCommentsChecked, value);
         }
         private bool _isIncludeCommentsChecked;
+#endif
 
         // **************** Class constructors ********************************************** //
 
         public CommentViewModel()
         {
+            HeaderText = "COMMENTS\n" +
+                         "This is a two-line auto-wrap text field";
+
+// TODO: How did this get here??? This all belongs in a different view
+#if false
             IsSectionNameEnabled       = 
             IsOverYearChecked          = 
             IsSectionCommentsChecked   = 
@@ -140,11 +146,6 @@ namespace BDC_V1.ViewModels
 
             SourceFacility = "<SOURCE FACILITY>";
 
-            HeaderText1 = "COMMENTS";
-            HeaderText2 = "Comments for non-inspection items";
-
-#if DEBUG
-#warning Using MOCK data for CommentViewModel
             ListOfFacilities.AddRange(new []
             {
                 "Facility 1",
@@ -162,7 +163,7 @@ namespace BDC_V1.ViewModels
             });
 
             SelectedFacility = ListOfFacilities[0];
-
+#endif
             // gets around the "cannot access virtual member in constructor" issue
             _commentaryList.AddRange(new [] {
                 new Commentary
@@ -212,7 +213,6 @@ namespace BDC_V1.ViewModels
                     CommentText = "No A20 and D10 systems present. Could not gain access to Supply RM C342."
                 }
             });
-#endif
         }
 
         // **************** Class members *************************************************** //

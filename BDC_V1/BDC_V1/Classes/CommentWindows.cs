@@ -21,19 +21,12 @@ namespace BDC_V1.Classes
         public ICommand CmdSpellCheck  { get; }
         public ICommand CmdReviewLater { get; }
 
-        public string HeaderText1
+        public string HeaderText
         {
-            get => _headerText1;
-            set => SetProperty(ref _headerText1, value);
+            get => _headerText;
+            set => SetProperty(ref _headerText, value);
         }
-        private string _headerText1;
-
-        public string HeaderText2
-        {
-            get => _headerText2;
-            set => SetProperty(ref _headerText2, value);
-        }
-        private string _headerText2;
+        private string _headerText;
 
         public string CommentText 
         {

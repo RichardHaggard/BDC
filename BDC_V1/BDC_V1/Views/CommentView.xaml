@@ -23,7 +23,7 @@
       <Setter Property="BorderThickness" Value="0" />
     </Style>
 
-    <Style x:Key="HeaderText" TargetType="Label">
+    <Style x:Key="HeaderText" TargetType="TextBox">
       <Setter Property="FontSize" Value="15" />
       <Setter Property="Margin" Value="0" />
       <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -40,12 +40,15 @@
     </Grid.RowDefinitions>
 
     <!-- Header text -->
-    <StackPanel Grid.Row="0">
-      <Label Content="{Binding HeaderText1, Mode=OneWay}"
-             Style="{StaticResource HeaderText}"/>
-      <Label Content="{Binding HeaderText2, Mode=OneWay}"
-             Style="{StaticResource HeaderText}"/>
-    </StackPanel>
+      <TextBox Grid.Row="0"
+               FontSize="15"
+               Margin="0"   
+               VerticalContentAlignment="Top"
+               Background="LightGray"
+               MinHeight="20"
+               IsReadOnly="True"
+               TextWrapping="Wrap"
+               Text="{Binding HeaderText, Mode=OneWay}" />
 
     <!-- Toolbar -->
     <Border Grid.Row="1" Background="White" MinWidth="550">

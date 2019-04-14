@@ -25,6 +25,13 @@ namespace BDC_V1.ViewModels
 
         public ICommand CmdDistressed { get; }
 
+        public bool IsDistressedEnabled
+        {
+            get => _isDistressedEnabled;
+            set => SetProperty(ref _isDistressedEnabled, value);
+        }
+        private bool _isDistressedEnabled = true;
+
         // TODO: Move these properties into a separate interface / class
 
         public EnumRepairType RepairType
@@ -40,13 +47,11 @@ namespace BDC_V1.ViewModels
         {
             CmdDistressed = new DelegateCommand(OnDistressed);
 
-            HeaderText1 = "INSPECTION COMMENTS";
-            HeaderText2 = "Comments for inspection items";
+            HeaderText = "INSPECTION COMMENTS\n" +
+                         "This is a two-line auto-wrap text field";
 
 #if DEBUG
 #warning Using MOCK data for CommentInspectionViewModel
-            HeaderText1 = "<TYPE> Comments for <IDENTIFIER>";
-            HeaderText2 = "<IDENTIFIER CONTINUED>";
             CommentText =
                 "DAMAGED - All the wood doors have 70% severe moisture damage.  CRACKED - All of the doors have 65% severe cracking and splintering.";
 

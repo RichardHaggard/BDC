@@ -85,9 +85,20 @@
           <Image Source="/BDC_V1;component/Resources/Copy_75.png" />
         </Button>
 
-        <Button Grid.Column="3" Style="{StaticResource bTB}"
+        <Button Grid.Column="3" 
+                IsEnabled="{Binding IsDistressedEnabled, FallbackValue=True}"
                 Command="{Binding CmdDistressed}">
           <Image Source="/BDC_V1;component/Resources/Distress_Selector (1).png" />
+          <Button.Style>
+            <Style TargetType="Button" BasedOn="{StaticResource bTB}">
+              <Setter Property="Visibility" Value="Visible" />
+              <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                  <Setter Property="Visibility" Value="Collapsed" />
+                </Trigger>
+              </Style.Triggers>
+            </Style>
+          </Button.Style>
         </Button>
 
         <Button Grid.Column="4" Style="{StaticResource bTB}"
@@ -112,7 +123,19 @@
       </Grid>
     </Border>
 
-    <StackPanel Grid.Row="2" Orientation="Horizontal" MinWidth="480">
+    <StackPanel Grid.Row="2" Orientation="Horizontal" MinWidth="480"
+                IsEnabled="{Binding IsDistressedEnabled, FallbackValue=True}">
+      <StackPanel.Style>
+        <Style TargetType="StackPanel" >
+          <Setter Property="Visibility" Value="Visible" />
+          <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </StackPanel.Style>
+
       <RadioButton Margin="5,5,15,5"
                    GroupName="RepairType"
                    Content="Repair is recommended" 
