@@ -10,19 +10,21 @@
              xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:utils="clr-namespace:BDC_V1.Utils"
              xmlns:converters="clr-namespace:BDC_V1.Converters"
+             xmlns:classes="clr-namespace:BDC_V1.Classes"
              mc:Ignorable="d"
-             MaxHeight="750" MaxWidth="875"
-             d:DesignHeight="750" d:DesignWidth="875">
+             MaxHeight="800" MaxWidth="875"
+             d:DesignHeight="800" d:DesignWidth="875">
 
-<!--
   <i:Interaction.Triggers>
     <i:EventTrigger EventName="Loaded">
       <i:InvokeCommandAction Command="{Binding ViewActivated}" />
     </i:EventTrigger>
   </i:Interaction.Triggers>
--->
 
   <UserControl.Resources>
+    <converters:EnumBooleanConverter   x:Key="EnumBooleanConverter"   />
+    <converters:GatedEnumBoolConverter x:Key="GatedEnumBoolConverter" />
+
     <Style x:Key="FacilityBlockButtonStyle" TargetType="Button" 
            BasedOn="{StaticResource ImageClickBlockButtonStyle}">
       <Setter Property="Height" Value="95" />
@@ -35,29 +37,88 @@
       <Setter Property="Width" Value="160" />
     </Style>
 
-    <Style x:Key="btnStatusBase"
-        TargetType="Button"
-        BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
+    <Style x:Key="ToggleButtonBase" TargetType="RadioButton"
+           BasedOn="{StaticResource {x:Type ToggleButton}}">
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Margin" Value="5" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ToggleButton">
+            <Border Background="{TemplateBinding Background}" 
+                    BorderBrush="Black"
+                    BorderThickness="2"
+                    CornerRadius="4">
+              <ContentPresenter HorizontalAlignment="Center"                  
+                                VerticalAlignment="Center"/>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter> 
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}" Value="False">
+          <Setter Property="Background" Value="LightGray" />
+          <Setter Property="Foreground" Value="Gray" />
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="ToggleButtonGreen" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonBase}">
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="Background" Value="#5A9BD1" />
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True">
+          <Setter Property="Background" Value="#FF0000" />
+          <Setter Property="Foreground" Value="Black" />
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="ToggleButtonAmber" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonBase}">
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="Background" Value="#5A9BD1" />
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True">
+          <Setter Property="Background" Value="#00B050" />
+          <Setter Property="Foreground" Value="Black" />
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="ToggleButtonRed" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonBase}">
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="Background" Value="#5A9BD1" />
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True">
+          <Setter Property="Background" Value="#BF8F00" />
+          <Setter Property="Foreground" Value="Black" />
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
+
+
+    <Style x:Key="BtnStatusBase" TargetType="ToggleButton"
+           >
+   <!--     BasedOn="{StaticResource MaterialDesignRaisedLightButton}"> -->
       <Setter Property="Margin" Value="5" />
     </Style>
 
-    <Style x:Key="btnGreenStatus"
-       TargetType="Button"
-       BasedOn="{StaticResource btnStatusBase}">
+    <Style x:Key="BtnGreenStatus" TargetType="ToggleButton"
+       BasedOn="{StaticResource BtnStatusBase}">
       <Setter Property="Foreground"
         Value="#00B050" />
     </Style>
 
-    <Style x:Key="btnAmberStatus"
-       TargetType="Button"
-       BasedOn="{StaticResource btnStatusBase}">
+    <Style x:Key="BtnAmberStatus" TargetType="ToggleButton"
+       BasedOn="{StaticResource BtnStatusBase}">
       <Setter Property="Foreground"
         Value="#BF8F00" />
     </Style>
 
-    <Style x:Key="btnRedStatus"
-       TargetType="Button"
-       BasedOn="{StaticResource btnStatusBase}">
+    <Style x:Key="BtnRedStatus" TargetType="ToggleButton"
+       BasedOn="{StaticResource BtnStatusBase}">
       <Setter Property="Foreground"
         Value="#FF0000" />
     </Style>
@@ -67,21 +128,21 @@
                 VerticalScrollBarVisibility="Auto">
     <Grid>
       <Grid.RowDefinitions>
-        <RowDefinition Height="5"  /> <!--  0 - white space at top -->
-        <RowDefinition Height="40" /> <!--  1 - Component -->
-        <RowDefinition Height="40" /> <!--  2 - Equip/Mat -->
-        <RowDefinition Height="40" /> <!--  3 - Component Type -->
-        <RowDefinition Height="40" /> <!--  4 - Section Quantity -->
-        <RowDefinition Height="40" /> <!--  5 - Inspection Date -->
-        <RowDefinition Height="180"/> <!--  6 - Painted & Direct --> <!-- TODO: Merge this style with the InventorySection -->
-        <RowDefinition Height="100"/> <!--  7 - Inspection Comment -->
-        <RowDefinition Height="5"  /> <!--  8 - white space -->
-        <RowDefinition Height="55" /> <!--  9 - Remember -->
-        <RowDefinition Height="5"  /> <!-- 10 - white space -->
-        <RowDefinition Height="130"/> <!-- 11 - Inspection Photos -->
-        <RowDefinition Height="10" /> <!-- 12 - white space -->
-        <RowDefinition Height="60" /> <!-- 13 - Action Buttons -->
-        <RowDefinition Height="5"  /> <!-- 14 - white space at bottom -->
+        <RowDefinition Height="5"    /> <!--  0 - white space at top -->
+        <RowDefinition Height="40"   /> <!--  1 - Component -->
+        <RowDefinition Height="40"   /> <!--  2 - Equip/Mat -->
+        <RowDefinition Height="40"   /> <!--  3 - Component Type -->
+        <RowDefinition Height="40"   /> <!--  4 - Section Quantity -->
+        <RowDefinition Height="Auto" /> <!--  5 - Inspection Date -->
+        <RowDefinition Height="Auto" /> <!--  6 - Painted & Direct -->
+        <RowDefinition Height="40"   /> <!--  7 - Note -->
+        <RowDefinition Height="100"  /> <!--  8 - Inspection Comment --> <!-- TODO: Merge this style with the InventorySection -->
+        <RowDefinition Height="5"    /> <!--  9 - white space -->
+        <RowDefinition Height="55"   /> <!-- 10 - Remember -->
+        <RowDefinition Height="130"  /> <!-- 11 - Inspection Photos -->
+        <RowDefinition Height="10"   /> <!-- 12 - white space -->
+        <RowDefinition Height="60"   /> <!-- 13 - Action Buttons -->
+        <RowDefinition Height="5"    /> <!-- 14 - white space at bottom -->
       </Grid.RowDefinitions>
 
       <Grid.ColumnDefinitions>
@@ -200,35 +261,43 @@
       </StackPanel>
 
       <!-- Painted & Direct -->
-      <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="9">
+      <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="9"
+            Margin="5">
         <Grid.RowDefinitions>
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
+          <RowDefinition Height="40" />
+          <RowDefinition Height="40" />
+          <RowDefinition Height="40" />
+          <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="170" />
-          <ColumnDefinition Width="100"/>
-          <ColumnDefinition Width="90"/>
-          <ColumnDefinition Width="80"/>
-          <ColumnDefinition Width="50"/>
-          <ColumnDefinition Width="100"/>
-          <ColumnDefinition Width="90"/>
-          <ColumnDefinition Width="80"/>
-          <ColumnDefinition Width="25"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="0.75*"/>
+          <ColumnDefinition Width="0.25*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="0.25*"/>
+          <ColumnDefinition Width="0.25*"/>
         </Grid.ColumnDefinitions>
 
         <!--Background for some cells-->
-        <Border
-            Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3"
-            Background="#DDEBF7" />
-        <Border
-            Grid.Row="1" Grid.RowSpan="4"  Grid.Column="4" Grid.ColumnSpan="4"
-            Margin="0,0,0,0"
-            Background="#DDEBF7" 
-          />
+        <Border Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="4"
+                BorderBrush="Black"
+                BorderThickness="0">
+          <Border.Style>
+            <Style TargetType="Border">
+              <Setter Property="Background" Value="#DDEBF7" />
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=CheckboxPainted, Path=IsChecked}" Value="True">
+                  <Setter Property="Background" Value="White" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Border.Style>
+        </Border>
 
         <!--Row 0-->
         <Label
@@ -241,14 +310,14 @@
             Name="CheckboxPainted"
             VerticalContentAlignment="Center"
             Content="                  "
-            IsChecked="{Binding IsPainted}"
+            IsChecked="{Binding InspectionInfo.IsPainted}"
             Style="{StaticResource cbBase}"
                     />
         <Label
-            Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3"
+            Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3"
             Content="Paint/Coating Condition Rating:"
-            Margin="25,0,0,0"
-          HorizontalContentAlignment="Left"
+            Margin="0"
+            HorizontalContentAlignment="Left"
             Style="{StaticResource LabelCJ}"
                     />
 
@@ -259,263 +328,186 @@
             Style="{StaticResource LabelRJ}"
             />
 
-        <Button
-            Grid.Row="1" Grid.Column="1"
-            Content="Green+"
-            Command="{Binding CmdCondRating}"
-            Style="{StaticResource btnGreenStatus}"
-                    >
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Green</system:String>
-              <system:String>0</system:String>
-              <system:String>0</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="1" Grid.Column="2"
-            Content="Amber+"
-            Style="{StaticResource btnAmberStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Amber</system:String>
-              <system:String>0</system:String>
-              <system:String>0</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="1" Grid.Column="3"
-            Content="Red+"
-            Style="{StaticResource btnRedStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Red</system:String>
-              <system:String>0</system:String>
-              <system:String>0</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="1" Grid.Column="5"
-            Content="Green+"
-            IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-            Style="{StaticResource btnGreenStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Green</system:String>
-              <system:String>1</system:String>
-              <system:String>0</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="1" Grid.Column="6"
-            Content="Amber+"
-            IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-            Style="{StaticResource btnAmberStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Amber</system:String>
-              <system:String>1</system:String>
-              <system:String>0</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="1" Grid.Column="7"
-            Content="Red+"
-            IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-            Style="{StaticResource btnRedStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Red</system:String>
-              <system:String>1</system:String>
-              <system:String>0</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
+        <!-- ***************************************************** -->
+        <!-- Direct Condition Rating, Green -->
+        <RadioButton Grid.Row="1" Grid.Column="1" Style="{StaticResource ToggleButtonGreen}" Content="Green+" GroupName="DrCondGroup"
+                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        ConverterParameter=GPlus,
+                        Mode=TwoWay}" />
 
-        <Button
-            Grid.Row="2" Grid.Column="1"
-            Content="Green+"
-            Style="{StaticResource btnGreenStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Green</system:String>
-              <system:String>0</system:String>
-              <system:String>1</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="2" Grid.Column="2"
-            Content="Amber+"
-            Style="{StaticResource btnAmberStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Amber</system:String>
-              <system:String>0</system:String>
-              <system:String>1</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="2" Grid.Column="3"
-            Content="Red+"
-            Style="{StaticResource btnRedStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Red</system:String>
-              <system:String>0</system:String>
-              <system:String>1</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="2" Grid.Column="5"
-            Content="Green+"
-            IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-            Style="{StaticResource btnGreenStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Green</system:String>
-              <system:String>1</system:String>
-              <system:String>1</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="2" Grid.Column="6"
-            Content="Amber+"
-            IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-            Style="{StaticResource btnAmberStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Amber</system:String>
-              <system:String>1</system:String>
-              <system:String>1</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="2" Grid.Column="7"
-            Content="Red+"
-            IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-            Style="{StaticResource btnRedStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Red</system:String>
-              <system:String>1</system:String>
-              <system:String>1</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
+        <RadioButton Grid.Row="2" Grid.Column="1" Style="{StaticResource ToggleButtonGreen}" Content="Green"  GroupName="DrCondGroup"
+                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        ConverterParameter=G,
+                        Mode=TwoWay}" />
 
-        <Button
-            Grid.Row="3" Grid.Column="1"
-            Content="Green+"
-            Style="{StaticResource btnGreenStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Green</system:String>
-              <system:String>0</system:String>
-              <system:String>2</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="3" Grid.Column="2"
-        Content="Amber+"
-        Style="{StaticResource btnAmberStatus}"
-        Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Amber</system:String>
-              <system:String>0</system:String>
-              <system:String>2</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="3" Grid.Column="3"
-            Content="Red+"
-            Style="{StaticResource btnRedStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Red</system:String>
-              <system:String>0</system:String>
-              <system:String>2</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="3" Grid.Column="5"
-            Content="Green+"
-            IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-            Style="{StaticResource btnGreenStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Green</system:String>
-              <system:String>1</system:String>
-              <system:String>2</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="3" Grid.Column="6"
-            Content="Amber+"
-            IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-            Style="{StaticResource btnAmberStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Amber</system:String>
-              <system:String>1</system:String>
-              <system:String>2</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
-        <Button
-            Grid.Row="3" Grid.Column="7"
-            Content="Red+"
-            IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
-            Style="{StaticResource btnRedStatus}"
-            Command="{Binding CmdCondRating}">
-          <Button.CommandParameter>
-            <x:Array Type="system:Object">
-              <system:String>Red</system:String>
-              <system:String>1</system:String>
-              <system:String>2</system:String>
-            </x:Array>
-          </Button.CommandParameter>
-        </Button>
+        <RadioButton Grid.Row="3" Grid.Column="1" Style="{StaticResource ToggleButtonGreen}" Content="Green-" GroupName="DrCondGroup"
+                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        ConverterParameter=GMinus,
+                        Mode=TwoWay}" />
 
-        <!--Content="{Binding InspectionInfo.Note}"-->
-        <Label
-            Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="8"
-            Background="Orange"
-            Content="Note: Inspection Comment &amp; Photo required."
-            Style="{StaticResource LabelRO}"/>
+        <!-- Direct Condition Rating, Amber -->
+        <RadioButton Grid.Row="1" Grid.Column="2" Style="{StaticResource ToggleButtonAmber}" Content="Amber+" GroupName="DrCondGroup"
+                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        ConverterParameter=APlus,
+                        Mode=TwoWay}" />
+
+        <RadioButton Grid.Row="2" Grid.Column="2" Style="{StaticResource ToggleButtonAmber}" Content="Amber"  GroupName="DrCondGroup"
+                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        ConverterParameter=A,
+                        Mode=TwoWay}" />
+
+        <RadioButton Grid.Row="3" Grid.Column="2" Style="{StaticResource ToggleButtonAmber}" Content="Amber-" GroupName="DrCondGroup"
+                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        ConverterParameter=AMinus,
+                        Mode=TwoWay}" />
+
+        <!-- Direct Condition Rating, Red -->
+        <RadioButton Grid.Row="1" Grid.Column="3" Style="{StaticResource ToggleButtonRed  }" Content="Red+"   GroupName="DrCondGroup"
+                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        ConverterParameter=RPlus,
+                        Mode=TwoWay}" />
+
+        <RadioButton Grid.Row="2" Grid.Column="3" Style="{StaticResource ToggleButtonRed  }" Content="Red"    GroupName="DrCondGroup"
+                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        ConverterParameter=R,
+                        Mode=TwoWay}" />
+
+        <RadioButton Grid.Row="3" Grid.Column="3" Style="{StaticResource ToggleButtonRed  }" Content="Red-"   GroupName="DrCondGroup"
+                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        ConverterParameter=RMinus,
+                        Mode=TwoWay}" />
+
+        <!-- ***************************************************** -->
+        <!-- Painted / Coated Condition Rating, Green -->
+        <RadioButton Grid.Row="1" Grid.Column="6" Style="{StaticResource ToggleButtonGreen}" Content="Green+" GroupName="PtCondGroup"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
+          <RadioButton.IsChecked>
+            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
+                          ConverterParameter="GPlus"
+                          Mode="TwoWay">
+              <Binding Path="InspectionInfo.PaintedCondition"/>
+              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
+            </MultiBinding>
+          </RadioButton.IsChecked>
+        </RadioButton>
+
+        <RadioButton Grid.Row="2" Grid.Column="6" Style="{StaticResource ToggleButtonGreen}" Content="Green"  GroupName="PtCondGroup"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
+          <RadioButton.IsChecked>
+            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
+                          ConverterParameter="G"
+                          Mode="TwoWay">
+              <Binding Path="InspectionInfo.PaintedCondition"/>
+              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
+            </MultiBinding>
+          </RadioButton.IsChecked>
+        </RadioButton>
+
+        <RadioButton Grid.Row="3" Grid.Column="6" Style="{StaticResource ToggleButtonGreen}" Content="Green-" GroupName="PtCondGroup"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
+          <RadioButton.IsChecked>
+            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
+                          ConverterParameter="GMinus"
+                          Mode="TwoWay">
+              <Binding Path="InspectionInfo.PaintedCondition"/>
+              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
+            </MultiBinding>
+          </RadioButton.IsChecked>
+        </RadioButton>
+
+        <RadioButton Grid.Row="1" Grid.Column="7" Style="{StaticResource ToggleButtonAmber}" Content="Amber+" GroupName="PtCondGroup"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
+          <RadioButton.IsChecked>
+            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
+                          ConverterParameter="APlus"
+                          Mode="TwoWay">
+              <Binding Path="InspectionInfo.PaintedCondition"/>
+              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
+            </MultiBinding>
+          </RadioButton.IsChecked>
+        </RadioButton>
+
+        <!-- Painted / Coated Condition Rating, Amber -->
+        <RadioButton Grid.Row="2" Grid.Column="7" Style="{StaticResource ToggleButtonAmber}" Content="Amber"  GroupName="PtCondGroup"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
+          <RadioButton.IsChecked>
+            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
+                          ConverterParameter="A"
+                          Mode="TwoWay">
+              <Binding Path="InspectionInfo.PaintedCondition"/>
+              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
+            </MultiBinding>
+          </RadioButton.IsChecked>
+        </RadioButton>
+
+        <RadioButton Grid.Row="3" Grid.Column="7" Style="{StaticResource ToggleButtonAmber}" Content="Amber-" GroupName="PtCondGroup"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
+          <RadioButton.IsChecked>
+            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
+                          ConverterParameter="AMinus"
+                          Mode="TwoWay">
+              <Binding Path="InspectionInfo.PaintedCondition"/>
+              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
+            </MultiBinding>
+          </RadioButton.IsChecked>
+        </RadioButton>
+
+        <!-- Painted / Coated Condition Rating, Red -->
+        <RadioButton Grid.Row="1" Grid.Column="8" Style="{StaticResource ToggleButtonRed  }" Content="Red+"   GroupName="PtCondGroup"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
+          <RadioButton.IsChecked>
+            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
+                          ConverterParameter="RPlus"
+                          Mode="TwoWay">
+              <Binding Path="InspectionInfo.PaintedCondition"/>
+              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
+            </MultiBinding>
+          </RadioButton.IsChecked>
+        </RadioButton>
+
+        <RadioButton Grid.Row="2" Grid.Column="8" Style="{StaticResource ToggleButtonRed  }" Content="Red"    GroupName="PtCondGroup"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
+          <RadioButton.IsChecked>
+            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
+                          ConverterParameter="R"
+                          Mode="TwoWay">
+              <Binding Path="InspectionInfo.PaintedCondition"/>
+              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
+            </MultiBinding>
+          </RadioButton.IsChecked>
+        </RadioButton>
+
+        <RadioButton Grid.Row="3" Grid.Column="8" Style="{StaticResource ToggleButtonRed  }" Content="Red-"   GroupName="PtCondGroup"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
+          <RadioButton.IsChecked>
+            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
+                          ConverterParameter="RMinus"
+                          Mode="TwoWay">
+              <Binding Path="InspectionInfo.PaintedCondition"/>
+              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
+            </MultiBinding>
+          </RadioButton.IsChecked>
+        </RadioButton>
       </Grid>
 
+      <!--Content="{Binding InspectionInfo.Note}"-->
+      <Label Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
+             Background="Orange"
+             Margin="5,0,5,0"
+             Content="{Binding InspectionInfo.Note}"
+             Style="{StaticResource LabelRO}"/>
+
       <!-- Inspection Comment -->
-      <Button Grid.Row="7" Grid.Column="0"
+      <Button Grid.Row="8" Grid.Column="0"
               Style="{DynamicResource FacilityBlockButtonStyle}"
               Command="{Binding CmdInspectionComment}">
         <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
@@ -527,7 +519,7 @@
       </Button>
 
       <!-- Remember -->
-      <Border Grid.Row="9"
+      <Border Grid.Row="10"
               Grid.Column="0"
               Margin="5,0,5,5"
               Style="{StaticResource BorderBlue}">
@@ -552,7 +544,7 @@
         </Grid>
       </Border>
 
-      <ListBox Grid.Row="7" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="8"
+      <ListBox Grid.Row="8" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="8"
                Name="CommentListBox"
                Style="{StaticResource CommentBoxStyle}"
                ScrollViewer.VerticalScrollBarVisibility="Auto"

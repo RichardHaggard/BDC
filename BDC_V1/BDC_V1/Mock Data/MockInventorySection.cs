@@ -53,7 +53,7 @@ namespace BDC_V1.Mock_Data
 
             foreach (EnumRatingType rating in Enum.GetValues(typeof(EnumRatingType)))
             {
-                if (rating == EnumRatingType.Unknown) continue;
+                if (rating == EnumRatingType.None) continue;
 
                 Dcrs     .Add(rating.Description());
                 PcRatings.Add(rating.Description());

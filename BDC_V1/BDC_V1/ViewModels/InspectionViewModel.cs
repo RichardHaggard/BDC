@@ -40,13 +40,6 @@ namespace BDC_V1.ViewModels
         }
         private bool _isRemembered;
 
-        public bool IsPainted
-        {
-            get => _isPainted;
-            set => SetProperty(ref _isPainted, value);
-        }
-        private bool _isPainted;
-
         [NotNull]
         public IInspectionInfo InspectionInfo
         {
@@ -100,7 +93,6 @@ namespace BDC_V1.ViewModels
             CmdDeleteInspection  = new DelegateCommand(OnDeleteInspection       );
             CmdInspectionComment = new DelegateCommand(OnCmdInspectionComment   );
 
-            IsPainted    = false;
             IsRemembered = false;
 #if DEBUG
 #warning Using MOCK data for InspectionInfo

@@ -4,14 +4,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BDC_V1.Converters;
 
 namespace BDC_V1.Enumerations
 {
-    [DefaultValue(Unknown)]
+    [TypeConverter(typeof(EnumDescriptionTypeConverter)), DefaultValue(None)]
     public enum EnumRatingType
     {
         [Description("?")]
-        Unknown,
+        None,
 
         [Description("G+")]
         GPlus,
@@ -48,36 +49,5 @@ namespace BDC_V1.Enumerations
 
         [Description("R-")]
         RMinus
-    }
-
-    public static class EnumRatingConverter
-    {
-        public static EnumRatingColors ToRatingColor(this EnumRatingType value)
-        {
-            switch (value)
-            {
-                case EnumRatingType.Y:
-                case EnumRatingType.YPlus:
-                case EnumRatingType.YMinus:
-                    return EnumRatingColors.Yellow;
-
-                case EnumRatingType.A:
-                case EnumRatingType.APlus:
-                case EnumRatingType.AMinus:
-                    return EnumRatingColors.Amber;
-
-                case EnumRatingType.R:
-                case EnumRatingType.RPlus:
-                case EnumRatingType.RMinus:
-                    return EnumRatingColors.Red;
-
-                //case EnumRatingType.Unknown:
-                //case EnumRatingType.G:
-                //case EnumRatingType.GPlus:
-                //case EnumRatingType.GMinus:
-                default:
-                    return EnumRatingColors.Green;
-            }
-        }
     }
 }

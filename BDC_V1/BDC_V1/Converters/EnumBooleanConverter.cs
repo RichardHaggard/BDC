@@ -28,4 +28,5 @@ namespace BDC_V1.Converters
 
             return DependencyProperty.UnsetValue;
         }
-    }}
+    }
+}

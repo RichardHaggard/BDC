@@ -118,7 +118,7 @@ namespace BDC_V1.ViewModels
                 ComponentId  = "D3030",
                 TypeName     = "D303001",
                 SectionName  = "N/A",
-                Rating       = EnumRatingType.Unknown,
+                Rating       = EnumRatingType.None,
                 InspectionComment = new CommentInspection
                 {
                     EntryUser = new Person(),

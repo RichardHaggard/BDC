@@ -59,6 +59,27 @@ namespace BDC_V1.Classes
         }
         private DateTime _inspectionDate;
 
+        public EnumRatingType DirectCondition
+        {
+            get => _drRating;
+            set => SetProperty(ref _drRating, value);
+        }
+        private EnumRatingType _drRating;
+
+        public EnumRatingType PaintedCondition
+        {
+            get => _pcRating;
+            set => SetProperty(ref _pcRating, value);
+        }
+        private EnumRatingType _pcRating;
+
+        public bool IsPainted
+        {
+            get => _isPainted;
+            set => SetProperty(ref _isPainted, value);
+        }
+        private bool _isPainted;
+
         public string Note
         {
             get => _note;

@@ -14,15 +14,18 @@ namespace BDC_V1.Interfaces
 {
     public interface IInspectionInfo : INotifyPropertyChanged
     {
+        string   Component      { get; set; }
+        string   Section        { get; set; }
+        string   Category       { get; set; }
+        string   ComponentType  { get; set; }
+        decimal  Quantity       { get; set; }
+        DateTime InspectionDate { get; set; }
+        string   Note           { get; set; }
+        bool     IsPainted      { get; set; }
+        EnumRatingType DirectCondition    { get; set; }
+        EnumRatingType PaintedCondition   { get; set; }
         EnumInspectionType InspectionType { get; set; }
-        string   Component         { get; set; }
-        string   Section           { get; set; }
-        string   Category          { get; set; }
-        string   ComponentType     { get; set; }
-        decimal  Quantity          { get; set; }
-        DateTime InspectionDate    { get; set; }
-        string   Note              { get; set; }
-
+                                         
         /// <remarks>
         /// on-demand collection storage is allocated on first use
         /// use the <see cref="HasInspectionComments"/> property to check for not empty

@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BDC_V1.Converters;
 using BDC_V1.Utils;
 
 namespace BDC_V1.Enumerations
 {
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum EnumFacilitySystemTypes
     {
         [Description("FOUNDATIONS")]

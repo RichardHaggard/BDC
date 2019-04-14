@@ -13,14 +13,16 @@ namespace BDC_V1.Mock_Data
 #warning Using MOCK data for InspectionInfo
         public MockInspectionInfo()
         {
-            InspectionType    = EnumInspectionType.DirectRating;
-            Component         = "D3020 - HEAT GENERATING SYSTEMS";
-            Section           = "Northside";
-            Category          = "D302001 BOILERS";
-            ComponentType     = "General";
-            Quantity          = 2000.00M;
-            InspectionDate    = DateTime.Parse("12/18/2012");
-            Note              = "Note: Inspection Comment & Photo required.";
+            InspectionType = EnumInspectionType.DirectRating;
+            Component      = "D3020 - HEAT GENERATING SYSTEMS";
+            Section        = "Northside";
+            Category       = "D302001 BOILERS";
+            ComponentType  = "General";
+            Quantity       = 2000.00M;
+            InspectionDate = DateTime.Parse("12/18/2012");
+            DirectCondition       = EnumRatingType.None; 
+            PaintedCondition       = EnumRatingType.None; 
+            Note           = "Note: Inspection Comment & Photo required.";
 
             InspectionComments.Add(
                 new CommentInspection
