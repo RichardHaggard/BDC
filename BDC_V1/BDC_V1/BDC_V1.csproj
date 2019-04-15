@@ -116,6 +116,7 @@
     <Compile Include="Converters\ImageButtonConverter.cs" />
     <Compile Include="Converters\MultiBoolToObjectConverter.cs" />
     <Compile Include="Converters\RatingToColorConverter.cs" />
+    <Compile Include="Converters\RatingToggleButtonConverter.cs" />
     <Compile Include="Interfaces\IComment.cs" />
     <Compile Include="Interfaces\ICommentCollection.cs" />
     <Compile Include="Interfaces\ICommentInventory.cs" />

@@ -25,6 +25,210 @@
     <converters:EnumBooleanConverter   x:Key="EnumBooleanConverter"   />
     <converters:GatedEnumBoolConverter x:Key="GatedEnumBoolConverter" />
 
+    <Brush x:Key="GreenButtonColor">Green</Brush>  
+    <Brush x:Key="AmberButtonColor">#ffbf00</Brush>
+    <Brush x:Key="RedButtonColor"  >Red</Brush>    
+
+    <!-- Default to the Any Other State -->
+    <Style x:Key="ToggleButtonBase" TargetType="RadioButton"
+           BasedOn="{StaticResource {x:Type ToggleButton}}">
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="Background" Value="#5A9BD1" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="Margin" Value="5" />
+      <Setter Property="BorderBrush" Value="Black" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ToggleButton">
+            <Border Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="2"
+                    CornerRadius="4">
+              <ContentPresenter HorizontalAlignment="Center"                  
+                                VerticalAlignment="Center"/>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter> 
+
+      <Style.Triggers>
+
+        <!-- Trigger on Disabled State -->
+        <DataTrigger Value="false" Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}">
+          <Setter Property="Background" Value="LightGray" />
+          <Setter Property="Foreground" Value="DarkGray" />
+          <Setter Property="BorderBrush" Value="DarkGray" />
+        </DataTrigger>
+
+      </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="ToggleButtonGreen" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonBase}">
+      <Style.Triggers>
+
+        <!-- Trigger on is checked state -->
+        <DataTrigger Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}">
+          <Setter Property="Background" Value="{StaticResource GreenButtonColor}" />
+          <Setter Property="Foreground" Value="White" />
+        </DataTrigger>
+
+      </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ToggleButtonGreenDirect" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonGreen}">
+      <Style.Triggers>
+
+        <!-- Trigger on None Selected state -->
+        <MultiDataTrigger>
+          <MultiDataTrigger.Conditions>
+            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.DirectCondition, 
+                          UpdateSourceTrigger=PropertyChanged,
+                          Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                          ConverterParameter=None, Mode=OneWay}" />
+          </MultiDataTrigger.Conditions>
+          <Setter Property="Background" Value="White" />
+          <Setter Property="Foreground" Value="{StaticResource GreenButtonColor}" />
+        </MultiDataTrigger>
+
+      </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="ToggleButtonGreenPainted" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonGreen}">
+      <Style.Triggers>
+
+        <!-- Trigger on None Selected state -->
+        <MultiDataTrigger>
+          <MultiDataTrigger.Conditions>
+            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.PaintedCondition, 
+                          UpdateSourceTrigger=PropertyChanged,
+                          Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                          ConverterParameter=None, Mode=OneWay}" />
+          </MultiDataTrigger.Conditions>
+          <Setter Property="Background" Value="White" />
+          <Setter Property="Foreground" Value="{StaticResource GreenButtonColor}" />
+        </MultiDataTrigger>
+
+      </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ToggleButtonAmber" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonBase}">
+      <Style.Triggers>
+
+        <!-- Trigger on is checked state -->
+        <DataTrigger Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}">
+          <Setter Property="Background" Value="{StaticResource AmberButtonColor}" />
+          <Setter Property="Foreground" Value="White" />
+        </DataTrigger>
+
+      </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="ToggleButtonAmberDirect" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonAmber}">
+      <Style.Triggers>
+
+        <!-- Trigger on None Selected state -->
+        <MultiDataTrigger>
+          <MultiDataTrigger.Conditions>
+            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.DirectCondition, 
+                          UpdateSourceTrigger=PropertyChanged,
+                          Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                          ConverterParameter=None, Mode=OneWay}" />
+          </MultiDataTrigger.Conditions>
+          <Setter Property="Background" Value="White" />
+          <Setter Property="Foreground" Value="{StaticResource AmberButtonColor}" />
+        </MultiDataTrigger>
+
+      </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="ToggleButtonAmberPainted" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonAmber}">
+      <Style.Triggers>
+
+        <!-- Trigger on None Selected state -->
+        <MultiDataTrigger>
+          <MultiDataTrigger.Conditions>
+            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.PaintedCondition, 
+                          UpdateSourceTrigger=PropertyChanged,
+                          Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                          ConverterParameter=None, Mode=OneWay}" />
+          </MultiDataTrigger.Conditions>
+          <Setter Property="Background" Value="White" />
+          <Setter Property="Foreground" Value="{StaticResource AmberButtonColor}" />
+        </MultiDataTrigger>
+
+      </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ToggleButtonRed" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonBase}">
+      <Style.Triggers>
+
+        <!-- Trigger on is checked state -->
+        <DataTrigger Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}">
+          <Setter Property="Background" Value="{StaticResource RedButtonColor}" />
+          <Setter Property="Foreground" Value="White" />
+        </DataTrigger>
+
+      </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ToggleButtonRedDirect" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonRed}">
+      <Style.Triggers>
+
+        <!-- Trigger on None Selected state -->
+        <MultiDataTrigger>
+          <MultiDataTrigger.Conditions>
+            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.DirectCondition, 
+                          UpdateSourceTrigger=PropertyChanged,
+                          Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                          ConverterParameter=None, Mode=OneWay}" />
+          </MultiDataTrigger.Conditions>
+          <Setter Property="Background" Value="White" />
+          <Setter Property="Foreground" Value="{StaticResource RedButtonColor}" />
+        </MultiDataTrigger>
+
+      </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="ToggleButtonRedPainted" TargetType="RadioButton"
+           BasedOn="{StaticResource ToggleButtonRed}">
+      <Style.Triggers>
+
+        <!-- Trigger on None Selected state -->
+        <MultiDataTrigger>
+          <MultiDataTrigger.Conditions>
+            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.PaintedCondition, 
+                          UpdateSourceTrigger=PropertyChanged,
+                          Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                          ConverterParameter=None, Mode=OneWay}" />
+          </MultiDataTrigger.Conditions>
+          <Setter Property="Background" Value="White" />
+          <Setter Property="Foreground" Value="{StaticResource RedButtonColor}" />
+        </MultiDataTrigger>
+
+      </Style.Triggers>
+    </Style>
+
     <Style x:Key="FacilityBlockButtonStyle" TargetType="Button" 
            BasedOn="{StaticResource ImageClickBlockButtonStyle}">
       <Setter Property="Height" Value="95" />
@@ -37,91 +241,12 @@
       <Setter Property="Width" Value="160" />
     </Style>
 
-    <Style x:Key="ToggleButtonBase" TargetType="RadioButton"
-           BasedOn="{StaticResource {x:Type ToggleButton}}">
-      <Setter Property="FontSize" Value="16" />
-      <Setter Property="Margin" Value="5" />
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="ToggleButton">
-            <Border Background="{TemplateBinding Background}" 
-                    BorderBrush="Black"
-                    BorderThickness="2"
-                    CornerRadius="4">
-              <ContentPresenter HorizontalAlignment="Center"                  
-                                VerticalAlignment="Center"/>
-            </Border>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter> 
-      <Style.Triggers>
-        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}" Value="False">
-          <Setter Property="Background" Value="LightGray" />
-          <Setter Property="Foreground" Value="Gray" />
-        </DataTrigger>
-      </Style.Triggers>
-    </Style>
-    
-    <Style x:Key="ToggleButtonGreen" TargetType="RadioButton"
-           BasedOn="{StaticResource ToggleButtonBase}">
-      <Setter Property="Foreground" Value="White" />
-      <Setter Property="Background" Value="#5A9BD1" />
-      <Style.Triggers>
-        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True">
-          <Setter Property="Background" Value="#FF0000" />
-          <Setter Property="Foreground" Value="Black" />
-        </DataTrigger>
-      </Style.Triggers>
-    </Style>
-    
-    <Style x:Key="ToggleButtonAmber" TargetType="RadioButton"
-           BasedOn="{StaticResource ToggleButtonBase}">
-      <Setter Property="Foreground" Value="White" />
-      <Setter Property="Background" Value="#5A9BD1" />
-      <Style.Triggers>
-        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True">
-          <Setter Property="Background" Value="#00B050" />
-          <Setter Property="Foreground" Value="Black" />
-        </DataTrigger>
-      </Style.Triggers>
-    </Style>
-    
-    <Style x:Key="ToggleButtonRed" TargetType="RadioButton"
-           BasedOn="{StaticResource ToggleButtonBase}">
-      <Setter Property="Foreground" Value="White" />
-      <Setter Property="Background" Value="#5A9BD1" />
-      <Style.Triggers>
-        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True">
-          <Setter Property="Background" Value="#BF8F00" />
-          <Setter Property="Foreground" Value="Black" />
-        </DataTrigger>
-      </Style.Triggers>
-    </Style>
-
-
     <Style x:Key="BtnStatusBase" TargetType="ToggleButton"
            >
    <!--     BasedOn="{StaticResource MaterialDesignRaisedLightButton}"> -->
       <Setter Property="Margin" Value="5" />
     </Style>
 
-    <Style x:Key="BtnGreenStatus" TargetType="ToggleButton"
-       BasedOn="{StaticResource BtnStatusBase}">
-      <Setter Property="Foreground"
-        Value="#00B050" />
-    </Style>
-
-    <Style x:Key="BtnAmberStatus" TargetType="ToggleButton"
-       BasedOn="{StaticResource BtnStatusBase}">
-      <Setter Property="Foreground"
-        Value="#BF8F00" />
-    </Style>
-
-    <Style x:Key="BtnRedStatus" TargetType="ToggleButton"
-       BasedOn="{StaticResource BtnStatusBase}">
-      <Setter Property="Foreground"
-        Value="#FF0000" />
-    </Style>
   </UserControl.Resources>
 
   <ScrollViewer HorizontalScrollBarVisibility="Auto"
@@ -333,173 +458,174 @@
 
         <!-- ***************************************************** -->
         <!-- Direct Condition Rating, Green -->
-        <RadioButton Grid.Row="1" Grid.Column="1" Style="{StaticResource ToggleButtonGreen}" Content="Green+" GroupName="DrCondGroup"
-                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+        <RadioButton Grid.Row="1" Grid.Column="1" Content="Green+" GroupName="DrCondGroup"
+                     Style="{StaticResource ToggleButtonGreenDirect}" 
+                     IsEnabled="True"
+                     IsChecked="{Binding ConverterParameter=GPlus, 
+                        Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                        ConverterParameter=GPlus,
-                        Mode=TwoWay}" />
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="2" Grid.Column="1" Style="{StaticResource ToggleButtonGreen}" Content="Green"  GroupName="DrCondGroup"
-                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+        <RadioButton Grid.Row="2" Grid.Column="1" Content="Green" GroupName="DrCondGroup"
+                     Style="{StaticResource ToggleButtonGreenDirect}" 
+                     IsEnabled="True"
+                     IsChecked="{Binding ConverterParameter=G, 
+                        Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                        ConverterParameter=G,
-                        Mode=TwoWay}" />
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="3" Grid.Column="1" Style="{StaticResource ToggleButtonGreen}" Content="Green-" GroupName="DrCondGroup"
-                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+        <RadioButton Grid.Row="3" Grid.Column="1" Content="Green-" GroupName="DrCondGroup"
+                     Style="{StaticResource ToggleButtonGreenDirect}" 
+                     IsEnabled="True"
+                     IsChecked="{Binding ConverterParameter=GMinus, 
+                        Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                        ConverterParameter=GMinus,
-                        Mode=TwoWay}" />
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
         <!-- Direct Condition Rating, Amber -->
-        <RadioButton Grid.Row="1" Grid.Column="2" Style="{StaticResource ToggleButtonAmber}" Content="Amber+" GroupName="DrCondGroup"
-                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+        <RadioButton Grid.Row="1" Grid.Column="2" Content="Amber+" GroupName="DrCondGroup"
+                     Style="{StaticResource ToggleButtonAmberDirect}" 
+                     IsEnabled="True"
+                     IsChecked="{Binding ConverterParameter=APlus, 
+                        Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                        ConverterParameter=APlus,
-                        Mode=TwoWay}" />
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="2" Grid.Column="2" Style="{StaticResource ToggleButtonAmber}" Content="Amber"  GroupName="DrCondGroup"
-                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+        <RadioButton Grid.Row="2" Grid.Column="2" Content="Amber" GroupName="DrCondGroup"
+                     Style="{StaticResource ToggleButtonAmberDirect}" 
+                     IsEnabled="True"
+                     IsChecked="{Binding ConverterParameter=A, 
+                        Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                        ConverterParameter=A,
-                        Mode=TwoWay}" />
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="3" Grid.Column="2" Style="{StaticResource ToggleButtonAmber}" Content="Amber-" GroupName="DrCondGroup"
-                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+        <RadioButton Grid.Row="3" Grid.Column="2" Content="Amber-" GroupName="DrCondGroup"
+                     Style="{StaticResource ToggleButtonAmberDirect}" 
+                     IsEnabled="True"
+                     IsChecked="{Binding ConverterParameter=AMinus, 
+                        Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                        ConverterParameter=AMinus,
-                        Mode=TwoWay}" />
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
         <!-- Direct Condition Rating, Red -->
-        <RadioButton Grid.Row="1" Grid.Column="3" Style="{StaticResource ToggleButtonRed  }" Content="Red+"   GroupName="DrCondGroup"
-                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+        <RadioButton Grid.Row="1" Grid.Column="3" Content="Red+" GroupName="DrCondGroup"
+                     Style="{StaticResource ToggleButtonRedDirect}" 
+                     IsEnabled="True"
+                     IsChecked="{Binding ConverterParameter=RPlus, 
+                        Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                        ConverterParameter=RPlus,
-                        Mode=TwoWay}" />
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="2" Grid.Column="3" Style="{StaticResource ToggleButtonRed  }" Content="Red"    GroupName="DrCondGroup"
-                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+        <RadioButton Grid.Row="2" Grid.Column="3" Content="Red" GroupName="DrCondGroup"
+                     Style="{StaticResource ToggleButtonRedDirect}" 
+                     IsEnabled="True"
+                     IsChecked="{Binding ConverterParameter=R, 
+                        Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                        ConverterParameter=R,
-                        Mode=TwoWay}" />
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="3" Grid.Column="3" Style="{StaticResource ToggleButtonRed  }" Content="Red-"   GroupName="DrCondGroup"
-                     IsChecked="{Binding Path=InspectionInfo.DirectCondition, 
+        <RadioButton Grid.Row="3" Grid.Column="3" Content="Red-" GroupName="DrCondGroup"
+                     Style="{StaticResource ToggleButtonRedDirect}" 
+                     IsEnabled="True"
+                     IsChecked="{Binding ConverterParameter=RMinus, 
+                        Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                        ConverterParameter=RMinus,
-                        Mode=TwoWay}" />
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
         <!-- ***************************************************** -->
         <!-- Painted / Coated Condition Rating, Green -->
-        <RadioButton Grid.Row="1" Grid.Column="6" Style="{StaticResource ToggleButtonGreen}" Content="Green+" GroupName="PtCondGroup"
-                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
-          <RadioButton.IsChecked>
-            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
-                          ConverterParameter="GPlus"
-                          Mode="TwoWay">
-              <Binding Path="InspectionInfo.PaintedCondition"/>
-              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
-            </MultiBinding>
-          </RadioButton.IsChecked>
-        </RadioButton>
+        <RadioButton Grid.Row="1" Grid.Column="6" Content="Green+" GroupName="PtCondGroup"
+                     Style="{StaticResource ToggleButtonGreenPainted}"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                     IsChecked="{Binding ConverterParameter=GPlus, 
+                        Path=InspectionInfo.PaintedCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="2" Grid.Column="6" Style="{StaticResource ToggleButtonGreen}" Content="Green"  GroupName="PtCondGroup"
-                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
-          <RadioButton.IsChecked>
-            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
-                          ConverterParameter="G"
-                          Mode="TwoWay">
-              <Binding Path="InspectionInfo.PaintedCondition"/>
-              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
-            </MultiBinding>
-          </RadioButton.IsChecked>
-        </RadioButton>
+        <RadioButton Grid.Row="2" Grid.Column="6" Content="Green" GroupName="PtCondGroup"
+                     Style="{StaticResource ToggleButtonGreenPainted}" 
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                     IsChecked="{Binding ConverterParameter=G, 
+                        Path=InspectionInfo.PaintedCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="3" Grid.Column="6" Style="{StaticResource ToggleButtonGreen}" Content="Green-" GroupName="PtCondGroup"
-                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
-          <RadioButton.IsChecked>
-            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
-                          ConverterParameter="GMinus"
-                          Mode="TwoWay">
-              <Binding Path="InspectionInfo.PaintedCondition"/>
-              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
-            </MultiBinding>
-          </RadioButton.IsChecked>
-        </RadioButton>
+        <RadioButton Grid.Row="3" Grid.Column="6" Content="Green-" GroupName="PtCondGroup"
+                     Style="{StaticResource ToggleButtonGreenPainted}" 
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                     IsChecked="{Binding ConverterParameter=GMinus, 
+                        Path=InspectionInfo.PaintedCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="1" Grid.Column="7" Style="{StaticResource ToggleButtonAmber}" Content="Amber+" GroupName="PtCondGroup"
-                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
-          <RadioButton.IsChecked>
-            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
-                          ConverterParameter="APlus"
-                          Mode="TwoWay">
-              <Binding Path="InspectionInfo.PaintedCondition"/>
-              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
-            </MultiBinding>
-          </RadioButton.IsChecked>
-        </RadioButton>
+        <RadioButton Grid.Row="1" Grid.Column="7" Content="Amber+" GroupName="PtCondGroup"
+                     Style="{StaticResource ToggleButtonAmberPainted}" 
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                     IsChecked="{Binding ConverterParameter=APlus, 
+                        Path=InspectionInfo.PaintedCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
         <!-- Painted / Coated Condition Rating, Amber -->
-        <RadioButton Grid.Row="2" Grid.Column="7" Style="{StaticResource ToggleButtonAmber}" Content="Amber"  GroupName="PtCondGroup"
-                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
-          <RadioButton.IsChecked>
-            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
-                          ConverterParameter="A"
-                          Mode="TwoWay">
-              <Binding Path="InspectionInfo.PaintedCondition"/>
-              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
-            </MultiBinding>
-          </RadioButton.IsChecked>
-        </RadioButton>
+        <RadioButton Grid.Row="2" Grid.Column="7" Content="Amber" GroupName="PtCondGroup"
+                     Style="{StaticResource ToggleButtonAmberPainted}" 
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                     IsChecked="{Binding ConverterParameter=A, 
+                        Path=InspectionInfo.PaintedCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="3" Grid.Column="7" Style="{StaticResource ToggleButtonAmber}" Content="Amber-" GroupName="PtCondGroup"
-                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
-          <RadioButton.IsChecked>
-            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
-                          ConverterParameter="AMinus"
-                          Mode="TwoWay">
-              <Binding Path="InspectionInfo.PaintedCondition"/>
-              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
-            </MultiBinding>
-          </RadioButton.IsChecked>
-        </RadioButton>
+        <RadioButton Grid.Row="3" Grid.Column="7" Content="Amber-" GroupName="PtCondGroup"
+                     Style="{StaticResource ToggleButtonAmberPainted}" 
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                     IsChecked="{Binding ConverterParameter=AMinus, 
+                        Path=InspectionInfo.PaintedCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
         <!-- Painted / Coated Condition Rating, Red -->
-        <RadioButton Grid.Row="1" Grid.Column="8" Style="{StaticResource ToggleButtonRed  }" Content="Red+"   GroupName="PtCondGroup"
-                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
-          <RadioButton.IsChecked>
-            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
-                          ConverterParameter="RPlus"
-                          Mode="TwoWay">
-              <Binding Path="InspectionInfo.PaintedCondition"/>
-              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
-            </MultiBinding>
-          </RadioButton.IsChecked>
-        </RadioButton>
+        <RadioButton Grid.Row="1" Grid.Column="8" Content="Red+" GroupName="PtCondGroup"
+                     Style="{StaticResource ToggleButtonRedPainted}" 
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                     IsChecked="{Binding ConverterParameter=RPlus, 
+                        Path=InspectionInfo.PaintedCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="2" Grid.Column="8" Style="{StaticResource ToggleButtonRed  }" Content="Red"    GroupName="PtCondGroup"
-                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
-          <RadioButton.IsChecked>
-            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
-                          ConverterParameter="R"
-                          Mode="TwoWay">
-              <Binding Path="InspectionInfo.PaintedCondition"/>
-              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
-            </MultiBinding>
-          </RadioButton.IsChecked>
-        </RadioButton>
+        <RadioButton Grid.Row="2" Grid.Column="8" Content="Red" GroupName="PtCondGroup"
+                     Style="{StaticResource ToggleButtonRedPainted}" 
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                     IsChecked="{Binding ConverterParameter=R, 
+                        Path=InspectionInfo.PaintedCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
 
-        <RadioButton Grid.Row="3" Grid.Column="8" Style="{StaticResource ToggleButtonRed  }" Content="Red-"   GroupName="PtCondGroup"
-                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}">
-          <RadioButton.IsChecked>
-            <MultiBinding Converter="{StaticResource ResourceKey=GatedEnumBoolConverter}"
-                          ConverterParameter="RMinus"
-                          Mode="TwoWay">
-              <Binding Path="InspectionInfo.PaintedCondition"/>
-              <Binding ElementName="CheckboxPainted" Path="IsChecked" />
-            </MultiBinding>
-          </RadioButton.IsChecked>
-        </RadioButton>
+        <RadioButton Grid.Row="3" Grid.Column="8" Content="Red-" GroupName="PtCondGroup"
+                     Style="{StaticResource ToggleButtonRedPainted}"
+                     IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
+                     IsChecked="{Binding ConverterParameter=RMinus, 
+                        Path=InspectionInfo.PaintedCondition, 
+                        Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        />
+
       </Grid>
 
       <!--Content="{Binding InspectionInfo.Note}"-->
