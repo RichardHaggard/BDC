@@ -541,7 +541,105 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <!-- ***************************************************** -->
+            <Button 
+                Grid.Row="1" Grid.Column="1" 
+                Width="75"
+                Content="Green+"
+                Background="{Binding GreenPlusBg}"
+                Command="{Binding CmdGreenPlus}"
+                Foreground="{Binding GreenPlusFg}"
+                Style="{StaticResource  PhotosBlockButtonStyle}" 
+                />
+          
+            <Button 
+                Grid.Row="2" Grid.Column="1" 
+                Width="75"
+                Content="Green"
+                Background="{Binding GreenBg}"
+                Command="{Binding CmdGreen}"
+                Foreground="{Binding GreenFg}"
+                Style="{StaticResource  PhotosBlockButtonStyle}" 
+                />
+               
+            <Button 
+                Grid.Row="3" Grid.Column="1" 
+                Width="75"
+                Content="Green-"
+                Background="{Binding GreenMinusBg}"
+                Command="{Binding CmdGreenMinus}"
+                Foreground="{Binding GreenMinusFg}"
+                Style="{StaticResource  PhotosBlockButtonStyle}" 
+                />
+
+
+                <!-- Direct Condition Rating, Amber -->
+
+                <Button 
+                Grid.Row="1" Grid.Column="2" 
+                Width="75"
+                Content="Amber+"
+                Background="{Binding AmberPlusBg}"
+                Command="{Binding CmdAmberPlus}"
+                Foreground="{Binding AmberPlusFg}"
+                Style="{StaticResource  PhotosBlockButtonStyle}" 
+                />
+
+                <Button 
+                Grid.Row="2" Grid.Column="2" 
+                Width="75"
+                Content="Amber"
+                Background="{Binding AmberBg}"
+                Command="{Binding CmdAmber}"
+                Foreground="{Binding AmberFg}"
+                Style="{StaticResource  PhotosBlockButtonStyle}" 
+                />
+
+                <Button 
+                Grid.Row="3" Grid.Column="2" 
+                Width="75"
+                Content="Amber-"
+                Background="{Binding AmberMinusBg}"
+                Command="{Binding CmdAmberMinus}"
+                Foreground="{Binding AmberMinusFg}"
+                Style="{StaticResource  PhotosBlockButtonStyle}" 
+                />
+                
+          
+          <!-- Direct Condition Rating, Red -->
+
+
+                <Button 
+                Grid.Row="1" Grid.Column="3" 
+                Width="75"
+                Content="Red+"
+                Background="{Binding RedPlusBg}"
+                Command="{Binding CmdRedPlus}"
+                Foreground="{Binding RedPlusFg}"
+                Style="{StaticResource  PhotosBlockButtonStyle}" 
+                />
+
+                <Button 
+                Grid.Row="2" Grid.Column="3" 
+                Width="75"
+                Content="Red"
+                Background="{Binding RedBg}"
+                Command="{Binding CmdRed}"
+                Foreground="{Binding RedFg}"
+                Style="{StaticResource  PhotosBlockButtonStyle}" 
+                />
+
+                <Button 
+                Grid.Row="3" Grid.Column="3" 
+                Width="75"
+                Content="Red-"
+                Background="{Binding RedMinusBg}"
+                Command="{Binding CmdRedMinus}"
+                Foreground="{Binding RedMinusFg}"
+                Style="{StaticResource  PhotosBlockButtonStyle}" 
+                />
+
+
+                <!-- ***************************************************** -->
         <!-- Painted / Coated Condition Rating, Green -->
         <RadioButton Grid.Row="1" Grid.Column="6" Content="Green+" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonGreenPainted}"
