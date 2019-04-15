@@ -23,8 +23,8 @@
                         <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
                             <Grid>
                                 <Border x:Name="columnHeaderBorder"
-		                            BorderThickness="1"
-		                            Padding="3,0,3,0">
+                                    BorderThickness="1"
+                                    Padding="3,0,3,0">
                                     <Border.BorderBrush>
                                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                             <GradientStop Offset="0" Color="#A5A5A5" />
@@ -38,8 +38,8 @@
                                         </LinearGradientBrush>
                                     </Border.Background>
                                     <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-			                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-				                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                 </Border>
                             </Grid>
                         </ControlTemplate>
