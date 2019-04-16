@@ -531,5 +531,14 @@
   <ItemGroup>
     <Resource Include="Resources\Photo_Flash.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CopyInspection_75_C.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Counter_Add_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Counter_Subtract_32.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -183,7 +183,7 @@
                     Command="{Binding CmdCopyInspection}"
                     Visibility="{Binding VisibilityCopyInspectionButton}"
                     Style="{DynamicResource TransparentBitmap}">
-                <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/Copy_75.png"/>
+                <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/CopyInspection_75_C.png"/>
             </Button>
 
             <!--Microphone On button-->

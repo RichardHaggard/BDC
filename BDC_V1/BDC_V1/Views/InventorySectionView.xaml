@@ -106,59 +106,34 @@
             
             <Button
                 Grid.Row="3" Grid.Column="3"
-                Command="{Binding CmdIncValue}"
+                x:Name="btnInc"
+                Background="Transparent"
                 Height="35"
+                Margin="0"
                 Width="35"
+                Command="{Binding CmdIncValue}"
+                Style="{StaticResource btnImageText}"
                 >
-                <Button.Content>
-                    <Grid
-                        Height="35"
-                        Width="35"
-                        >
-                    <Border 
-                        Background="Green"
-                        BorderBrush="Black"
-                        BorderThickness="1"
-                            Margin="0"
-                        Height="35"
-                        Width="35"
+                <Image
+                        Height="{Binding ElementName=btnInc, Path=ActualHeight}"
+                        Source="/BDC_V1;component/Resources/Counter_Add_32.png"
                         />
-                        <Label 
-                            Content="+" 
-                            FontSize="45"
-                            HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                            VerticalAlignment="Center" VerticalContentAlignment="Center"
-                            Margin="0"
-                            Height="35"
-                            Width="35"
-                            />
-                    </Grid>
-                </Button.Content>
             </Button>
 
             <Button
                 Grid.Row="3" Grid.Column="4"
-                Command="{Binding CmdDecValue}"
+                x:Name="btnDec"
+                Background="Transparent"
                 Height="35"
+                Margin="0"
                 Width="35"
+                Command="{Binding CmdDecValue}"
+                Style="{StaticResource btnImageText}"
                 >
-                <Button.Content>
-                    <Grid>
-                        <Border 
-                        Background="Red"
-                        BorderBrush="Black"
-                        BorderThickness="1"
+                <Image
+                        Height="{Binding ElementName=btnDec, Path=ActualHeight}"
+                        Source="/BDC_V1;component/Resources/Counter_Subtract_32.png"
                         />
-                        <Label 
-                            Content="-" 
-                            FontSize="45"
-                            HorizontalAlignment="Center"
-                            Margin="3,-25,0,0"
-                            VerticalAlignment="Center"
-                            Width="31"
-                            />
-                    </Grid>
-                </Button.Content>
             </Button>
 
             <Label Grid.Row="3" Grid.Column="5"

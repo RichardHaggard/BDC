@@ -193,6 +193,36 @@ namespace BDC_V1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CopyInspection_75_C {
+            get {
+                object obj = ResourceManager.GetObject("CopyInspection_75_C", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Counter_Add_32 {
+            get {
+                object obj = ResourceManager.GetObject("Counter_Add_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Counter_Subtract_32 {
+            get {
+                object obj = ResourceManager.GetObject("Counter_Subtract_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Crop {
             get {
                 object obj = ResourceManager.GetObject("Crop", resourceCulture);
