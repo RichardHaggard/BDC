@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -10,10 +14,10 @@ using JetBrains.Annotations;
 namespace BDC_V1.Converters
 {
     /// <summary>
-    ///     Converts a <see cref="EnumRatingType"/> to a <see cref="SolidColorBrush"/>
+    ///     Converts a <see cref="EnumRatingType"/> to a <see cref="EnumRatingColors"/>
     /// </summary>
     /// <returns>
-    ///     The <see cref="SolidColorBrush"/> corresponding to the <see cref="EnumRatingType"/>
+    ///     The <see cref="EnumRatingColors"/> corresponding to the <see cref="EnumRatingType"/>
     /// </returns>
     /// <example>
     ///     <code>
@@ -23,20 +27,17 @@ namespace BDC_V1.Converters
     ///            (EnumRatingColors) (Converter.Convert(value, typeof(EnumRatingColors), null, null) ?? EnumRatingColors.Green);
     ///     </code>
     /// </example>
-    public class RatingToColorConverter : DependencyObject, IValueConverter 
+    public class RatingToRatingColorConverter : DependencyObject, IValueConverter
     {
-        private static readonly RatingColorToColorConverter  ColorConverter       = new RatingColorToColorConverter ();
-        private static readonly RatingToRatingColorConverter RatingColorConverter = new RatingToRatingColorConverter();
-
         /// <summary>
-        ///     Converts <see cref="EnumRatingType"/> to a <see cref="Color"/>
+        ///     Converts <see cref="EnumRatingType"/> to a <see cref="EnumRatingColors"/>
         /// </summary>
         /// <param name="value"><see cref="EnumRatingType"/></param>
-        /// <param name="targetType"><see cref="Color"/> or <see cref="Brush"/></param>
+        /// <param name="targetType"><see cref="EnumRatingColors"/></param>
         /// <param name="parameter">not used</param>
         /// <param name="culture">not used</param>
         /// <returns>
-        ///     <see cref="Color"/> or <see cref="Brush"/>
+        ///     <see cref="EnumRatingColors"/>
         /// </returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
@@ -44,19 +45,40 @@ namespace BDC_V1.Converters
         [NotNull]
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((targetType != typeof(Color)) && (targetType != typeof(Brush)))
+            if (targetType != typeof(EnumRatingColors))
                 throw new ArgumentException(@"Invalid target type=" + targetType,  nameof(targetType));
 
             if (value == null) throw new ArgumentNullException(nameof(value));
             try
             {
-                if (!(value is EnumRatingType ratingType)) 
+                if (!(value is EnumRatingType ratingType))
                     ratingType = (EnumRatingType) Enum.Parse(typeof(EnumRatingType), value.ToString());
 
-                var ratingColor = RatingColorConverter.Convert(ratingType , typeof(EnumRatingColors), parameter, culture);
-                var color       = ColorConverter      .Convert(ratingColor, typeof(Color), parameter, culture);
+                switch (ratingType)
+                {
+                    case EnumRatingType.Y:
+                    case EnumRatingType.YPlus:
+                    case EnumRatingType.YMinus:
+                        return EnumRatingColors.Yellow;
 
-                return color;
+                    case EnumRatingType.A:
+                    case EnumRatingType.APlus:
+                    case EnumRatingType.AMinus:
+                        return EnumRatingColors.Amber;
+
+                    case EnumRatingType.R:
+                    case EnumRatingType.RPlus:
+                    case EnumRatingType.RMinus:
+                        return EnumRatingColors.Red;
+
+                    case EnumRatingType.None:
+                    case EnumRatingType.G:
+                    case EnumRatingType.GPlus:
+                    case EnumRatingType.GMinus:
+                        return EnumRatingColors.Green;
+
+                    default: break;
+                }
             }
 
             // catch exceptions locally so it's easier to debug
@@ -66,9 +88,11 @@ namespace BDC_V1.Converters
                 Debugger.Break();
                 throw;
             }
+
+            throw new ArgumentOutOfRangeException(nameof(value), value, @"Value is not a known Rating Type");
         }
- 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) 
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

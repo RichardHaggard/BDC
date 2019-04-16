@@ -18,7 +18,7 @@
     <UserControl.Resources>
 
 
-    <converters:RtgToBackgroundConverter x:Key="RtgToBackgroundConverter"/>
+    <converters:RatingToColorConverter x:Key="RtgToBackgroundConverter"/>
 
     <Style x:Key="RtgStyle" TargetType="TextBlock">
       <Setter Property="HorizontalAlignment" Value="Center" />

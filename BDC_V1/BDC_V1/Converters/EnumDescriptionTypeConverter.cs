@@ -8,6 +8,14 @@ using System.Threading.Tasks;
 
 namespace BDC_V1.Converters
 {
+    /// <summary>
+    ///     Converts an Enum value into it's Description name,
+    ///     This is a version of the GetEnumDescription extension that
+    ///     is targeted for use in XAML.
+    /// </summary>
+    /// <remarks>
+    ///     I'm not sure if this works or is even necessary.
+    /// </remarks>
     public class EnumDescriptionTypeConverter : EnumConverter
     {
         public EnumDescriptionTypeConverter(Type type)

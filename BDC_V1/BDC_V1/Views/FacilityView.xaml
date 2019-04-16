@@ -378,18 +378,11 @@
                 Style="{StaticResource LabelRJ}"
                 Content="Name:" />
             <Label 
-                Grid.Row="16" Name="FirstLastName"
+                Grid.Row="16" 
                 Grid.Column="1"
                 Grid.ColumnSpan="4"
-                Style="{StaticResource LabelRO}">
-                <Label.Content>
-                    <Binding Path="LocalFacilityInfo.Contact.FirstLast" />
-                    <!--<MultiBinding StringFormat="{}{0} {1}">
-                        <Binding Path="LocalFacilityInfo.Contact.Name.FirstName" />
-                        <Binding Path="LocalFacilityInfo.Contact.Name.LastName" />
-                    </MultiBinding>-->
-                </Label.Content>
-            </Label>
+                Style="{StaticResource LabelRO}" 
+                Content="{Binding Path=LocalFacilityInfo.Contact.FirstLast}" />
 
             <Label 
                 Grid.Row="17"

@@ -11,6 +11,7 @@
              xmlns:utils="clr-namespace:BDC_V1.Utils"
              xmlns:converters="clr-namespace:BDC_V1.Converters"
              xmlns:classes="clr-namespace:BDC_V1.Classes"
+             xmlns:local="clr-namespace:BDC_V1.Enumerations"
              mc:Ignorable="d"
              MaxHeight="800" MaxWidth="875"
              d:DesignHeight="800" d:DesignWidth="875">
@@ -22,21 +23,38 @@
   </i:Interaction.Triggers>
 
   <UserControl.Resources>
-    <converters:EnumBooleanConverter   x:Key="EnumBooleanConverter"   />
-    <converters:GatedEnumBoolConverter x:Key="GatedEnumBoolConverter" />
+    <converters:EnumBooleanConverter        x:Key="EnumBooleanConverter"        />
+    <converters:RatingColorToColorConverter x:Key="RatingColorToColorConverter" />
 
-    <Brush x:Key="GreenButtonColor">LightGreen</Brush>  
-    <Brush x:Key="AmberButtonColor">#ffbf00</Brush>
-    <Brush x:Key="RedButtonColor"  >Red</Brush>    
+    <!-- Insure consistent colors thru out program -->
+    <SolidColorBrush x:Key="GreenButtonBrush"
+                     Color="{Binding Source={x:Static local:EnumRatingColors.Green}, 
+                        Converter={StaticResource RatingColorToColorConverter}, 
+                        Mode=OneTime}" />
+
+    <SolidColorBrush x:Key="RedButtonBrush" 
+                     Color="{Binding Source={x:Static local:EnumRatingColors.Red}, 
+                        Converter={StaticResource RatingColorToColorConverter}, 
+                        Mode=OneTime}" />
+
+    <SolidColorBrush x:Key="AmberButtonBrush" 
+                     Color="{Binding Source={x:Static local:EnumRatingColors.Amber}, 
+                        Converter={StaticResource RatingColorToColorConverter}, 
+                        Mode=OneTime}" />
+
+    <SolidColorBrush x:Key="YellowButtonBrush" 
+                     Color="{Binding Source={x:Static local:EnumRatingColors.Yellow}, 
+                        Converter={StaticResource RatingColorToColorConverter}, 
+                        Mode=OneTime}" />
 
     <!-- Default to the Any Other State -->
     <Style x:Key="ToggleButtonBase" TargetType="RadioButton"
            BasedOn="{StaticResource {x:Type ToggleButton}}">
-      <Setter Property="Foreground" Value="White" />
-      <Setter Property="Background" Value="LightBlue" />
-      <Setter Property="FontSize" Value="16" />
-      <Setter Property="FontWeight" Value="Bold" />
-      <Setter Property="Margin" Value="5" />
+      <Setter Property="Foreground"  Value="White" />
+      <Setter Property="Background"  Value="LightBlue" />
+      <Setter Property="FontSize"    Value="16" />
+      <Setter Property="FontWeight"  Value="Bold" />
+      <Setter Property="Margin"      Value="5" />
       <Setter Property="BorderBrush" Value="Black" />
       <Setter Property="Template">
         <Setter.Value>
@@ -56,8 +74,8 @@
 
         <!-- Trigger on Disabled State -->
         <DataTrigger Value="false" Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}">
-          <Setter Property="Background" Value="LightGray" />
-          <Setter Property="Foreground" Value="DarkGray" />
+          <Setter Property="Background"  Value="LightGray" />
+          <Setter Property="Foreground"  Value="DarkGray" />
           <Setter Property="BorderBrush" Value="DarkGray" />
         </DataTrigger>
 
@@ -70,7 +88,7 @@
 
         <!-- Trigger on is checked state -->
         <DataTrigger Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}">
-          <Setter Property="Background" Value="{StaticResource GreenButtonColor}" />
+          <Setter Property="Background" Value="{DynamicResource GreenButtonBrush}" />
           <Setter Property="Foreground" Value="White" />
         </DataTrigger>
 
@@ -92,7 +110,7 @@
                           ConverterParameter=None, Mode=OneWay}" />
           </MultiDataTrigger.Conditions>
           <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{StaticResource GreenButtonColor}" />
+          <Setter Property="Foreground" Value="{DynamicResource GreenButtonBrush}" />
         </MultiDataTrigger>
 
       </Style.Triggers>
@@ -113,7 +131,7 @@
                           ConverterParameter=None, Mode=OneWay}" />
           </MultiDataTrigger.Conditions>
           <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{StaticResource GreenButtonColor}" />
+          <Setter Property="Foreground" Value="{DynamicResource GreenButtonBrush}" />
         </MultiDataTrigger>
 
       </Style.Triggers>
@@ -125,8 +143,7 @@
 
         <!-- Trigger on is checked state -->
         <DataTrigger Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}">
-          <Setter Property="Background" Value="{StaticResource AmberButtonColor}" />
-          <Setter Property="Foreground" Value="White" />
+          <Setter Property="Background" Value="{DynamicResource AmberButtonBrush}" />
         </DataTrigger>
 
       </Style.Triggers>
@@ -147,7 +164,7 @@
                           ConverterParameter=None, Mode=OneWay}" />
           </MultiDataTrigger.Conditions>
           <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{StaticResource AmberButtonColor}" />
+          <Setter Property="Foreground" Value="{DynamicResource AmberButtonBrush}" />
         </MultiDataTrigger>
 
       </Style.Triggers>
@@ -168,7 +185,7 @@
                           ConverterParameter=None, Mode=OneWay}" />
           </MultiDataTrigger.Conditions>
           <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{StaticResource AmberButtonColor}" />
+          <Setter Property="Foreground" Value="{DynamicResource AmberButtonBrush}" />
         </MultiDataTrigger>
 
       </Style.Triggers>
@@ -180,7 +197,7 @@
 
         <!-- Trigger on is checked state -->
         <DataTrigger Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}">
-          <Setter Property="Background" Value="{StaticResource RedButtonColor}" />
+          <Setter Property="Background" Value="{DynamicResource RedButtonBrush}" />
           <Setter Property="Foreground" Value="White" />
         </DataTrigger>
 
@@ -202,7 +219,7 @@
                           ConverterParameter=None, Mode=OneWay}" />
           </MultiDataTrigger.Conditions>
           <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{StaticResource RedButtonColor}" />
+          <Setter Property="Foreground" Value="{DynamicResource RedButtonBrush}" />
         </MultiDataTrigger>
 
       </Style.Triggers>
@@ -223,7 +240,7 @@
                           ConverterParameter=None, Mode=OneWay}" />
           </MultiDataTrigger.Conditions>
           <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{StaticResource RedButtonColor}" />
+          <Setter Property="Foreground" Value="{DynamicResource RedButtonBrush}" />
         </MultiDataTrigger>
 
       </Style.Triggers>

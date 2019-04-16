@@ -112,11 +112,10 @@
     <Compile Include="Classes\CommentSection.cs" />
     <Compile Include="Converters\BoolToObjectConverter.cs" />
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
-    <Compile Include="Converters\GatedEnumBoolConverter.cs" />
-    <Compile Include="Converters\ImageButtonConverter.cs" />
     <Compile Include="Converters\MultiBoolToObjectConverter.cs" />
-    <Compile Include="Converters\RatingToColorConverter.cs" />
-    <Compile Include="Converters\RatingToggleButtonConverter.cs" />
+    <Compile Include="Converters\RatingColorToBrushConverter.cs" />
+    <Compile Include="Converters\RatingColorToColorConverter.cs" />
+    <Compile Include="Converters\RatingToRatingColorConverter.cs" />
     <Compile Include="Interfaces\IComment.cs" />
     <Compile Include="Interfaces\ICommentCollection.cs" />
     <Compile Include="Interfaces\ICommentInventory.cs" />
@@ -193,7 +192,7 @@
     <Compile Include="Utils\GetEnumDescription.cs" />
     <Compile Include="Utils\MakeBitmapTransparent.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
-    <Compile Include="Converters\RtgToBackgroundConverter.cs" />
+    <Compile Include="Converters\RatingToColorConverter.cs" />
     <Compile Include="Utils\WindowPlacement.cs" />
     <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
