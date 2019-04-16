@@ -12,26 +12,26 @@ namespace BDC_V1.Models
 
         public string Description
         {
-            get { return _Description; }
-            set { SetProperty(ref _Description, value); }
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
-        public string _Description;
+        private string _description;
 
 
         public string Filename
         {
-            get { return _Filename; }
-            set { SetProperty(ref _Filename, value); }
+            get => _filename;
+            set => SetProperty(ref _filename, value);
         }
-        public string _Filename;
+        private string _filename;
 
 
         public string Title
         {
-            get { return _Title; }
-            set { SetProperty(ref _Title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
-        public string _Title;
+        private string _title;
 
 
         // **************** Class constructors ********************************************** //

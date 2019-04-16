@@ -301,17 +301,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\Add_75.gfie" />
-    <None Include="Resources\Delete_75.gfie" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Resources\Testing.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\AboutBdcView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -463,7 +457,7 @@
     <Resource Include="Resources\Filter_Clear.png" />
     <Resource Include="Resources\Filter_Green.jpg" />
     <Resource Include="Resources\Filter_Green.png" />
-    <Resource Include="Resources\Flasch-OFF-75_icons8.png" />
+    <Resource Include="Resources\Flash-OFF-75_icons8.png" />
     <Resource Include="Resources\Flash-on-75_icons8.png" />
     <Resource Include="Resources\Folder_Closed.png" />
     <Resource Include="Resources\GreenDownArrow.png" />
@@ -530,6 +524,9 @@
     <Resource Include="Resources\Inspection_75.png" />
     <Resource Include="Resources\MicrophoneOFF_75.png" />
     <Resource Include="Resources\MicrophoneON_75.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Photo_Flash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

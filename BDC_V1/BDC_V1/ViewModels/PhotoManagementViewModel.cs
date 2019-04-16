@@ -8,10 +8,13 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using BDC_V1.Enumerations;
+using BDC_V1.Views;
+using JetBrains.Annotations;
 
 namespace BDC_V1.ViewModels
 {
-    public class PhotoManagementViewModel : ViewModelBase
+    public class PhotoManagementViewModel : CloseableWindow
     {
         // **************** Class enumerations ********************************************** //
 
@@ -20,85 +23,46 @@ namespace BDC_V1.ViewModels
         // **************** Class properties ************************************************ //
 
 
-        public ICommand CmdAddAllPending
-        {
-            get { return _CmdAddAllPending; }
-            set { SetProperty(ref _CmdAddAllPending, value); }
-        }
-        private ICommand _CmdAddAllPending;
+        public ICommand CmdAddAllPending       { get; }
+        public ICommand CmdCapturePhoto        { get; }
+        public ICommand CmdRemoveSelected      { get; }
+        public ICommand CmdSelectPhoto         { get; }
+        public ICommand CmdUnlinkExistingPhoto { get; }
 
-
-        public ICommand CmdCapturePhoto
-        {
-            get { return _CmdCapturePhoto; }
-            set { SetProperty(ref _CmdCapturePhoto, value); }
-        }
-        private ICommand _CmdCapturePhoto;
-
-
-        public ICommand CmdRemoveSelected
-        {
-            get { return _CmdRemoveSelected; }
-            set { SetProperty(ref _CmdRemoveSelected, value); }
-        }
-        private ICommand _CmdRemoveSelected;
-
-
-        public ICommand CmdSelectPhoto
-        {
-            get { return _CmdSelectPhoto; }
-            set { SetProperty(ref _CmdSelectPhoto, value); }
-        }
-        private ICommand _CmdSelectPhoto;
-
-
-        public ICommand CmdUnlinkExistingPhoto
-        {
-            get { return _CmdUnlinkExistingPhoto; }
-            set { SetProperty(ref _CmdUnlinkExistingPhoto, value); }
-        }
-        private ICommand _CmdUnlinkExistingPhoto;
-
-
-        public bool? DialogResultEx
-        {
-            get { return _DialogResultEx; }
-            set { SetProperty(ref _DialogResultEx, value); }
-        }
-        private bool? _DialogResultEx;
-
-
-        private IEventAggregator EventAggregator { get; set; }
-
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
+        [CanBeNull]
+        private IEventAggregator EventAggregator { get; }
 
         public PhotoModel PendingItem
         {
-            get { return _PendingItem; }
-            set { SetProperty(ref _PendingItem, value); }
+            get => _pendingItem;
+            set => SetProperty(ref _pendingItem, value);
         }
-        private PhotoModel _PendingItem;
+        private PhotoModel _pendingItem;
 
 
         public ObservableCollection<PhotoModel> PendingList
         {
-            get { return _PendingList; }
-            set { SetProperty(ref _PendingList, value); }
+            get => _pendingList;
+            set => SetProperty(ref _pendingList, value);
         }
-        private ObservableCollection<PhotoModel> _PendingList = new ObservableCollection<PhotoModel>();
+        private ObservableCollection<PhotoModel> _pendingList = new ObservableCollection<PhotoModel>();
 
 
         public string Title
         {
-            get { return _Title; }
-            set { SetProperty(ref _Title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
-        private string _Title = "<TYPE> Photos of <IDENTITY of Facility, Sectin or Inspection>";
+        private string _title = "<TYPE> Photos of <IDENTITY of Facility, Section or Inspection>";
 
 
         // **************** Class constructors ********************************************** //
 
-        public PhotoManagementViewModel()
+        public PhotoManagementViewModel(IEventAggregator eventAggregator = null)
         {
+            EventAggregator = eventAggregator;
+
             CmdAddAllPending        = new DelegateCommand(OnCmdAddAllPending);
             CmdCapturePhoto         = new DelegateCommand(OnCmdCapturePhoto);
             CmdRemoveSelected       = new DelegateCommand(OnCmdRemoveSelected);
@@ -112,14 +76,6 @@ namespace BDC_V1.ViewModels
         }
 
 
-        public PhotoManagementViewModel(IEventAggregator eventAggregator )
-        : this()
-        {
-            EventAggregator = eventAggregator;
-        }
-
-
-
         // **************** Class members *************************************************** //
 
         private void OnCmdAddAllPending()
@@ -129,7 +85,37 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdCapturePhoto()
         {
-            MessageBox.Show("Capture Photo");
+            var view = new CameraView();
+            if (! (view.DataContext is CameraViewModel model))
+                throw new InvalidCastException(nameof(view.DataContext));
+
+            //model.SourceImage = PendingItem.Filename TODO: not sure how to convert this
+            if (view.ShowDialog() != true) return;
+
+            // TODO: Add / delete results from PendingList in the proper manner
+            switch (model.Result)
+            {
+                case EnumControlResult.ResultDeleteItem:
+                case EnumControlResult.ResultCancelled:
+                    break;
+
+                case EnumControlResult.ResultDeferred:
+                case EnumControlResult.ResultSaveNow:
+                    if (! string.IsNullOrEmpty(model.SourceImage?.ToString()))
+                    {
+                        var imageName = model.SourceImage.ToString();
+                        var pm = new PhotoModel(imageName, 
+                            Path.GetFileNameWithoutExtension(imageName), 
+                            DateTime.Now.ToShortDateString());
+
+                        PendingList.Add(pm);
+                        PendingItem = pm;
+                    }
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void OnCmdRemoveSelected()
@@ -139,14 +125,17 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdSelectPhoto()
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.CheckFileExists = true;
-            dlg.Filter = "Image files (*.jpg)|*.jpg|(*.png)|*.png|All files (*.*)|*.*";
-            dlg.Multiselect = false;
-            dlg.Title = "Select an Image File";
+            var dlg = new OpenFileDialog
+            {
+                CheckFileExists = true,
+                Filter = "Image files (*.jpg)|*.jpg|(*.png)|*.png|All files (*.*)|*.*",
+                Multiselect = false,
+                Title = "Select an Image File"
+            };
+
             if (true == dlg.ShowDialog())
             {
-                PhotoModel pm = new PhotoModel(dlg.FileName, Path.GetFileNameWithoutExtension(dlg.FileName), DateTime.Now.ToShortDateString());
+                var pm = new PhotoModel(dlg.FileName, Path.GetFileNameWithoutExtension(dlg.FileName), DateTime.Now.ToShortDateString());
                 PendingList.Add(pm);
                 PendingItem = pm;
             }
