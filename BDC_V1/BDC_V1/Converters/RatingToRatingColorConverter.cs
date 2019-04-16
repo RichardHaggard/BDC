@@ -71,11 +71,13 @@ namespace BDC_V1.Converters
                     case EnumRatingType.RMinus:
                         return EnumRatingColors.Red;
 
-                    case EnumRatingType.None:
                     case EnumRatingType.G:
                     case EnumRatingType.GPlus:
                     case EnumRatingType.GMinus:
                         return EnumRatingColors.Green;
+
+                    case EnumRatingType.None:
+                        return EnumRatingColors.None;
 
                     default: break;
                 }

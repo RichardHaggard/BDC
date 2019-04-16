@@ -22,173 +22,171 @@ namespace BDC_V1.ViewModels
 {
     public class InspectionViewModel : FacilityBaseClass
     {
-        private const double DoubleTolerance = 0.001;
+        //private const double DoubleTolerance = 0.001;
 
         // **************** Class enumerations ********************************************** //
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdCondRating        { get; }
+        //public ICommand CmdCondRating        { get; }
         public ICommand CmdCancelEdit        { get; }
         public ICommand CmdDeleteInspection  { get; }
         public ICommand CmdInspectionComment { get; }
 
+#if false
         public ICommand CmdAmberPlus { get; }
         public Brush AmberPlusBg
         {
-            get { return _AmberPlusBg; }
-            set { SetProperty(ref _AmberPlusBg, value); }
+            get => _amberPlusBg;
+            set => SetProperty(ref _amberPlusBg, value);
         }
-        private Brush _AmberPlusBg = Brushes.Transparent;
+        private Brush _amberPlusBg = Brushes.Transparent;
 
 
         public Brush AmberPlusFg
         {
-            get { return _AmberPlusFg; }
-            set { SetProperty(ref _AmberPlusFg, value); }
+            get => _amberPlusFg;
+            set => SetProperty(ref _amberPlusFg, value);
         }
-        private Brush _AmberPlusFg = Brushes.Orange;
+        private Brush _amberPlusFg = Brushes.Orange;
 
 
         public ICommand CmdAmber { get; }
         public Brush AmberBg
         {
-            get { return _AmberBg; }
-            set { SetProperty(ref _AmberBg, value); }
+            get => _amberBg;
+            set => SetProperty(ref _amberBg, value);
         }
-        private Brush _AmberBg = Brushes.Transparent;
+        private Brush _amberBg = Brushes.Transparent;
 
 
         public Brush AmberFg
         {
-            get { return _AmberFg; }
-            set { SetProperty(ref _AmberFg, value); }
+            get => _amberFg;
+            set => SetProperty(ref _amberFg, value);
         }
-        private Brush _AmberFg = Brushes.Orange;
+        private Brush _amberFg = Brushes.Orange;
 
 
         public ICommand CmdAmberMinus { get; }
         public Brush AmberMinusBg
         {
-            get { return _AmberMinusBg; }
-            set { SetProperty(ref _AmberMinusBg, value); }
+            get => _amberMinusBg;
+            set => SetProperty(ref _amberMinusBg, value);
         }
-        private Brush _AmberMinusBg = Brushes.Transparent;
+        private Brush _amberMinusBg = Brushes.Transparent;
 
 
         public Brush AmberMinusFg
         {
-            get { return _AmberMinusFg; }
-            set { SetProperty(ref _AmberMinusFg, value); }
+            get => _amberMinusFg;
+            set => SetProperty(ref _amberMinusFg, value);
         }
-        private Brush _AmberMinusFg = Brushes.Orange;
+        private Brush _amberMinusFg = Brushes.Orange;
 
 
         public ICommand CmdGreenPlus { get; }
         public Brush GreenPlusBg
         {
-            get { return _GreenPlusBg; }
-            set { SetProperty(ref _GreenPlusBg, value); }
+            get => _greenPlusBg;
+            set => SetProperty(ref _greenPlusBg, value);
         }
-        private Brush _GreenPlusBg = Brushes.Transparent;
+        private Brush _greenPlusBg = Brushes.Transparent;
 
 
         public Brush GreenPlusFg
         {
-            get { return _GreenPlusFg; }
-            set { SetProperty(ref _GreenPlusFg, value); }
+            get => _greenPlusFg;
+            set => SetProperty(ref _greenPlusFg, value);
         }
-        private Brush _GreenPlusFg = Brushes.Green;
+        private Brush _greenPlusFg = Brushes.Green;
 
 
         public ICommand CmdGreen { get; }
         public Brush GreenBg
         {
-            get { return _GreenBg; }
-            set { SetProperty(ref _GreenBg, value); }
+            get => _greenBg;
+            set => SetProperty(ref _greenBg, value);
         }
-        private Brush _GreenBg = Brushes.Transparent;
+        private Brush _greenBg = Brushes.Transparent;
 
 
         public Brush GreenFg
         {
-            get { return _GreenFg; }
-            set { SetProperty(ref _GreenFg, value); }
+            get => _greenFg;
+            set => SetProperty(ref _greenFg, value);
         }
-        private Brush _GreenFg = Brushes.Green;
+        private Brush _greenFg = Brushes.Green;
 
 
         public ICommand CmdGreenMinus { get; }
         public Brush GreenMinusBg
         {
-            get { return _GreenMinusBg; }
-            set { SetProperty(ref _GreenMinusBg, value); }
+            get => _greenMinusBg;
+            set => SetProperty(ref _greenMinusBg, value);
         }
-        private Brush _GreenMinusBg = Brushes.Transparent;
+        private Brush _greenMinusBg = Brushes.Transparent;
 
 
         public Brush GreenMinusFg
         {
-            get { return _GreenMinusFg; }
-            set { SetProperty(ref _GreenMinusFg, value); }
+            get => _greenMinusFg;
+            set => SetProperty(ref _greenMinusFg, value);
         }
-        private Brush _GreenMinusFg = Brushes.Green;
+        private Brush _greenMinusFg = Brushes.Green;
 
 
 
         public ICommand CmdRedPlus { get; }
         public Brush RedPlusBg
         {
-            get { return _RedPlusBg; }
-            set { SetProperty(ref _RedPlusBg, value); }
+            get => _redPlusBg;
+            set => SetProperty(ref _redPlusBg, value);
         }
-        private Brush _RedPlusBg = Brushes.Transparent;
+        private Brush _redPlusBg = Brushes.Transparent;
 
 
         public Brush RedPlusFg
         {
-            get { return _RedPlusFg; }
-            set { SetProperty(ref _RedPlusFg, value); }
+            get => _redPlusFg;
+            set => SetProperty(ref _redPlusFg, value);
         }
-        private Brush _RedPlusFg = Brushes.Red;
+        private Brush _redPlusFg = Brushes.Red;
 
 
         public ICommand CmdRed { get; }
         public Brush RedBg
         {
-            get { return _RedBg; }
-            set { SetProperty(ref _RedBg, value); }
+            get => _redBg;
+            set => SetProperty(ref _redBg, value);
         }
-        private Brush _RedBg = Brushes.Transparent;
+        private Brush _redBg = Brushes.Transparent;
 
 
         public Brush RedFg
         {
-            get { return _RedFg; }
-            set { SetProperty(ref _RedFg, value); }
+            get => _redFg;
+            set => SetProperty(ref _redFg, value);
         }
-        private Brush _RedFg = Brushes.Red;
+        private Brush _redFg = Brushes.Red;
 
 
         public ICommand CmdRedMinus { get; }
         public Brush RedMinusBg
         {
-            get { return _RedMinusBg; }
-            set { SetProperty(ref _RedMinusBg, value); }
+            get => _redMinusBg;
+            set => SetProperty(ref _redMinusBg, value);
         }
-        private Brush _RedMinusBg = Brushes.Transparent;
+        private Brush _redMinusBg = Brushes.Transparent;
 
 
         public Brush RedMinusFg
         {
-            get { return _RedMinusFg; }
-            set { SetProperty(ref _RedMinusFg, value); }
+            get => _redMinusFg;
+            set => SetProperty(ref _redMinusFg, value);
         }
-        private Brush _RedMinusFg = Brushes.Red;
-
-
-
-
+        private Brush _redMinusFg = Brushes.Red;
+#endif
 
         public bool IsRemembered
         {
@@ -245,11 +243,12 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "InspectionItemControl";
 
-            CmdCondRating        = new DelegateCommand<object>(OnConditionRating);
+            //CmdCondRating        = new DelegateCommand<object>(OnConditionRating);
             CmdCancelEdit        = new DelegateCommand(OnCancelEdit             );
             CmdDeleteInspection  = new DelegateCommand(OnDeleteInspection       );
             CmdInspectionComment = new DelegateCommand(OnCmdInspectionComment   );
 
+#if false
             CmdAmberPlus = new DelegateCommand(OnCmdAmberPlus);
             CmdAmber = new DelegateCommand(OnCmdAmber);
             CmdAmberMinus = new DelegateCommand(OnCmdAmberMinus);
@@ -259,7 +258,7 @@ namespace BDC_V1.ViewModels
             CmdRedPlus = new DelegateCommand(OnCmdRedPlus);
             CmdRed = new DelegateCommand(OnCmdRed);
             CmdRedMinus = new DelegateCommand(OnCmdRedMinus);
-
+#endif
 
             IsRemembered = false;
 #if DEBUG
@@ -281,6 +280,7 @@ namespace BDC_V1.ViewModels
             Debug.WriteLine("OnCancelEdit not implemented");
         }
 
+#if false
         private void OnCmdAmberPlus()
         {
             SetAllButtonColors();
@@ -369,9 +369,7 @@ namespace BDC_V1.ViewModels
             RedMinusBg = Brushes.Blue;
             RedMinusFg = Brushes.White;
         }
-
-
-
+#endif
 
         private void OnCmdInspectionComment()
         {
@@ -386,6 +384,7 @@ namespace BDC_V1.ViewModels
             if (!(view.DataContext is GeneralCommentViewModel model))       
                 throw new InvalidCastException("Invalid View Model");
 
+            model.FacilityBaseInfo = null;              //TODO: Put real data in here
             model.CommentText = comment?.CommentText;
             if (view.ShowDialog() != true) return;
 
@@ -399,6 +398,7 @@ namespace BDC_V1.ViewModels
             Debug.WriteLine("OnDeleteInspection not implemented");
         }
 
+#if false
         private void OnConditionRating(object param)
         {
             if (param is Array paramArray)
@@ -457,5 +457,6 @@ namespace BDC_V1.ViewModels
 
             throw new InvalidCastException("invalid param");
         }
+#endif
     }
 }

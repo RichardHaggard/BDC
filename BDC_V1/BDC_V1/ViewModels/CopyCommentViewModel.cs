@@ -57,7 +57,7 @@ namespace BDC_V1.ViewModels
         {
             get => (FilterSource == EnumFilterSourceType.SavedFilter)
                 ? _selectedFacility
-                : ListOfFacilities.FirstOrDefault();
+                : ListOfFacilities.FirstOrDefault()?.ToString();
 
             set => SetProperty(ref _selectedFacility, value, OnChangeFilter);
         }
@@ -98,14 +98,44 @@ namespace BDC_V1.ViewModels
         }
         private string _matchingResultsText;
 
-        public ObservableCollection<string> ListOfFacilities { get; } =
-            new ObservableCollection<string>();
+        public ObservableCollection<IComponentFacility> ListOfFacilities { get; } =
+            new ObservableCollection<IComponentFacility>();
 
         public ObservableCollection<Commentary> FilteredCommentary { get; } =
             new ObservableCollection<Commentary>();
 
         public ObservableCollection<Commentary> UnFilteredCommentary { get; } =
             new ObservableCollection<Commentary>();
+
+
+        public IFacilityBase FacilityBaseInfo
+        {
+            get => _facilityBaseInfo;
+            set => SetProperty(ref _facilityBaseInfo, value, () =>
+            {
+                UnFilteredCommentary.Clear();
+                FilteredCommentary  .Clear();
+                ListOfFacilities    .Clear();
+                SelectedFacility = null;
+
+                if (!((_facilityBaseInfo?.Facilities == null) || (_facilityBaseInfo.Facilities.Count == 0)))
+                {
+                    ListOfFacilities.AddRange(_facilityBaseInfo.Facilities);
+
+                    foreach (var facility in ListOfFacilities)
+                        FindComments(facility);
+                }
+
+                RaisePropertyChanged(new []
+                {
+                    nameof(UnFilteredCommentary),
+                    nameof(FilteredCommentary),
+                    nameof(ListOfFacilities)
+                });
+            });
+        }
+        private IFacilityBase _facilityBaseInfo;
+
 
         // **************** Class constructors ********************************************** //
 
@@ -132,6 +162,39 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
+        private void FindComments([CanBeNull] IComponentBase component)
+        {
+            if (component == null) return;
+
+            if ((component is IComponentFacility facility) && (facility.HasFacilityComments))
+                UnFilteredCommentary.AddRange(facility.FacilityComments.Cast<Commentary>());
+
+            if ((component is IComponentSection section) && (section.HasComments))
+            {
+                //UnFilteredCommentary.AddRange(section.Comments.Cast<Commentary>());
+            }
+             
+            if ((component is IComponentSystem system) && (system.HasComments))
+            {
+                //UnFilteredCommentary.AddRange(system.Comments.Cast<Commentary>());
+            }
+             
+            if (component is IComponentInventory inventory)
+            {
+                if (inventory.Detail.HasDetailComments)
+                    UnFilteredCommentary.AddRange(inventory.Detail.DetailComments.Cast<Commentary>());
+
+                if (inventory.Section.HasSectionComments)
+                    UnFilteredCommentary.AddRange(inventory.Section.SectionComments.Cast<Commentary>());
+            }
+
+            if (component.HasChildren)
+            {
+                foreach (var child in component.Children)
+                    FindComments(child);
+            }
+        }
+
         private void OnCommentaryCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnChangeFilter();
@@ -139,8 +202,8 @@ namespace BDC_V1.ViewModels
 
         private void OnFacilitiesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (!ListOfFacilities.Contains(SelectedFacility))
-                SelectedFacility = ListOfFacilities.FirstOrDefault();
+            if (ListOfFacilities.Any(item => item.ToString() == SelectedFacility) == false)
+                SelectedFacility = ListOfFacilities.FirstOrDefault()?.ToString();
         }
 
         private void OnCancelButton()

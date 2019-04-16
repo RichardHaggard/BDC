@@ -158,5 +158,11 @@ namespace BDC_V1.Classes
 
         // **************** Class members *************************************************** //
 
+
+        [NotNull]
+        public override string ToString()
+        {
+            return $"{BuildingIdNumber} - {BuildingName}";
+        }
     }
 }

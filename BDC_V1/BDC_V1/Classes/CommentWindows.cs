@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using BDC_V1.Enumerations;
+using BDC_V1.Interfaces;
 using BDC_V1.ViewModels;
 using BDC_V1.Views;
 using JetBrains.Annotations;
@@ -35,6 +36,12 @@ namespace BDC_V1.Classes
         }
         private string _commentText;
 
+        public IFacilityBase FacilityBaseInfo
+        {
+            get => _facilityBaseInfo;
+            set => SetProperty(ref _facilityBaseInfo, value);
+        }
+        private IFacilityBase _facilityBaseInfo;
 
         // **************** Class constructors ********************************************** //
 
@@ -68,6 +75,7 @@ namespace BDC_V1.Classes
                 : "COPY INVENTORY";
 
             model.UnFilteredCommentary.Clear();
+            model.FacilityBaseInfo = FacilityBaseInfo;
             model.UnFilteredCommentary.AddRange(CommentaryList);
 
             if (view.ShowDialog() != true) return;

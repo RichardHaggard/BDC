@@ -1,53 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Media;
 using BDC_V1.Interfaces;
 using JetBrains.Annotations;
 
 namespace BDC_V1.Classes
 {
-    public abstract class FacilityBaseClass : ImagesModelBase
+    public abstract class FacilityBaseClass : ImagesModelBase, IFacilityBase
     {
-        [CanBeNull] 
-        public virtual IComponentFacility LocalFacilityInfo
-        {
-            get => _localFacilityInfo;
-            set => SetProperty(ref _localFacilityInfo, value, () =>
-            {
-                if (_localFacilityInfo != null)
-                {
-                    // ObservableCollection should raise it's own notify
-                    //RaisePropertyChanged(Images);
-                }
-            });
-        }
-        private IComponentFacility _localFacilityInfo;
+        private readonly FacilityBase _facilityBase = new FacilityBase();
+
+        public virtual IComponentFacility LocalFacilityInfo => _facilityBase.LocalFacilityInfo;
 
         // ??? KLUDGE ???
         public virtual int FacilityIndex
         {
-            get => _facilityIndex;
+            get => _facilityBase.FacilityIndex;
             set
             {
-                if ((LocalBredInfo != null) && LocalBredInfo.HasFacilities)
-                {
-                    value = Math.Max(0, value);
-                    value = Math.Min(value, LocalBredInfo.FacilityInfo.Count - 1);
-
-                    SetProperty(ref _facilityIndex, value);
-
-                    // ReSharper disable once PossibleNullReferenceException
-                    LocalFacilityInfo = LocalBredInfo.FacilityInfo[_facilityIndex] as IComponentFacility;
-
-                    // necessary for comments and images to update. TODO: Might be needed elsewhere as well
-                    RaisePropertyChanged(new[] {nameof(ImageContainer), nameof(CommentContainer)});
-                    return;
-                }
-
-                SetProperty(ref _facilityIndex, 0);
+                if ((LocalBredInfo == null) || !LocalBredInfo.HasFacilities || (Facilities == null))
+                    _facilityBase.FacilityIndex = -1;
+                else 
+                    _facilityBase.FacilityIndex = Math.Min(value, Facilities.Count - 1);
             }
         }
-        private int _facilityIndex;
+
+        public IList<IComponentFacility> Facilities
+        {
+            get => _facilityBase.Facilities;
+            set => _facilityBase.Facilities = value;
+        }
 
         protected override IBredInfo LocalBredInfo
         {
@@ -55,7 +39,11 @@ namespace BDC_V1.Classes
             set
             {
                 base.LocalBredInfo = value;
-                FacilityIndex = 0;
+
+                Facilities = base.LocalBredInfo?
+                    .FacilityInfo.Cast<IComponentFacility>().ToList();
+
+                FacilityIndex = (base.LocalBredInfo != null) ? 0 : -1;
             }
         }
 
@@ -63,6 +51,21 @@ namespace BDC_V1.Classes
         {
             if (!base.GetRegionManager() || (RegionManager == null)) return false;
             return true;
+        }
+
+        protected FacilityBaseClass()
+        {
+            _facilityBase.PropertyChanged += (o, i) =>
+            {
+                RaisePropertyChanged(i.PropertyName);
+
+                if (i.PropertyName == nameof(_facilityBase.LocalFacilityInfo))
+                    RaisePropertyChanged(new[]
+                    {
+                        nameof(ImageContainer), 
+                        nameof(CommentContainer)
+                    });
+            };
         }
     }
 }

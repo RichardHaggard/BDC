@@ -98,6 +98,7 @@
     <Compile Include="Classes\CommentDetail.cs" />
     <Compile Include="Classes\ComponentFacility.cs" />
     <Compile Include="Classes\CommentFacility.cs" />
+    <Compile Include="Classes\FacilityBase.cs" />
     <Compile Include="Classes\FacilityInfo.cs" />
     <Compile Include="Classes\IndexedCollection.cs" />
     <Compile Include="Classes\InspectionInfo.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Converters\MultiBoolToObjectConverter.cs" />
     <Compile Include="Converters\RatingColorToBrushConverter.cs" />
     <Compile Include="Converters\RatingColorToColorConverter.cs" />
+    <Compile Include="Converters\RatingToBrushConverter.cs" />
     <Compile Include="Converters\RatingToRatingColorConverter.cs" />
     <Compile Include="Interfaces\IComment.cs" />
     <Compile Include="Interfaces\ICommentCollection.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="Interfaces\IComponentSection.cs" />
     <Compile Include="Interfaces\IComponentSystem.cs" />
     <Compile Include="Interfaces\IDynamicWindowTitle.cs" />
+    <Compile Include="Interfaces\IFacilityBase.cs" />
     <Compile Include="Interfaces\IFacilityInfo.cs" />
     <Compile Include="Interfaces\IImageCollection.cs" />
     <Compile Include="Interfaces\IIndexedCollection.cs" />

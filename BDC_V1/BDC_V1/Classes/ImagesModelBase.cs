@@ -74,6 +74,7 @@ namespace BDC_V1.Classes
 
             model.IsDistressedEnabled = isInspection;
             model.CommentText = comment?.CommentText;
+            model.FacilityBaseInfo = null;              //TODO: Put real data in here
             model.WindowTitle = isInspection
                 ? "INSPECTION COMMENTS"
                 : "COMMENTS";

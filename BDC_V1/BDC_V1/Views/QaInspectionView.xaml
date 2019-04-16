@@ -15,10 +15,9 @@
     Height="400" Width="1200"
     d:DesignHeight="400" d:DesignWidth="1200">
 
-    <UserControl.Resources>
+  <UserControl.Resources>
 
-
-    <converters:RatingToColorConverter x:Key="RtgToBackgroundConverter"/>
+    <converters:RatingToBrushConverter x:Key="RatingToBrushConverter"/>
 
     <Style x:Key="RtgStyle" TargetType="TextBlock">
       <Setter Property="HorizontalAlignment" Value="Center" />
@@ -45,7 +44,7 @@
         <ColumnDefinition Width="100" />
         <ColumnDefinition Width="100" />
         <ColumnDefinition Width="100" />
-        <ColumnDefinition Width="40"  />
+        <ColumnDefinition Width="45"  />
         <ColumnDefinition Width="590" />
         <ColumnDefinition Width="5" /> <!-- white space to the right -->
       </Grid.ColumnDefinitions>
@@ -138,12 +137,12 @@
           <DataGridTextColumn Header=" Inventory"   Binding="{Binding Path=ComponentId}" Width="100" />
           <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"    Width="100" />
           <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}" Width="100" />
-          <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=RatingText}"  Width="40"
+          <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=RatingText}"  Width="45"
                               ElementStyle="{StaticResource RtgStyle}">
             <DataGridTextColumn.CellStyle>
               <Style TargetType="DataGridCell" >
                 <Setter Property="Background" 
-                        Value="{Binding Path=Rating, Converter={StaticResource RtgToBackgroundConverter}}" />
+                        Value="{Binding Path=Rating, Converter={StaticResource RatingToBrushConverter}}" />
               </Style>
             </DataGridTextColumn.CellStyle>
           </DataGridTextColumn>

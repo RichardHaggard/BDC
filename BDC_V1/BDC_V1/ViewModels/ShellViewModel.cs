@@ -30,36 +30,36 @@ namespace BDC_V1.ViewModels
         // **************** Class properties ************************************************ //
 
         // commands are read only to the outside world
-        public ICommand CmdAddComponent            { get; }
-        public ICommand CmdAddSection              { get; }
-        public ICommand CmdAddSystem               { get; }
-        public ICommand CmdCopyInventory           { get; }
-        public ICommand CmdCopySections            { get; }
-        public ICommand CmdDefaultInventoryMode    { get; }
-        public ICommand CmdDeleteSystem            { get; }
-        public ICommand CmdInspectionMode          { get; }
-        public ICommand CmdMenuExit                { get; }
-        public ICommand CmdMenuAbout               { get; }
-        public ICommand CmdMenuBluebeam            { get; }
-        public ICommand CmdMenuCalculators         { get; }
-        public ICommand CmdMenuSwitchFile          { get; }
-        public ICommand CmdMenuViewAllSystems      { get; }
+        public ICommand CmdAddComponent { get; }
+        public ICommand CmdAddSection { get; }
+        public ICommand CmdAddSystem { get; }
+        public ICommand CmdCopyInventory { get; }
+        public ICommand CmdCopySections { get; }
+        public ICommand CmdDefaultInventoryMode { get; }
+        public ICommand CmdDeleteSystem { get; }
+        public ICommand CmdInspectionMode { get; }
+        public ICommand CmdMenuExit { get; }
+        public ICommand CmdMenuAbout { get; }
+        public ICommand CmdMenuBluebeam { get; }
+        public ICommand CmdMenuCalculators { get; }
+        public ICommand CmdMenuSwitchFile { get; }
+        public ICommand CmdMenuViewAllSystems { get; }
         public ICommand CmdMenuViewAssignedSystems { get; }
-        public ICommand CmdMenuInspectionSummary   { get; }
-        public ICommand CmdMenuQcReports           { get; }
-        public ICommand CmdMicOn                   { get; }
-        public ICommand CmdMicOff                  { get; }
-        public ICommand CmdTabSelectionChanged     { get; }
-        public ICommand CmdCopyInspection          { get; }
+        public ICommand CmdMenuInspectionSummary { get; }
+        public ICommand CmdMenuQcReports { get; }
+        public ICommand CmdMicOn { get; }
+        public ICommand CmdMicOff { get; }
+        public ICommand CmdTabSelectionChanged { get; }
+        public ICommand CmdCopyInspection { get; }
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
         public string Title => @"Builder DC";
 
         public string StatusLookup => "Lookup: " + LookupField;
 
-        public string StatusInspector => "Current Inspector: " + SelectedLoginUser?? "";
+        public string StatusInspector => "Current Inspector: " + SelectedLoginUser ?? "";
 
-        public string StatusInspectedBy => "(Inspected By: " + InspectedByUser?.EntryUser?? "" + ")";
+        public string StatusInspectedBy => "(Inspected By: " + InspectedByUser?.EntryUser ?? "" + ")";
 
         public string StatusDateTimeString =>
             StatusDateTime.ToShortDateString() + " " + StatusDateTime.ToShortTimeString();
@@ -70,6 +70,7 @@ namespace BDC_V1.ViewModels
             get => _windowVisibility;
             set => SetProperty(ref _windowVisibility, value);
         }
+
         private Visibility _windowVisibility = Visibility.Collapsed;
 
 
@@ -78,6 +79,7 @@ namespace BDC_V1.ViewModels
             get => _invTreeBorderBackgroundColor;
             set => SetProperty(ref _invTreeBorderBackgroundColor, value);
         }
+
         private System.Windows.Media.Brush _invTreeBorderBackgroundColor;
 
 
@@ -86,6 +88,7 @@ namespace BDC_V1.ViewModels
             get => _facilityTabBackgroundColor;
             set => SetProperty(ref _facilityTabBackgroundColor, value);
         }
+
         private System.Windows.Media.Brush _facilityTabBackgroundColor;
 
 
@@ -94,6 +97,7 @@ namespace BDC_V1.ViewModels
             get => _inventoryTabBackgroundColor;
             set => SetProperty(ref _inventoryTabBackgroundColor, value);
         }
+
         private System.Windows.Media.Brush _inventoryTabBackgroundColor;
 
 
@@ -102,6 +106,7 @@ namespace BDC_V1.ViewModels
             get => _inspectionTabBackgroundColor;
             set => SetProperty(ref _inspectionTabBackgroundColor, value);
         }
+
         private System.Windows.Media.Brush _inspectionTabBackgroundColor;
 
 
@@ -110,6 +115,7 @@ namespace BDC_V1.ViewModels
             get => _qaInventoryTabBackgroundColor;
             set => SetProperty(ref _qaInventoryTabBackgroundColor, value);
         }
+
         private System.Windows.Media.Brush _qaInventoryTabBackgroundColor;
 
 
@@ -118,6 +124,7 @@ namespace BDC_V1.ViewModels
             get => _qaInspectionTabBackgroundColor;
             set => SetProperty(ref _qaInspectionTabBackgroundColor, value);
         }
+
         private System.Windows.Media.Brush _qaInspectionTabBackgroundColor;
 
 
@@ -127,6 +134,7 @@ namespace BDC_V1.ViewModels
             get => _configurationFilename;
             set => SetProperty(ref _configurationFilename, value);
         }
+
         private string _configurationFilename;
 
 
@@ -135,6 +143,7 @@ namespace BDC_V1.ViewModels
             get => _bredFilename;
             set => SetPropertyFlagged(ref _bredFilename, value, nameof(Title));
         }
+
         private string _bredFilename;
 
 
@@ -143,6 +152,7 @@ namespace BDC_V1.ViewModels
             get => _statusDateTime;
             private set => SetPropertyFlagged(ref _statusDateTime, value, nameof(StatusDateTimeString));
         }
+
         private DateTime _statusDateTime;
 
 
@@ -152,6 +162,7 @@ namespace BDC_V1.ViewModels
             get => _selectedLoginUser;
             set => SetPropertyFlagged(ref _selectedLoginUser, value, nameof(StatusInspector));
         }
+
         private IPerson _selectedLoginUser;
 
 
@@ -160,6 +171,7 @@ namespace BDC_V1.ViewModels
             get => _lookupField;
             set => SetPropertyFlagged(ref _lookupField, value, nameof(StatusLookup));
         }
+
         private string _lookupField;
 
 
@@ -173,31 +185,31 @@ namespace BDC_V1.ViewModels
                 RaisePropertyChanged(nameof(StatusInspectedBy));
             });
         }
+
         private ICommentInspection _inspectedByUser;
 
 
+        // TODO: are these always set as opposites ?? Perhaps this could be combined ???
         public bool ViewAllSystems
         {
-            get { return _ViewAllSystems; }
-            set 
-                {
-                if (SetProperty(ref _ViewAllSystems, value))
-                    ViewAssignedSystems = !value;
-                }
+            get => _viewAllSystems;
+            set => SetProperty(ref _viewAllSystems, value, () =>
+            {
+                ViewAssignedSystems = !value;
+            });
         }
-        private bool _ViewAllSystems = true;
+        private bool _viewAllSystems = true;
 
 
         public bool ViewAssignedSystems
         {
-            get { return _ViewAssignedSystems; }
-            set 
-                {
-                if (SetProperty(ref _ViewAssignedSystems, value))
-                    ViewAllSystems = !value;
-                }
+            get => _viewAssignedSystems;
+            set => SetProperty(ref _viewAssignedSystems, value, () =>
+            {
+                ViewAllSystems = !value;
+            });
         }
-        private bool _ViewAssignedSystems;
+        private bool _viewAssignedSystems;
 
 
         // Used to force the Tab selection internally
@@ -415,7 +427,7 @@ namespace BDC_V1.ViewModels
                 throw new InvalidCastException("Invalid View Model");
 
             model.WindowTitle = "COPY COMMENT";
-            model.UnFilteredCommentary.Clear();
+            model.FacilityBaseInfo = null;      // TODO: Put real data here 
 
             if (view.ShowDialog() != true) return;
 
@@ -550,6 +562,7 @@ namespace BDC_V1.ViewModels
                 throw new InvalidCastException("Invalid View Model");
 
             model.IsDistressedEnabled = true;
+            model.FacilityBaseInfo = null;              //TODO: Put real data in here
             model.CommentText = string.Empty;
 
             if (view.ShowDialog() != true) return;

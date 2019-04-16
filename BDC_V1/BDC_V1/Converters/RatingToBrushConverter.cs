@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -9,23 +13,9 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Converters
 {
-    /// <summary>
-    ///     Converts a <see cref="EnumRatingType"/> to a <see cref="SolidColorBrush"/>
-    /// </summary>
-    /// <returns>
-    ///     The <see cref="SolidColorBrush"/> corresponding to the <see cref="EnumRatingType"/>
-    /// </returns>
-    /// <example>
-    ///     <code>
-    ///        private static readonly RatingToRatingColorConverter Converter = new RatingToRatingColorConverter();
-    ///        
-    ///        public static EnumRatingColors ToRatingColor(this EnumRatingType value) => 
-    ///            (EnumRatingColors) (Converter.Convert(value, typeof(EnumRatingColors), null, null) ?? EnumRatingColors.Green);
-    ///     </code>
-    /// </example>
-    public class RatingToColorConverter : DependencyObject, IValueConverter 
+    public class RatingToBrushConverter : DependencyObject, IValueConverter 
     {
-        private static readonly RatingColorToColorConverter  ColorConverter       = new RatingColorToColorConverter ();
+        private static readonly RatingColorToBrushConverter  BrushConverter       = new RatingColorToBrushConverter ();
         private static readonly RatingToRatingColorConverter RatingColorConverter = new RatingToRatingColorConverter();
 
         /// <summary>
@@ -44,7 +34,7 @@ namespace BDC_V1.Converters
         [NotNull]
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType != typeof(Color))
+            if (targetType != typeof(Brush))
                 throw new ArgumentException(@"Invalid target type=" + targetType,  nameof(targetType));
 
             if (value == null) throw new ArgumentNullException(nameof(value));
@@ -54,9 +44,9 @@ namespace BDC_V1.Converters
                     ratingType = (EnumRatingType) Enum.Parse(typeof(EnumRatingType), value.ToString());
 
                 var ratingColor = RatingColorConverter.Convert(ratingType , typeof(EnumRatingColors), parameter, culture);
-                var color       = ColorConverter      .Convert(ratingColor, typeof(Color), parameter, culture);
+                var brush       = BrushConverter      .Convert(ratingColor, typeof(Brush), parameter, culture);
 
-                return color;
+                return brush;
             }
 
             // catch exceptions locally so it's easier to debug
