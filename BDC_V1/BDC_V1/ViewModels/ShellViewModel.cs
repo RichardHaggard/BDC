@@ -358,26 +358,26 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "ShellItemControl";
 
-            CmdAddComponent            = new DelegateCommand(OnAddComponent         );
-            CmdAddSection              = new DelegateCommand(OnAddSection           );
-            CmdAddSystem               = new DelegateCommand(OnAddSystem            );
-            CmdCopyInventory           = new DelegateCommand(OnCopyInventory        );
-            CmdCopySections            = new DelegateCommand(OnCopySections         );
-            CmdDefaultInventoryMode    = new DelegateCommand(OnDefaultInventoryMode );
-            CmdDeleteSystem            = new DelegateCommand(OnDeleteSystem         );
-            CmdInspectionMode          = new DelegateCommand(OnInspectionMode       );
-            CmdMenuAbout               = new DelegateCommand(OnAbout                ); 
-            CmdMenuBluebeam            = new DelegateCommand(OnBluebeam             );
-            CmdMenuCalculators         = new DelegateCommand(OnCalculators          );
-            CmdMenuExit                = new DelegateCommand(OnExit                 );
-            CmdMenuInspectionSummary   = new DelegateCommand(OnInspectionSummary    );
-            CmdMenuQcReports           = new DelegateCommand(OnQcReport             );
-            CmdMenuSwitchFile          = new DelegateCommand(OnSwitchFile           );
-            CmdMenuViewAllSystems      = new DelegateCommand(OnViewAllSystems       );
-            CmdMenuViewAssignedSystems = new DelegateCommand(OnViewAssignedSystems  );
-            CmdMicOff                  = new DelegateCommand(OnMicOff               );
-            CmdMicOn                   = new DelegateCommand(OnMicOn                );
-            CmdCopyInspection          = new DelegateCommand(OnCopyInspection       );
+            CmdAddComponent            = new DelegateCommand(OnAddComponent        );
+            CmdAddSection              = new DelegateCommand(OnAddSection          );
+            CmdAddSystem               = new DelegateCommand(OnAddSystem           );
+            CmdCopyInventory           = new DelegateCommand(OnCopyInventory       );
+            CmdCopySections            = new DelegateCommand(OnCopySections        );
+            CmdDefaultInventoryMode    = new DelegateCommand(OnDefaultInventoryMode);
+            CmdDeleteSystem            = new DelegateCommand(OnDeleteSystem        );
+            CmdInspectionMode          = new DelegateCommand(OnInspectionMode      );
+            CmdMenuAbout               = new DelegateCommand(OnAbout               ); 
+            CmdMenuBluebeam            = new DelegateCommand(OnBluebeam            );
+            CmdMenuCalculators         = new DelegateCommand(OnCalculators         );
+            CmdMenuExit                = new DelegateCommand(OnExit                );
+            CmdMenuInspectionSummary   = new DelegateCommand(OnInspectionSummary   );
+            CmdMenuQcReports           = new DelegateCommand(OnQcReport            );
+            CmdMenuSwitchFile          = new DelegateCommand(OnSwitchFile          );
+            CmdMenuViewAllSystems      = new DelegateCommand(OnViewAllSystems      );
+            CmdMenuViewAssignedSystems = new DelegateCommand(OnViewAssignedSystems );
+            CmdMicOff                  = new DelegateCommand(OnMicOff              );
+            CmdMicOn                   = new DelegateCommand(OnMicOn               );
+            CmdCopyInspection          = new DelegateCommand(OnCopyInspection      );
 
             CmdTabSelectionChanged     = new DelegateCommand<TabItem>(OnTabSelectionChanged);
 
