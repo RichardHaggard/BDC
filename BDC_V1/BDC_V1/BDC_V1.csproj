@@ -309,6 +309,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\LocalMaterialDesignDefaults.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AboutBdcView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -393,6 +397,9 @@
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations">
       <Version>2019.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="MaterialDesignThemes">
+      <Version>2.5.1</Version>
     </PackageReference>
     <PackageReference Include="Prism.Core">
       <Version>7.1.0.431</Version>
@@ -502,16 +509,6 @@
     <Resource Include="Resources\Unlink.png" />
     <Resource Include="Resources\ViewAll.jpg" />
     <Resource Include="Resources\ViewAll.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MaterialDesignInXamlToolkit\MaterialDesignColors.Wpf\MaterialDesignColors.Wpf.csproj">
-      <Project>{90b53209-c60c-4655-b28d-a1b3e1044ba3}</Project>
-      <Name>MaterialDesignColors.Wpf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MaterialDesignInXamlToolkit\MaterialDesignThemes.Wpf\MaterialDesignThemes.Wpf.csproj">
-      <Project>{f079fb0a-a8ed-4216-b6a5-345756751a04}</Project>
-      <Name>MaterialDesignThemes.Wpf</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\AddComponent_75.png" />

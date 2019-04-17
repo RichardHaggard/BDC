@@ -87,10 +87,14 @@
       <Style.Triggers>
 
         <!-- Trigger on is checked state -->
-        <DataTrigger Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}">
+        <MultiDataTrigger>
+          <MultiDataTrigger.Conditions>
+            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+          </MultiDataTrigger.Conditions>
           <Setter Property="Background" Value="{DynamicResource GreenButtonBrush}" />
           <Setter Property="Foreground" Value="White" />
-        </DataTrigger>
+        </MultiDataTrigger>
 
       </Style.Triggers>
     </Style>
@@ -142,9 +146,14 @@
       <Style.Triggers>
 
         <!-- Trigger on is checked state -->
-        <DataTrigger Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}">
+        <MultiDataTrigger>
+          <MultiDataTrigger.Conditions>
+            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+          </MultiDataTrigger.Conditions>
           <Setter Property="Background" Value="{DynamicResource AmberButtonBrush}" />
-        </DataTrigger>
+          <Setter Property="Foreground" Value="White" />
+        </MultiDataTrigger>
 
       </Style.Triggers>
     </Style>
@@ -196,10 +205,14 @@
       <Style.Triggers>
 
         <!-- Trigger on is checked state -->
-        <DataTrigger Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}">
+        <MultiDataTrigger>
+          <MultiDataTrigger.Conditions>
+            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+          </MultiDataTrigger.Conditions>
           <Setter Property="Background" Value="{DynamicResource RedButtonBrush}" />
           <Setter Property="Foreground" Value="White" />
-        </DataTrigger>
+        </MultiDataTrigger>
 
       </Style.Triggers>
     </Style>
@@ -566,7 +579,7 @@
                      IsChecked="{Binding ConverterParameter=GPlus, 
                         Path=InspectionInfo.PaintedCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, FallbackValue=true}" 
         />
 
         <RadioButton Grid.Row="2" Grid.Column="6" Content="Green" GroupName="PtCondGroup"

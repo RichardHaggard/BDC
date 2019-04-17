@@ -24,6 +24,24 @@
       <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
+    <!--Data grid header filter related-->
+    <Style x:Key="FilterButtonStyleBase" TargetType="Button">
+      <Setter Property="HorizontalAlignment"  Value="Stretch" />
+      <Setter Property="Height" Value="30" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate>
+            <Border CornerRadius="3"
+                    BorderThickness="2"
+                    Background="#E0F2FF"
+                    BorderBrush="Green">
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+
   </UserControl.Resources>
 
   <ScrollViewer HorizontalScrollBarVisibility="Auto"

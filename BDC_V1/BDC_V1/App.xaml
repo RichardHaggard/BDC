@@ -7,6 +7,14 @@
 
     <Application.Resources>
         <ResourceDictionary>
+          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+            <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />-->
+            <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />-->
+            <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />-->
+            <ResourceDictionary Source="pack://application:,,,/Resources/LocalMaterialDesignDefaults.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+          </ResourceDictionary.MergedDictionaries>
 
             <!--DataGridHeader-->
             <Style TargetType="DataGridColumnHeader">
@@ -135,22 +143,6 @@
                 <Setter Property="Margin" Value="5,5,5,0" />
             </Style>
 
-            <Style x:Key="PhotoButtonStyle" TargetType="{x:Type Button}"
-                 BasedOn="{StaticResource ImageClickBlockButtonStyle}">
-                <Setter Property="Content">
-                    <Setter.Value>
-                        <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                            <Image Source="/BDC_V1;component/Resources/Photos_cropped.png"
-                         Style="{StaticResource ImageClickBlockImageStyle}"/>
-                            <Label Content="Photo(s)"
-                         Style="{StaticResource ImageClickBlockTextStyle1}" />
-                            <Label Content="{Binding Count, FallbackValue=0}"
-                         Style="{StaticResource ImageClickBlockTextStyle2}" />
-                        </StackPanel >
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
             <!--Stackpanel related-->
             <Style x:Key="ImageClickBlockPanelStyle" TargetType="StackPanel">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -192,24 +184,6 @@
                  BasedOn="{StaticResource ImageClickBlockTextStyle}">
                 <Setter Property="VerticalContentAlignment" Value="Top" />
                 <Setter Property="VerticalAlignment" Value="Bottom" />
-            </Style>
-
-            <Style x:Key="CommentButtonStyle" TargetType="{x:Type Button}"
-                 BasedOn="{StaticResource ImageClickBlockButtonStyle}">
-                <Setter Property="Content">
-                    <Setter.Value>
-                        <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                            <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
-                         Margin="5,0,0,0"
-                         Style="{StaticResource ImageClickBlockImageStyle}"/>
-                            <Label Content="{Binding CommentTypeName1, FallbackValue=Comment_Type}"
-                         Visibility="{Binding CommentTypeVisibility1, FallbackValue=Collapsed}"
-                         Style="{StaticResource ImageClickBlockTextStyle1}" />
-                            <Label Content="{Binding CommentTypeName2, FallbackValue=Comment}" 
-                         Style="{StaticResource ImageClickBlockTextStyle2}" />
-                        </StackPanel >
-                    </Setter.Value>
-                </Setter>
             </Style>
 
             <!--Menu separator-->
@@ -386,18 +360,6 @@
 
                 </Setter>
             </Style>
-
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-
-                <!--Light or dark colors specification.-->
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />-->
-
-                <!--Specify the accent colors. This is just an example. There are many packages.-->
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
-                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Purple.xaml" />-->
-            </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
 
