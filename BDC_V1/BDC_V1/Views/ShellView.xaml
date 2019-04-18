@@ -98,7 +98,7 @@
             
             <Border 
                 Grid.ColumnSpan="14" 
-                Background="Gray" />
+                Background="LightGray" />
 
             <!--Default/Inventory mode button-->
             <Button Grid.Column="0"
