@@ -6,167 +6,209 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using BDC_V1.Interfaces;
 using JetBrains.Annotations;
+using Prism.Mvvm;
 
 namespace BDC_V1.Classes
 {
-#if false
-    public class IndexedCollection<T> : PropertyBase, IIndexedCollection<T>
+    public class IndexedCollection<T> : ObservableCollection<T>, INotifyPropertyChanged, INotifyCollectionChanged
     {
-        /// <inheritdoc />>
         public int SelectedIndex
         {
-            get
-            {
-                if (! HasContent) _selectedIndex = -1;
-                else _selectedIndex = 
-                    Math.Max(-1, 
-                    Math.Min(ItemCollection.Count - 1, _selectedIndex));
-
-                return _selectedIndex;
-            }
-            
-            set
-            {
-                if (! HasContent) value = -1;
-                else value = 
-                    Math.Max(-1, 
-                    Math.Min(ItemCollection.Count - 1, value));
-
-                SetPropertyFlagged(ref _selectedIndex, value, nameof(SelectedItem));
-            }
+            get => _selectedIndex = Math.Max(-1, Math.Min(Count - 1, _selectedIndex));
+            set => SetPropertyFlagged(
+                ref _selectedIndex, 
+                Math.Max(-1, Math.Min(Count - 1, value)), 
+                nameof(SelectedItem));
         }
         private int _selectedIndex = -1;
 
-        /// <inheritdoc />>
-        public T DefaultValue
+        [CanBeNull] public T SelectedItem
+        {
+            get
+            {
+                var index = SelectedIndex;
+                return (index >= 0)
+                    ? this[index]
+                    : DefaultValue;
+            }
+            set => SelectedIndex = IndexOf(value);
+        }
+
+        [CanBeNull] public T DefaultValue
         {
             get => _defaultValue;
             set => SetProperty(ref _defaultValue, value);
         }
-        [CanBeNull] private T _defaultValue;
+        [CanBeNull] private T _defaultValue = default(T);
 
-        /// <inheritdoc />>
-        public T SelectedItem
-        {
-            get => (SelectedIndex >= 0)
-                ? ItemCollection[SelectedIndex]
-                : DefaultValue;
-
-            set => SelectedIndex = (HasContent)
-                ? ItemCollection.IndexOf(value)
-                : -1;
-        }
-
-        /// <inheritdoc />>
-        public ObservableCollection<T> ItemCollection { get; } =
-            new ObservableCollection<T>();
-
-        /// <inheritdoc />>
-        public virtual bool HasContent => ItemCollection.Any();
-
-
-
-            //PropertyCollection<T>(ref _itemCollection, string.Empty, () =>
-            //    {
-            //        ItemCollection.CollectionChanged += (o, i) =>
-            //        {
-            //            RaisePropertyChanged(nameof(ItemCollection));
-            //            RaisePropertyChanged(nameof(SelectedItem)  );
-            //            RaisePropertyChanged(nameof(SelectedIndex) );
-            //            RaisePropertyChanged(nameof(HasContent)    );
-
-            //            CollectionChanged?.Invoke(o, i);
-            //        };
-            //    });
-
-        /// <inheritdoc />>
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        /// <inheritdoc />
-        public IEnumerator<T> GetEnumerator() => 
-            ItemCollection.GetEnumerator();
-
-        /// <inheritdoc />
-        IEnumerator IEnumerable.GetEnumerator() => 
-            ((IEnumerable) ItemCollection).GetEnumerator();
-
-        /// <inheritdoc />
-        public void Add(T item) => 
-            ItemCollection.Add(item);
-
-        /// <inheritdoc />
-        public void Clear() => 
-            ItemCollection.Clear();
-
-        /// <inheritdoc />
-        public bool Contains(T item) => 
-            ItemCollection.Contains(item);
-
-        /// <inheritdoc />
-        public void CopyTo(T[] array, int arrayIndex) => 
-            ItemCollection.CopyTo(array, arrayIndex);
-
-        /// <inheritdoc />
-        public bool Remove(T item) => 
-            ItemCollection.Remove(item);
-
-        /// <inheritdoc />
-        public int Count => 
-            ItemCollection.Count;
-
-        /// <inheritdoc />
-        public bool IsReadOnly => 
-            ItemCollection.IsReadOnly;
-
-        /// <inheritdoc />
-        public void AddRange(IEnumerable<T> list) => 
-            ItemCollection.AddRange(list);
-
-        /// <inheritdoc />
         public IEnumerable<T> RemoveRange([CanBeNull] IEnumerable<T> removeList)
         {
-            var returnList = new List<T>();
-
-            if (removeList != null)
-            {
-                // insure we are only removing items contained within the collection
-                returnList.AddRange(removeList.Where(item => ItemCollection.Contains(item)));
-                foreach (var item in returnList) ItemCollection.Remove(item);
-            }
-
+            var returnList = new List<T>(removeList?.Where(Contains) ?? new List<T>());
+            foreach (var item in returnList) Remove(item);
             return returnList;
         }
 
-        /// <summary>
-        /// void ctor
-        /// </summary>
+        /// <inheritdoc />
         public IndexedCollection()
         {
         }
  
-        /// <summary>
-        /// initializing ctor
-        /// </summary>
+        /// <inheritdoc />
         public IndexedCollection([NotNull] IList<T> list)
-            : this()
+            : base(list)
         {
-            AddRange(list);
+        }
+
+        /// <inheritdoc />
+        public IndexedCollection([NotNull] IEnumerable<T> collection)
+            : base(collection)
+        {
+        }
+
+
+        /// <summary>
+        /// Set the property value and raise optional flags
+        /// </summary>
+        /// <typeparam name="T1">Type of the property.</typeparam>
+        /// <param name="storage">Reference to a property with both getter and setter.</param>
+        /// <param name="value">Desired value for the property.</param>
+        /// <param name="flag">a property names to raise</param>
+        /// <param name="propertyName">
+        ///     Name of the property used to notify listeners. This
+        ///     value is optional and can be provided automatically when invoked from compilers that
+        ///     support <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute" />.
+        /// </param>
+        /// <returns>
+        ///     True if the value was changed, false if the existing value matched the
+        ///     desired value.
+        /// </returns>
+        protected virtual bool SetPropertyFlagged<T1>(
+            ref T1 storage, 
+            [CanBeNull] T1 value, 
+            [CanBeNull] string flag,
+            [CanBeNull, CallerMemberName] string propertyName = null)
+        {
+            return SetProperty(ref storage, value,
+                () => { RaisePropertyChanged(flag); },
+                propertyName);
         }
 
         /// <summary>
-        /// initializing ctor
+        /// Set the property value and raise optional flags
         /// </summary>
-        public IndexedCollection([NotNull] IEnumerable<T> collection)
-            : this()
+        /// <typeparam name="T1">Type of the property.</typeparam>
+        /// <param name="storage">Reference to a property with both getter and setter.</param>
+        /// <param name="value">Desired value for the property.</param>
+        /// <param name="flags">a list of property names to raise</param>
+        /// <param name="propertyName">
+        ///     Name of the property used to notify listeners. This
+        ///     value is optional and can be provided automatically when invoked from compilers that
+        ///     support <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute" />.
+        /// </param>
+        /// <returns>
+        ///     True if the value was changed, false if the existing value matched the
+        ///     desired value.
+        /// </returns>
+        protected virtual bool SetPropertyFlagged<T1>(
+            ref T1 storage, 
+            [CanBeNull] T1 value,
+            [NotNull] IEnumerable<string> flags,
+            [CanBeNull, CallerMemberName] string propertyName = null)
         {
-            AddRange(collection);
+            return SetProperty(ref storage, value,
+                () => { RaisePropertyChanged(flags); },
+                propertyName);
+        }
+
+        /// <summary>
+        /// Checks if a property already matches a desired value. Sets the property and
+        /// notifies listeners only when necessary.
+        /// </summary>
+        /// <typeparam name="T1">Type of the property.</typeparam>
+        /// <param name="storage">Reference to a property with both getter and setter.</param>
+        /// <param name="value">Desired value for the property.</param>
+        /// <param name="propertyName">
+        ///     Name of the property used to notify listeners. This
+        ///     value is optional and can be provided automatically when invoked from compilers that
+        ///     support <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute" />.
+        /// </param>
+        /// <returns>
+        ///     True if the value was changed, false if the existing value matched the
+        ///     desired value.
+        /// </returns>
+        protected virtual bool SetProperty<T1>(
+            ref T1 storage, 
+            [CanBeNull] T1 value, 
+            [CanBeNull, CallerMemberName] string propertyName = null)
+        {
+          if (EqualityComparer<T1>.Default.Equals(storage, value))
+            return false;
+
+          storage = value;
+          this.RaisePropertyChanged(propertyName);
+
+          return true;
+        }
+
+        /// <summary>
+        /// Checks if a property already matches a desired value. Sets the property and
+        /// notifies listeners only when necessary.
+        /// </summary>
+        /// <typeparam name="T1">Type of the property.</typeparam>
+        /// <param name="storage">Reference to a property with both getter and setter.</param>
+        /// <param name="value">Desired value for the property.</param>
+        /// <param name="onChanged">Action to perform if the value is changed</param>
+        /// <param name="propertyName">
+        ///     Name of the property used to notify listeners. This
+        ///     value is optional and can be provided automatically when invoked from compilers that
+        ///     support <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute" />.
+        /// </param>
+        /// <returns>
+        ///     True if the value was changed, false if the existing value matched the
+        ///     desired value.
+        /// </returns>
+        protected virtual bool SetProperty<T1>(
+            ref T1 storage, 
+            [CanBeNull] T1 value, 
+            [CanBeNull] Action onChanged, 
+            [CanBeNull, CallerMemberName] string propertyName = null)
+        {
+          if (EqualityComparer<T1>.Default.Equals(storage, value))
+            return false;
+
+          storage = value;
+          onChanged?.Invoke();
+          this.RaisePropertyChanged(propertyName);
+
+          return true;
+        }
+
+        /// <summary>Raises this object's PropertyChanged event.</summary>
+        /// <param name="propertyName">
+        ///     Name of the property used to notify listeners.
+        ///     This value is optional and can be provided automatically when invoked
+        ///     from compilers that support
+        ///     <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute" />.
+        /// </param>
+        protected void RaisePropertyChanged([CanBeNull, CallerMemberName] string propertyName = null)
+        {
+            this.OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>Raises this object's PropertyChanged event.</summary>
+        /// <param name="propertyNames">List of properties to be notified</param>
+        protected void RaisePropertyChanged([NotNull] IEnumerable<string> propertyNames)
+        {
+            foreach (var propertyName in propertyNames.Where(item => !string.IsNullOrEmpty(item)))
+                RaisePropertyChanged(propertyName);
         }
     }
-#endif
 }

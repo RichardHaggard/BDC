@@ -287,8 +287,8 @@ namespace BDC_V1.Mock_Data
         {
             var facility1 = CreateFacilityFramework();
             facility1.ConstType = EnumConstType.Permanent;
-            facility1.BuildingId = "ARMRY";
-            facility1.BuildingIdNumber = 17180;
+            facility1.BuildingId = "11507 - National Guard Readiness Center";
+            facility1.BuildingIdNumber = 11507;
             facility1.BuildingName = "National Guard Readiness Center";
             facility1.YearBuilt = 2007;
             facility1.AlternateId = "350939";
@@ -535,9 +535,9 @@ namespace BDC_V1.Mock_Data
         {
             var facility2 = CreateFacilityFramework();
             facility2.ConstType = EnumConstType.Permanent;
-            facility2.BuildingId = "GILLS";
-            facility2.BuildingIdNumber = 11057;
-            facility2.BuildingName = "Gillette Stadium";
+            facility2.BuildingId = "11444 - Facility # 2";
+            facility2.BuildingIdNumber = 11444;
+            facility2.BuildingName = "Facility # 2";
             facility2.YearBuilt = 2000;
             facility2.AlternateId = "11057000";
             facility2.AlternateIdSource = "hqlis";

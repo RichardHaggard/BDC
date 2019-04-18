@@ -31,8 +31,8 @@
     <Window.Resources>
         <ResourceDictionary>
           <ResourceDictionary.MergedDictionaries>
-            <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />-->
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
           </ResourceDictionary.MergedDictionaries>
 
           <Style x:Key="TransparentBitmap" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">

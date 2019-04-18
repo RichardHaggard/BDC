@@ -23,9 +23,5 @@ namespace BDC_V1.Views
         {
             InitializeComponent();
         }
-
-        // singleton instance to block multiple instances 
-        private static CopyCommentView _instance;
-        public static CopyCommentView Instance => _instance ?? (_instance = new CopyCommentView());
     }
 }

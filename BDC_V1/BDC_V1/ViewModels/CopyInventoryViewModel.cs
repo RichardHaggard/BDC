@@ -26,43 +26,27 @@ namespace BDC_V1.ViewModels
         public ICommand CmdCancelButton { get; }
         public ICommand CmdCopyButton   { get; }
 
-        public bool IsSectionNameEnabled
-        {
-            get
-            {
-                var isEnabled = 
-                    (!string.IsNullOrEmpty(SelectedFacility) && SelectedFacility == SourceFacility) || 
-                    (!string.IsNullOrEmpty(SectionNode     ) && SectionNode      == Section);
+        public bool IsSectionNameEnabled => 
+            (SourceFacilities.SelectedItem == SourceFacility) || 
+            (Sections.SelectedItem         == Section);
 
-                return _isSectionNameEnabled = isEnabled;
-            }
-        }
-        private bool _isSectionNameEnabled;
+        // TODO: Move these into a data interface / class ???
 
-
-        // TODO: Move these into a data interface / class
-
-        public string SelectedFacility
-        {
-            get => _selectedFacility;
-            set => SetPropertyFlagged(ref _selectedFacility, value, nameof(IsSectionNameEnabled));
-        }
-        private string _selectedFacility;
-
-        public string SourceFacility
+        // TODO: Get the real data for this
+        public IFacilityInfoHeader SourceFacility
         {
             get => _sourceFacility;
             set => SetPropertyFlagged(ref _sourceFacility, value, nameof(IsSectionNameEnabled));
         }
-        private string _sourceFacility;
+        private IFacilityInfoHeader _sourceFacility;
 
         // TODO: Get the real data for this
-        public string Section
+        public ISectionInfo Section
         {
             get => _section;
             set => SetPropertyFlagged(ref _section, value, nameof(IsSectionNameEnabled));
         }
-        private string _section;
+        private ISectionInfo _section;
 
         // TODO: Get the real data for this
         public string SectionNode
@@ -71,13 +55,6 @@ namespace BDC_V1.ViewModels
             set => SetPropertyFlagged(ref _sectionNode, value, nameof(IsSectionNameEnabled));
         }
         private string _sectionNode;
-
-        public string SectionNameText
-        {
-            get => IsSectionNameEnabled ? _sectionNameText : string.Empty;
-            set => SetProperty(ref _sectionNameText, value);
-        }
-        private string _sectionNameText;
 
         public string YearBuilt
         {
@@ -152,12 +129,20 @@ namespace BDC_V1.ViewModels
 
 
         [NotNull]
-        public ObservableCollection<string> ListOfFacilities { get; } =
-            new ObservableCollection<string>();
+        public IndexedCollection<IFacilityInfoHeader> SourceFacilities { get; } =
+            new IndexedCollection<IFacilityInfoHeader>();
 
         [NotNull]
-        public ObservableCollection<ItemChecklist> ListOfSystems { get; } = 
-            new ObservableCollection<ItemChecklist>();
+        public IndexedCollection<IFacilityInfoHeader> TargetFacilities { get; } =
+            new IndexedCollection<IFacilityInfoHeader>();
+
+        [NotNull]
+        public IndexedCollection<ISectionInfo> Sections { get; } = 
+            new IndexedCollection<ISectionInfo>();
+
+        [NotNull]
+        public IndexedCollection<ItemChecklist> Systems { get; } = 
+            new IndexedCollection<ItemChecklist>();
 
         // **************** Class constructors ********************************************** //
 
@@ -169,20 +154,33 @@ namespace BDC_V1.ViewModels
 #if DEBUG
 #warning Using MOCK data for CmInvViewModel
 
-            SourceFacility  = "11057 - EAST BAY";
-            SectionNameText = "<SECTION NAME>";
-            SectionNode     = "<NODE NAME>";
+            // TODO: I think this value is coming from thee tree view selection
+            SectionNode = "<NODE NAME>";
 
-            ListOfFacilities.AddRange(new []
+            TargetFacilities.AddRange(new []
             {
-                "17180 - ARNG ARMORY",
-                "11057 - EAST BAY"
+                new FacilityInfoHeader {BuildingIdNumber = 11057,  BuildingName = "National Guard Readiness Center"},
+                new FacilityInfoHeader {BuildingIdNumber = 11612,  BuildingName = "Facility # 2"}
             });
-            SelectedFacility = ListOfFacilities[0];
+
+            // TODO: I'm unsure about what this is supposed to be
+            SourceFacilities.AddRange(TargetFacilities);
+            SourceFacilities.SelectedIndex = 0;
+            SourceFacility = SourceFacilities.SelectedItem;
+
+            Sections.AddRange(new[]
+            {
+                new SectionInfo("FL1"),
+                new SectionInfo("FL2"),
+                new SectionInfo("EAST WING"),
+                new SectionInfo("WEST WING"),
+                new SectionInfo("MEZZANINE"),
+            });
+            Sections.SelectedIndex = 2;
 
             foreach (EnumFacilitySystemTypes system in Enum.GetValues(typeof(EnumFacilitySystemTypes)))
             {
-                ListOfSystems.Add(new ItemChecklist
+                Systems.Add(new ItemChecklist
                     {ItemName = $"{system.ToString()} - {system.Description()}"});
             }
 #endif

@@ -12,12 +12,10 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Interfaces
 {
-    public interface IFacilityInfo : INotifyPropertyChanged, IImageCollection, ICommentCollection
+    public interface IFacilityInfo : IFacilityInfoHeader, IImageCollection, ICommentCollection
     {
         EnumConstType ConstType    { get; set; }
         string   BuildingId        { get; set; }
-        uint     BuildingIdNumber  { get; set; }
-        string   BuildingName      { get; set; }
         string   BuildingUse       { get; set; }
         int      YearBuilt         { get; set; }
         string   AlternateId       { get; set; }

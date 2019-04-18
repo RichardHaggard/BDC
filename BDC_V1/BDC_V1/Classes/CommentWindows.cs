@@ -72,7 +72,7 @@ namespace BDC_V1.Classes
 
             model.WindowTitle = (! string.IsNullOrEmpty(CopyWindowTitle)) 
                 ? CopyWindowTitle 
-                : "COPY INVENTORY";
+                : "SELECT COMMENT TO COPY…";
 
             model.UnFilteredCommentary.Clear();
             model.FacilityBaseInfo = FacilityBaseInfo;
