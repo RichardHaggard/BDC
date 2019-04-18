@@ -27,6 +27,9 @@ namespace BDC_V1.ViewModels
     {
         // **************** Class enumerations ********************************************** //
 
+        private const string ConstActiveBg = "White";
+        private const string ConstInactiveBg = "Transparent";
+
         // **************** Class properties ************************************************ //
 
         // commands are read only to the outside world
@@ -145,6 +148,36 @@ namespace BDC_V1.ViewModels
         }
 
         private string _bredFilename;
+
+
+        public string InspectionBg
+        {
+            get { return _InspectionBg; }
+            set
+            {
+                if (SetProperty(ref _InspectionBg, value))
+                {
+                    if (value == ConstActiveBg)
+                        InventoryBg = ConstInactiveBg;
+                }
+            }
+        }
+        private string _InspectionBg = ConstInactiveBg;
+
+
+        public string InventoryBg
+        {
+            get { return _InventoryBg; }
+            set
+            {
+                if (SetProperty(ref _InventoryBg, value))
+                {
+                    if (value == ConstActiveBg)
+                        InspectionBg = ConstInactiveBg;
+                }
+            }
+        }
+        private string _InventoryBg = ConstActiveBg;
 
 
         public DateTime StatusDateTime
@@ -542,6 +575,7 @@ namespace BDC_V1.ViewModels
 
         private void OnDefaultInventoryMode()
         {
+            InventoryBg = ConstActiveBg;
             MessageBox.Show("Default Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
@@ -552,6 +586,7 @@ namespace BDC_V1.ViewModels
 
         private void OnInspectionMode()
         {
+            InspectionBg = ConstActiveBg;
             MessageBox.Show("Inspection Mode", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
