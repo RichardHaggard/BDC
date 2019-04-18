@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDC_V1", "BDC_V1\BDC_V1.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCustomControls", "MyCustomControls\MyCustomControls.csproj", "{9A86C1D1-A3E2-40D8-8F4C-39C1E191B571}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomChromeLibrary", "CustomChromeLibrary\CustomChromeLibrary.csproj", "{25990F61-A27B-4EDF-A402-B31BF952153F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AppVeyor|Any CPU = AppVeyor|Any CPU
@@ -86,6 +88,36 @@ Global
 		{9A86C1D1-A3E2-40D8-8F4C-39C1E191B571}.Release|x64.Build.0 = Release|Any CPU
 		{9A86C1D1-A3E2-40D8-8F4C-39C1E191B571}.Release|x86.ActiveCfg = Release|Any CPU
 		{9A86C1D1-A3E2-40D8-8F4C-39C1E191B571}.Release|x86.Build.0 = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.AppVeyor|Any CPU.ActiveCfg = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.AppVeyor|Any CPU.Build.0 = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.AppVeyor|ARM.ActiveCfg = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.AppVeyor|ARM.Build.0 = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.AppVeyor|ARM64.ActiveCfg = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.AppVeyor|ARM64.Build.0 = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.AppVeyor|x64.ActiveCfg = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.AppVeyor|x64.Build.0 = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.AppVeyor|x86.ActiveCfg = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.AppVeyor|x86.Build.0 = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Debug|ARM.Build.0 = Debug|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Debug|x64.Build.0 = Debug|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Debug|x86.Build.0 = Debug|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Release|ARM.Build.0 = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Release|ARM64.Build.0 = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Release|x64.ActiveCfg = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Release|x64.Build.0 = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Release|x86.ActiveCfg = Release|Any CPU
+		{25990F61-A27B-4EDF-A402-B31BF952153F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

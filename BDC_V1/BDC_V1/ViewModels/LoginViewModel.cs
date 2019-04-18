@@ -22,7 +22,7 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class LoginViewModel : CloseableWindow
+    public class LoginViewModel : CloseableResultsWindow
     {
 
         // **************** Class enumerations ********************************************** //

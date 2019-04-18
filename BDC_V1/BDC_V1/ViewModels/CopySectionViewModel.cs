@@ -7,7 +7,7 @@ using BDC_V1.Classes;
 
 namespace BDC_V1.ViewModels
 {
-    public class CopySectionViewModel : CloseableWindow
+    public class CopySectionViewModel : CloseableResultsWindow
     {
     }
 }

@@ -15,7 +15,7 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class CopyInventoryViewModel : CloseableWindow
+    public class CopyInventoryViewModel : CloseableResultsWindow
     {
         // **************** Class enumerations ********************************************** //
 
@@ -28,7 +28,7 @@ namespace BDC_V1.ViewModels
 
         public bool IsSectionNameEnabled => 
             (SourceFacilities.SelectedItem == SourceFacility) || 
-            (Sections.SelectedItem         == Section);
+            (Sections        .SelectedItem == Section);
 
         // TODO: Move these into a data interface / class ???
 
@@ -134,11 +134,24 @@ namespace BDC_V1.ViewModels
 
         [NotNull]
         public IndexedCollection<IFacilityInfoHeader> TargetFacilities { get; } =
-            new IndexedCollection<IFacilityInfoHeader>();
+            new IndexedCollection<IFacilityInfoHeader>
+            {
+                DefaultValue = new FacilityInfoHeader
+                {
+                    BuildingIdNumber = 0, 
+                    BuildingName = "Please select a target facility"
+                }
+            };
 
         [NotNull]
         public IndexedCollection<ISectionInfo> Sections { get; } = 
-            new IndexedCollection<ISectionInfo>();
+            new IndexedCollection<ISectionInfo>
+        {
+            DefaultValue = new SectionInfo
+            {
+                SectionName = "Please select the section"
+            }
+        };
 
         [NotNull]
         public IndexedCollection<ItemChecklist> Systems { get; } = 
@@ -151,6 +164,25 @@ namespace BDC_V1.ViewModels
             CmdCancelButton = new DelegateCommand(OnCancelButton);
             CmdCopyButton   = new DelegateCommand(OnCopyButton  );
 
+            SourceFacilities.PropertyChanged += (o, i) =>
+            {
+                if (i.PropertyName == nameof(SourceFacilities.SelectedItem))
+                    RaisePropertyChanged(nameof(IsSectionNameEnabled));
+            };
+
+            TargetFacilities.PropertyChanged += (o, i) =>
+            {
+                if (i.PropertyName == nameof(SourceFacilities.SelectedItem))
+                    RaisePropertyChanged(nameof(IsSectionNameEnabled));
+            };
+
+            Sections.PropertyChanged += (o, i) =>
+            {
+                if (i.PropertyName == nameof(SourceFacilities.SelectedItem))
+                    RaisePropertyChanged(nameof(IsSectionNameEnabled));
+            };
+
+
 #if DEBUG
 #warning Using MOCK data for CmInvViewModel
 
@@ -159,8 +191,8 @@ namespace BDC_V1.ViewModels
 
             TargetFacilities.AddRange(new []
             {
-                new FacilityInfoHeader {BuildingIdNumber = 11057,  BuildingName = "National Guard Readiness Center"},
-                new FacilityInfoHeader {BuildingIdNumber = 11612,  BuildingName = "Facility # 2"}
+                new FacilityInfoHeader {BuildingIdNumber = 11057, BuildingName = "National Guard Readiness Center"},
+                new FacilityInfoHeader {BuildingIdNumber = 11612, BuildingName = "Facility # 2"}
             });
 
             // TODO: I'm unsure about what this is supposed to be
@@ -176,7 +208,6 @@ namespace BDC_V1.ViewModels
                 new SectionInfo("WEST WING"),
                 new SectionInfo("MEZZANINE"),
             });
-            Sections.SelectedIndex = 2;
 
             foreach (EnumFacilitySystemTypes system in Enum.GetValues(typeof(EnumFacilitySystemTypes)))
             {

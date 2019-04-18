@@ -14,7 +14,7 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.ViewModels
 {
-    public class PhotoManagementViewModel : CloseableWindow
+    public class PhotoManagementViewModel : CloseableResultsWindow
     {
         // **************** Class enumerations ********************************************** //
 

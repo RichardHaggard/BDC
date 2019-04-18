@@ -572,7 +572,13 @@ namespace BDC_V1.ViewModels
 
         private void OnMicOff()
         {
-            MessageBox.Show("Microphone Off", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            var results = FatFingerMessageBoxView.Show(
+                "Microphone Off", 
+                "NOT IMPLEMENTED", 
+                MessageBoxButton.OK, 
+                MessageBoxImage.Exclamation
+            );
+//            MessageBox.Show("Microphone Off", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnMicOn()

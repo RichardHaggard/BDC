@@ -12,7 +12,7 @@ using Prism.Commands;
 
 namespace BDC_V1.Classes
 {
-    public abstract class CommentWindows : CloseableWindow
+    public abstract class CommentWindows : CloseableResultsWindow
     {
         // **************** Class properties ************************************************ //
 

@@ -19,7 +19,7 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class CameraViewModel  : CloseableWindow
+    public class CameraViewModel  : CloseableResultsWindow
     {
         // **************** Class enumerations ********************************************** //
 

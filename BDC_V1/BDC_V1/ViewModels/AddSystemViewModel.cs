@@ -12,7 +12,7 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class AddSystemViewModel : CloseableWindow
+    public class AddSystemViewModel : CloseableResultsWindow
     {
         // **************** Class enumerations ********************************************** //
 

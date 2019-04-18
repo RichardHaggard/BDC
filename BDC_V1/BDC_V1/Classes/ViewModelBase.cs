@@ -13,7 +13,7 @@ using Prism.Regions;
 
 namespace BDC_V1.Classes
 {
-    public class ViewModelBase : PropertyBase, INotifyPropertyChanged
+    public abstract class ViewModelBase : PropertyBase, INotifyPropertyChanged
     {
         // **************** Class enumerations ********************************************** //
 
@@ -68,7 +68,7 @@ namespace BDC_V1.Classes
 
         // **************** Class constructors ********************************************** //
 
-        public ViewModelBase()
+        protected ViewModelBase()
         {
             // subscribe to updates of the global information
             // it get's updated when the config file is opened at LoginView or when a new file->open occurs

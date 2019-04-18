@@ -76,13 +76,15 @@
                 SelectedItem="{Binding SourceFacilities.SelectedItem, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}">
         <ComboBox.ItemTemplate>
-          <DataTemplate DataType="{x:Type interfaces:IFacilityInfoHeader}">
-            <Label Style="{StaticResource LabelBase}">
-              <MultiBinding StringFormat="{}{0} - {1}">
-                <Binding Path="BuildingIdNumber"/>
-                <Binding Path="BuildingName"/>
-              </MultiBinding>
-            </Label>
+          <DataTemplate DataType="{x:Type classes:FacilityInfoHeader}">
+            <TextBlock FontSize="16">
+              <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} - {1}">
+                  <Binding Path="BuildingIdNumber"/>
+                  <Binding Path="BuildingName"/>
+                </MultiBinding>
+              </TextBlock.Text>
+            </TextBlock>
           </DataTemplate>
         </ComboBox.ItemTemplate>
       </ComboBox>
@@ -94,17 +96,19 @@
              Content="Target Facility:" 
              />
       <ComboBox Grid.Row="3" Grid.Column="1"
-                ItemsSource="{Binding ListOfTargetFacilities}"
-                SelectedItem="{Binding ListOfTargetFacilities.SelectedItem, Mode=TwoWay}"
+                ItemsSource="{Binding TargetFacilities}"
+                SelectedItem="{Binding TargetFacilities.SelectedItem, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}">
         <ComboBox.ItemTemplate>
-          <DataTemplate DataType="{x:Type interfaces:IFacilityInfoHeader}">
-            <Label Style="{StaticResource LabelBase}">
-              <MultiBinding StringFormat="{}{0} - {1}">
-                <Binding Path="BuildingIdNumber"/>
-                <Binding Path="BuildingName"/>
-              </MultiBinding>
-            </Label>
+          <DataTemplate DataType="{x:Type classes:FacilityInfoHeader}">
+            <TextBlock FontSize="16">
+              <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} - {1}">
+                  <Binding Path="BuildingIdNumber"/>
+                  <Binding Path="BuildingName"/>
+                </MultiBinding>
+              </TextBlock.Text>
+            </TextBlock>
           </DataTemplate>
         </ComboBox.ItemTemplate>
       </ComboBox>

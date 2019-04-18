@@ -18,7 +18,7 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class CopyCommentViewModel : CloseableWindow
+    public class CopyCommentViewModel : CloseableResultsWindow
     {
         // **************** Class enumerations ********************************************** //
 

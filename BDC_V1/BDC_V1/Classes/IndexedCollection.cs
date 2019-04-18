@@ -191,6 +191,13 @@ namespace BDC_V1.Classes
           return true;
         }
 
+        public new event PropertyChangedEventHandler PropertyChanged;
+        protected new virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            // ISSUE: reference to a compiler-generated field
+            PropertyChanged?.Invoke((object) this, e);
+        }
+
         /// <summary>Raises this object's PropertyChanged event.</summary>
         /// <param name="propertyName">
         ///     Name of the property used to notify listeners.

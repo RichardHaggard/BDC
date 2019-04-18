@@ -8,7 +8,7 @@ using BDC_V1.Classes;
 
 namespace BDC_V1.ViewModels
 {
-    public class AboutBdcViewModel : CloseableWindow
+    public class AboutBdcViewModel : CloseableResultsWindow
     {
         public System.Version ProgramVersion => Assembly.GetExecutingAssembly().GetName().Version;
         
