@@ -1,4 +1,4 @@
-﻿<Window Title="{Binding WindowTitle, FallbackValue='COPY COMMENTS'}" 
+﻿<Window Title="{Binding WindowTitle, FallbackValue='SELECT COMMENT TO COPY…'}" 
         x:Class="BDC_V1.Views.CopyCommentView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -85,7 +85,7 @@
       
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="120" />
-      <ColumnDefinition Width="90" />
+      <ColumnDefinition Width="100" />
       <ColumnDefinition Width="140" />
       <ColumnDefinition Width="90" />
       <ColumnDefinition Width="90" />
@@ -98,7 +98,7 @@
            Content="Source:" />
 
     <RadioButton Grid.Row="0" Grid.Column="1" Name="SourceBredButton"
-                 Content="BRED"
+                 Content="BRED File"
                  Style="{DynamicResource RowOneButtons}"
                  GroupName="SourceTypeGroup"
                  IsChecked="{Binding Path=FilterSource,
@@ -143,7 +143,7 @@
            Content="Related to current:" />
 
     <RadioButton Grid.Row="1" Grid.Column="1" 
-                 Content="System"
+                 Content="System Type"
                  Style="{DynamicResource RowOneButtons}"
                  GroupName="CurrentTypeGroup"
                  IsChecked="{Binding Path=RelatedSource,

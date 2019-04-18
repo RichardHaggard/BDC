@@ -100,6 +100,7 @@
     <Compile Include="Classes\CommentFacility.cs" />
     <Compile Include="Classes\FacilityBase.cs" />
     <Compile Include="Classes\FacilityInfo.cs" />
+    <Compile Include="Classes\FacilityInfoHeader.cs" />
     <Compile Include="Classes\IndexedCollection.cs" />
     <Compile Include="Classes\InspectionInfo.cs" />
     <Compile Include="Classes\IssueInspection.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\PropertyBase.cs" />
     <Compile Include="Classes\CommentSection.cs" />
+    <Compile Include="Classes\SectionInfo.cs" />
     <Compile Include="Converters\BoolToObjectConverter.cs" />
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Converters\MultiBoolToObjectConverter.cs" />
@@ -126,8 +128,10 @@
     <Compile Include="Interfaces\IDynamicWindowTitle.cs" />
     <Compile Include="Interfaces\IFacilityBase.cs" />
     <Compile Include="Interfaces\IFacilityInfo.cs" />
+    <Compile Include="Interfaces\IFacilityInfoHeader.cs" />
     <Compile Include="Interfaces\IImageCollection.cs" />
     <Compile Include="Interfaces\IIndexedCollection.cs" />
+    <Compile Include="Interfaces\ISectionInfo.cs" />
     <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -536,6 +540,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Counter_Subtract_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyCustomControls\MyCustomControls.csproj">
+      <Project>{9a86c1d1-a3e2-40d8-8f4c-39c1e191b571}</Project>
+      <Name>MyCustomControls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

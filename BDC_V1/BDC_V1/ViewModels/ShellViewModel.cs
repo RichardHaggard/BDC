@@ -459,7 +459,7 @@ namespace BDC_V1.ViewModels
             if (!(view.DataContext is CopyCommentViewModel model))        
                 throw new InvalidCastException("Invalid View Model");
 
-            model.WindowTitle = "COPY COMMENT";
+            model.WindowTitle = "SELECT COMMENT TO COPY…";
             model.FacilityBaseInfo = null;      // TODO: Put real data here 
 
             if (view.ShowDialog() != true) return;
@@ -487,7 +487,7 @@ namespace BDC_V1.ViewModels
             if (!(view.DataContext is CopyCommentViewModel model))        
                 throw new InvalidCastException("Invalid View Model");
 
-            model.WindowTitle = "COPY INSPECTION COMMENT";
+            model.WindowTitle = "SELECT COMMENT TO COPY…";
             model.UnFilteredCommentary.Clear();
 
             if (view.ShowDialog() != true) return;
@@ -557,7 +557,7 @@ namespace BDC_V1.ViewModels
                 RestoreDirectory = true,
                 DefaultExt       = "xlsx",
                 FilterIndex      = 1,
-                Filter           = "Excel Workbook (*.xlsx)|*.xlsx|Excel 97-2003 Workbook (*.xls)|*.xls|All files (*.*)|*.*"
+                Filter           = "CSV File (*.csv)|*.csv|All files (*.*)|*.*"
             };
 
             if (openFileDlg.ShowDialog() == true)

@@ -12,7 +12,7 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Classes
 {
-    public class FacilityInfo : PropertyBase, IFacilityInfo
+    public class FacilityInfo : FacilityInfoHeader, IFacilityInfo
     {
         /// <inheritdoc />
         public EnumConstType ConstType
@@ -30,21 +30,6 @@ namespace BDC_V1.Classes
         }
         private string _buildingId;
 
-        /// <inheritdoc />
-        public uint BuildingIdNumber
-        {
-            get => _buildingIdNumber;
-            set => SetProperty(ref _buildingIdNumber, value);
-        }
-        private uint _buildingIdNumber;
-
-        /// <inheritdoc />
-        public string BuildingName
-        {
-            get => _buildingName;
-            set => SetProperty(ref _buildingName, value);
-        }
-        private string _buildingName;
 
         /// <inheritdoc />
         public string BuildingUse

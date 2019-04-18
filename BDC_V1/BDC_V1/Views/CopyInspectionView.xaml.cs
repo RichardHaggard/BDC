@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MyCustomControls;
 
 namespace BDC_V1.Views
 {
     /// <summary>
     /// Interaction logic for CopyInspectionView.xaml
     /// </summary>
-    public partial class CopyInspectionView : Window
+    public partial class CopyInspectionView : CustomWindow
     {
         public CopyInspectionView()
         {

@@ -27,5 +27,10 @@ namespace BDC_V1.Views
         // singleton instance to block multiple instances 
         private static CopyInventoryView _instance;
         public static CopyInventoryView Instance => _instance ?? (_instance = new CopyInventoryView());
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

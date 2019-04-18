@@ -11,16 +11,28 @@
         xmlns:local="clr-namespace:BDC_V1.Views"
         xmlns:utils="clr-namespace:BDC_V1.Utils"
         xmlns:converters="clr-namespace:BDC_V1.Converters"
+        xmlns:classes="clr-namespace:BDC_V1.Classes"
+        xmlns:interfaces="clr-namespace:BDC_V1.Interfaces"
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        MinHeight="490" MaxHeight="940" Height="Auto"
-        MinWidth="500" MaxWidth="800" 
-        d:DesignHeight="550" d:DesignWidth="500"
+        MinHeight="600" MaxHeight="940" Height="Auto"
+        MinWidth="500" MaxWidth="800" Width="Auto"
+        d:DesignHeight="600" d:DesignWidth="500"
         >
 
   <Window.Resources>
     <converters:MultiBoolToObjectConverter x:Key="MultiBoolToObjectConverter" />
+
+    <!--CheckBox base-->
+    <Style x:Key="CheckBoxBase" TargetType="CheckBox" BasedOn="{StaticResource cbBase}">
+      <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style x:Key="IndentedCheckBox" TargetType="CheckBox" BasedOn="{StaticResource CheckBoxBase}">
+      <Setter Property="Margin" Value="50,5,5,5" />
+    </Style>
+
   </Window.Resources>
 
   <ScrollViewer VerticalScrollBarVisibility="Auto"
@@ -55,40 +67,61 @@
 
       <!--  2 - Source -->
       <Label Grid.Row="2" Grid.Column="0"
-             VerticalAlignment="Top">
-        Source Facility:
-      </Label>
-      <Label Grid.Row="2" Grid.Column="1"
-             Margin="0,5,0,5" 
-             Height="25"
-             Background="LightGray" 
-             Content="{Binding SourceFacility, FallbackValue='&lt;SOURCE FACILITY&gt;'}">
-      </Label>
+             VerticalAlignment="Top"
+             Style="{StaticResource LabelBase}"
+             Content="Source Facility:" 
+             />
+      <ComboBox Grid.Row="2" Grid.Column="1"
+                ItemsSource="{Binding SourceFacilities, Mode=OneTime}"
+                SelectedItem="{Binding SourceFacilities.SelectedItem, Mode=TwoWay}"
+                Style="{StaticResource ComboBase}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate DataType="{x:Type interfaces:IFacilityInfoHeader}">
+            <Label Style="{StaticResource LabelBase}">
+              <MultiBinding StringFormat="{}{0} - {1}">
+                <Binding Path="BuildingIdNumber"/>
+                <Binding Path="BuildingName"/>
+              </MultiBinding>
+            </Label>
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
 
       <!--  3 - Target -->
       <Label Grid.Row="3" Grid.Column="0"
-             VerticalAlignment="Top">
-        Target Facility:
-      </Label>
+             VerticalAlignment="Top"
+             Style="{StaticResource LabelBase}"
+             Content="Target Facility:" 
+             />
       <ComboBox Grid.Row="3" Grid.Column="1"
-                Margin="0,5,0,5"
-                ItemsSource="{Binding ListOfFacilities}"
-                SelectedItem="{Binding SelectedFacility}"
-                Style="{StaticResource ComboBase}" />
+                ItemsSource="{Binding ListOfTargetFacilities}"
+                SelectedItem="{Binding ListOfTargetFacilities.SelectedItem, Mode=TwoWay}"
+                Style="{StaticResource ComboBase}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate DataType="{x:Type interfaces:IFacilityInfoHeader}">
+            <Label Style="{StaticResource LabelBase}">
+              <MultiBinding StringFormat="{}{0} - {1}">
+                <Binding Path="BuildingIdNumber"/>
+                <Binding Path="BuildingName"/>
+              </MultiBinding>
+            </Label>
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
 
       <!--  4 - Section -->
       <Label Grid.Row="4" Grid.Column="0"
-             VerticalAlignment="Top">
-        Section Name:
-      </Label>
-      <TextBox Grid.Row="4" Grid.Column="1"
-               Margin="0,5,0,5" 
-               Height="25"
-               IsEnabled="{Binding IsSectionNameEnabled, FallbackValue=False}"
-               Text="{Binding SectionNameText, FallbackValue='SECTION NAME'}" 
-               >
-        <TextBox.Style>
-          <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxNoWrap}">
+             VerticalAlignment="Top"
+             Style="{StaticResource LabelBase}"
+             Content="Section Name:" 
+             />
+      <ComboBox Grid.Row="4" Grid.Column="1"
+                IsEnabled="{Binding IsSectionNameEnabled, FallbackValue=False}"
+                ItemsSource="{Binding Sections}"
+                SelectedItem="{Binding Sections.SelectedItem}"
+                >
+        <ComboBox.Style>
+          <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBase}">
             <Setter Property="Background" Value="LightGray" />
             <Style.Triggers>
               <Trigger Property="IsEnabled" Value="True">
@@ -96,46 +129,61 @@
               </Trigger>
             </Style.Triggers>
           </Style>
-        </TextBox.Style>
-      </TextBox>
+        </ComboBox.Style>
+
+        <ComboBox.ItemTemplate>
+          <DataTemplate DataType="{x:Type interfaces:ISectionInfo}">
+            <Label Style="{StaticResource LabelBase}" Content="{Binding SectionName}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
 
       <!--  5 - Systems -->
       <Label Grid.Row="5" Grid.Column="0"
-             VerticalAlignment="Top">
-        Systems to copy:
+             VerticalAlignment="Top"
+             Style="{StaticResource LabelBase}"
+             Content="Systems to copy:"
+             />
+      <Border Grid.Row="5" Grid.Column="1"
+              Margin="5"
+              BorderBrush="Black"
+              BorderThickness="0.5"
+              >
 
-      </Label>
-      <ListView Grid.Row="5" Grid.Column="1"
-                BorderBrush="Black"
-                BorderThickness="1"
-                ItemsSource="{Binding ListOfSystems}"
-                MinHeight="100"
-                MaxHeight="250"
-                >
-        <ListBox.ItemTemplate>
-          <DataTemplate>
-            <StackPanel>
-              <CheckBox Content="{Binding ItemName}" IsChecked="{Binding ItemIsChecked}"/>
-            </StackPanel>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListView>
+        <ListView Grid.Row="5" Grid.Column="1"
+                  ItemsSource="{Binding Systems, Mode=OneTime}"
+                  SelectedItem="{Binding Systems.SelectedItem, Mode=TwoWay}"
+                  MinHeight="100"
+                  MaxHeight="250"
+                  >
+          <ListBox.ItemTemplate>
+            <DataTemplate DataType="{x:Type classes:ItemChecklist}">
+              <StackPanel>
+                <CheckBox Content="{Binding ItemName}" IsChecked="{Binding ItemIsChecked}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListView>
+      </Border>
 
       <!--  6 - Options -->
       <Label Grid.Row="6" Grid.Column="0"
-             FontWeight="Bold">
-        Options:
-      </Label>
+             FontSize="14"
+             Style="{StaticResource LabelBase}"
+             Content="Options:"
+             />
 
       <!--  7 - Year Built -->
       <CheckBox Name="OverYearCheckbox" Grid.Row="7" Grid.Column="0" 
                 VerticalAlignment="Center"
-                IsChecked="{Binding IsOverYearChecked}">
-        Override Year Built:
-      </CheckBox>
+                IsChecked="{Binding IsOverYearChecked}"
+                Style="{StaticResource CheckBoxBase}"
+                Content="Override Year Built:"
+                />
       <TextBox Grid.Row="7" Grid.Column="1"
-               Margin="0,5,0,5"
+               Margin="20,5,0,5"
                Width="50"
+               BorderBrush="Black"
                HorizontalAlignment="Left"
                IsEnabled="{Binding ElementName=OverYearCheckbox, Path=IsChecked}"
                Text="{Binding YearBuilt, FallbackValue=2019}"
@@ -156,49 +204,50 @@
 
       <!-- 8 - Section Comments -->
       <CheckBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
-                Margin="0,5,0,5"
-                IsChecked="{Binding IsSectionCommentsChecked}">
-        Include Section Comments
-      </CheckBox>
+                IsChecked="{Binding IsSectionCommentsChecked}"
+                Style="{StaticResource CheckBoxBase}"
+                Content="Include Section Comments"
+                />
 
       <!-- 9 - Section Details -->
       <CheckBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
                 Name="IncludeSectionDetails"
-                Margin="0,5,0,5"
-                IsChecked="{Binding IsSectionDetailsChecked}">
-        Include Section Details
-      </CheckBox>
+                IsChecked="{Binding IsSectionDetailsChecked}"
+                Style="{StaticResource CheckBoxBase}"
+                Content="Include Section Details"
+                />
 
       <!-- 10 -   Detail Comments -->
       <CheckBox Grid.Row="10" Grid.Column="0"  Grid.ColumnSpan="2"
-                Margin="20,5,0,5"
+                Margin="50,5,5,5"
                 IsEnabled="{Binding ElementName=IncludeSectionDetails, Path=IsChecked}"
-                IsChecked="{Binding IsDetailCommentsChecked}">
-        Include Detail Comments
-      </CheckBox>
+                IsChecked="{Binding IsDetailCommentsChecked}"
+                Style="{StaticResource IndentedCheckBox}"
+                Content="Include Detail Comments"
+                />
 
       <!-- 11 - Existing Inventory -->
       <CheckBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2"
-                Margin="0,5,0,5"
-                IsChecked="{Binding IsExistingInventoryChecked}">
-        Overwrite Existing Inventory
-      </CheckBox>
+                IsChecked="{Binding IsExistingInventoryChecked}"
+                Style="{StaticResource CheckBoxBase}"
+                Content="Overwrite Existing Inventory"
+                />
 
       <!-- 13 - Copy Inspections -->
       <CheckBox Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2"
                 Name="CopyInspections"
-                Margin="0,5,0,5"
-                IsChecked="{Binding IsCopyInspectionsChecked}">
-        Copy Inspections
-      </CheckBox>
+                IsChecked="{Binding IsCopyInspectionsChecked}"
+                Style="{StaticResource CheckBoxBase}"
+                Content="Copy Inspections"
+                />
 
       <!-- 14 -   Include Comments -->
       <CheckBox Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2"
-                Margin="20,5,0,5"
                 IsEnabled="{Binding ElementName=CopyInspections, Path=IsChecked}"
-                IsChecked="{Binding IsIncludeCommentsChecked}">
-        Include Comments
-      </CheckBox>
+                IsChecked="{Binding IsIncludeCommentsChecked}"
+                Style="{StaticResource IndentedCheckBox}"
+                Content="Include Comments"
+                />
 
       <!-- 16 - Command Buttons -->
       <Grid Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2">
