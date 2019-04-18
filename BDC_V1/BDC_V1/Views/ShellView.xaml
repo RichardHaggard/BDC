@@ -103,6 +103,7 @@
             <!--Default/Inventory mode button-->
             <Button Grid.Column="0"
                     ToolTip="Inventory Mode"
+                    Background="{Binding InventoryBg}"
                     Command="{Binding CmdDefaultInventoryMode}"
                     Style="{DynamicResource TransparentBitmap}">
                 <Image Height="72" Width="72" Source="/BDC_V1;component/Resources/Inventory (1).png"/>
@@ -111,6 +112,7 @@
             <!--Inspection mode button-->
             <Button Grid.Column="1"
                     ToolTip="Inspection Mode"
+                    Background="{Binding InspectionBg}"
                     Command="{Binding CmdInspectionMode}"
                     Style="{DynamicResource TransparentBitmap}">
                 <Image Height="72" Width="72" Source="/BDC_V1;component/Resources/Inspection_75.png"/>
