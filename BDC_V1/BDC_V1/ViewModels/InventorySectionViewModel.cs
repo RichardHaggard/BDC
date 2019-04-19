@@ -33,6 +33,7 @@ namespace BDC_V1.ViewModels
         public ICommand CmdIncValue       { get; }
         public ICommand CmdNextSection    { get; }
         public ICommand CmdSectionComment { get; }
+        public ICommand CmdToday          { get; }
 
         // TODO: Should this be part of the IInventorySection instead of here ???
         public bool Estimated
@@ -98,10 +99,13 @@ namespace BDC_V1.ViewModels
             CmdIncValue       = new DelegateCommand(OnCmdIncValue);
             CmdNextSection    = new DelegateCommand(OnNextSection);
             CmdSectionComment = new DelegateCommand(OnSectionComment);
+            CmdToday          = new DelegateCommand(OnCmdToday);
 
 #if DEBUG
 #warning Using MOCK data for InventorySection
             InventorySection = new MockInventorySection();
+            if (InventorySection != null && InventorySection.ComponentTypes != null && InventorySection.ComponentTypes.Count > 0)
+                InventorySection.ComponentType = InventorySection.ComponentTypes[0];
 #endif
         }
 
@@ -113,23 +117,27 @@ namespace BDC_V1.ViewModels
         {
             double d = 0;
             if (double.TryParse(InventorySection.Quantity, out d))
-                InventorySection.Quantity = string.Format("{0:0.00}", --d);
+            {
+                if (--d < 0)
+                    d = 0;
+                InventorySection.Quantity = string.Format("{0:0.00}", d);
+            }
         }
 
         private void OnCmdIncValue()
         {
             double d = 0;
             if (double.TryParse(InventorySection.Quantity, out d))
+            {
                 InventorySection.Quantity = string.Format("{0:0.00}", ++d);
+            }
         }
 
         private void OnAddSection   () { Debug.WriteLine("OnAddSection    is not implemented"); }
         private void OnDeleteSection() { Debug.WriteLine("OnDeleteSection is not implemented"); }
         private void OnNextSection  () { Debug.WriteLine("OnNextSection   is not implemented"); }
 
-        private void OnSectionComment() 
-        {             
-            OnSelectedComment(null);
-        }
+        private void OnSectionComment() { OnSelectedComment(null); }
+        private void OnCmdToday() { InventorySection.Date = DateTime.Now.ToShortDateString(); }
     }
 }

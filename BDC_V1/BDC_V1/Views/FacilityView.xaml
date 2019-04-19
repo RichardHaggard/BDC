@@ -12,7 +12,7 @@
              xmlns:forms="http://xamarin.com/schemas/2014/forms"
              mc:Ignorable="d"
              MaxHeight="920" MinWidth="880" MaxWidth="1000"
-             d:DesignHeight="920" d:DesignWidth="880">
+             d:DesignHeight="820" d:DesignWidth="880">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -49,8 +49,6 @@
                 <RowDefinition Height="130" />
                 <RowDefinition Height="130" />
                 <RowDefinition Height="25" /> <!-- Address -->
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
@@ -323,42 +321,35 @@
                 Content="{Binding LocalFacilityInfo.Address.Street1}" />
 
             <Label 
-              Grid.Row="11"
-              Grid.Column="1"
-              Grid.ColumnSpan="4"
-              Style="{StaticResource LabelRO}"
-              Content="{Binding LocalFacilityInfo.Address.Street2}" />
-
-            <Label 
-                Grid.Row="12"
+                Grid.Row="11"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="City:" />
             <Label 
-                Grid.Row="12"
+                Grid.Row="11"
                 Grid.Column="1"
                 Grid.ColumnSpan="4"
                 Style="{StaticResource LabelRO}"
                 Content="{Binding LocalFacilityInfo.Address.City}" />
 
             <Label 
-                Grid.Row="13"
+                Grid.Row="12"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="State/Prov:" />
             <Label 
-                Grid.Row="13"
+                Grid.Row="12"
                 Grid.Column="1"
                 Grid.ColumnSpan="1"
                 Style="{StaticResource LabelRO}"
                 Content="{Binding LocalFacilityInfo.Address.State}" />
             <Label 
-                Grid.Row="14"
+                Grid.Row="12"
                 Grid.Column="3"
                 Style="{StaticResource LabelRJ}"
                 Content="ZIP/Postal Code:" />
             <Label 
-                Grid.Row="14"
+                Grid.Row="12"
                 Grid.Column="4"
                 Grid.ColumnSpan="1"
                 Style="{StaticResource LabelRO}"
@@ -366,43 +357,43 @@
             </Label>
 
             <Label 
-                Grid.Row="15"
+                Grid.Row="13"
                 Grid.Column="0"
                 Margin="0,0,0,36"
                 Style="{StaticResource LabelBold}"
                 Content="Point of Contact" Grid.RowSpan="2" />
 
             <Label 
-                Grid.Row="16"
+                Grid.Row="14"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="Name:" />
             <Label 
-                Grid.Row="16" 
+                Grid.Row="14" 
                 Grid.Column="1"
                 Grid.ColumnSpan="4"
                 Style="{StaticResource LabelRO}" 
                 Content="{Binding Path=LocalFacilityInfo.Contact.FirstLast}" />
 
             <Label 
-                Grid.Row="17"
+                Grid.Row="15"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="Phone:" />
             <Label 
-                Grid.Row="17"
+                Grid.Row="15"
                 Grid.Column="1"
                 Grid.ColumnSpan="4"
                 Style="{StaticResource LabelRO}"
                 Content="{Binding LocalFacilityInfo.Contact.Phone}" />
 
             <Label 
-                Grid.Row="18"
+                Grid.Row="16"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="E-Mail:" />
             <Label 
-                Grid.Row="18"
+                Grid.Row="16"
                 Grid.Column="1"
                 Grid.ColumnSpan="4"
                 Style="{StaticResource LabelRO}"
