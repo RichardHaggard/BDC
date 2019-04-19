@@ -230,7 +230,10 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
-		<!--provide the background for the entire form.  In practice, this appears as the window's resize border, because the title and window content obscure the rest-->
+		<!--
+      provide the background for the entire form.  
+      In practice, this appears as the window's resize border, because the title and window content obscure the rest
+    -->
 		<Border Grid.RowSpan="2" 
 		        CornerRadius="10,10,5,5" 
 		        BorderThickness="3" 
@@ -267,7 +270,7 @@
           shell:WindowChrome.IsHitTestVisibleInChrome="True"
           >
           <ToggleButton.Content>
-			      <Image Width="35" Height="35" Source="/BDC_V1;component/Resources/Application.png" />
+			      <Image Width="35" Height="35" Source="{Binding ApplicationIcon}" />
           </ToggleButton.Content>
           <ToggleButton.ContextMenu>
 		        <ContextMenu>
@@ -340,7 +343,7 @@
 
         <Image Grid.Column="0" 
                Width="50" 
-               Source="{Binding MessageIcon, 
+               Source="{Binding MessageIcon, UpdateSourceTrigger=PropertyChanged, 
             PresentationTraceSources.TraceLevel=High}" 
                />
 
@@ -351,8 +354,7 @@
                  TextWrapping="Wrap"
                  IsReadOnly="True"
                  Text="{Binding MessageText, 
-                    FallbackValue='This is a message which can grow to a size where it can wrap when the window is not wide enough to accommodate it.', 
-            PresentationTraceSources.TraceLevel=High}"
+                    FallbackValue='This is a message which can grow to a size where it can wrap when the window is not wide enough to accommodate it.'}"
                  />
       </Grid>
 

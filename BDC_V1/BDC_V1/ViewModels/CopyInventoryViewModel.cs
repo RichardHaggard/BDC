@@ -26,27 +26,26 @@ namespace BDC_V1.ViewModels
         public ICommand CmdCancelButton { get; }
         public ICommand CmdCopyButton   { get; }
 
-        public bool IsSectionNameEnabled => 
-            (SourceFacilities.SelectedItem == SourceFacility) || 
-            (Sections        .SelectedItem == Section);
+        public bool IsSectionNameEnabled
+        {
+            get
+            {
+                var enabled = (SourceFacilities.SelectedItem == TargetFacilities.SelectedItem);
+                if (!enabled) Sections.SelectedIndex = -1;
+
+                return enabled;
+            }
+        }
 
         // TODO: Move these into a data interface / class ???
 
         // TODO: Get the real data for this
-        public IFacilityInfoHeader SourceFacility
+        public ISectionInfo Node
         {
-            get => _sourceFacility;
-            set => SetPropertyFlagged(ref _sourceFacility, value, nameof(IsSectionNameEnabled));
+            get => _node;
+            set => SetPropertyFlagged(ref _node, value, nameof(IsSectionNameEnabled));
         }
-        private IFacilityInfoHeader _sourceFacility;
-
-        // TODO: Get the real data for this
-        public ISectionInfo Section
-        {
-            get => _section;
-            set => SetPropertyFlagged(ref _section, value, nameof(IsSectionNameEnabled));
-        }
-        private ISectionInfo _section;
+        private ISectionInfo _node;
 
         // TODO: Get the real data for this
         public string SectionNode
@@ -134,24 +133,11 @@ namespace BDC_V1.ViewModels
 
         [NotNull]
         public IndexedCollection<IFacilityInfoHeader> TargetFacilities { get; } =
-            new IndexedCollection<IFacilityInfoHeader>
-            {
-                DefaultValue = new FacilityInfoHeader
-                {
-                    BuildingIdNumber = 0, 
-                    BuildingName = "Please select a target facility"
-                }
-            };
+            new IndexedCollection<IFacilityInfoHeader>();
 
         [NotNull]
-        public IndexedCollection<ISectionInfo> Sections { get; } = 
-            new IndexedCollection<ISectionInfo>
-        {
-            DefaultValue = new SectionInfo
-            {
-                SectionName = "Please select the section"
-            }
-        };
+        public IndexedCollection<ISectionInfo> Sections { get; } =
+            new IndexedCollection<ISectionInfo>();
 
         [NotNull]
         public IndexedCollection<ItemChecklist> Systems { get; } = 
@@ -198,7 +184,6 @@ namespace BDC_V1.ViewModels
             // TODO: I'm unsure about what this is supposed to be
             SourceFacilities.AddRange(TargetFacilities);
             SourceFacilities.SelectedIndex = 0;
-            SourceFacility = SourceFacilities.SelectedItem;
 
             Sections.AddRange(new[]
             {

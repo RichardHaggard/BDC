@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Enumerations;
+using JetBrains.Annotations;
 using Prism.Commands;
 
 namespace BDC_V1.ViewModels
@@ -104,29 +108,30 @@ namespace BDC_V1.ViewModels
             {
                 switch (MessageImage)
                 {
-                    case MessageBoxImage.Hand:
-                        return new BitmapImage(
-                            new Uri(@"pack://application:,,,/Images/Remember (1).png"));
-
-                    case MessageBoxImage.Question:
-                        return new BitmapImage(
-                            new Uri(@"pack://application:,,,/Images/Refresh.png"));
-
-                    case MessageBoxImage.Exclamation:
-                        return new BitmapImage(
-                            new Uri(@"pack://application:,,,/Images/Flash-on-75_icons8.png"));
-
-                    case MessageBoxImage.Asterisk:
-                        return new BitmapImage(
-                            new Uri(@"pack://application:,,,/Images/OK.png"));
-
-                    case MessageBoxImage.None:
-                        return null;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    case MessageBoxImage.Hand:        return SystemIconToBitmap(SystemIcons.Hand);
+                    case MessageBoxImage.Question:    return SystemIconToBitmap(SystemIcons.Question);
+                    case MessageBoxImage.Exclamation: return SystemIconToBitmap(SystemIcons.Exclamation);
+                    case MessageBoxImage.Asterisk:    return SystemIconToBitmap(SystemIcons.Asterisk);
+                    case MessageBoxImage.None:        return null;
+                    default:                          return null;
                 }
             }
+        }
+
+        public ImageSource ApplicationIcon
+        {
+            get => _applicationIcon ?? (_applicationIcon = SystemIconToBitmap(SystemIcons.Application));
+            set => SetProperty(ref _applicationIcon, value);
+        }
+        [CanBeNull] private ImageSource _applicationIcon;
+
+        [SecurityPermission(SecurityAction.Assert, UnmanagedCode = true)]
+        private BitmapSource SystemIconToBitmap(Icon systemIcon)
+        {
+            return Imaging.CreateBitmapSourceFromHIcon(
+                systemIcon.Handle,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
         }
 
         public MessageBoxButton MessageButtons
