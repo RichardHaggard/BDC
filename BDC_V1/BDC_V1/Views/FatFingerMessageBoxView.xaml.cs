@@ -32,36 +32,20 @@ namespace BDC_V1.Views
             [NotNull] string messageBoxText,
             [NotNull] string caption,
             MessageBoxButton button = MessageBoxButton.OK, 
-            MessageBoxImage  icon = MessageBoxImage.None)
+            MessageBoxImage  icon   = MessageBoxImage.None)
         {
             var view = new FatFingerMessageBoxView();
             if (! (view.DataContext is FatFingerMessageBoxViewModel model))
                 throw new InvalidCastException(@"Invalid DataContext");
 
-            model.WindowTitle = caption;
-            model.Message = messageBoxText;
+            model.WindowTitle    = caption;
+            model.MessageText    = messageBoxText;
             model.MessageButtons = button;
-            model.MessageImage = icon;
+            model.MessageImage   = icon;
 
             return view.ShowDialog().Equals(true) 
                 ? model.Result 
                 : MessageBoxResult.None;
-        }
-
-        private void MinimizeWindow_OnMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SystemCommands.MinimizeWindow(GetWindow(this));
-        }
-
-        private void RestoreWindow_OnMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var w = GetWindow(this);
-            Debug.Assert(w != null, nameof(w) + " != null");
-
-            if (w.WindowState == WindowState.Maximized)
-                SystemCommands.RestoreWindow(w);
-            else
-                SystemCommands.MaximizeWindow(w);
         }
     }
 }

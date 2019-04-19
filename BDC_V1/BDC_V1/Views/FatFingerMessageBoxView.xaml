@@ -4,13 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
-        xmlns:ccl="clr-namespace:CustomChromeLibrary;assembly=CustomChromeLibrary"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:local="clr-namespace:BDC_V1.Views"
         xmlns:converters="clr-namespace:BDC_V1.Converters"
         xmlns:utils="clr-namespace:BDC_V1.Utils"
+        xmlns:classes="clr-namespace:BDC_V1.Classes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
@@ -26,15 +26,196 @@
             CornerRadius="25,25,10,10"
             GlassFrameThickness="0">
 		</shell:WindowChrome>
+	  
 	</shell:WindowChrome.WindowChrome>
 
 	<Window.Resources>
 		<ResourceDictionary>
-			<converters:CaptionButtonRectToMarginConverter x:Key="CaptionButtonMarginConverter"/>
 
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/GlassButton.xaml"/>
-				<ResourceDictionary Source="/Resources/GlassIcon.xaml"/>
+
+      <!-- CLOSE BUTTON -->
+      <Style x:Key="ButtonWindowClose" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="ToggleButton">
+              <Grid>
+                <ContentPresenter x:Name="MyContentPresenter"
+                                  Content="{TemplateBinding Content}"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+                <Border x:Name="BorderClose"
+                        Background="Beige"
+                        BorderThickness="0"
+                        Width="22"
+                        Height="22"
+                        HorizontalAlignment="Right"
+                        Margin="0,6,8,0"
+                        VerticalAlignment="Top"
+                        Opacity="0" 
+                        shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                <Path x:Name="CloseWindow"
+                      SnapsToDevicePixels="True"
+                      ToolTip="Close window"
+                      Width="18"
+                      Height="17"
+                      Margin="0,0,10,0"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Center"
+                      Stretch="Fill"
+                      Fill="#2D2D2D"
+                      Data="F1 M 26.9166,22.1667L 37.9999,33.25L 49.0832,22.1668L 53.8332,26.9168L 42.7499,
+                            38L 53.8332,49.0834L 49.0833,53.8334L 37.9999,42.75L 26.9166,53.8334L 22.1666,
+                            49.0833L 33.25,38L 22.1667,26.9167L 26.9166,22.1667 Z " 
+                      shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+              </Grid>
+
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter TargetName="CloseWindow" Property="Fill" Value="#C10000" />
+                  <Setter TargetName="BorderClose" Property="Opacity" Value="1" />
+                </Trigger>
+
+                <Trigger Property="IsChecked" Value="True">
+                  <Setter Property="classes:WindowBehaviors.Close" Value="True" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!-- HIDE BUTTON -->
+      <Style x:Key="ButtonWindowHide" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="ToggleButton">
+              <Grid>
+                <ContentPresenter x:Name="MyContentPresenter"
+                                  Content="{TemplateBinding Content}"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+                <Border x:Name="BorderHide"
+                        Background="Beige"
+                        BorderThickness="0"
+                        Width="22"
+                        Height="22"
+                        HorizontalAlignment="Right"
+                        Margin="0,6,28,0"
+                        VerticalAlignment="Top"
+                        Opacity="0" 
+                        shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                <Path x:Name="HideWindow"
+                      SnapsToDevicePixels="True"
+                      ToolTip="Hide window"
+                      Width="14"
+                      Height="19"
+                      Margin="0,0,30,0"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Center"
+                      Stretch="Fill"
+                      Fill="#2D2D2D"
+                      Data="F1 M 42,19.0002L 34,19.0002L 34,43.7502L 24,33.7502L 24,44.2502L 38,
+                            58.2502L 52,44.2502L 52,33.7502L 42,43.7502L 42,19.0002 Z " 
+                      shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+              </Grid>
+
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter TargetName="HideWindow" Property="Fill" Value="#0094FF" />
+                  <Setter TargetName="BorderHide" Property="Opacity" Value="1" />
+                </Trigger>
+
+                <Trigger Property="IsChecked" Value="True">
+                  <Setter Property="classes:WindowBehaviors.Hide" Value="True" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!-- TOGGLE WINDOW BUTTON -->
+      <Style x:Key="ButtonWindowFull" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="ToggleButton">
+              <Grid>
+                <ContentPresenter x:Name="MyContentPresenter"
+                                  Content="{TemplateBinding Content}"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+                <Border x:Name="BorderFull"
+                        Background="Beige"
+                        BorderThickness="0"
+                        Width="22"
+                        Height="22"
+                        HorizontalAlignment="Right"
+                        Margin="0,6,28,0"
+                        VerticalAlignment="Top"
+                        Opacity="0" 
+                        shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                <Path x:Name="FullWindow"
+                      SnapsToDevicePixels="True"
+                      Width="19"
+                      Height="19"
+                      Margin="0,0,30,0"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Center"
+                      Stretch="Fill"
+                      Fill="#2D2D2D"
+                      Data="F1 M 30.25,58L 18,58L 18,45.75L 22,41.75L 22,50.75L 30,
+                            42.75L 33.25,46L 25.25,54L 34.25,54L 30.25,58 Z M 58,
+                            45.75L 58,58L 45.75,58L 41.75,54L 50.75,54L 42.75,46L 46,
+                            42.75L 54,50.75L 54,41.75L 58,45.75 Z M 45.75,18L 58,18L 58,
+                            30.25L 54,34.25L 54,25.25L 46,33.25L 42.75,30L 50.75,22L 41.75,
+                            22L 45.75,18 Z M 18,30.25L 18,18L 30.25,18L 34.25,22L 25.25,
+                            22L 33.25,30L 30,33.25L 22,25.25L 22,34.25L 18,30.25 Z "
+                      shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                  <Path.ToolTip>
+                    <ToolTip x:Name="FullWindowToolTip" Content="Full window" />
+                  </Path.ToolTip>
+                </Path>
+              </Grid>
+
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter TargetName="FullWindow" Property="Fill" Value="#0094FF" />
+                  <Setter TargetName="BorderFull" Property="Opacity" Value="1" />
+                </Trigger>
+
+                <Trigger Property="IsChecked" Value="True">
+                  <Setter Property="classes:WindowBehaviors.Full" Value="True" />
+                  <Setter TargetName="FullWindow" Property="Data"
+                          Value="F1 M 54.2499,34L 42,34L 42,21.7501L 45.9999,17.7501L 45.9999,
+                                 26.7501L 53.9999,18.7501L 57.2499,22.0001L 49.2499,30.0001L 58.2499,
+                                 30.0001L 54.2499,34 Z M 34,21.7501L 34,34L 21.75,34L 17.75,30.0001L 26.75,
+                                 30.0001L 18.75,22.0001L 22,18.7501L 30,26.7501L 30,17.7501L 34,
+                                 21.7501 Z M 21.75,42L 34,42L 34,54.25L 30,58.25L 30,49.25L 22,57.25L 18.75,
+                                 54L 26.75,46L 17.75,46L 21.75,42 Z M 42,54.25L 42,42L 54.2499,42L 58.2499,
+                                 46L 49.2499,46.0001L 57.2499,54L 53.9999,57.25L 45.9999,49.25L 45.9999,
+                                 58.25L 42,54.25 Z " />
+                  <Setter TargetName="FullWindowToolTip" Property="Content" Value="Hide in window" />
+                </Trigger>
+
+                <Trigger Property="IsChecked" Value="False">
+                  <Setter Property="classes:WindowBehaviors.Normal" Value="True" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <ResourceDictionary.MergedDictionaries>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Window.Resources>
@@ -43,6 +224,7 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
+
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto" />
 			<RowDefinition Height="*"/>
@@ -79,11 +261,41 @@
 
 			<!--Window Icon and Title-->
 			<StackPanel Orientation="Horizontal" Margin="0" VerticalAlignment="Top">
-				<ccl:WindowIcon Width="35" Height="35" 
-				                Background="#ff0000bb" 
-				                Margin="7,3,5,5" 
-				                Style="{StaticResource GlassIcon}" 
-				                />
+        <Button Margin="0"
+          Background="Transparent"
+          BorderThickness="0"
+          shell:WindowChrome.IsHitTestVisibleInChrome="True"
+          >
+          <Button.Content>
+			      <Image Width="35" Height="35" Source="/BDC_V1;component/Resources/Application.png" />
+          </Button.Content>
+          <Button.ContextMenu>
+		        <ContextMenu>
+		          <MenuItem Header="Restore">
+		            <MenuItem.Icon>
+		              <Image Height="16" Source="/BDC_V1;component/Resources/icons8-restore-window-96.png" />
+		            </MenuItem.Icon>
+		          </MenuItem>
+		          <MenuItem Header="Move" />
+		          <MenuItem Header="Size" />
+		          <MenuItem Header="Minimize">
+		            <MenuItem.Icon>
+		              <Image Height="16" Source="/BDC_V1;component/Resources/icons8-minimize-window-96.png" />
+		            </MenuItem.Icon>
+		          </MenuItem>
+		          <MenuItem Header="Maximize">
+		            <MenuItem.Icon>
+		              <Image Height="16" Source="/BDC_V1;component/Resources/icons8-maximize-window-96.png" />
+		            </MenuItem.Icon>
+		          </MenuItem>
+		          <Separator />
+		          <MenuItem Header="Close" InputGestureText="Alt+F4">
+		            <Image Height="16" Source="/BDC_V1;component/Resources/icons8-close-window-96.png" />
+		          </MenuItem>
+		        </ContextMenu>
+          </Button.ContextMenu>
+        </Button>
+
 				<TextBlock Text="{Binding WindowTitle, FallbackValue=MESSAGE}" 
 				           FontFamily="Calibri" 
 				           FontWeight="Bold" 
@@ -95,40 +307,15 @@
 		</Border>
 
 		<!--min/max/close buttons-->
-
     <StackPanel Grid.Row="0" Orientation="Horizontal"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Margin="20,0,20,0"
+                Margin="20,2,10,0"
           >
-      <Image Source="/BDC_V1;component/Resources/minimize-window.png" Height="40" Cursor="Hand" 
-             MouseUp="MinimizeWindow_OnMouseUp">
-        <!--<i:Interaction.Triggers>
-          <i:EventTrigger EventName="MouseUp">
-            <i:InvokeCommandAction Command="{Binding CmdMinimizeWindow}" />
-          </i:EventTrigger>
-        </i:Interaction.Triggers>-->
-      </Image>
-
-      <Image Source="/BDC_V1;component/Resources/restore-window.png"  Height="40" Cursor="Hand" 
-             MouseUp="RestoreWindow_OnMouseUp">
-        <!--<i:Interaction.Triggers>
-          <i:EventTrigger EventName="MouseUp">
-            <i:InvokeCommandAction Command="{Binding CmdToggleWindow}" />
-          </i:EventTrigger>
-        </i:Interaction.Triggers>-->
-      </Image>
-
-      <Image Source="/BDC_V1;component/Resources/close-window.png"    Height="40" Cursor="Hand" >
-        <i:Interaction.Triggers>
-          <i:EventTrigger EventName="MouseUp">
-            <i:InvokeCommandAction Command="{Binding CmdCloseWindow}" />
-          </i:EventTrigger>
-        </i:Interaction.Triggers>
-      </Image>
-
+      <ToggleButton Style="{StaticResource ButtonWindowHide}" />
+      <ToggleButton Style="{StaticResource ButtonWindowFull}" />
+      <ToggleButton Style="{StaticResource ButtonWindowClose}" />
     </StackPanel>
-		<!--<ccl:CaptionButtons/>-->
 
 		<!--Content-->
 		<Grid Grid.Row="1"
@@ -153,7 +340,8 @@
 
         <Image Grid.Column="0" 
                Width="50" 
-               Source="{Binding Icon}" 
+               Source="{Binding MessageIcon, 
+            PresentationTraceSources.TraceLevel=High}" 
                />
 
         <TextBox Grid.Column="1" Margin="10" FontSize="24"
@@ -162,8 +350,9 @@
                  BorderThickness="0"
                  TextWrapping="Wrap"
                  IsReadOnly="True"
-                 Text="{Binding Message, 
-                    FallbackValue='This is a message which can grow to a size where it can wrap when the window is not wide enough to accommodate it.'}"
+                 Text="{Binding MessageText, 
+                    FallbackValue='This is a message which can grow to a size where it can wrap when the window is not wide enough to accommodate it.', 
+            PresentationTraceSources.TraceLevel=High}"
                  />
       </Grid>
 
@@ -176,8 +365,10 @@
 
         <Button Grid.Column="0" Margin="10" Height="50" Width="120" 
                 FontSize="24" 
-                Content="{Binding OkYesButtonText, FallbackValue=OK}" 
-                Command="{Binding CmdYesOkCommand}"
+                Content="{Binding OkYesButtonText, FallbackValue=OK, 
+            PresentationTraceSources.TraceLevel=High}" 
+                Command="{Binding CmdYesOkCommand, 
+            PresentationTraceSources.TraceLevel=High}"
         />
 
         <Button Grid.Column="1" Margin="10" Height="50" Width="120" 
@@ -189,8 +380,10 @@
         <Button Grid.Column="2" Margin="10" Height="50" Width="120" 
                 FontSize="24" 
                 Content="Cancel"
-                Visibility="{Binding CancelButtonVisibility, FallbackValue=Visible}"
-                Command="{Binding CmdCancelButton}"
+                Visibility="{Binding CancelButtonVisibility, FallbackValue=Visible, 
+            PresentationTraceSources.TraceLevel=High}"
+                Command="{Binding CmdCancelButton, 
+            PresentationTraceSources.TraceLevel=High}"
                 />
       </Grid>
 		</Grid>
