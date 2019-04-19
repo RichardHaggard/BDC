@@ -261,15 +261,15 @@
 
 			<!--Window Icon and Title-->
 			<StackPanel Orientation="Horizontal" Margin="0" VerticalAlignment="Top">
-        <Button Margin="0"
+        <ToggleButton Margin="5,0,10,0"
           Background="Transparent"
           BorderThickness="0"
           shell:WindowChrome.IsHitTestVisibleInChrome="True"
           >
-          <Button.Content>
+          <ToggleButton.Content>
 			      <Image Width="35" Height="35" Source="/BDC_V1;component/Resources/Application.png" />
-          </Button.Content>
-          <Button.ContextMenu>
+          </ToggleButton.Content>
+          <ToggleButton.ContextMenu>
 		        <ContextMenu>
 		          <MenuItem Header="Restore">
 		            <MenuItem.Icon>
@@ -293,8 +293,8 @@
 		            <Image Height="16" Source="/BDC_V1;component/Resources/icons8-close-window-96.png" />
 		          </MenuItem>
 		        </ContextMenu>
-          </Button.ContextMenu>
-        </Button>
+          </ToggleButton.ContextMenu>
+        </ToggleButton>
 
 				<TextBlock Text="{Binding WindowTitle, FallbackValue=MESSAGE}" 
 				           FontFamily="Calibri" 
