@@ -9,9 +9,7 @@
              xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:local="clr-namespace:BDC_V1.Views"
              mc:Ignorable="d" 
-             MaxWidth="1000"
-             MaxHeight="700"
-             d:DesignHeight="700" d:DesignWidth="1000">
+             d:DesignHeight="715" d:DesignWidth="990">
 
   <i:Interaction.Triggers>
     <i:EventTrigger EventName="Loaded">
@@ -43,6 +41,7 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="165"/>
                 <RowDefinition Height="130"/>
                 <RowDefinition Height="40"/>
@@ -56,16 +55,18 @@
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
                 <Label 
-                Content="Section Name:"
-                Style="{StaticResource LabelRJ}"/>
+                    Content="Section Name:"
+                    Style="{StaticResource LabelRJ}"/>
                 <Button
                     Background="Transparent"
-                    Width="60"
+                    BorderBrush="Transparent"
+                    Padding="0"
+                    Width="35"
                     Command="{Binding CmdNextSection}"
                     >
                     <Image Source="/BDC_V1;component/Resources/GreenDownArrow.png"
-                   Width="24"
-                   HorizontalAlignment="Left" />
+                        Width="24"
+                        HorizontalAlignment="Stretch" />
                 </Button>
             </StackPanel>
             
@@ -110,6 +111,7 @@
                 Background="Transparent"
                 Height="35"
                 Margin="0"
+                Padding="0"
                 Width="35"
                 Command="{Binding CmdIncValue}"
                 Style="{StaticResource btnImageText}"
@@ -126,6 +128,7 @@
                 Background="Transparent"
                 Height="35"
                 Margin="0"
+                Padding="0"
                 Width="35"
                 Command="{Binding CmdDecValue}"
                 Style="{StaticResource btnImageText}"
@@ -139,36 +142,55 @@
             <Label Grid.Row="3" Grid.Column="5"
                 Content="Select"
                 Style="{StaticResource LabelRJ}"/>
-            <TextBox 
+            <Button
                 Grid.Row="3" Grid.Column="6"
-                Text="G.S.F."
-                Style="{StaticResource TextBoxNoWrap}"/>
-            <TextBox 
+                Content="G.S.F."
+                Margin="5"
+                Padding="0"
+                Width="90"
+                Style="{StaticResource btnImageText}"
+                />
+            <Button
                 Grid.Row="3" Grid.Column="7"
-                Text="Footprint"
-                Style="{StaticResource TextBoxNoWrap}"/>
-            <TextBox 
+                Content="Footprint"
+                Margin="5"
+                Padding="0"
+                Width="90"
+                Style="{StaticResource btnImageText}"
+                />
+            <Button
                 Grid.Row="3" Grid.Column="8"
-                Text="Perimeter"
-                Style="{StaticResource TextBoxNoWrap}"/>
+                Content="Perimeter"
+                Margin="5"
+                Padding="0"
+                Width="90"
+                Style="{StaticResource btnImageText}"
+                />
 
             <Label Grid.Row="4" Grid.Column="0"
                 Content="Year Installed/Renewed:"
                 Style="{StaticResource LabelRJ}"/>
-            <DatePicker 
+            <TextBox
                 Grid.Row="4" Grid.Column="1"
-                Text="{Binding InventorySection.YearInstalledRenewed}">
-              <DatePicker.Style>
-                <Style TargetType="DatePicker" BasedOn="{StaticResource dpBase}">
-                  <Setter Property="Background" Value="Transparent" />
-                  <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=CheckboxEstimated, Path=IsChecked}" Value="True">
-                      <Setter Property="Background" Value="Yellow" />
-                    </DataTrigger>
-                  </Style.Triggers>
-                </Style>
-              </DatePicker.Style>
-            </DatePicker>
+                FontSize="15"
+                Height="30"
+                HorizontalAlignment="Left"
+                Margin="5"
+                VerticalContentAlignment="Center"
+                Width="50"
+                Text="{Binding InventorySection.YearInstalledRenewed}"
+                >
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Background" Value="White" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=CheckboxEstimated, Path=IsChecked}" Value="True">
+                                <Setter Property="Background" Value="Yellow" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
 
             <CheckBox Name="CheckboxEstimated"
                 Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"
@@ -177,41 +199,51 @@
                 IsChecked="{Binding Estimated}"  
                 />
 
+            <Label Grid.Row="5" Grid.Column="0" 
+                Content="Funtional Area:"
+                Style="{StaticResource LabelRJ}"/>
+            <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"
+                Style="{StaticResource ComboBase}"
+                />
+
             <Label 
-                Grid.Row="5" Grid.Column="0"
+                Grid.Row="6" Grid.Column="0"
                 Content="NOT Energy Efficient:"
                 Style="{StaticResource LabelRJ}"/>
             <CheckBox 
-                Grid.Row="5" Grid.Column="1" FontSize="15"/>
+                Grid.Row="6" Grid.Column="1" FontSize="15"/>
             <Border
-                Grid.Row="5" Grid.RowSpan="2" Grid.Column="2"  Grid.ColumnSpan="7"
+                Grid.Row="6" Grid.RowSpan="2" Grid.Column="2"  Grid.ColumnSpan="7"
                 Background="#D9D9D9"
                 BorderBrush="Transparent"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
 
-            <Label Grid.Row="6" Grid.Column="0" 
+            <Label Grid.Row="7" Grid.Column="0" 
                 Content="Painted/Coated:"
                 Style="{StaticResource LabelRJ}"/>
-            <CheckBox Grid.Row="6" Grid.Column="1"
+            <CheckBox Grid.Row="7" Grid.Column="1"
                 IsChecked="{Binding InventorySection.PaintedIsChecked}"
                 />
-            <Label Grid.Row="6" Grid.Column="2" 
+            <Label Grid.Row="7" Grid.Column="2" 
                 Content="Year P/C:"
                 Style="{StaticResource LabelRJ}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
-            <TextBox Grid.Row="6" Grid.Column="3" 
+            <TextBox 
+                Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2"
+                HorizontalAlignment="Left"
+                Width="50"
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding InventorySection.YearPc}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
-            <Label Grid.Row="6" Grid.Column="5"
+            <Label Grid.Row="7" Grid.Column="5"
                 Content="P/C Type:"
                 Style="{StaticResource LabelRJ}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
-            <ComboBox Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3"
+            <ComboBox Grid.Row="7" Grid.Column="6" Grid.ColumnSpan="3"
                 Text="{Binding InventorySection.PcType}"
                 ItemsSource="{Binding InventorySection.PcTypes}"
                 SelectedItem="{Binding InventorySection.PcType}"
@@ -219,175 +251,172 @@
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
 
-            <Grid Grid.Row="7" Grid.Column="0">
+            <Grid Grid.Row="8" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-              <Button Grid.Row="0" Grid.Column="0"
+                <Button Grid.Row="0" Grid.Column="0"
                       Height="100" Width="180" Margin="5"
                       Style="{DynamicResource FacilityBlockButtonStyle}"
                       Command="{Binding CmdSectionComment}">
-                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                  <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
+                    <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+                        <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                          Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
-                  <Label Content="Section Comment"
+                        <Label Content="Section Comment"
                          Style="{StaticResource ImageClickBlockTextStyle}" />
-                </StackPanel>
-              </Button>
+                    </StackPanel>
+                </Button>
 
-              <!-- Remember -->
-              <Border Grid.Row="2"
+                <!-- Remember -->
+                <Border Grid.Row="2"
                       Grid.Column="0"
                       Style="{StaticResource BorderBlue}">
-                <Grid>
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                  </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                  <CheckBox Grid.Column="0"
+                        <CheckBox Grid.Column="0"
                             Margin="5,0,0,0"
                             Content="Remember"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             Style="{StaticResource cbBase}"
                             IsChecked="{Binding IsRemembered}" />
-                  <Image Grid.Column="1"
+                        <Image Grid.Column="1"
                          Margin="5,2,5,2"
                          Height="40"
                          Source="/BDC_V1;component/Resources/Remember (1).png"
                          Width="35" />
-                </Grid>
-              </Border>
+                    </Grid>
+                </Border>
             </Grid>
 
-            <ListBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
-                   Name="CommentListBox"
-                   Style="{StaticResource CommentBoxStyle}"
-                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                   ItemsSource="{Binding CommentContainer}"
-          >
-            <i:Interaction.Triggers>
-              <i:EventTrigger EventName="MouseDoubleClick">
-                <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
+            <ListBox 
+                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+                Name="CommentListBox"
+                Style="{StaticResource CommentBoxStyle}"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ItemsSource="{Binding CommentContainer}"
+                >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
                                        CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"/>
-              </i:EventTrigger>
-            </i:Interaction.Triggers>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
-            <ListBox.ItemTemplate>
-              <DataTemplate>
-                <TextBlock TextWrapping="Wrap"  
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap"  
                            Text="{Binding Path=.}"
                            Width="{Binding Path=Width,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                 />
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-          <Button Grid.Row="8" Grid.Column="0"
+            <Button Grid.Row="9" Grid.Column="0"
                   Width="180"
                   Style="{StaticResource ImageClickBlockButtonStyle}"
                   Command="{Binding CmdPhotosButton}">
-            <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-              <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
+                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+                    <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
                      Style="{StaticResource ImageClickBlockImageStyle}"/>
-              <Label Content="Photo(s)"
+                    <Label Content="Photo(s)"
                      Style="{StaticResource ImageClickBlockTextStyle}" />
-              <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
+                    <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
                      Style="{StaticResource ImageClickBlockTextStyle}" />
-            </StackPanel >
-          </Button>
+                </StackPanel >
+            </Button>
 
-            <ListBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
-                     Name="ImageListBox"
-                     Style="{StaticResource ImageBoxStyle}"
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ItemsSource="{Binding ImageContainer}"
-            >
-              <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                  <i:InvokeCommandAction Command="{Binding CmdImageDoubleClicked}"  
+            <ListBox 
+                Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="8"
+                Name="ImageListBox"
+                Style="{StaticResource ImageBoxStyle}"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ItemsSource="{Binding ImageContainer}"
+                >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding CmdImageDoubleClicked}"  
                                          CommandParameter="{Binding ElementName=ImageListBox, Path=SelectedItem}"/>
-                </i:EventTrigger>
-              </i:Interaction.Triggers>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
-              <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                  <StackPanel IsItemsHost="True" 
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel IsItemsHost="True" 
                               Orientation="Horizontal"
                   />
-                </ItemsPanelTemplate>
-              </ListBox.ItemsPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
 
-              <ListBox.ItemTemplate>
-                <DataTemplate>
-                  <WrapPanel>
-                    <Image Stretch="UniformToFill" 
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <Image Stretch="UniformToFill" 
                            Source="{Binding Path=.}"
                            Height="{Binding Path=Height,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                     />
-                  </WrapPanel>
-                </DataTemplate>
-              </ListBox.ItemTemplate>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
 
 
             <Border
-                Grid.Row="9" Grid.Column="0"  Grid.ColumnSpan="5"
+                Grid.Row="10" Grid.Column="0"  Grid.ColumnSpan="9"
                 Background="#C6E0B4"
                 BorderBrush="Transparent"
                 />
 
             <CheckBox 
-                Grid.Row="9" Grid.Column="0" 
+                Grid.Row="10" Grid.Column="0" 
                 Content="Add current inspector"
                 FontSize="15"
                 Margin="5"
                 IsChecked="{Binding InventorySection.AddCurrentInspector}"
                 />
-            <Label Grid.Row="9" Grid.Column="1" 
+            <Label Grid.Row="10" Grid.Column="1" 
                 Content="Date:"
                 Style="{StaticResource LabelRJ}"
                 />
-            <DatePicker Grid.Row="9" Grid.Column="2" 
+            <DatePicker 
+                Grid.Row="10" Grid.Column="2" 
                 Style="{StaticResource dpBase}"
                 Text="{Binding InventorySection.Date}"
                 />
-            <Label Grid.Row="9" Grid.Column="3" 
-                Content="DCR:"
+            <Button
+                Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="2"
+                Content="Today"
+                Margin="5"
+                Padding="0"
+                Width="65"
+                Command="{Binding CmdToday}"
+                Style="{StaticResource btnImageText}"
+                />
+            <Label 
+                Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="2"
+                Content="Direct Rating:"
+                HorizontalAlignment="Right"
+                Width="100"
                 Style="{StaticResource LabelRJ}"
                 />
-            <ComboBox Grid.Row="9" Grid.Column="4" 
+            <ComboBox Grid.Row="10" Grid.Column="6" 
                 ItemsSource="{Binding InventorySection.Dcrs}"
                 SelectedItem="{Binding InventorySection.Dcr}"
                 Style="{StaticResource ComboBase}"
                 />
-            <Border
-                Grid.Row="9" Grid.Column="5"  Grid.ColumnSpan="4"
-                Background="#D9D9D9"
-                BorderBrush="Transparent"
-                Visibility="{Binding InventorySection.YearPcVisibility}"
-                />
-            <Label Grid.Row="9" Grid.Column="5" 
-                Content="P/C Rating:"
-                Style="{StaticResource LabelRJ}"
-                Visibility="{Binding InventorySection.YearPcVisibility}"
-                />
-            <ComboBox Grid.Row="9" Grid.Column="6" 
-                FontSize="15"
-                ItemsSource="{Binding InventorySection.PcRatings}"
-                SelectedItem="{Binding InventorySection.PcRating}"
-                Style="{StaticResource ComboBase}"
-                Visibility="{Binding InventorySection.YearPcVisibility}"
-                />
 
             <Button 
-                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
+                Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
                 Command="{Binding CmdCancelEdit}"
                 HorizontalAlignment="Left"
                 Style="{StaticResource btnImageText}"
@@ -412,7 +441,7 @@
             </Button>
 
             <Button 
-                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
+                Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
                 HorizontalAlignment="Center"
                 Command="{Binding CmdDeleteSection}"
                 Style="{StaticResource btnImageText}"
@@ -437,7 +466,7 @@
 
 
             <Button 
-                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
+                Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
                 HorizontalAlignment="Right"
                 Command="{Binding CmdAddSection}"
                 Style="{StaticResource btnImageText}"
