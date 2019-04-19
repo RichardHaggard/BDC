@@ -115,6 +115,7 @@
     <Compile Include="Classes\PropertyBase.cs" />
     <Compile Include="Classes\CommentSection.cs" />
     <Compile Include="Classes\SectionInfo.cs" />
+    <Compile Include="Classes\WindowBehaviors.cs" />
     <Compile Include="Converters\BoolToObjectConverter.cs" />
     <Compile Include="Converters\CaptionButtonRectToMarginConverter.cs" />
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
@@ -565,17 +566,18 @@
     <Resource Include="Resources\Counter_Subtract_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomChromeLibrary\CustomChromeLibrary.csproj">
-      <Project>{25990f61-a27b-4edf-a402-b31bf952153f}</Project>
-      <Name>CustomChromeLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\minimize-window.png" />
     <Resource Include="Resources\restore-window.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\close-window.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Application.png" />
+    <Resource Include="Resources\icons8-close-window-96.png" />
+    <Resource Include="Resources\icons8-maximize-window-96.png" />
+    <Resource Include="Resources\icons8-minimize-window-96.png" />
+    <Resource Include="Resources\icons8-restore-window-96.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -31,12 +31,12 @@ namespace BDC_V1.ViewModels
         private string _windowTitle;
 
 
-        public string Message
+        public string MessageText
         {
-            get => _message;
-            set => SetProperty(ref _message, value);
+            get => _messageText;
+            set => SetProperty(ref _messageText, value);
         }
-        private string _message;
+        private string _messageText;
 
         public string OkYesButtonText 
         {
@@ -98,7 +98,7 @@ namespace BDC_V1.ViewModels
             }
         }
 
-        public ImageSource Icon
+        public ImageSource MessageIcon
         {
             get
             {
@@ -145,7 +145,7 @@ namespace BDC_V1.ViewModels
         public MessageBoxImage MessageImage
         {
             get => _messageImage;
-            set => SetPropertyFlagged(ref _messageImage, value, nameof(Icon));
+            set => SetPropertyFlagged(ref _messageImage, value, nameof(MessageIcon));
         }
         private MessageBoxImage _messageImage;
 
