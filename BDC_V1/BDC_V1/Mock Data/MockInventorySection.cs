@@ -15,22 +15,36 @@ namespace BDC_V1.Mock_Data
 #warning Using MOCK data for InventorySection
         public MockInventorySection()
         {
-            SectionNames.Add("Heating System");
-            SectionName = "Heating System";
+            SectionNames.AddRange(new []
+            {
+                "Heating System",
+                "Floor Finish",
+                "Energy Supply"
+            });
+            SectionName = SectionNames[0];
 
-            EquipmentCategories.Add("D302001 BOILERS");
-            EquipmentCategory = "D302001 BOILERS";
+            EquipmentCategories.AddRange(new[]
+            {
+                "D302001 BOILERS",
+                "D301002 GAS SUPPLY SYSTEM - General",
+                "NORTH BAY - C302001 TILE FLOOR FINISHES - General",
+                "WEST BAY - C302001 TILE FLOOR FINISHES - General"
+            });
+            EquipmentCategory = EquipmentCategories[0];
 
-            // TODO: CHange this into an enumeration
-            ComponentTypes.Add("Permanent");
-            ComponentTypes.Add("Temporary");
-            ComponentType = "ComponentTypes";
+            // TODO: Change this into an enumeration
+            ComponentTypes.AddRange(new[]
+            {
+                "Permanent",
+                "Temporary"
+            });
+            ComponentType = ComponentTypes[0];
 
             Quantity = "2.00";
 
             YearPc = "2007";
 
-            // TODO: CHange this into an enumeration
+            // TODO: Change this into an enumeration
             PcTypes.AddRange(new[]
             {
                 "Heat-Resist 400 degF Enml",
@@ -46,7 +60,7 @@ namespace BDC_V1.Mock_Data
                 CommentText = "[Jane Doe on 1/18/2018 6:19:55 PM]\nThis unit was in a locked room and not visible.\n" +
                               "(Text box large enough for STAMP on line 1 and at least 3 lines of actual comment.)\n" +
                               "(Line 2)\n" +
-                              "(Line 3)\n"
+                              "(Line 3)"
             });
 
             Date = DateTime.Now.ToShortDateString();

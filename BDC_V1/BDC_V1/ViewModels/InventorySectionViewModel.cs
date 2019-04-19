@@ -104,7 +104,7 @@ namespace BDC_V1.ViewModels
 #if DEBUG
 #warning Using MOCK data for InventorySection
             InventorySection = new MockInventorySection();
-            if (InventorySection != null && InventorySection.ComponentTypes != null && InventorySection.ComponentTypes.Count > 0)
+            if (InventorySection != null && InventorySection.ComponentTypes.Count > 0)
                 InventorySection.ComponentType = InventorySection.ComponentTypes[0];
 #endif
         }
@@ -133,8 +133,36 @@ namespace BDC_V1.ViewModels
             }
         }
 
-        private void OnAddSection   () { Debug.WriteLine("OnAddSection    is not implemented"); }
-        private void OnDeleteSection() { Debug.WriteLine("OnDeleteSection is not implemented"); }
+        private void OnAddSection()
+        {
+            Debug.WriteLine("OnAddSection    is not implemented");
+        }
+
+        private void OnDeleteSection()
+        {
+            var result = FatFingerMessageBoxView.Show(
+                "Do you want to delete this section and related information?",
+                "DELETE SECTION?",
+                MessageBoxButton.OKCancel,
+                MessageBoxImage.Question);
+
+            switch(result)
+            {
+                case MessageBoxResult.None:
+                    break;
+                case MessageBoxResult.OK:
+                    break;
+                case MessageBoxResult.Cancel:
+                    break;
+                case MessageBoxResult.Yes:
+                    break;
+                case MessageBoxResult.No:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         private void OnNextSection  () { Debug.WriteLine("OnNextSection   is not implemented"); }
 
         private void OnSectionComment() { OnSelectedComment(null); }
