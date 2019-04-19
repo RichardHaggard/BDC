@@ -65,6 +65,8 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
+                Background="LightYellow"
+                IsReadOnly="True"
                 Margin="5,0,5,0"
                 Style="{StaticResource TextBoxWrap}"
                 Text="{Binding InventoryDetails.CurrentSection}"
@@ -104,7 +106,9 @@
             <Button
                 Grid.Row="1" Grid.Column="4" 
                 Content="Grid"
+                Height="25"
                 Margin="5"
+                Padding="0"
                 Width="75"
                 />
 
@@ -281,13 +285,14 @@
                 </StackPanel>
             </Button>
 
-            <ListBox Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3"
-                     Name="CommentListBox"
-                     Style="{StaticResource CommentBoxStyle}"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ItemsSource="{Binding CommentContainer}"
-            >
+            <ListBox 
+                Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3"
+                Name="CommentListBox"
+                Style="{StaticResource CommentBoxStyle}"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ItemsSource="{Binding CommentContainer}"
+                >
               <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                   <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  

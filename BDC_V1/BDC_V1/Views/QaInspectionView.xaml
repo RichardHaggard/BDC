@@ -15,133 +15,145 @@
     Height="400" Width="1200"
     d:DesignHeight="400" d:DesignWidth="1200">
 
-  <UserControl.Resources>
+    <UserControl.Resources>
 
-    <converters:RatingToBrushConverter x:Key="RatingToBrushConverter"/>
+        <converters:RatingToBrushConverter x:Key="RatingToBrushConverter"/>
 
-    <Style x:Key="RtgStyle" TargetType="TextBlock">
-      <Setter Property="HorizontalAlignment" Value="Center" />
-      <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
+        <Style x:Key="RtgStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
 
-    <!--Data grid header filter related-->
-    <Style x:Key="FilterButtonStyleBase" TargetType="Button">
-      <Setter Property="HorizontalAlignment"  Value="Stretch" />
-      <Setter Property="Height" Value="30" />
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate>
-            <Border CornerRadius="3"
+        <!--Data grid header filter related-->
+        <Style x:Key="FilterButtonStyleBase" TargetType="Button">
+            <Setter Property="HorizontalAlignment"  Value="Stretch" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border CornerRadius="3"
                     BorderThickness="2"
                     Background="#E0F2FF"
                     BorderBrush="Green">
-            </Border>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
 
-  </UserControl.Resources>
+    </UserControl.Resources>
 
-  <ScrollViewer HorizontalScrollBarVisibility="Auto"
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto">
-    <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="5"    /> <!-- 0 - white space at top -->
-        <RowDefinition Height="Auto" /> <!-- 1 - Component -->
-        <RowDefinition Height="10"   /> <!-- 2 - white space between buttons and datagrid -->
-        <RowDefinition Height="Auto" /> <!-- 3 - Filter buttons -->
-        <RowDefinition Height="Auto" /> <!-- 4 - Data Grid -->
-        <RowDefinition Height="5"    /> <!-- 5 - white space at bottom -->
-      </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="5" /> <!-- white space to the left -->
-        <ColumnDefinition Width="100" />
-        <ColumnDefinition Width="100" />
-        <ColumnDefinition Width="100" />
-        <ColumnDefinition Width="100" />
-        <ColumnDefinition Width="100" />
-        <ColumnDefinition Width="45"  />
-        <ColumnDefinition Width="590" />
-        <ColumnDefinition Width="5" /> <!-- white space to the right -->
-      </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5"    />
+                <!-- 0 - white space at top -->
+                <RowDefinition Height="Auto" />
+                <!-- 1 - Component -->
+                <RowDefinition Height="10"   />
+                <!-- 2 - white space between buttons and datagrid -->
+                <RowDefinition Height="Auto" />
+                <!-- 3 - Filter buttons -->
+                <RowDefinition Height="Auto" />
+                <!-- 4 - Data Grid -->
+                <RowDefinition Height="5"    />
+                <!-- 5 - white space at bottom -->
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5" />
+                <!-- white space to the left -->
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="45"  />
+                <ColumnDefinition Width="590" />
+                <ColumnDefinition Width="5" />
+                <!-- white space to the right -->
+            </Grid.ColumnDefinitions>
 
-      <!-- Button row -->
-      <Button ToolTip="Refresh" Grid.Row="1" Grid.Column="1"
+            <!-- Button row -->
+            <Button ToolTip="Refresh" Grid.Row="1" Grid.Column="1"
               Height="75" Margin="10"
               Command="{Binding CmdRefresh}"
               Style="{StaticResource MaterialDesignRaisedLightButton}">
-        <Image Source="/BDC_V1;component/Resources/Refresh.png"/>
-      </Button>
+                <Image Source="/BDC_V1;component/Resources/Refresh.png"/>
+            </Button>
 
-      <Button ToolTip="Review Issue" Grid.Row="1" Grid.Column="2"
+            <Button ToolTip="Review Issue" Grid.Row="1" Grid.Column="2"
               Height="75" Margin="10"
               Command="{Binding CmdReviewIssue}"
               Style="{StaticResource MaterialDesignRaisedLightButton}">
-        <Image Source="/BDC_V1;component/Resources/ReviewIssue (1).png"/>
-      </Button>
+                <Image Source="/BDC_V1;component/Resources/ReviewIssue (1).png"/>
+            </Button>
 
-      <Grid Grid.Row="1" Grid.Column="7">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="100" /> <!-- Button -->
-          <ColumnDefinition Width="*"   /> <!-- Text -->
-        </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1" Grid.Column="7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <!-- Button -->
+                    <ColumnDefinition Width="*"   />
+                    <!-- Text -->
+                </Grid.ColumnDefinitions>
 
-        <Button ToolTip="Clear Filter" Grid.Column="0"
+                <Button ToolTip="Clear Filter" Grid.Column="0"
                 Height="75" Margin="10"
                 Command="{Binding CmdClearFilter}"
                 Style="{StaticResource MaterialDesignRaisedLightButton}">
-          <Grid>
-            <Grid.RowDefinitions>
-              <RowDefinition Height="3*"/>
-              <RowDefinition Height="2*"/>
-            </Grid.RowDefinitions>
-            <Image Grid.Row="0" Margin="0,0,0,-10"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="0" Margin="0,0,0,-10"
                    Source="/BDC_V1;component/Resources/Filter_Clear (1).png"/>
-            <Label Grid.Row="1"
+                        <Label Grid.Row="1"
                    FontSize="13"
                    FontWeight="Bold"
                    >
-              Clear Filter
-            </Label>
-          </Grid>
-        </Button>
-        <TextBox Grid.Column="1"
-                 Background="LightGray"
-                 Text="{Binding Description}"
-                 TextWrapping="Wrap"
-                 HorizontalContentAlignment="Left"
-                 VerticalContentAlignment="Center"
-                 VerticalScrollBarVisibility="Auto"
-                 Margin="0">
-        </TextBox>
-      </Grid>
+                            Clear Filter
+                        </Label>
+                    </Grid>
+                </Button>
+                <TextBox 
+                    Grid.Column="1"
+                    Background="LightYellow"
+                    Height="75"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    VerticalScrollBarVisibility="Auto"
+                    Style="{StaticResource TextBoxWrap}"
+                    Text="{Binding Description}"
+                    />
+            </Grid>
 
-      <!-- Filter buttons -->
-      <Button Grid.Row="3" Grid.Column="1" 
+            <!-- Filter buttons -->
+            <Button Grid.Row="3" Grid.Column="1" 
         Style="{DynamicResource FilterButtonStyle}"
               Command="{Binding CmdFilterByFacilityId}"/>
-      <Button Grid.Row="3" Grid.Column="2"
+            <Button Grid.Row="3" Grid.Column="2"
               Style="{DynamicResource FilterButtonStyle}"
               Command="{Binding CmdFilterBySystemId}"/>
-      <Button Grid.Row="3" Grid.Column="3"
+            <Button Grid.Row="3" Grid.Column="3"
               Style="{DynamicResource FilterButtonStyle}"
               Command="{Binding CmdFilterByComponentId}"/>
-      <Button Grid.Row="3" Grid.Column="4"
+            <Button Grid.Row="3" Grid.Column="4"
               Style="{DynamicResource FilterButtonStyle}"
               Command="{Binding CmdFilterByTypeName}"/>
-      <Button Grid.Row="3" Grid.Column="5"
+            <Button Grid.Row="3" Grid.Column="5"
               Style="{DynamicResource FilterButtonStyle}"
               Command="{Binding CmdFilterBySection}"/>
-      <Button Grid.Row="3" Grid.Column="6"                
-              Style="{DynamicResource FilterButtonStyleBase}"/>  <!-- space filler -->
-      <Button Grid.Row="3" Grid.Column="7"
+            <Button Grid.Row="3" Grid.Column="6"                
+              Style="{DynamicResource FilterButtonStyleBase}"/>
+            <!-- space filler -->
+            <Button Grid.Row="3" Grid.Column="7"
               Style="{DynamicResource FilterButtonStyle}"
               Command="{Binding CmdFilterByIssue}"/>
 
-      <!-- DataGrid -->
-      <DataGrid Name="LvUsers" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="7" 
+            <!-- DataGrid -->
+            <DataGrid Name="LvUsers" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="7" 
                 Width="1146"  MinHeight="200"
                 ItemsSource="{Binding InspectionInfo}"
                 CanUserSortColumns="True"
@@ -149,24 +161,24 @@
                 AutoGenerateColumns="False"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">
-        <DataGrid.Columns>
-          <DataGridTextColumn Header=" Facility ID" Binding="{Binding Path=FacilityId}"  Width="100" />
-          <DataGridTextColumn Header=" System ID"   Binding="{Binding Path=SystemId}"    Width="100" />
-          <DataGridTextColumn Header=" Inventory"   Binding="{Binding Path=ComponentId}" Width="100" />
-          <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"    Width="100" />
-          <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}" Width="100" />
-          <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=RatingText}"  Width="45"
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header=" Facility ID" Binding="{Binding Path=FacilityId}"  Width="100" />
+                    <DataGridTextColumn Header=" System ID"   Binding="{Binding Path=SystemId}"    Width="100" />
+                    <DataGridTextColumn Header=" Inventory"   Binding="{Binding Path=ComponentId}" Width="100" />
+                    <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"    Width="100" />
+                    <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}" Width="100" />
+                    <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=RatingText}"  Width="45"
                               ElementStyle="{StaticResource RtgStyle}">
-            <DataGridTextColumn.CellStyle>
-              <Style TargetType="DataGridCell" >
-                <Setter Property="Background" 
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell" >
+                                <Setter Property="Background" 
                         Value="{Binding Path=Rating, Converter={StaticResource RatingToBrushConverter}}" />
-              </Style>
-            </DataGridTextColumn.CellStyle>
-          </DataGridTextColumn>
-          <DataGridTextColumn Header=" Inspection Issue" Binding="{Binding Path=InspectionComment.CommentText}" Width="590" />
-        </DataGrid.Columns>
-      </DataGrid>
-    </Grid>
-  </ScrollViewer>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header=" Inspection Issue" Binding="{Binding Path=InspectionComment.CommentText}" Width="590" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

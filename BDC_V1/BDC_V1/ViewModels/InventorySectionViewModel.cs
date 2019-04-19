@@ -54,6 +54,15 @@ namespace BDC_V1.ViewModels
         [NotNull]
         public IInventorySection InventorySection { get; }
 
+
+        public int SelectedIndex 
+            {
+            get { return _SelectedIndex; }
+            set { SetProperty(ref _SelectedIndex, value); }
+            }
+        private int _SelectedIndex;
+
+
         // **************** Class data members ********************************************** //
 
         //public override IComponentFacility LocalFacilityInfo
@@ -105,7 +114,10 @@ namespace BDC_V1.ViewModels
 #warning Using MOCK data for InventorySection
             InventorySection = new MockInventorySection();
             if (InventorySection != null && InventorySection.ComponentTypes.Count > 0)
+            {
                 InventorySection.ComponentType = InventorySection.ComponentTypes[0];
+                InventorySection.SectionName   = InventorySection.SectionNames[0];
+            }
 #endif
         }
 
@@ -163,7 +175,15 @@ namespace BDC_V1.ViewModels
             }
         }
 
-        private void OnNextSection  () { Debug.WriteLine("OnNextSection   is not implemented"); }
+        private void OnNextSection  () 
+        { 
+            if (InventorySection != null && InventorySection.SectionNames != null)
+            {
+                if (++SelectedIndex >= InventorySection.SectionNames.Count)
+                    SelectedIndex = 0;
+                InventorySection.SectionName = InventorySection.SectionNames[SelectedIndex];
+            }
+        }
 
         private void OnSectionComment() { OnSelectedComment(null); }
         private void OnCmdToday() { InventorySection.Date = DateTime.Now.ToShortDateString(); }

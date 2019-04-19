@@ -70,9 +70,11 @@
                 </Button>
             </StackPanel>
             
-            <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="8"
+            <ComboBox 
+                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="8"
                 ItemsSource="{Binding InventorySection.SectionNames}"
                 SelectedItem="{Binding InventorySection.SectionName}"
+                SelectedIndex="{Binding SectionIndex}"      
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -372,11 +374,17 @@
 
 
             <Border
-                Grid.Row="10" Grid.Column="0"  Grid.ColumnSpan="9"
+                Grid.Row="10" Grid.Column="0"  Grid.ColumnSpan="6"
                 Background="#C6E0B4"
                 BorderBrush="Transparent"
                 />
 
+            <Border
+                Grid.Row="10" Grid.Column="6"  Grid.ColumnSpan="3"
+                Background="LightGray"
+                BorderBrush="Transparent"
+                />
+            
             <CheckBox 
                 Grid.Row="10" Grid.Column="0" 
                 Content="Add current inspector"
@@ -393,25 +401,31 @@
                 Style="{StaticResource dpBase}"
                 Text="{Binding InventorySection.Date}"
                 />
-            <Button
-                Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="2"
-                Content="Today"
-                Margin="5"
-                Padding="0"
-                Width="65"
-                Command="{Binding CmdToday}"
-                Style="{StaticResource btnImageText}"
-                />
             <Label 
-                Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="2"
-                Content="Direct Rating:"
+                Grid.Row="10" Grid.Column="3"
+                Content="DCR:"
                 HorizontalAlignment="Right"
-                Width="100"
                 Style="{StaticResource LabelRJ}"
                 />
-            <ComboBox Grid.Row="10" Grid.Column="6" 
+            <ComboBox 
+                Grid.Row="10" Grid.Column="4" 
+                Width="50"
                 ItemsSource="{Binding InventorySection.Dcrs}"
                 SelectedItem="{Binding InventorySection.Dcr}"
+                Style="{StaticResource ComboBase}"
+                />
+            <Label 
+                Grid.Row="10" Grid.Column="6"
+                Content="P/C Rating:"
+                HorizontalAlignment="Right"
+                Style="{StaticResource LabelRJ}"
+                />
+            <ComboBox 
+                Grid.Row="10" Grid.Column="7" 
+                HorizontalAlignment="Left"
+                Width="50"
+                ItemsSource="{Binding InventorySection.Dcrs}"
+                SelectedItem="{Binding InventorySection.PcRating}"
                 Style="{StaticResource ComboBase}"
                 />
 

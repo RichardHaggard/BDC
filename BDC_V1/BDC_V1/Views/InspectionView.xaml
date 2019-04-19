@@ -16,367 +16,384 @@
              MaxHeight="800" MaxWidth="875"
              d:DesignHeight="800" d:DesignWidth="875">
 
-  <i:Interaction.Triggers>
-    <i:EventTrigger EventName="Loaded">
-      <i:InvokeCommandAction Command="{Binding ViewActivated}" />
-    </i:EventTrigger>
-  </i:Interaction.Triggers>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ViewActivated}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
-  <UserControl.Resources>
-    <converters:EnumBooleanConverter        x:Key="EnumBooleanConverter"        />
-    <converters:RatingColorToColorConverter x:Key="RatingColorToColorConverter" />
+    <UserControl.Resources>
+        <converters:EnumBooleanConverter        x:Key="EnumBooleanConverter"        />
+        <converters:RatingColorToColorConverter x:Key="RatingColorToColorConverter" />
 
-    <!-- Insure consistent colors thru out program -->
-    <SolidColorBrush x:Key="GreenButtonBrush"
+        <!-- Insure consistent colors thru out program -->
+        <SolidColorBrush x:Key="GreenButtonBrush"
                      Color="{Binding Source={x:Static local:EnumRatingColors.Green}, 
                         Converter={StaticResource RatingColorToColorConverter}, 
                         Mode=OneTime}" />
 
-    <SolidColorBrush x:Key="RedButtonBrush" 
+        <SolidColorBrush x:Key="RedButtonBrush" 
                      Color="{Binding Source={x:Static local:EnumRatingColors.Red}, 
                         Converter={StaticResource RatingColorToColorConverter}, 
                         Mode=OneTime}" />
 
-    <SolidColorBrush x:Key="AmberButtonBrush" 
+        <SolidColorBrush x:Key="AmberButtonBrush" 
                      Color="{Binding Source={x:Static local:EnumRatingColors.Amber}, 
                         Converter={StaticResource RatingColorToColorConverter}, 
                         Mode=OneTime}" />
 
-    <SolidColorBrush x:Key="YellowButtonBrush" 
+        <SolidColorBrush x:Key="YellowButtonBrush" 
                      Color="{Binding Source={x:Static local:EnumRatingColors.Yellow}, 
                         Converter={StaticResource RatingColorToColorConverter}, 
                         Mode=OneTime}" />
 
-    <!-- Default to the Any Other State -->
-    <Style x:Key="ToggleButtonBase" TargetType="RadioButton"
+        <!-- Default to the Any Other State -->
+        <Style x:Key="ToggleButtonBase" TargetType="RadioButton"
            BasedOn="{StaticResource {x:Type ToggleButton}}">
-      <Setter Property="Foreground"  Value="White" />
-      <Setter Property="Background"  Value="LightBlue" />
-      <Setter Property="FontSize"    Value="16" />
-      <Setter Property="FontWeight"  Value="Bold" />
-      <Setter Property="Margin"      Value="5" />
-      <Setter Property="BorderBrush" Value="Black" />
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="ToggleButton">
-            <Border Background="{TemplateBinding Background}" 
+            <Setter Property="Foreground"  Value="White" />
+            <Setter Property="Background"  Value="#5B9BD5" />
+            <Setter Property="FontSize"    Value="16" />
+            <Setter Property="FontWeight"  Value="Bold" />
+            <Setter Property="Margin"      Value="5" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="{TemplateBinding Background}" 
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="2"
                     CornerRadius="4">
-              <ContentPresenter HorizontalAlignment="Center"                  
+                            <ContentPresenter HorizontalAlignment="Center"                  
                                 VerticalAlignment="Center"/>
-            </Border>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter> 
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
 
-      <Style.Triggers>
+            <Style.Triggers>
 
-        <!-- Trigger on Disabled State -->
-        <DataTrigger Value="false" Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}">
-          <Setter Property="Background"  Value="LightGray" />
-          <Setter Property="Foreground"  Value="DarkGray" />
-          <Setter Property="BorderBrush" Value="DarkGray" />
-        </DataTrigger>
+                <!-- Trigger on Disabled State -->
+                <DataTrigger Value="false" Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}">
+                    <Setter Property="Background"  Value="LightGray" />
+                    <Setter Property="Foreground"  Value="DarkGray" />
+                    <Setter Property="BorderBrush" Value="DarkGray" />
+                </DataTrigger>
 
-      </Style.Triggers>
-    </Style>
-    
-    <Style x:Key="ToggleButtonGreen" TargetType="RadioButton"
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ToggleButtonGreen" TargetType="RadioButton"
            BasedOn="{StaticResource ToggleButtonBase}">
-      <Style.Triggers>
+            <Style.Triggers>
 
-        <!-- Trigger on is checked state -->
-        <MultiDataTrigger>
-          <MultiDataTrigger.Conditions>
-            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-          </MultiDataTrigger.Conditions>
-          <Setter Property="Background" Value="{DynamicResource GreenButtonBrush}" />
-          <Setter Property="Foreground" Value="White" />
-        </MultiDataTrigger>
+                <!-- Trigger on is checked state -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="{DynamicResource GreenButtonBrush}" />
+                    <Setter Property="Foreground" Value="White" />
+                </MultiDataTrigger>
 
-      </Style.Triggers>
-    </Style>
+            </Style.Triggers>
+        </Style>
 
-    <Style x:Key="ToggleButtonGreenDirect" TargetType="RadioButton"
+        <Style x:Key="ToggleButtonGreenDirect" TargetType="RadioButton"
            BasedOn="{StaticResource ToggleButtonGreen}">
-      <Style.Triggers>
+            <Style.Triggers>
 
-        <!-- Trigger on None Selected state -->
-        <MultiDataTrigger>
-          <MultiDataTrigger.Conditions>
-            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.DirectCondition, 
+                <!-- Trigger on None Selected state -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="true"  Binding="{Binding Path=InspectionInfo.DirectCondition, 
                           UpdateSourceTrigger=PropertyChanged,
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
-          </MultiDataTrigger.Conditions>
-          <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{DynamicResource GreenButtonBrush}" />
-        </MultiDataTrigger>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Foreground" Value="{DynamicResource GreenButtonBrush}" />
+                </MultiDataTrigger>
 
-      </Style.Triggers>
-    </Style>
-    
-    <Style x:Key="ToggleButtonGreenPainted" TargetType="RadioButton"
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ToggleButtonGreenPainted" TargetType="RadioButton"
            BasedOn="{StaticResource ToggleButtonGreen}">
-      <Style.Triggers>
+            <Style.Triggers>
 
-        <!-- Trigger on None Selected state -->
-        <MultiDataTrigger>
-          <MultiDataTrigger.Conditions>
-            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.PaintedCondition, 
+                <!-- Trigger on None Selected state -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="true"  Binding="{Binding Path=InspectionInfo.PaintedCondition, 
                           UpdateSourceTrigger=PropertyChanged,
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
-          </MultiDataTrigger.Conditions>
-          <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{DynamicResource GreenButtonBrush}" />
-        </MultiDataTrigger>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Foreground" Value="{DynamicResource GreenButtonBrush}" />
+                </MultiDataTrigger>
 
-      </Style.Triggers>
-    </Style>
+            </Style.Triggers>
+        </Style>
 
-    <Style x:Key="ToggleButtonAmber" TargetType="RadioButton"
+        <Style x:Key="ToggleButtonAmber" TargetType="RadioButton"
            BasedOn="{StaticResource ToggleButtonBase}">
-      <Style.Triggers>
+            <Style.Triggers>
 
-        <!-- Trigger on is checked state -->
-        <MultiDataTrigger>
-          <MultiDataTrigger.Conditions>
-            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-          </MultiDataTrigger.Conditions>
-          <Setter Property="Background" Value="{DynamicResource AmberButtonBrush}" />
-          <Setter Property="Foreground" Value="White" />
-        </MultiDataTrigger>
+                <!-- Trigger on is checked state -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="{DynamicResource AmberButtonBrush}" />
+                    <Setter Property="Foreground" Value="White" />
+                </MultiDataTrigger>
 
-      </Style.Triggers>
-    </Style>
-    
-    <Style x:Key="ToggleButtonAmberDirect" TargetType="RadioButton"
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ToggleButtonAmberDirect" TargetType="RadioButton"
            BasedOn="{StaticResource ToggleButtonAmber}">
-      <Style.Triggers>
+            <Style.Triggers>
 
-        <!-- Trigger on None Selected state -->
-        <MultiDataTrigger>
-          <MultiDataTrigger.Conditions>
-            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.DirectCondition, 
+                <!-- Trigger on None Selected state -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="true"  Binding="{Binding Path=InspectionInfo.DirectCondition, 
                           UpdateSourceTrigger=PropertyChanged,
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
-          </MultiDataTrigger.Conditions>
-          <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{DynamicResource AmberButtonBrush}" />
-        </MultiDataTrigger>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Foreground" Value="{DynamicResource AmberButtonBrush}" />
+                </MultiDataTrigger>
 
-      </Style.Triggers>
-    </Style>
-    
-    <Style x:Key="ToggleButtonAmberPainted" TargetType="RadioButton"
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ToggleButtonAmberPainted" TargetType="RadioButton"
            BasedOn="{StaticResource ToggleButtonAmber}">
-      <Style.Triggers>
+            <Style.Triggers>
 
-        <!-- Trigger on None Selected state -->
-        <MultiDataTrigger>
-          <MultiDataTrigger.Conditions>
-            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.PaintedCondition, 
+                <!-- Trigger on None Selected state -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="true"  Binding="{Binding Path=InspectionInfo.PaintedCondition, 
                           UpdateSourceTrigger=PropertyChanged,
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
-          </MultiDataTrigger.Conditions>
-          <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{DynamicResource AmberButtonBrush}" />
-        </MultiDataTrigger>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Foreground" Value="{DynamicResource AmberButtonBrush}" />
+                </MultiDataTrigger>
 
-      </Style.Triggers>
-    </Style>
+            </Style.Triggers>
+        </Style>
 
-    <Style x:Key="ToggleButtonRed" TargetType="RadioButton"
+        <Style x:Key="ToggleButtonRed" TargetType="RadioButton"
            BasedOn="{StaticResource ToggleButtonBase}">
-      <Style.Triggers>
+            <Style.Triggers>
 
-        <!-- Trigger on is checked state -->
-        <MultiDataTrigger>
-          <MultiDataTrigger.Conditions>
-            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-          </MultiDataTrigger.Conditions>
-          <Setter Property="Background" Value="{DynamicResource RedButtonBrush}" />
-          <Setter Property="Foreground" Value="White" />
-        </MultiDataTrigger>
+                <!-- Trigger on is checked state -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="{DynamicResource RedButtonBrush}" />
+                    <Setter Property="Foreground" Value="White" />
+                </MultiDataTrigger>
 
-      </Style.Triggers>
-    </Style>
+            </Style.Triggers>
+        </Style>
 
-    <Style x:Key="ToggleButtonRedDirect" TargetType="RadioButton"
+        <Style x:Key="ToggleButtonRedDirect" TargetType="RadioButton"
            BasedOn="{StaticResource ToggleButtonRed}">
-      <Style.Triggers>
+            <Style.Triggers>
 
-        <!-- Trigger on None Selected state -->
-        <MultiDataTrigger>
-          <MultiDataTrigger.Conditions>
-            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.DirectCondition, 
+                <!-- Trigger on None Selected state -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="true"  Binding="{Binding Path=InspectionInfo.DirectCondition, 
                           UpdateSourceTrigger=PropertyChanged,
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
-          </MultiDataTrigger.Conditions>
-          <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{DynamicResource RedButtonBrush}" />
-        </MultiDataTrigger>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Foreground" Value="{DynamicResource RedButtonBrush}" />
+                </MultiDataTrigger>
 
-      </Style.Triggers>
-    </Style>
-    
-    <Style x:Key="ToggleButtonRedPainted" TargetType="RadioButton"
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ToggleButtonRedPainted" TargetType="RadioButton"
            BasedOn="{StaticResource ToggleButtonRed}">
-      <Style.Triggers>
+            <Style.Triggers>
 
-        <!-- Trigger on None Selected state -->
-        <MultiDataTrigger>
-          <MultiDataTrigger.Conditions>
-            <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-            <Condition Value="true"  Binding="{Binding Path=InspectionInfo.PaintedCondition, 
+                <!-- Trigger on None Selected state -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Value="true"  Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="false" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Condition Value="true"  Binding="{Binding Path=InspectionInfo.PaintedCondition, 
                           UpdateSourceTrigger=PropertyChanged,
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
-          </MultiDataTrigger.Conditions>
-          <Setter Property="Background" Value="White" />
-          <Setter Property="Foreground" Value="{DynamicResource RedButtonBrush}" />
-        </MultiDataTrigger>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Foreground" Value="{DynamicResource RedButtonBrush}" />
+                </MultiDataTrigger>
 
-      </Style.Triggers>
-    </Style>
+            </Style.Triggers>
+        </Style>
 
-    <Style x:Key="FacilityBlockButtonStyle" TargetType="Button" 
+        <Style x:Key="FacilityBlockButtonStyle" TargetType="Button" 
            BasedOn="{StaticResource ImageClickBlockButtonStyle}">
-      <Setter Property="Height" Value="95" />
-      <Setter Property="Width" Value="160" />
-      <Setter Property="Margin" Value="5,5,5,0" />
-    </Style>
+            <Setter Property="Height" Value="95" />
+            <Setter Property="Width" Value="160" />
+            <Setter Property="Margin" Value="5,5,5,0" />
+        </Style>
 
-    <Style x:Key="PhotosBlockButtonStyle" TargetType="Button" 
+        <Style x:Key="PhotosBlockButtonStyle" TargetType="Button" 
            BasedOn="{StaticResource ImageClickBlockButtonStyle}">
-      <Setter Property="Width" Value="160" />
-    </Style>
+            <Setter Property="Width" Value="160" />
+        </Style>
 
-    <Style x:Key="BtnStatusBase" TargetType="ToggleButton"
+        <Style x:Key="BtnStatusBase" TargetType="ToggleButton"
            >
-   <!--     BasedOn="{StaticResource MaterialDesignRaisedLightButton}"> -->
-      <Setter Property="Margin" Value="5" />
-    </Style>
+            <!--     BasedOn="{StaticResource MaterialDesignRaisedLightButton}"> -->
+            <Setter Property="Margin" Value="5" />
+        </Style>
 
-  </UserControl.Resources>
+    </UserControl.Resources>
 
-  <ScrollViewer HorizontalScrollBarVisibility="Auto"
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto">
-    <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="5"    /> <!--  0 - white space at top -->
-        <RowDefinition Height="40"   /> <!--  1 - Component -->
-        <RowDefinition Height="40"   /> <!--  2 - Equip/Mat -->
-        <RowDefinition Height="40"   /> <!--  3 - Component Type -->
-        <RowDefinition Height="40"   /> <!--  4 - Section Quantity -->
-        <RowDefinition Height="Auto" /> <!--  5 - Inspection Date -->
-        <RowDefinition Height="Auto" /> <!--  6 - Painted & Direct -->
-        <RowDefinition Height="40"   /> <!--  7 - Note -->
-        <RowDefinition Height="100"  /> <!--  8 - Inspection Comment --> <!-- TODO: Merge this style with the InventorySection -->
-        <RowDefinition Height="5"    /> <!--  9 - white space -->
-        <RowDefinition Height="55"   /> <!-- 10 - Remember -->
-        <RowDefinition Height="130"  /> <!-- 11 - Inspection Photos -->
-        <RowDefinition Height="10"   /> <!-- 12 - white space -->
-        <RowDefinition Height="60"   /> <!-- 13 - Action Buttons -->
-        <RowDefinition Height="5"    /> <!-- 14 - white space at bottom -->
-      </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5"    />
+                <!--  0 - white space at top -->
+                <RowDefinition Height="40"   />
+                <!--  1 - Component -->
+                <RowDefinition Height="40"   />
+                <!--  2 - Equip/Mat -->
+                <RowDefinition Height="40"   />
+                <!--  3 - Component Type -->
+                <RowDefinition Height="40"   />
+                <!--  4 - Section Quantity -->
+                <RowDefinition Height="Auto" />
+                <!--  5 - Inspection Date -->
+                <RowDefinition Height="Auto" />
+                <!--  6 - Painted & Direct -->
+                <RowDefinition Height="40"   />
+                <!--  7 - Note -->
+                <RowDefinition Height="100"  />
+                <!--  8 - Inspection Comment -->
+                <!-- TODO: Merge this style with the InventorySection -->
+                <RowDefinition Height="5"    />
+                <!--  9 - white space -->
+                <RowDefinition Height="55"   />
+                <!-- 10 - Remember -->
+                <RowDefinition Height="130"  />
+                <!-- 11 - Inspection Photos -->
+                <RowDefinition Height="10"   />
+                <!-- 12 - white space -->
+                <RowDefinition Height="60"   />
+                <!-- 13 - Action Buttons -->
+                <RowDefinition Height="5"    />
+                <!-- 14 - white space at bottom -->
+            </Grid.RowDefinitions>
 
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="170" />
-        <ColumnDefinition Width="120" />
-        <ColumnDefinition Width="80"  />
-        <ColumnDefinition Width="80"  />
-        <ColumnDefinition Width="80"  />
-        <ColumnDefinition Width="80"  />
-        <ColumnDefinition Width="80"  />
-        <ColumnDefinition Width="80"  />
-        <ColumnDefinition Width="80"  />
-        <ColumnDefinition Width="5"   /> <!-- Make room for the scroll bar -->
-      </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="170" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="80"  />
+                <ColumnDefinition Width="80"  />
+                <ColumnDefinition Width="80"  />
+                <ColumnDefinition Width="80"  />
+                <ColumnDefinition Width="80"  />
+                <ColumnDefinition Width="80"  />
+                <ColumnDefinition Width="80"  />
+                <ColumnDefinition Width="5"   />
+                <!-- Make room for the scroll bar -->
+            </Grid.ColumnDefinitions>
 
-      <!-- -->
-      <Label
+            <!-- -->
+            <Label
           Grid.Row="1" Grid.Column="0"
           Content="Component:"
           Style="{StaticResource LabelRJ}"/>
-      <Label
+            <Label
           Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"
           Content="{Binding InspectionInfo.Component}"
           Style="{StaticResource LabelROExtEd}"
                 />
-      <Label
+            <Label
           Grid.Row="1" Grid.Column="5"
           Content="Section:"
           Style="{StaticResource LabelRJ}"
                 />
-      <Label
+            <Label
           Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3"
           Content="{Binding InspectionInfo.Section}"
           Style="{StaticResource LabelROExtEd}"
                 />
 
-      <!-- Equip / Mat Category -->
-      <Label
+            <!-- Equip / Mat Category -->
+            <Label
           Grid.Row="2" Grid.Column="0"
           Content="Equip./Mat. Category:"
           Style="{StaticResource LabelRJ}"
                 />
-      <Label
+            <Label
           Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"
           Content="{Binding InspectionInfo.Category}"
           Style="{StaticResource LabelROExtEd}"/>
 
-      <!-- Component Type -->
-      <Label
+            <!-- Component Type -->
+            <Label
           Grid.Row="3" Grid.Column="0"
           Content="Component Type:"
           Style="{StaticResource LabelRJ}"
                 />
-      <Label
+            <Label
           Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8"
           Content="{Binding InspectionInfo.ComponentType}"
           Style="{StaticResource LabelROExtEd}"/>
 
-      <!-- Section Quantity -->
-      <Label
+            <!-- Section Quantity -->
+            <Label
           Grid.Row="4" Grid.Column="0"
           Content="Section Quantity:"
           Style="{StaticResource LabelRJ}"/>
-      <Label
+            <Label
           Grid.Row="4" Grid.Column="1"
           Content="{Binding InspectionInfo.Quantity}"
           ContentStringFormat="{}{0:#,#.00}"
           Style="{StaticResource LabelROExtEd}"/>
-      <Label
+            <Label
           Grid.Row="4" Grid.Column="2"
           Content="MBH"
           Style="{StaticResource LabelLJ}"/>
 
-      <!-- Inspection Date -->
-      <Label
+            <!-- Inspection Date -->
+            <Label
           Grid.Row="5" Grid.Column="0"
           Content="Inspection Date:"
           Style="{StaticResource LabelRJ}"/>
-      <DatePicker
+            <DatePicker
           Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
           Height="35"
           HorizontalAlignment="Left"
@@ -384,17 +401,17 @@
           Style="{StaticResource dpBase}"
           Text="{Binding InspectionInfo.InspectionDate, StringFormat=d}" />
 
-      <StackPanel
+            <StackPanel
           Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="6"
           Orientation="Horizontal">
-        <StackPanel.Resources>
-          <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
-        </StackPanel.Resources>
+                <StackPanel.Resources>
+                    <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+                </StackPanel.Resources>
 
-        <Label
+                <Label
             Content="Inspection Type"
             Style="{StaticResource LabelRJ}"/>
-        <RadioButton
+                <RadioButton
             Content="Direct Rating"
             GroupName="InspectionType"
             Margin="20 0 0 0"
@@ -403,7 +420,7 @@
                             Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                             ConverterParameter=DirectRating,
                             Mode=TwoWay}" />
-        <RadioButton
+                <RadioButton
             Margin="20 0 0 0"
             GroupName="InspectionType"
             Content="Distress Survey"
@@ -413,54 +430,53 @@
                             Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                             ConverterParameter=DistressSurvey,
                             Mode=TwoWay}" />
-      </StackPanel>
+            </StackPanel>
 
-      <!-- Painted & Direct -->
-      <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="9"
+            <!-- Painted & Direct -->
+            <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="9"
             Margin="5">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="40" />
-          <RowDefinition Height="40" />
-          <RowDefinition Height="40" />
-          <RowDefinition Height="40" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="170" />
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="0.75*"/>
-          <ColumnDefinition Width="0.25*"/>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="0.25*"/>
-          <ColumnDefinition Width="0.25*"/>
-        </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.75*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                </Grid.ColumnDefinitions>
 
-        <!--Background for some cells-->
-        <Border Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="4"
-                BorderBrush="Black"
-                BorderThickness="0">
-          <Border.Style>
-            <Style TargetType="Border">
-              <Setter Property="Background" Value="#DDEBF7" />
-              <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=CheckboxPainted, Path=IsChecked}" Value="True">
-                  <Setter Property="Background" Value="White" />
-                </DataTrigger>
-              </Style.Triggers>
-            </Style>
-          </Border.Style>
-        </Border>
+                <!--Background for some cells-->
+                <Border 
+                    Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="5"
+                    Background="#DDEBF7"
+                    BorderBrush="Black"
+                    BorderThickness="0"
+                    />
 
-        <!--Row 0-->
-        <Label
+                <Border 
+                    Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="6" Grid.RowSpan="3"
+                    Background="#DDEBF7"
+                    BorderBrush="Black"
+                    BorderThickness="0"
+                    />
+
+                <!--Row 0-->
+                <Label
             Grid.Row="0" Grid.Column="0"
             Content="Painted/Coated:"
             Style="{StaticResource LabelRJ}"
                     />
-        <CheckBox
+                <CheckBox
             Grid.Row="0" Grid.Column="1"
             Name="CheckboxPainted"
             VerticalContentAlignment="Center"
@@ -468,7 +484,7 @@
             IsChecked="{Binding InspectionInfo.IsPainted}"
             Style="{StaticResource cbBase}"
                     />
-        <Label
+                <Label
             Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3"
             Content="Paint/Coating Condition Rating:"
             Margin="0"
@@ -476,19 +492,21 @@
             Style="{StaticResource LabelCJ}"
                     />
 
-        <!--Row 1-->
-        <TextBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"
-                 Text="Direct Condition Rating:"
-                 HorizontalContentAlignment="Right"
-                 VerticalContentAlignment="Top"
-                 IsReadOnly="True" 
-                 Background="Transparent"
-                 Style="{StaticResource TextBoxWrap}"
-            />
+                <!--Row 1-->
+                <TextBox 
+                    Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"
+                    Text="Direct Condition Rating:"
+                    BorderBrush="Transparent"     
+                    HorizontalContentAlignment="Right"
+                    VerticalContentAlignment="Top"
+                    IsReadOnly="True" 
+                    Background="Transparent"
+                    Style="{StaticResource TextBoxWrap}"
+                    />
 
-        <!-- ***************************************************** -->
-        <!-- Direct Condition Rating, Green -->
-        <RadioButton Grid.Row="1" Grid.Column="1" Content="Green+" GroupName="DrCondGroup"
+                <!-- ***************************************************** -->
+                <!-- Direct Condition Rating, Green -->
+                <RadioButton Grid.Row="1" Grid.Column="1" Content="Green+" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonGreenDirect}" 
                      IsEnabled="True"
                      IsChecked="{Binding ConverterParameter=GPlus, 
@@ -497,7 +515,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="2" Grid.Column="1" Content="Green" GroupName="DrCondGroup"
+                <RadioButton Grid.Row="2" Grid.Column="1" Content="Green" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonGreenDirect}" 
                      IsEnabled="True"
                      IsChecked="{Binding ConverterParameter=G, 
@@ -506,7 +524,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="3" Grid.Column="1" Content="Green-" GroupName="DrCondGroup"
+                <RadioButton Grid.Row="3" Grid.Column="1" Content="Green-" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonGreenDirect}" 
                      IsEnabled="True"
                      IsChecked="{Binding ConverterParameter=GMinus, 
@@ -515,8 +533,8 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <!-- Direct Condition Rating, Amber -->
-        <RadioButton Grid.Row="1" Grid.Column="2" Content="Amber+" GroupName="DrCondGroup"
+                <!-- Direct Condition Rating, Amber -->
+                <RadioButton Grid.Row="1" Grid.Column="2" Content="Amber+" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonAmberDirect}" 
                      IsEnabled="True"
                      IsChecked="{Binding ConverterParameter=APlus, 
@@ -525,7 +543,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="2" Grid.Column="2" Content="Amber" GroupName="DrCondGroup"
+                <RadioButton Grid.Row="2" Grid.Column="2" Content="Amber" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonAmberDirect}" 
                      IsEnabled="True"
                      IsChecked="{Binding ConverterParameter=A, 
@@ -534,7 +552,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="3" Grid.Column="2" Content="Amber-" GroupName="DrCondGroup"
+                <RadioButton Grid.Row="3" Grid.Column="2" Content="Amber-" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonAmberDirect}" 
                      IsEnabled="True"
                      IsChecked="{Binding ConverterParameter=AMinus, 
@@ -543,8 +561,8 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <!-- Direct Condition Rating, Red -->
-        <RadioButton Grid.Row="1" Grid.Column="3" Content="Red+" GroupName="DrCondGroup"
+                <!-- Direct Condition Rating, Red -->
+                <RadioButton Grid.Row="1" Grid.Column="3" Content="Red+" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonRedDirect}" 
                      IsEnabled="True"
                      IsChecked="{Binding ConverterParameter=RPlus, 
@@ -553,7 +571,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="2" Grid.Column="3" Content="Red" GroupName="DrCondGroup"
+                <RadioButton Grid.Row="2" Grid.Column="3" Content="Red" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonRedDirect}" 
                      IsEnabled="True"
                      IsChecked="{Binding ConverterParameter=R, 
@@ -562,7 +580,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="3" Grid.Column="3" Content="Red-" GroupName="DrCondGroup"
+                <RadioButton Grid.Row="3" Grid.Column="3" Content="Red-" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonRedDirect}" 
                      IsEnabled="True"
                      IsChecked="{Binding ConverterParameter=RMinus, 
@@ -571,9 +589,9 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <!-- ***************************************************** -->
-        <!-- Painted / Coated Condition Rating, Green -->
-        <RadioButton Grid.Row="1" Grid.Column="6" Content="Green+" GroupName="PtCondGroup"
+                <!-- ***************************************************** -->
+                <!-- Painted / Coated Condition Rating, Green -->
+                <RadioButton Grid.Row="1" Grid.Column="6" Content="Green+" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonGreenPainted}"
                      IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
                      IsChecked="{Binding ConverterParameter=GPlus, 
@@ -582,7 +600,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, FallbackValue=true}" 
         />
 
-        <RadioButton Grid.Row="2" Grid.Column="6" Content="Green" GroupName="PtCondGroup"
+                <RadioButton Grid.Row="2" Grid.Column="6" Content="Green" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonGreenPainted}" 
                      IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
                      IsChecked="{Binding ConverterParameter=G, 
@@ -591,7 +609,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="3" Grid.Column="6" Content="Green-" GroupName="PtCondGroup"
+                <RadioButton Grid.Row="3" Grid.Column="6" Content="Green-" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonGreenPainted}" 
                      IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
                      IsChecked="{Binding ConverterParameter=GMinus, 
@@ -600,7 +618,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="1" Grid.Column="7" Content="Amber+" GroupName="PtCondGroup"
+                <RadioButton Grid.Row="1" Grid.Column="7" Content="Amber+" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonAmberPainted}" 
                      IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
                      IsChecked="{Binding ConverterParameter=APlus, 
@@ -609,8 +627,8 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <!-- Painted / Coated Condition Rating, Amber -->
-        <RadioButton Grid.Row="2" Grid.Column="7" Content="Amber" GroupName="PtCondGroup"
+                <!-- Painted / Coated Condition Rating, Amber -->
+                <RadioButton Grid.Row="2" Grid.Column="7" Content="Amber" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonAmberPainted}" 
                      IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
                      IsChecked="{Binding ConverterParameter=A, 
@@ -619,7 +637,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="3" Grid.Column="7" Content="Amber-" GroupName="PtCondGroup"
+                <RadioButton Grid.Row="3" Grid.Column="7" Content="Amber-" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonAmberPainted}" 
                      IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
                      IsChecked="{Binding ConverterParameter=AMinus, 
@@ -628,8 +646,8 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <!-- Painted / Coated Condition Rating, Red -->
-        <RadioButton Grid.Row="1" Grid.Column="8" Content="Red+" GroupName="PtCondGroup"
+                <!-- Painted / Coated Condition Rating, Red -->
+                <RadioButton Grid.Row="1" Grid.Column="8" Content="Red+" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonRedPainted}" 
                      IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
                      IsChecked="{Binding ConverterParameter=RPlus, 
@@ -638,7 +656,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="2" Grid.Column="8" Content="Red" GroupName="PtCondGroup"
+                <RadioButton Grid.Row="2" Grid.Column="8" Content="Red" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonRedPainted}" 
                      IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
                      IsChecked="{Binding ConverterParameter=R, 
@@ -647,7 +665,7 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-        <RadioButton Grid.Row="3" Grid.Column="8" Content="Red-" GroupName="PtCondGroup"
+                <RadioButton Grid.Row="3" Grid.Column="8" Content="Red-" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonRedPainted}"
                      IsEnabled="{Binding ElementName=CheckboxPainted, Path=IsChecked}"
                      IsChecked="{Binding ConverterParameter=RMinus, 
@@ -656,185 +674,185 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
         />
 
-      </Grid>
+            </Grid>
 
-      <!--Content="{Binding InspectionInfo.Note}"-->
-      <Label Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
+            <!--Content="{Binding InspectionInfo.Note}"-->
+            <Label Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
              Background="Orange"
              Margin="5,0,5,0"
              Content="{Binding InspectionInfo.Note}"
              Style="{StaticResource LabelRO}"/>
 
-      <!-- Inspection Comment -->
-      <Button Grid.Row="8" Grid.Column="0"
+            <!-- Inspection Comment -->
+            <Button Grid.Row="8" Grid.Column="0"
               Style="{DynamicResource FacilityBlockButtonStyle}"
               Command="{Binding CmdInspectionComment}">
-        <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-          <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
+                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+                    <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                  Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
-          <Label Content="Inspection Comment"
+                    <Label Content="Inspection Comment"
                  Style="{StaticResource ImageClickBlockTextStyle}" />
-        </StackPanel>
-      </Button>
+                </StackPanel>
+            </Button>
 
-      <!-- Remember -->
-      <Border Grid.Row="10"
+            <!-- Remember -->
+            <Border Grid.Row="10"
               Grid.Column="0"
               Margin="5,0,5,5"
               Style="{StaticResource BorderBlue}">
-        <Grid>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-          </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-          <CheckBox Grid.Column="0"
+                    <CheckBox Grid.Column="0"
                     Margin="5,0,0,0"
                     Content="Remember"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Style="{StaticResource cbBase}"
                     IsChecked="{Binding IsRemembered}" />
-          <Image Grid.Column="1"
+                    <Image Grid.Column="1"
                  Margin="5,2,5,2"
                  Height="40"
                  Source="/BDC_V1;component/Resources/Remember (1).png"
                  Width="35" />
-        </Grid>
-      </Border>
+                </Grid>
+            </Border>
 
-      <ListBox Grid.Row="8" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="8"
+            <ListBox Grid.Row="8" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="8"
                Name="CommentListBox"
                Style="{StaticResource CommentBoxStyle}"
                ScrollViewer.VerticalScrollBarVisibility="Auto"
                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                ItemsSource="{Binding CommentContainer}"
       >
-        <i:Interaction.Triggers>
-          <i:EventTrigger EventName="MouseDoubleClick">
-            <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}" 
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}" 
                                    CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"/>
-          </i:EventTrigger>
-        </i:Interaction.Triggers>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
-        <ListBox.ItemTemplate>
-          <DataTemplate>
-            <TextBlock TextWrapping="Wrap"  
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap"  
                        Text="{Binding Path=.}"
                        Width="{Binding Path=Width,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
             />
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
 
-      <!-- Photos -->
-      <Button Grid.Row="11" Grid.Column="0"
+            <!-- Photos -->
+            <Button Grid.Row="11" Grid.Column="0"
               Style="{StaticResource PhotosBlockButtonStyle}"
               Command="{Binding CmdPhotosButton}">
-        <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-          <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
+                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+                    <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
                  Style="{StaticResource ImageClickBlockImageStyle}"/>
-          <Label Content="Photo(s)"
+                    <Label Content="Photo(s)"
                  Style="{StaticResource ImageClickBlockTextStyle}" />
-          <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
+                    <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
                  Style="{StaticResource ImageClickBlockTextStyle}" />
-        </StackPanel >
-      </Button>
+                </StackPanel >
+            </Button>
 
-      <ListBox Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="8"
+            <ListBox Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="8"
                Name="ImageListBox"
                Style="{StaticResource ImageBoxStyle}"
                ScrollViewer.VerticalScrollBarVisibility="Disabled"
                ScrollViewer.HorizontalScrollBarVisibility="Auto"
                ItemsSource="{Binding ImageContainer}"
       >
-        <i:Interaction.Triggers>
-          <i:EventTrigger EventName="MouseDoubleClick">
-            <i:InvokeCommandAction Command="{Binding CmdImageDoubleClicked}"  
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding CmdImageDoubleClicked}"  
                                    CommandParameter="{Binding ElementName=ImageListBox, Path=SelectedItem}"/>
-          </i:EventTrigger>
-        </i:Interaction.Triggers>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
-        <ListBox.ItemsPanel>
-          <ItemsPanelTemplate>
-            <StackPanel IsItemsHost="True" 
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel IsItemsHost="True" 
                         Orientation="Horizontal"
             />
-          </ItemsPanelTemplate>
-        </ListBox.ItemsPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
 
-        <ListBox.ItemTemplate>
-          <DataTemplate>
-            <WrapPanel>
-              <Image Stretch="UniformToFill" 
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <Image Stretch="UniformToFill" 
                      Source="{Binding Path=.}"
                      Height="{Binding Path=Height,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
               />
-            </WrapPanel>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
 
-    <!-- Action Buttons -->
-    <StackPanel 
+            <!-- Action Buttons -->
+            <StackPanel 
         Grid.Row="13"
         Grid.Column="0"
         Grid.ColumnSpan="4"
         Orientation="Horizontal"
         Grid.RowSpan="1">
-        
-      <Button 
+
+                <Button 
         Width="160"
         Command="{Binding CmdCancelEdit}"
         Style="{StaticResource btnImageText}"
         >
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-            <Image
+                        <Image
                 Grid.Column="0" 
                 Height="20"
                 Source="/BDC_V1;component/Resources/Cancel_Undo (1).png"
                 />
-            <Label 
+                        <Label 
                 Grid.Column="1"
                 Content="Cancel Edit" 
                 Foreground="Red" 
                 Style="{StaticResource lblText}" />
-        </Grid>
-      </Button>
-        
-      <Button 
+                    </Grid>
+                </Button>
+
+                <Button 
           Width="160"
         Command="{Binding CmdDeleteInspection}"
         Style="{StaticResource btnImageText}"
         >
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-            <Image
+                        <Image
                 Grid.Column="0" 
                 Height="20"
                 Source="/BDC_V1;component/Resources/Delete.png"
                 />
-            <Label 
+                        <Label 
                 Grid.Column="1"
                 Content="Delete Inspection"
                 Foreground="Red" 
                 Style="{StaticResource lblText}" />
-        </Grid>
-      </Button>
-    </StackPanel>
+                    </Grid>
+                </Button>
+            </StackPanel>
 
-    </Grid>
-  </ScrollViewer>
+        </Grid>
+    </ScrollViewer>
 
 </UserControl>
