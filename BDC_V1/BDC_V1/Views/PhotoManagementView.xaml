@@ -193,7 +193,7 @@
         Grid.Column="1"
         Command="{Binding CmdOkCommand}"
         Height="40"
-        HorizontalAlignment="Right"
+        HorizontalAlignment="Center"
         Margin="5"
         Width="100"
         Content="OK"
