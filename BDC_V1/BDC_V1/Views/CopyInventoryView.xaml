@@ -72,7 +72,7 @@
              Content="Source Facility:" 
              />
       <ComboBox Grid.Row="2" Grid.Column="1"
-                ItemsSource="{Binding SourceFacilities, Mode=OneTime}"
+                ItemsSource="{Binding SourceFacilities.Items, Mode=OneTime}"
                 SelectedItem="{Binding SourceFacilities.SelectedItem, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}">
         <ComboBox.ItemTemplate>
@@ -96,7 +96,7 @@
              Content="Target Facility:" 
              />
       <ComboBox Grid.Row="3" Grid.Column="1"
-                ItemsSource="{Binding TargetFacilities}"
+                ItemsSource="{Binding TargetFacilities.Items}"
                 SelectedItem="{Binding TargetFacilities.SelectedItem, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}">
         <ComboBox.ItemTemplate>
@@ -121,7 +121,7 @@
              />
       <ComboBox Grid.Row="4" Grid.Column="1"
                 IsEnabled="{Binding IsSectionNameEnabled, FallbackValue=False}"
-                ItemsSource="{Binding Sections}"
+                ItemsSource="{Binding Sections.Items}"
                 SelectedItem="{Binding Sections.SelectedItem}"
                 >
         <ComboBox.Style>
@@ -155,7 +155,7 @@
               >
 
         <ListView Grid.Row="5" Grid.Column="1"
-                  ItemsSource="{Binding Systems, Mode=OneTime}"
+                  ItemsSource="{Binding Systems.Items, Mode=OneTime}"
                   SelectedItem="{Binding Systems.SelectedItem, Mode=TwoWay}"
                   MinHeight="100"
                   MaxHeight="250"

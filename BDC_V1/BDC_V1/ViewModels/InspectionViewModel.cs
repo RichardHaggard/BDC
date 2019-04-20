@@ -235,6 +235,9 @@ namespace BDC_V1.ViewModels
         public override ObservableCollection<ImageSource> ImageContainer => 
             InspectionInfo.Images;
 
+        public override string TabName       => "INSPECTION";
+        public override string PhotoTypeText => "Inspection photos";
+
         // **************** Class data members ********************************************** //
 
         // **************** Class constructors ********************************************** //

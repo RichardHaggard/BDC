@@ -121,6 +121,9 @@ namespace BDC_V1.Classes
         [CanBeNull]
         public abstract ObservableCollection<ImageSource> ImageContainer { get; }
 
+        public abstract string TabName       { get; }
+        public abstract string PhotoTypeText { get; }
+
         // these two members are separated so they can be overriden separately
         protected virtual void OnSelectedImage([CanBeNull] ImageSource image)
         {
@@ -135,8 +138,13 @@ namespace BDC_V1.Classes
 
             // Simplistic launcher of the PM view. If this were real we'd pass in
             // info from the caller and upon return there would be an update of the photo carousel.
-            PhotoManagementView View = new PhotoManagementView();
-            View.ShowDialog();
+            var view = new PhotoManagementView();
+            if (!(view.DataContext is PhotoManagementView model))
+                throw new InvalidCastException("model is not the expected data type");
+
+            model.Title = $"{TabName} - {PhotoTypeText}";
+
+            view.ShowDialog();
         }
 
         protected virtual void DoSelectedImage(EnumControlResult result, [CanBeNull] ImageSource itemImage, [CanBeNull] ImageSource modelImage)

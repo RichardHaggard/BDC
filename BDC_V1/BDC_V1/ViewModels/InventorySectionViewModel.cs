@@ -57,10 +57,10 @@ namespace BDC_V1.ViewModels
 
         public int SelectedIndex 
             {
-            get { return _SelectedIndex; }
-            set { SetProperty(ref _SelectedIndex, value); }
-            }
-        private int _SelectedIndex;
+            get => _selectedIndex;
+            set => SetProperty(ref _selectedIndex, value);
+        }
+        private int _selectedIndex;
 
 
         // **************** Class data members ********************************************** //
@@ -95,6 +95,9 @@ namespace BDC_V1.ViewModels
         public override ObservableCollection<ImageSource> ImageContainer => 
             InventorySection.Images;
 
+        public override string TabName       => "INVENTORY SECTION";
+        public override string PhotoTypeText => "Section photos";
+
         // **************** Class constructors ********************************************** //
 
         public InventorySectionViewModel()
@@ -113,41 +116,33 @@ namespace BDC_V1.ViewModels
 #if DEBUG
 #warning Using MOCK data for InventorySection
             InventorySection = new MockInventorySection();
-            if (InventorySection != null && InventorySection.ComponentTypes.Count > 0)
-            {
-                InventorySection.ComponentType = InventorySection.ComponentTypes[0];
-                InventorySection.SectionName   = InventorySection.SectionNames[0];
-            }
 #endif
+            if (InventorySection != null)
+            {
+                InventorySection.ComponentType = InventorySection.ComponentTypes.FirstOrDefault();
+                InventorySection.SectionName   = InventorySection.SectionNames  .FirstOrDefault();
+            }
         }
 
         // **************** Class members *************************************************** //
 
-        private void OnCancelEdit   () { Debug.WriteLine("OnCancelEdit    is not implemented"); }
+        private void OnCancelEdit() { Debug.WriteLine("OnCancelEdit is not implemented"); }
 
-        private void OnCmdDecValue ()
+        private void OnAddSection() { Debug.WriteLine("OnAddSection is not implemented"); }
+
+        private void OnCmdDecValue()
         {
-            double d = 0;
-            if (double.TryParse(InventorySection.Quantity, out d))
-            {
-                if (--d < 0)
-                    d = 0;
-                InventorySection.Quantity = string.Format("{0:0.00}", d);
-            }
+            if (!double.TryParse(InventorySection.Quantity, out var d)) return;
+
+            if (--d < 0) d = 0;
+            InventorySection.Quantity = $"{d:0.00}";
         }
 
         private void OnCmdIncValue()
         {
-            double d = 0;
-            if (double.TryParse(InventorySection.Quantity, out d))
-            {
-                InventorySection.Quantity = string.Format("{0:0.00}", ++d);
-            }
-        }
+            if (!double.TryParse(InventorySection.Quantity, out var d)) return;
 
-        private void OnAddSection()
-        {
-            Debug.WriteLine("OnAddSection    is not implemented");
+            InventorySection.Quantity = $"{++d:0.00}";
         }
 
         private void OnDeleteSection()
@@ -176,13 +171,11 @@ namespace BDC_V1.ViewModels
         }
 
         private void OnNextSection  () 
-        { 
-            if (InventorySection != null && InventorySection.SectionNames != null)
-            {
-                if (++SelectedIndex >= InventorySection.SectionNames.Count)
-                    SelectedIndex = 0;
-                InventorySection.SectionName = InventorySection.SectionNames[SelectedIndex];
-            }
+        {
+            if (++SelectedIndex >= InventorySection.SectionNames.Count)
+                SelectedIndex = 0;
+
+            InventorySection.SectionName = InventorySection.SectionNames[SelectedIndex];
         }
 
         private void OnSectionComment() { OnSelectedComment(null); }

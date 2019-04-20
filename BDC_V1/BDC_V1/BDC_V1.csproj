@@ -100,6 +100,7 @@
     <Compile Include="Classes\CommentDetail.cs" />
     <Compile Include="Classes\ComponentFacility.cs" />
     <Compile Include="Classes\CommentFacility.cs" />
+    <Compile Include="Classes\DataContextSpy.cs" />
     <Compile Include="Classes\FacilityBase.cs" />
     <Compile Include="Classes\FacilityInfo.cs" />
     <Compile Include="Classes\FacilityInfoHeader.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Classes\WindowBehaviors.cs" />
     <Compile Include="Converters\BoolToObjectConverter.cs" />
     <Compile Include="Converters\CaptionButtonRectToMarginConverter.cs" />
+    <Compile Include="Converters\DataFilterBooleanConverter.cs" />
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Converters\MultiBoolToObjectConverter.cs" />
     <Compile Include="Converters\RatingColorToBrushConverter.cs" />

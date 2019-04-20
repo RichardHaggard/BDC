@@ -156,7 +156,8 @@
             />
 
         <Button
-            Grid.Row="9"
+            Grid.Row="8"
+            Grid.Column="0"
             Command="{Binding CmdUnlinkExistingPhoto}"
             Height="40"
             HorizontalAlignment="Left"
@@ -187,10 +188,20 @@
                 </Grid>
             </Button.Content>
         </Button>
+      <Button
+        Grid.Row="8"
+        Grid.Column="1"
+        Command="{Binding CmdOkCommand}"
+        Height="40"
+        HorizontalAlignment="Right"
+        Margin="5"
+        Width="100"
+        Content="OK"
+      />
 
         <Label
             Grid.Row="0" Grid.Column="1"
-            Content="Details"
+            Content="Description"
             Style="{StaticResource LabelBold}" />
 
         <Image

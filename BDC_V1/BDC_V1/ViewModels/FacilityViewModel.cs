@@ -33,6 +33,9 @@ namespace BDC_V1.ViewModels
         public override ObservableCollection<ImageSource> ImageContainer => 
             LocalFacilityInfo?.Images;
 
+        public override string TabName       => "FACILITY";
+        public override string PhotoTypeText => "Facility photos";
+
         // **************** Class constructors ********************************************** //
 
         public FacilityViewModel()

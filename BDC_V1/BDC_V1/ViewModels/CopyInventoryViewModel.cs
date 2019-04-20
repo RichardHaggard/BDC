@@ -129,19 +129,19 @@ namespace BDC_V1.ViewModels
 
         [NotNull]
         public IndexedCollection<IFacilityInfoHeader> SourceFacilities { get; } =
-            new IndexedCollection<IFacilityInfoHeader>();
+            new IndexedCollection<IFacilityInfoHeader>(new ObservableCollection<IFacilityInfoHeader>());
 
         [NotNull]
         public IndexedCollection<IFacilityInfoHeader> TargetFacilities { get; } =
-            new IndexedCollection<IFacilityInfoHeader>();
+            new IndexedCollection<IFacilityInfoHeader>(new ObservableCollection<IFacilityInfoHeader>());
 
         [NotNull]
         public IndexedCollection<ISectionInfo> Sections { get; } =
-            new IndexedCollection<ISectionInfo>();
+            new IndexedCollection<ISectionInfo>(new ObservableCollection<ISectionInfo>());
 
         [NotNull]
         public IndexedCollection<ItemChecklist> Systems { get; } = 
-            new IndexedCollection<ItemChecklist>();
+            new IndexedCollection<ItemChecklist>(new ObservableCollection<ItemChecklist>());
 
         // **************** Class constructors ********************************************** //
 
@@ -175,17 +175,17 @@ namespace BDC_V1.ViewModels
             // TODO: I think this value is coming from thee tree view selection
             SectionNode = "<NODE NAME>";
 
-            TargetFacilities.AddRange(new []
+            TargetFacilities.Items.AddRange(new []
             {
                 new FacilityInfoHeader {BuildingIdNumber = 11057, BuildingName = "National Guard Readiness Center"},
                 new FacilityInfoHeader {BuildingIdNumber = 11612, BuildingName = "Facility # 2"}
             });
 
             // TODO: I'm unsure about what this is supposed to be
-            SourceFacilities.AddRange(TargetFacilities);
+            SourceFacilities.Items.AddRange(TargetFacilities.Items);
             SourceFacilities.SelectedIndex = 0;
 
-            Sections.AddRange(new[]
+            Sections.Items.AddRange(new[]
             {
                 new SectionInfo("FL1"),
                 new SectionInfo("FL2"),
@@ -196,7 +196,7 @@ namespace BDC_V1.ViewModels
 
             foreach (EnumFacilitySystemTypes system in Enum.GetValues(typeof(EnumFacilitySystemTypes)))
             {
-                Systems.Add(new ItemChecklist
+                Systems.Items.Add(new ItemChecklist
                     {ItemName = $"{system.ToString()} - {system.Description()}"});
             }
 #endif

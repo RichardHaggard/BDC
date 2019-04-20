@@ -70,6 +70,9 @@ namespace BDC_V1.ViewModels
         public override ObservableCollection<ImageSource> ImageContainer => 
             InventoryDetails.Images;
 
+        public override string TabName       => "INVENTORY DETAILS";
+        public override string PhotoTypeText => "Inventory detail photos";
+
         // **************** Class constructors ********************************************** //
 
         public InventoryDetailsViewModel()
