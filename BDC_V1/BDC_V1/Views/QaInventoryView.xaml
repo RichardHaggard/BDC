@@ -13,14 +13,14 @@
     xmlns:converters="clr-namespace:BDC_V1.Converters"
     xmlns:classes="clr-namespace:BDC_V1.Classes"
     mc:Ignorable="d"
-    Height="400" MinWidth="700"
-    d:DesignHeight="400" d:DesignWidth="1100">
+    MinHeight="400" Width="1000"
+    >
 
   <UserControl.Resources>
-    <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+    <converters:EnumBooleanConverter       x:Key="EnumBooleanConverter"       />
     <converters:DataFilterBooleanConverter x:Key="DataFilterBooleanConverter" />
-
-    <classes:DataContextSpy x:Key="spy" />
+    <converters:DataGridAutoColumnWidth    x:Key="DataGridAutoColumnWidth"    />
+    <converters:DataGridAutoWidth          x:Key="DataGridAutoWidth"          />
 
     <Style x:Key="ToggleButtonBase" TargetType="RadioButton"
            BasedOn="{StaticResource {x:Type ToggleButton}}">
@@ -43,8 +43,19 @@
       <Style.Triggers>
         <DataTrigger Value="true" 
                      Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}, 
-                        FallbackValue=false}">
-          <Setter Property="Background"  Value="LightGreen" />
+                     FallbackValue=false}">
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="ToggleButton">
+                <Border Background="{TemplateBinding Background}" >
+                  <Image Height="25" Margin="5,2,0,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                         Source="/BDC_V1;component/Resources/Filter_Green.png" />
+                </Border>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
         </DataTrigger>
       </Style.Triggers>
     </Style>
@@ -57,32 +68,6 @@
       <Setter Property="BorderBrush" Value="Black" />
       <Setter Property="BorderThickness" Value="2" />
       <Setter Property="HorizontalAlignment" Value="Stretch" />
-      <!--<Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="DataGridColumnHeader">
-            <Border x:Name="columnHeaderBorder"
-                    BorderThickness="1"
-                    Padding="3,0,3,0">
-              <Border.BorderBrush>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                  <GradientStop Offset="0" Color="#A5A5A5" />
-                  <GradientStop Offset="1" Color="#4B4B4B" />
-                </LinearGradientBrush>
-              </Border.BorderBrush>
-
-              <Border.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                  <GradientStop Offset="0" Color="#DEB40A" />
-                  <GradientStop Offset="1" Color="#FF7F00" />
-                </LinearGradientBrush>
-              </Border.Background>
-              </Border>
-            </ControlTemplate>
-          </Setter.Value>
-        </Setter>-->
-
-      <!-- Path="DataContext.FilterSource" 
-                             -->
       <Setter Property="ContentTemplate">
         <Setter.Value>
           <DataTemplate>
@@ -92,19 +77,22 @@
                            Tag="{Binding}"
                            Content="{Binding}"
                            >
-                <!-- this doesn't update FilterSource, nor do FilterSource updates make it here -->
-                <!-- filter source is not in the local view tree, we have to get the context from the data grid to find it -->
+                <!-- the first value is filter source and it is not in the local view tree, we have to get the context from the data grid to find it -->
+                <!--    it selects which button is on from the ViewModel, the controls take care of it up here, changing the button does not update FilterSource,  -->
+                <!--    but the click command does -->
+                <!-- the second value will be the name of this column "Content={Binding}" above, it must match the description of the EnumSortingFilter item -->
                 <RadioButton.IsChecked>
                   <MultiBinding Converter="{StaticResource DataFilterBooleanConverter}" Mode="OneWay">
                     <Binding Path="DataContext.FilterSource"
                              RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=DataGrid,AncestorLevel=1}"
-                             UpdateSourceTrigger="PropertyChanged" Mode="OneWay" />
-                    <Binding Path="Content" RelativeSource="{RelativeSource Self}" Mode="OneWay" />
+                             UpdateSourceTrigger="PropertyChanged" />
+                    <Binding Path="Content" RelativeSource="{RelativeSource Self}" />
                   </MultiBinding>
                 </RadioButton.IsChecked>
 
                 <!-- CmdFilterButtonChecked is not in the local view tree, we have to get the context from the data grid to find it -->
                 <!-- the command parameter will be the name of this column {Binding}, it must match the description of the EnumSortingFilter item -->
+                <!-- This is what updates the ViewModel FilterSource and also sets the filter conditions -->
                 <i:Interaction.Triggers>
                   <i:EventTrigger EventName="Checked">
                     <i:InvokeCommandAction Command="{Binding DataContext.CmdFilterButtonChecked, 
@@ -127,114 +115,154 @@
 
   </UserControl.Resources>
 
-  <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                VerticalScrollBarVisibility="Auto">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5"    /> <!-- 0 - white space at top -->
-                <RowDefinition Height="Auto" /> <!-- 1 - Component -->
-                <RowDefinition Height="Auto" /> <!-- 2 - Data Grid -->
-                <RowDefinition Height="5"    /> <!-- 3 - white space at bottom -->
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5" /> <!-- white space to the left -->
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition MinWidth="450"/>
-                <ColumnDefinition Width="5" /> <!-- white space to the right -->
-            </Grid.ColumnDefinitions>
+  <!-- TODO: The sizing issues need to be looked into! -->
+  <!-- The real problem is that the user control doesn't auto-size to take the  -->
+  <!-- available space the Shell Tab allots it. The AutoScroll doesn't work the way it  -->
+  <!-- should (engaging when the view area shrinks) and the controls inside the  -->
+  <!-- this user control don't resize when more / less space is allotted.  -->
 
-            <!-- Button row -->
-            <Button ToolTip="Refresh" Grid.Row="1" Grid.Column="1"
-              Height="75" Margin="10"
+  <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto"
+                Margin="5,10,5,10">
+    <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" /> <!-- 1 - Component -->
+          <RowDefinition Height="Auto" /> <!-- 2 - Data Grid -->
+          <RowDefinition Height="*"    /> <!-- room for the auto scroll -->
+        </Grid.RowDefinitions>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" /> <!-- room for the auto scroll -->
+      </Grid.ColumnDefinitions>
+
+        <!-- Button row -->
+      <DockPanel Grid.Row="0" Grid.Column="0"
+                 Margin="0,0,0,10" 
+                 HorizontalAlignment="Stretch">
+
+        <DockPanel HorizontalAlignment="Left">
+            <Button ToolTip="Refresh"
+              Height="75" Width="100" Margin="0,0,10,0"
               Command="{Binding CmdRefresh}"
               Style="{StaticResource MaterialDesignRaisedLightButton}">
                 <Image Source="/BDC_V1;component/Resources/Refresh.png"/>
             </Button>
 
-            <Button ToolTip="Review Issue" Grid.Row="1" Grid.Column="2"
-              Height="75" Margin="10"
+            <Button ToolTip="Review Issue"
+              Height="75" Width="100" Margin="10,0,10,0"
               Command="{Binding CmdReviewIssue}"
               Style="{StaticResource MaterialDesignRaisedLightButton}">
                 <Image Source="/BDC_V1;component/Resources/ReviewIssue (1).png"/>
             </Button>
+         </DockPanel>
 
-            <DockPanel Grid.Row="1" Grid.Column="3" 
-                       HorizontalAlignment="Right"
-                       LastChildFill="True">
-                <Button ToolTip="Clear Filter" DockPanel.Dock="Left"
-                        Width="100"
-                        Height="75" Margin="10"
-                        Command="{Binding CmdClearFilter}"
-                        Style="{StaticResource MaterialDesignRaisedLightButton}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="3*"/>
-                            <RowDefinition Height="2*"/>
-                        </Grid.RowDefinitions>
-                        <Image Grid.Row="0" Margin="0,0,0,-10"
-                            Source="/BDC_V1;component/Resources/Filter_Clear (1).png"/>
-                        <Label Grid.Row="1" FontSize="13" FontWeight="Bold">
-                            Clear Filter
-                        </Label>
-                    </Grid>
-                </Button>
-                <TextBox Height="75" Width="300"
-                         DockPanel.Dock="Right"
-                         Background="LightYellow"
-                         HorizontalAlignment="Stretch"
-                         HorizontalContentAlignment="Left"
-                         VerticalContentAlignment="Center"
-                         VerticalScrollBarVisibility="Auto"
-                         Style="{StaticResource TextBoxWrap}"
-                         Text="{Binding Description}"
-                    />
-            </DockPanel>
+        <DockPanel HorizontalAlignment="Right"
+                   LastChildFill="True">
+            <Button ToolTip="Clear Filter" DockPanel.Dock="Left"
+                    Height="75" Width="100" Margin="10,0,10,0"
+                    Command="{Binding CmdClearFilter}"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Margin="0,0,0,-10"
+                        Source="/BDC_V1;component/Resources/Filter_Clear (1).png"/>
+                    <Label Grid.Row="1" FontSize="13" FontWeight="Bold">
+                        Clear Filter
+                    </Label>
+                </Grid>
+            </Button>
 
-            <!-- DataGrid -->
-            <DataGrid Name="LvUsers" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
-                      ColumnHeaderHeight="60"
-                      MinHeight="250"
-                      ColumnWidth="100"
-                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderBase}"
-                      Tag="{Binding DataContext}"
-                      ItemsSource="{Binding InventoryInfoView}"
-                      CanUserSortColumns="True"
-                      GridLinesVisibility="All"
-                      AutoGenerateColumns="False"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Top"
-                      >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header=" Facility ID"  
-                                        Binding="{Binding Path=FacilityId }"  
-                     />
-                    
-                    <DataGridTextColumn Header=" System ID" 
-                                        Binding="{Binding Path=SystemId}"  
-                    />
-                    
-                    <DataGridTextColumn Header=" Inventory"  
-                                        Binding="{Binding Path=ComponentId}"  
-                    />
-                    
-                    <DataGridTextColumn Header=" Type" 
-                                        Binding="{Binding Path=TypeName}" 
-                    />
-                    
-                    <DataGridTextColumn Header=" Section" 
-                                        Binding="{Binding Path=SectionName}" 
-                    />
-                    
-                    <DataGridTextColumn Header=" Inventory Issue" 
-                                        Binding="{Binding Path=InventoryComment.CommentText}" 
-                                        Width="{Binding Path=ActualWidth, 
-                      RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window,AncestorLevel=1}}"
-                    >
-                    </DataGridTextColumn>
-                    
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
-    </ScrollViewer>
+            <TextBox Height="75" MinWidth="300"
+                     DockPanel.Dock="Right"
+                     Background="LightYellow"
+                     HorizontalAlignment="Stretch"
+                     HorizontalContentAlignment="Left"
+                     VerticalContentAlignment="Center"
+                     VerticalScrollBarVisibility="Auto"
+                     Style="{StaticResource TextBoxWrap}"
+                     Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                />
+        </DockPanel>
+      </DockPanel>
+
+      <!-- DataGrid -->
+      <DataGrid Name="LvUsers" Grid.Row="1" Grid.Column="0"
+                MinHeight="250"
+                Height="Auto"
+                Width="945"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ColumnHeaderHeight="60"
+                ColumnWidth="100"
+                ColumnHeaderStyle="{StaticResource DataGridColumnHeaderBase}"
+                ItemsSource="{Binding InventoryInfoView}"
+                CanUserSortColumns="True"
+                CanUserResizeColumns="False"
+                GridLinesVisibility="All"
+                AutoGenerateColumns="False"
+       >
+        <!-- All this to get the data grid to fill up available space -->
+        <!--
+        <DataGrid.Width>
+          <MultiBinding Converter="{StaticResource DataGridAutoWidth}" Mode="OneWay">
+            <Binding Path="ActualWidth"
+                     RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=UserControl,AncestorLevel=1}"
+                     UpdateSourceTrigger="PropertyChanged" />
+            <Binding Path="MinWidth" RelativeSource="{RelativeSource Self}" />
+          </MultiBinding>
+        </DataGrid.Width>
+        -->
+        <DataGrid.Columns>
+          <DataGridTextColumn Header=" Facility ID"  
+                              Binding="{Binding Path=FacilityId }"  
+           />
+          
+          <DataGridTextColumn Header=" System ID" 
+                              Binding="{Binding Path=SystemId}"  
+          />
+          
+          <DataGridTextColumn Header=" Inventory"  
+                              Binding="{Binding Path=ComponentId}"  
+          />
+          
+          <DataGridTextColumn Header=" Type" 
+                              Binding="{Binding Path=TypeName}" 
+          />
+          
+          <DataGridTextColumn Header=" Section" 
+                              Binding="{Binding Path=SectionName}" 
+          />
+          
+          <DataGridTextColumn Header=" Inventory Issue" 
+                              Binding="{Binding Path=InventoryComment.CommentText}" 
+                              MinWidth="250"
+                              Width="445"
+          >
+            <!-- All this to get the last column to fill up available space -->
+            <!--
+            <DataGridTextColumn.HeaderStyle>
+              <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderBase}">
+                <Setter Property="Width">
+                  <Setter.Value>
+                    <MultiBinding Converter="{StaticResource DataGridAutoColumnWidth}" Mode="OneWay" FallbackValue="250">
+                      <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=DataGrid,AncestorLevel=1}"
+                               UpdateSourceTrigger="PropertyChanged" />
+                      <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=DataGridTextColumn,AncestorLevel=1}" />
+                    </MultiBinding>
+                  </Setter.Value>
+                </Setter>
+              </Style>
+            </DataGridTextColumn.HeaderStyle>
+            -->
+          </DataGridTextColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+    </Grid>
+  </ScrollViewer>
 </UserControl>
