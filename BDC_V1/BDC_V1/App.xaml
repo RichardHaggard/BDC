@@ -324,37 +324,59 @@
                 <Setter Property="Width" Value="50" />
             </Style>
 
+
+
+            <LinearGradientBrush 
+                x:Key="Chrome_TabItemHotBackground"
+                StartPoint="0,0"
+                EndPoint="0,1">
+                <LinearGradientBrush.GradientStops>
+                    <GradientStop Color="#3fffffff" Offset=".0"/>
+                    <GradientStop Color="#7fffffff" Offset=".05"/>
+                    <GradientStop Color="#3fffffff" Offset=".60"/>
+                    <GradientStop Color="#3f000000" Offset="1"/>
+                </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+
+
+
             <!--TabItem style-->
             <Style TargetType="TabItem">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="TabItem">
-                            <Border 
-                                Name="Border"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="Black" 
-                                BorderThickness="1,1,1,0" 
-                                CornerRadius="4,4,0,0" 
-                                Margin="5,5,5,0"
-                                >
+                            <Grid>
+                                <Border 
+                                    Name="Border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="Black" 
+                                    BorderThickness="1,1,1,0" 
+                                    CornerRadius="4,4,0,0" 
+                                    Margin="5,5,5,0"
+                                    />
+                                <Border 
+                                    Name="Shine"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="Transparent" 
+                                    BorderThickness="0" 
+                                    CornerRadius="4,4,0,0" 
+                                    Margin="7,7,7,0"
+                                    />
                                 <ContentPresenter 
                                     x:Name="ContentSite"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     ContentSource="Header"
-                                    Margin="40,0"/>
-                            </Border>
+                                    Margin="50,0"/>
+
+                            </Grid>
                             <ControlTemplate.Triggers>
-                                <!--<Setter TargetName="Border" Property="Background" Value="Yellow" />-->
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="FontWeight" Value="Bold" />
-                                    <Setter TargetName="ContentSite"  Property="Height" Value="50"/>
                                     <Setter TargetName="Border" Property="Margin" Value="5,0,5,0"/>
-                                    <Setter TargetName="Border" Property="BorderThickness" Value="3,3,3,0" />
+                                    <Setter TargetName="ContentSite"  Property="Height" Value="50"/>
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter TargetName="Shine" Property="Background" Value="{StaticResource Chrome_TabItemHotBackground}" />
                                 </Trigger>
-                                <!--<Trigger Property="IsSelected" Value="False">
-                                    <Setter TargetName="Border" Property="Background" Value="White" />
-                                </Trigger>-->
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
