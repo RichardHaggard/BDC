@@ -47,8 +47,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid
-        >
+    <Grid>
         <!--<Border Background="{DynamicResource PrimaryHueMidBrush}"/>-->
         <Border
             Background="LightGray"
@@ -136,17 +135,9 @@
                             BorderBrush="Black"
                             FontSize="15"
                             materialDesign:HintAssist.Hint="&lt; Select configuration file for this BUILDER FCA project &gt;"
-                            VerticalContentAlignment="Center">
-                            <Binding 
-                                Path="ConfigurationFilename" Mode="TwoWay">
-                                <Binding.ValidationRules>
-                                    <validationRules:NotEmptyValidationRule 
-                                        ErrorMessage="Configuration file is required." 
-                                        ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox>
-                        
+                            VerticalContentAlignment="Center"/>
+
+
                         <materialDesign:Badged 
                             Grid.Column="2"
                             x:Name="SelectConfigFile"
@@ -191,7 +182,7 @@
                             Kind="FileAccount" 
                             Width="40"
                             Foreground="{Binding ElementName=SelectQcFileTextBox, Path=BorderBrush}" />
-                        
+
                         <TextBox 
                             Grid.Column="1"
                             x:Name="SelectQcFileTextBox"
@@ -201,16 +192,8 @@
                             materialDesign:HintAssist.Hint="&lt; Select your BRED file that you downloaded from BUILDER QC &gt;"
                             VerticalContentAlignment="Center"
                             TextWrapping="Wrap"
-                            >
-                            <Binding Path="BredFilename" Mode="TwoWay">
-                                <Binding.ValidationRules>
-                                    <validationRules:NotEmptyValidationRule 
-                                        ErrorMessage="BRED file is required." 
-                                        ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox>
-                        
+                            />
+
                         <materialDesign:Badged 
                             Grid.Column="2"
                             x:Name="SelectQcFile"
@@ -273,15 +256,11 @@
                                 </ItemsPanelTemplate>
                             </ComboBox.ItemsPanel>
                             <ComboBox.SelectedValue>
-                                <Binding Path="SelectedLoginUser"
-                                         UpdateSourceTrigger="PropertyChanged"
-                                         ValidatesOnDataErrors="True"
-                                         NotifyOnValidationError="True">
-                                    <Binding.ValidationRules>
-                                        <validationRules:NotEmptyValidationRule 
-                                            ErrorMessage="Inspector is required." 
-                                            ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
+                                <Binding 
+                                    Path="SelectedLoginUser"
+                                    UpdateSourceTrigger="PropertyChanged"
+                                    ValidatesOnDataErrors="True"
+                                    NotifyOnValidationError="True">
                                 </Binding>
                             </ComboBox.SelectedValue>
                          </ComboBox>
