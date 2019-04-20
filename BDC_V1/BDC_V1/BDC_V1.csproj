@@ -55,6 +55,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\BDC.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -580,6 +583,9 @@
     <Resource Include="Resources\icons8-maximize-window-96.png" />
     <Resource Include="Resources\icons8-minimize-window-96.png" />
     <Resource Include="Resources\icons8-restore-window-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BDC.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

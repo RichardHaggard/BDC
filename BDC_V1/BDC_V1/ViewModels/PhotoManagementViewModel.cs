@@ -49,6 +49,35 @@ namespace BDC_V1.ViewModels
         private ObservableCollection<PhotoModel> _pendingList = new ObservableCollection<PhotoModel>();
 
 
+        public string PhotoType
+        {
+            get { return _PhotoType; }
+            set
+            {
+                if (_PhotoType != value)
+                {
+                    _PhotoType = value;
+                    RefreshTitle();
+                }
+            }
+        }
+        private string _PhotoType = "";
+
+        public string Tab
+        {
+            get { return _Tab; }
+            set
+            {
+                if (_Tab != value)
+                {
+                    _Tab = value;
+                    RefreshTitle();
+                }
+            }
+        }
+        private string _Tab = "";
+
+
         public string Title
         {
             get => _title;
@@ -146,5 +175,15 @@ namespace BDC_V1.ViewModels
             DialogResultEx = true;
         }
 
+
+        private void RefreshTitle()
+        {
+            Title = string.Format
+                (
+                "{0} Photos of {1}",
+                string.IsNullOrEmpty(PhotoType) ? "<TYPE>"                                        : PhotoType,
+                string.IsNullOrEmpty(Tab)       ? "<IDENTITY of Facility, Section or Inspection>" : Tab
+                );
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace BDC_V1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
         public string ConfigurationFilename {
             get {
                 return ((string)(this["ConfigurationFilename"]));
@@ -37,7 +37,7 @@ namespace BDC_V1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
         public string BredFilename {
             get {
                 return ((string)(this["BredFilename"]));
@@ -49,13 +49,25 @@ namespace BDC_V1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
         public string PlacementShell {
             get {
                 return ((string)(this["PlacementShell"]));
             }
             set {
                 this["PlacementShell"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
+        public string PlacementPM {
+            get {
+                return ((string)(this["PlacementPM"]));
+            }
+            set {
+                this["PlacementPM"] = value;
             }
         }
     }
