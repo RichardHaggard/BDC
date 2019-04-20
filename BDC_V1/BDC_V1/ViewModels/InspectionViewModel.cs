@@ -32,6 +32,7 @@ namespace BDC_V1.ViewModels
         public ICommand CmdCancelEdit        { get; }
         public ICommand CmdDeleteInspection  { get; }
         public ICommand CmdInspectionComment { get; }
+        public ICommand CmdPaintedCoated     { get; }
 
 #if false
         public ICommand CmdAmberPlus { get; }
@@ -250,6 +251,7 @@ namespace BDC_V1.ViewModels
             CmdCancelEdit        = new DelegateCommand(OnCancelEdit             );
             CmdDeleteInspection  = new DelegateCommand(OnDeleteInspection       );
             CmdInspectionComment = new DelegateCommand(OnCmdInspectionComment   );
+            CmdPaintedCoated     = new DelegateCommand(OnCmdPaintedCoated       );
 
 #if false
             CmdAmberPlus = new DelegateCommand(OnCmdAmberPlus);
@@ -378,6 +380,17 @@ namespace BDC_V1.ViewModels
         {
             OnSelectedComment(null, true);
         }
+
+
+        private void OnCmdPaintedCoated()
+        {
+            // This is a click on the 'label' that is to the right of the 
+            // Painted/Coated checkbox. It is actually a button but it looks like a label.
+            // In any case, pretend that the check box itself was toggled.
+
+            InspectionInfo.IsPainted = !InspectionInfo.IsPainted;
+        }
+
 
         protected override void OnSelectedComment(CommentBase comment, bool isInspection=false)
         {

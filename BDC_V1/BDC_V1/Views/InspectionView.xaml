@@ -471,25 +471,37 @@
                     />
 
                 <!--Row 0-->
-                <Label
-            Grid.Row="0" Grid.Column="0"
-            Content="Painted/Coated:"
-            Style="{StaticResource LabelRJ}"
+                <!--What we want here is a right justified Label. However, the desire is to have
+                it detect a click event which a Label is not designed to do. Instead, make a
+                button that looks like a label and have its click event sent back to VM.-->
+                <Button
+                    Grid.Row="0" Grid.Column="0"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Content="Painted/Coated:"
+                    Foreground="Black"
+                    FontSize="15"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Right"  HorizontalContentAlignment="Right"
+                    Margin="5"
+                    Padding="0"
+                    Command="{Binding CmdPaintedCoated}"
                     />
                 <CheckBox
-            Grid.Row="0" Grid.Column="1"
-            Name="CheckboxPainted"
-            VerticalContentAlignment="Center"
-            Content="                  "
-            IsChecked="{Binding InspectionInfo.IsPainted}"
-            Style="{StaticResource cbBase}"
+                    Grid.Row="0" Grid.Column="1"
+                    Name="CheckboxPainted"
+                    VerticalContentAlignment="Center"
+                    Content="                  "
+                    IsChecked="{Binding InspectionInfo.IsPainted}"
+                    Style="{StaticResource cbBase}"
                     />
                 <Label
-            Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3"
-            Content="Paint/Coating Condition Rating:"
-            Margin="0"
-            HorizontalContentAlignment="Left"
-            Style="{StaticResource LabelCJ}"
+                    Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3"
+                    Content="Paint/Coating Condition Rating:"
+                    Margin="0"
+                    HorizontalContentAlignment="Left"
+                    Style="{StaticResource LabelCJ}"
                     />
 
                 <!--Row 1-->
