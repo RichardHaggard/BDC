@@ -7,27 +7,23 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using BDC_V1.Utils;
-using BDC_V1.ViewModels;
 
 namespace BDC_V1.Converters
 {
-    public class DataFilterBooleanConverter : DependencyObject, IMultiValueConverter
+    public class DataGridAutoWidth : DependencyObject, IMultiValueConverter
     {
         /// <inheritdoc />
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if ((values.Length < 2) || 
-                ! (values[0] is QaInventoryViewModel.EnumSortingFilter filter) ||
-                ! (values[1] is string content))            
+                ! (values[0] is double windowWidth) ||
+                ! (values[1] is double minWidth))
             {
                 return Binding.DoNothing;
             }
 
-            //var columnName = button.Content.ToString().Trim();
-            var columnName  = content.Trim();
-            var description = filter.Description();
-            return (description == columnName);
+            var width = Math.Max(windowWidth - 10, minWidth);
+            return width;
         }
 
         /// <inheritdoc />
@@ -36,4 +32,5 @@ namespace BDC_V1.Converters
             throw new NotImplementedException();
         }
     }
+
 }

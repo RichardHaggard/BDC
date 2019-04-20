@@ -132,8 +132,7 @@ namespace BDC_V1.ViewModels
                 }
             });
 
-            Description = "Filter: 11057";
-            //InspectionInfo.AddRange(Enumerable.Repeat(new IssueInventory(), 30));
+            Description = "11057";
 #endif
         }
 
