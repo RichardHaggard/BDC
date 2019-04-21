@@ -231,7 +231,9 @@
           <DataGridTextColumn.CellStyle>
             <Style TargetType="DataGridCell" >
               <Setter Property="Background" 
-                      Value="{Binding Path=Rating, Converter={StaticResource RatingToBrushConverter}}" />
+                      Value="{Binding Path=Rating, 
+                              Converter={StaticResource RatingToBrushConverter},
+                              Mode=OneWay}" />
             </Style>
           </DataGridTextColumn.CellStyle>
         </DataGridTextColumn>

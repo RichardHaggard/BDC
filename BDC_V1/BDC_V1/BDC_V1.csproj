@@ -131,6 +131,7 @@
     <Compile Include="Converters\RatingColorToColorConverter.cs" />
     <Compile Include="Converters\RatingToBrushConverter.cs" />
     <Compile Include="Converters\RatingToRatingColorConverter.cs" />
+    <Compile Include="Enumerations\EnumSortingFilter.cs" />
     <Compile Include="Interfaces\ICloseableResultsWindow.cs" />
     <Compile Include="Interfaces\IComment.cs" />
     <Compile Include="Interfaces\ICommentCollection.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Utils\MakeBitmapTransparent.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
     <Compile Include="Converters\RatingToColorConverter.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="Utils\WindowPlacement.cs" />
     <Compile Include="ValidationRules\IsCheckedValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />

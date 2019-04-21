@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
@@ -22,26 +23,31 @@ namespace BDC_V1.ViewModels
         // **************** Class data members ********************************************** //
 
         // **************** Class properties ************************************************ //
-        public ICommand CmdFilterByFacilityId  { get; }
-        public ICommand CmdFilterBySystemId    { get; }
-        public ICommand CmdFilterByComponentId { get; }
-        public ICommand CmdFilterByTypeName    { get; }
-        public ICommand CmdFilterBySection     { get; }
-        public ICommand CmdFilterByIssue       { get; }
         
-        public ICommand CmdRefresh             { get; }
-        public ICommand CmdReviewIssue         { get; }
-        public ICommand CmdClearFilter         { get; }
+        public ICommand CmdFilterButtonChecked { get; }
+        
+        public ICommand CmdRefresh     { get; }
+        public ICommand CmdReviewIssue { get; }
+        public ICommand CmdClearFilter { get; }
 
         public string Description
         {
             get => _description;
-            set => SetProperty(ref _description, value);
+            set => SetProperty(ref _description, value, () => InspectionInfoView.Refresh());
         }
         private string _description;
 
+        public EnumSortingFilter FilterSource
+        {
+            get => _filterSource;
+            set => SetProperty(ref _filterSource, value);
+        }
+        private EnumSortingFilter _filterSource;
+
         public ObservableCollection<IssueInspection> InspectionInfo { get; } =
             new ObservableCollection<IssueInspection>();
+
+        public ListCollectionView InspectionInfoView { get; } 
 
         // **************** Class data members ********************************************** //
         // **************** Class constructors ********************************************** //
@@ -49,16 +55,13 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "QaInspectionItemControl";
 
-            CmdFilterByFacilityId  = new DelegateCommand(OnFilterByFacilityId );
-            CmdFilterBySystemId    = new DelegateCommand(OnFilterBySystemId   );
-            CmdFilterByComponentId = new DelegateCommand(OnFilterByComponentId);
-            CmdFilterByTypeName    = new DelegateCommand(OnFilterByTypeName   );
-            CmdFilterBySection     = new DelegateCommand(OnFilterBySection    );
-            CmdFilterByIssue       = new DelegateCommand(OnFilterByIssue      );
+            CmdFilterButtonChecked  = new DelegateCommand<object>(OnFilterButtonChecked);
         
-            CmdRefresh             = new DelegateCommand(OnCmdRefresh         );
-            CmdReviewIssue         = new DelegateCommand(OnCmdReviewIssue     );
-            CmdClearFilter         = new DelegateCommand(OnCmdClearFilter     );
+            CmdRefresh     = new DelegateCommand(OnCmdRefresh    );
+            CmdReviewIssue = new DelegateCommand(OnCmdReviewIssue);
+            CmdClearFilter = new DelegateCommand(OnCmdClearFilter);
+
+            InspectionInfoView = new ListCollectionView(InspectionInfo);
 
 #if DEBUG
 #warning Using MOCK data for QaInspectionViewModel
@@ -127,8 +130,7 @@ namespace BDC_V1.ViewModels
                 }
             });
 
-            Description = "Filter: 11057";
-            //InspectionInfo.AddRange(Enumerable.Repeat(new IssueInspection(), 30));
+            Description = "11057";
 #endif
         }
 
@@ -139,15 +141,101 @@ namespace BDC_V1.ViewModels
             return false;
         }
 
-        private void OnFilterByFacilityId () { Debug.WriteLine("OnFilterByFacilityId  not implemented"); }
-        private void OnFilterBySystemId   () { Debug.WriteLine("OnFilterBySystemId    not implemented"); }
-        private void OnFilterByComponentId() { Debug.WriteLine("OnFilterByComponentId not implemented"); }
-        private void OnFilterByTypeName   () { Debug.WriteLine("OnFilterByTypeName    not implemented"); }
-        private void OnFilterBySection    () { Debug.WriteLine("OnFilterBySection     not implemented"); }
-        private void OnFilterByIssue      () { Debug.WriteLine("OnFilterByIssue       not implemented"); }
+        private void OnFilterButtonChecked(object item)
+        {
+            if (! (item is string headerText)) return;
 
-        private void OnCmdRefresh         () { Debug.WriteLine("OnCmdRefresh          not implemented"); }
-        private void OnCmdReviewIssue     () { Debug.WriteLine("OnCmdReviewIssue      not implemented"); }
-        private void OnCmdClearFilter     () { Debug.WriteLine("OnCmdClearFilter      not implemented"); }
+            var description = headerText.Trim();
+            foreach (EnumSortingFilter filterType in Enum.GetValues(typeof(EnumSortingFilter)))
+            {
+                if (filterType.Description() != description) continue;
+
+                FilterSource = filterType;
+
+                switch (filterType)
+                {
+                    case EnumSortingFilter.None:
+                        InspectionInfoView.Filter = null;
+                        break;
+
+                    case EnumSortingFilter.FacilityId:
+                        InspectionInfoView.Filter = (i) =>
+                        {
+                            if (i is IssueInspection issue)
+                                return issue.FacilityId.IsLike(Description);
+
+                            return true;
+                        };
+                        break;
+
+                    case EnumSortingFilter.SystemId:
+                        InspectionInfoView.Filter = (i) =>
+                        {
+                            if (i is IssueInspection issue)
+                                return issue.SystemId.IsLike(Description);
+
+                            return true;
+                        };
+                        break;
+
+                    case EnumSortingFilter.InventoryId:
+                        InspectionInfoView.Filter = (i) =>
+                        {
+                            if (i is IssueInspection issue)
+                                return issue.ComponentId.IsLike(Description);
+
+                            return true;
+                        };
+                        break;
+
+                    case EnumSortingFilter.TypeId:
+                        InspectionInfoView.Filter = (i) =>
+                        {
+                            if (i is IssueInspection issue)
+                                return issue.TypeName.IsLike(Description);
+
+                            return true;
+                        };
+                        break;
+
+                    case EnumSortingFilter.SectionName:
+                        InspectionInfoView.Filter = (i) =>
+                        {
+                            if (i is IssueInspection issue)
+                                return issue.SectionName.IsLike(Description);
+
+                            return true;
+                        };
+                        break;
+
+                    case EnumSortingFilter.InspectionIssue:
+                        InspectionInfoView.Filter = (i) =>
+                        {
+                            if (i is IssueInspection issue)
+                                return issue.InspectionComment.CommentText.IsLike(Description);
+
+                            return true;
+                        };
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                //InspectionInfoView.Refresh();
+                break;
+            }
+        }
+
+        private void OnCmdClearFilter()
+        {
+            InspectionInfoView.Filter = null;
+            FilterSource = EnumSortingFilter.None;
+            //Description = string.Empty;
+            //InspectionInfoView.Refresh();
+        }
+
+        private void OnCmdRefresh    () { Debug.WriteLine("OnCmdRefresh     not implemented"); }
+        private void OnCmdReviewIssue() { Debug.WriteLine("OnCmdReviewIssue not implemented"); }
     }
 }

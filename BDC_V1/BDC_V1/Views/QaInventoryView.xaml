@@ -60,7 +60,7 @@
       </Style.Triggers>
     </Style>
 
-    <Style x:Key="DataGridColumnHeaderBase" TargetType="DataGridColumnHeader">
+    <Style x:Key="DataGridColHeaderBase" TargetType="DataGridColumnHeader">
       <Setter Property="Background"  Value="#DEB40A" />
       <Setter Property="FontSize"    Value="16" />
       <Setter Property="FontWeight"  Value="Bold" />
@@ -68,6 +68,10 @@
       <Setter Property="BorderBrush" Value="Black" />
       <Setter Property="BorderThickness" Value="2" />
       <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+    <Style x:Key="DataGridColumnHeaderBase" TargetType="DataGridColumnHeader" 
+           BasedOn="{StaticResource DataGridColHeaderBase}">
       <Setter Property="ContentTemplate">
         <Setter.Value>
           <DataTemplate>
@@ -190,7 +194,7 @@
       </DockPanel>
 
       <!-- DataGrid -->
-      <DataGrid Name="LvUsers" Grid.Row="1" Grid.Column="0"
+      <DataGrid Grid.Row="1" Grid.Column="0"
                 MinHeight="250"
                 Height="Auto"
                 Width="945"
@@ -219,31 +223,23 @@
         </DataGrid.Width>
         -->
         <DataGrid.Columns>
-          <DataGridTextColumn Header=" Facility ID"  
-                              Binding="{Binding Path=FacilityId }"  
-           />
-          
-          <DataGridTextColumn Header=" System ID" 
-                              Binding="{Binding Path=SystemId}"  
-          />
-          
-          <DataGridTextColumn Header=" Inventory"  
-                              Binding="{Binding Path=ComponentId}"  
-          />
-          
-          <DataGridTextColumn Header=" Type" 
-                              Binding="{Binding Path=TypeName}" 
-          />
-          
-          <DataGridTextColumn Header=" Section" 
-                              Binding="{Binding Path=SectionName}" 
-          />
-          
+          <!-- The header titles must match the EnumSortingFilter descriptions, ignoring leading spaces -->
+          <DataGridTextColumn Header=" Facility ID" Binding="{Binding Path=FacilityId }" />
+          <DataGridTextColumn Header=" System ID"   Binding="{Binding Path=SystemId}"    />
+          <DataGridTextColumn Header=" Inventory"   Binding="{Binding Path=ComponentId}" />
+          <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"    />
+          <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}" />
           <DataGridTextColumn Header=" Inventory Issue" 
                               Binding="{Binding Path=InventoryComment.CommentText}" 
                               MinWidth="250"
                               Width="445"
           >
+            <DataGridTextColumn.ElementStyle>
+              <Style>                            
+                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+              </Style>
+            </DataGridTextColumn.ElementStyle>
+
             <!-- All this to get the last column to fill up available space -->
             <!--
             <DataGridTextColumn.HeaderStyle>

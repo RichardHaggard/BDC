@@ -12,173 +12,252 @@
     xmlns:utils="clr-namespace:BDC_V1.Utils"
     xmlns:converters="clr-namespace:BDC_V1.Converters"
     mc:Ignorable="d"
-    Height="400" Width="1200"
-    d:DesignHeight="400" d:DesignWidth="1200">
+    MinHeight="400" Width="1000"
+    >
 
-    <UserControl.Resources>
+  <UserControl.Resources>
+    <converters:RatingToBrushConverter     x:Key="RatingToBrushConverter"     />
+    <converters:DataFilterBooleanConverter x:Key="DataFilterBooleanConverter" />
 
-        <converters:RatingToBrushConverter x:Key="RatingToBrushConverter"/>
+    <Style x:Key="ToggleButtonBase" TargetType="RadioButton"
+           BasedOn="{StaticResource {x:Type ToggleButton}}">
+      <Setter Property="Background"  Value="Transparent" />
+      <Setter Property="Margin"      Value="0" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ToggleButton">
+            <Border Background="{TemplateBinding Background}" >
+              <Image Height="25" Margin="5,2,0,0"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Source="/BDC_V1;component/Resources/Filter (1).png" />
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
 
-        <Style x:Key="RtgStyle" TargetType="TextBlock">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
+      <Style.Triggers>
+        <DataTrigger Value="true" 
+                     Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}, 
+                     FallbackValue=false}">
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="ToggleButton">
+                <Border Background="{TemplateBinding Background}" >
+                  <Image Height="25" Margin="5,2,0,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                         Source="/BDC_V1;component/Resources/Filter_Green.png" />
+                </Border>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
 
-        <!--Data grid header filter related-->
-        <Style x:Key="FilterButtonStyleBase" TargetType="Button">
-            <Setter Property="HorizontalAlignment"  Value="Stretch" />
-            <Setter Property="Height" Value="30" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Border CornerRadius="3"
-                    BorderThickness="2"
-                    Background="#E0F2FF"
-                    BorderBrush="Green">
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+    <Style x:Key="DataGridColHeaderBase" TargetType="DataGridColumnHeader">
+      <Setter Property="Background"  Value="#DEB40A" />
+      <Setter Property="FontSize"    Value="16" />
+      <Setter Property="FontWeight"  Value="Bold" />
+      <Setter Property="Margin"      Value="0" />
+      <Setter Property="BorderBrush" Value="Black" />
+      <Setter Property="BorderThickness" Value="2" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+    <Style x:Key="DataGridColumnHeaderRtg" TargetType="DataGridColumnHeader" 
+           BasedOn="{StaticResource DataGridColHeaderBase}">
+      <Setter Property="ContentTemplate">
+        <Setter.Value>
+          <DataTemplate>
+            <StackPanel>
+              <Label Height="25" />   <!-- Filler to align the header label to the bottom -->
+              <Label FontSize="16" FontWeight="Bold" 
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Bottom"
+                     Background="Transparent" 
+                     Content="{Binding}" />
+            </StackPanel>
+          </DataTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style x:Key="DataGridColumnHeaderBase" TargetType="DataGridColumnHeader" 
+           BasedOn="{StaticResource DataGridColHeaderBase}">
+      <Setter Property="ContentTemplate">
+        <Setter.Value>
+          <DataTemplate>
+            <StackPanel>
+              <RadioButton Style="{StaticResource ToggleButtonBase}" 
+                           GroupName="ColumnFilterGroup"
+                           Tag="{Binding}"
+                           Content="{Binding}"
+                           >
+                <!-- the first value is filter source and it is not in the local view tree, we have to get the context from the data grid to find it -->
+                <!--    it selects which button is on from the ViewModel, the controls take care of it up here, changing the button does not update FilterSource,  -->
+                <!--    but the click command does -->
+                <!-- the second value will be the name of this column "Content={Binding}" above, it must match the description of the EnumSortingFilter item -->
+                <RadioButton.IsChecked>
+                  <MultiBinding Converter="{StaticResource DataFilterBooleanConverter}" Mode="OneWay">
+                    <Binding Path="DataContext.FilterSource"
+                             RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=DataGrid,AncestorLevel=1}"
+                             UpdateSourceTrigger="PropertyChanged" />
+                    <Binding Path="Content" RelativeSource="{RelativeSource Self}" />
+                  </MultiBinding>
+                </RadioButton.IsChecked>
+
+                <!-- CmdFilterButtonChecked is not in the local view tree, we have to get the context from the data grid to find it -->
+                <!-- the command parameter will be the name of this column {Binding}, it must match the description of the EnumSortingFilter item -->
+                <!-- This is what updates the ViewModel FilterSource and also sets the filter conditions -->
+                <i:Interaction.Triggers>
+                  <i:EventTrigger EventName="Checked">
+                    <i:InvokeCommandAction Command="{Binding DataContext.CmdFilterButtonChecked, 
+                                              RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid,AncestorLevel=1}}"
+                                              CommandParameter="{Binding}" />
+                  </i:EventTrigger>
+                </i:Interaction.Triggers>
+              </RadioButton>
+
+              <Label FontSize="16" FontWeight="Bold" 
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Bottom"
+                     Background="Transparent" 
+                     Content="{Binding}" />
+            </StackPanel>
+          </DataTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+  </UserControl.Resources>
 
 
-    </UserControl.Resources>
+  <!-- TODO: The sizing issues need to be looked into! -->
+  <!-- The real problem is that the user control doesn't auto-size to take the  -->
+  <!-- available space the Shell Tab allots it. The AutoScroll doesn't work the way it  -->
+  <!-- should (engaging when the view area shrinks) and the controls inside the  -->
+  <!-- this user control don't resize when more / less space is allotted.  -->
 
-    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                VerticalScrollBarVisibility="Auto">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5"    />
-                <!-- 0 - white space at top -->
-                <RowDefinition Height="Auto" />
-                <!-- 1 - Component -->
-                <RowDefinition Height="10"   />
-                <!-- 2 - white space between buttons and datagrid -->
-                <RowDefinition Height="Auto" />
-                <!-- 3 - Filter buttons -->
-                <RowDefinition Height="Auto" />
-                <!-- 4 - Data Grid -->
-                <RowDefinition Height="5"    />
-                <!-- 5 - white space at bottom -->
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5" />
-                <!-- white space to the left -->
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="45"  />
-                <ColumnDefinition Width="590" />
-                <ColumnDefinition Width="5" />
-                <!-- white space to the right -->
-            </Grid.ColumnDefinitions>
+  <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto"
+                Margin="5,10,5,10">
+    <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" /> <!-- 1 - Component -->
+          <RowDefinition Height="Auto" /> <!-- 2 - Data Grid -->
+          <RowDefinition Height="*"    /> <!-- room for the auto scroll -->
+        </Grid.RowDefinitions>
 
-            <!-- Button row -->
-            <Button ToolTip="Refresh" Grid.Row="1" Grid.Column="1"
-              Height="75" Margin="10"
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" /> <!-- room for the auto scroll -->
+      </Grid.ColumnDefinitions>
+
+        <!-- Button row -->
+      <DockPanel Grid.Row="0" Grid.Column="0"
+                 Margin="0,0,0,10" 
+                 HorizontalAlignment="Stretch">
+
+        <DockPanel HorizontalAlignment="Left">
+            <Button ToolTip="Refresh"
+              Height="75" Width="100" Margin="0,0,10,0"
               Command="{Binding CmdRefresh}"
               Style="{StaticResource MaterialDesignRaisedLightButton}">
                 <Image Source="/BDC_V1;component/Resources/Refresh.png"/>
             </Button>
 
-            <Button ToolTip="Review Issue" Grid.Row="1" Grid.Column="2"
-              Height="75" Margin="10"
+            <Button ToolTip="Review Issue"
+              Height="75" Width="100" Margin="10,0,10,0"
               Command="{Binding CmdReviewIssue}"
               Style="{StaticResource MaterialDesignRaisedLightButton}">
                 <Image Source="/BDC_V1;component/Resources/ReviewIssue (1).png"/>
             </Button>
+         </DockPanel>
 
-            <Grid Grid.Row="1" Grid.Column="7">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <!-- Button -->
-                    <ColumnDefinition Width="*"   />
-                    <!-- Text -->
-                </Grid.ColumnDefinitions>
+        <DockPanel HorizontalAlignment="Right"
+                   LastChildFill="True">
+            <Button ToolTip="Clear Filter" DockPanel.Dock="Left"
+                    Height="75" Width="100" Margin="10,0,10,0"
+                    Command="{Binding CmdClearFilter}"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Margin="0,0,0,-10"
+                        Source="/BDC_V1;component/Resources/Filter_Clear (1).png"/>
+                    <Label Grid.Row="1" FontSize="13" FontWeight="Bold">
+                        Clear Filter
+                    </Label>
+                </Grid>
+            </Button>
 
-                <Button ToolTip="Clear Filter" Grid.Column="0"
-                Height="75" Margin="10"
-                Command="{Binding CmdClearFilter}"
-                Style="{StaticResource MaterialDesignRaisedLightButton}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="3*"/>
-                            <RowDefinition Height="2*"/>
-                        </Grid.RowDefinitions>
-                        <Image Grid.Row="0" Margin="0,0,0,-10"
-                   Source="/BDC_V1;component/Resources/Filter_Clear (1).png"/>
-                        <Label Grid.Row="1"
-                   FontSize="13"
-                   FontWeight="Bold"
-                   >
-                            Clear Filter
-                        </Label>
-                    </Grid>
-                </Button>
-                <TextBox 
-                    Grid.Column="1"
-                    Background="LightYellow"
-                    Height="75"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center"
-                    VerticalScrollBarVisibility="Auto"
-                    Style="{StaticResource TextBoxWrap}"
-                    Text="{Binding Description}"
-                    />
-            </Grid>
-
-            <!-- Filter buttons -->
-            <Button Grid.Row="3" Grid.Column="1" 
-        Style="{DynamicResource FilterButtonStyle}"
-              Command="{Binding CmdFilterByFacilityId}"/>
-            <Button Grid.Row="3" Grid.Column="2"
-              Style="{DynamicResource FilterButtonStyle}"
-              Command="{Binding CmdFilterBySystemId}"/>
-            <Button Grid.Row="3" Grid.Column="3"
-              Style="{DynamicResource FilterButtonStyle}"
-              Command="{Binding CmdFilterByComponentId}"/>
-            <Button Grid.Row="3" Grid.Column="4"
-              Style="{DynamicResource FilterButtonStyle}"
-              Command="{Binding CmdFilterByTypeName}"/>
-            <Button Grid.Row="3" Grid.Column="5"
-              Style="{DynamicResource FilterButtonStyle}"
-              Command="{Binding CmdFilterBySection}"/>
-            <Button Grid.Row="3" Grid.Column="6"                
-              Style="{DynamicResource FilterButtonStyleBase}"/>
-            <!-- space filler -->
-            <Button Grid.Row="3" Grid.Column="7"
-              Style="{DynamicResource FilterButtonStyle}"
-              Command="{Binding CmdFilterByIssue}"/>
+            <TextBox Height="75" MinWidth="300"
+                     DockPanel.Dock="Right"
+                     Background="LightYellow"
+                     HorizontalAlignment="Stretch"
+                     HorizontalContentAlignment="Left"
+                     VerticalContentAlignment="Center"
+                     VerticalScrollBarVisibility="Auto"
+                     Style="{StaticResource TextBoxWrap}"
+                     Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                />
+        </DockPanel>
+      </DockPanel>
 
             <!-- DataGrid -->
-            <DataGrid Name="LvUsers" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="7" 
-                Width="1146"  MinHeight="200"
-                ItemsSource="{Binding InspectionInfo}"
-                CanUserSortColumns="True"
-                GridLinesVisibility="All"
-                AutoGenerateColumns="False"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header=" Facility ID" Binding="{Binding Path=FacilityId}"  Width="100" />
-                    <DataGridTextColumn Header=" System ID"   Binding="{Binding Path=SystemId}"    Width="100" />
-                    <DataGridTextColumn Header=" Inventory"   Binding="{Binding Path=ComponentId}" Width="100" />
-                    <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"    Width="100" />
-                    <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}" Width="100" />
-                    <DataGridTextColumn Header=" Rtg."        Binding="{Binding Path=RatingText}"  Width="45"
-                              ElementStyle="{StaticResource RtgStyle}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell" >
-                                <Setter Property="Background" 
-                        Value="{Binding Path=Rating, Converter={StaticResource RatingToBrushConverter}}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header=" Inspection Issue" Binding="{Binding Path=InspectionComment.CommentText}" Width="590" />
-                </DataGrid.Columns>
-            </DataGrid>
+          <DataGrid Grid.Row="1" Grid.Column="0"
+                    MinHeight="250"
+                    Height="Auto"
+                    Width="945"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    ColumnHeaderHeight="60"
+                    ColumnWidth="100"
+                    ColumnHeaderStyle="{StaticResource DataGridColumnHeaderBase}"
+                    ItemsSource="{Binding InspectionInfoView}"
+                    CanUserSortColumns="True"
+                    CanUserResizeColumns="False"
+                    GridLinesVisibility="All"
+                    AutoGenerateColumns="False"
+          >
+            <DataGrid.Columns>
+              <!-- The header titles must match the EnumSortingFilter descriptions, ignoring leading spaces -->
+              <DataGridTextColumn Header=" Facility ID" Binding="{Binding Path=FacilityId }" />
+              <DataGridTextColumn Header=" System ID"   Binding="{Binding Path=SystemId}"    />
+              <DataGridTextColumn Header=" Inventory"   Binding="{Binding Path=ComponentId}" />
+              <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"    />
+              <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}" />
+              <DataGridTextColumn Header="Rtg."         Binding="{Binding Path=RatingText}"  Width="45"
+                                  HeaderStyle="{StaticResource DataGridColumnHeaderRtg}">
+                <DataGridTextColumn.CellStyle>
+                  <Style TargetType="DataGridCell" >
+                    <Setter Property="Background" 
+                            Value="{Binding Path=Rating, 
+                              Converter={StaticResource RatingToBrushConverter},
+                              Mode=OneWay}" />
+                  </Style>
+                </DataGridTextColumn.CellStyle>
+              </DataGridTextColumn>
+              <DataGridTextColumn Header=" Inspection Issue" 
+                                  Binding="{Binding Path=InspectionComment.CommentText}" 
+                                  MinWidth="250"
+                                  Width="400"
+              >
+                <DataGridTextColumn.ElementStyle>
+                  <Style>                            
+                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                  </Style>
+                </DataGridTextColumn.ElementStyle>
+              </DataGridTextColumn>
+            </DataGrid.Columns>
+          </DataGrid>
         </Grid>
     </ScrollViewer>
 </UserControl>
