@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using BDC_V1.Enumerations;
 using BDC_V1.Utils;
 using BDC_V1.ViewModels;
 
@@ -18,7 +19,7 @@ namespace BDC_V1.Converters
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if ((values.Length < 2) || 
-                ! (values[0] is QaInventoryViewModel.EnumSortingFilter filter) ||
+                ! (values[0] is EnumSortingFilter filter) ||
                 ! (values[1] is string content))            
             {
                 return Binding.DoNothing;

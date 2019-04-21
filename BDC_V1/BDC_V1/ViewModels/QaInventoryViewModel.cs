@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Converters;
+using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
 using Prism.Commands;
@@ -21,30 +22,6 @@ namespace BDC_V1.ViewModels
     public class QaInventoryViewModel : ViewModelBase
     {
         // **************** Class enumerations ********************************************** //
-
-        [DefaultValue(None)]
-        public enum EnumSortingFilter
-        {
-            None,
-
-            [Description("Facility ID")]
-            FacilityId,
-
-            [Description("System ID")]
-            SystemId,
-
-            [Description("Inventory")]
-            InventoryId,
-
-            [Description("Type")]
-            TypeId,
-
-            [Description("Section")]
-            SectionName,
-
-            [Description("Inventory Issue")]
-            InventoryIssue,
-        }
 
         // **************** Class data members ********************************************** //
 
@@ -59,10 +36,7 @@ namespace BDC_V1.ViewModels
         public string Description
         {
             get => _description;
-            set => SetProperty(ref _description, value, () =>
-            {
-                InventoryInfoView.Refresh();
-            });
+            set => SetProperty(ref _description, value, () => InventoryInfoView.Refresh());
         }
         private string _description;
 
@@ -91,10 +65,7 @@ namespace BDC_V1.ViewModels
             CmdReviewIssue = new DelegateCommand(OnCmdReviewIssue);
             CmdClearFilter = new DelegateCommand(OnCmdClearFilter);
 
-            InventoryInfoView = new ListCollectionView(InventoryInfo)
-            {
-                Filter = InventoryFilter
-            };
+            InventoryInfoView = new ListCollectionView(InventoryInfo);
 
             //InventoryInfoView.SortDescriptions .Add(new SortDescription ());
             //InventoryInfoView.GroupDescriptions.Add(new GroupDescription());
@@ -132,30 +103,30 @@ namespace BDC_V1.ViewModels
                 }
             });
 
+            InventoryInfo.Add(new IssueInventory()
+            {
+                FacilityId = "11444",
+                SystemId = "A10",
+                ComponentId = "A1010",
+                TypeName = "A101001",
+                SectionName = "Boilers",
+                InventoryComment = new CommentInventory
+                {
+                    EntryUser = new Person(),
+                    EntryTime = new DateTime(),
+                    CommentText = "This is a really, really long comment which should engage the auto-wrap feature of the last column\n" +
+                                  "It also has an embedded newline character to test that as well"
+                }
+            });
+
             Description = "11057";
 #endif
         }
 
         // **************** Class members *************************************************** //
 
-        private bool InventoryFilter(object item)
-        {
-            if (!(item is IssueInventory issue)) return true;
-
-            return true;
-        }
-
         protected override bool GetRegionManager()
         {
-            return false;
-        }
-
-        private bool IsLike(string src, string pat)
-        {
-            if (src.Contains  (pat)) return true; // like '%pat%'
-            if (src.StartsWith(pat)) return true; // like 'pat%'
-            if (src.EndsWith  (pat)) return true; // like '%pat'
-
             return false;
         }
 
@@ -173,14 +144,14 @@ namespace BDC_V1.ViewModels
                 switch (filterType)
                 {
                     case EnumSortingFilter.None:
-                        InventoryInfoView.Filter = (i) => true;
+                        InventoryInfoView.Filter = null;
                         break;
 
                     case EnumSortingFilter.FacilityId:
                         InventoryInfoView.Filter = (i) =>
                         {
                             if (i is IssueInventory issue)
-                                return IsLike(issue.FacilityId, Description);
+                                return issue.FacilityId.IsLike(Description);
 
                             return true;
                         };
@@ -190,7 +161,7 @@ namespace BDC_V1.ViewModels
                         InventoryInfoView.Filter = (i) =>
                         {
                             if (i is IssueInventory issue)
-                                return IsLike(issue.SystemId, Description);
+                                return issue.SystemId.IsLike(Description);
 
                             return true;
                         };
@@ -200,7 +171,7 @@ namespace BDC_V1.ViewModels
                         InventoryInfoView.Filter = (i) =>
                         {
                             if (i is IssueInventory issue)
-                                return IsLike(issue.ComponentId, Description);
+                                return issue.ComponentId.IsLike(Description);
 
                             return true;
                         };
@@ -210,7 +181,7 @@ namespace BDC_V1.ViewModels
                         InventoryInfoView.Filter = (i) =>
                         {
                             if (i is IssueInventory issue)
-                                return IsLike(issue.TypeName, Description);
+                                return issue.TypeName.IsLike(Description);
 
                             return true;
                         };
@@ -220,7 +191,7 @@ namespace BDC_V1.ViewModels
                         InventoryInfoView.Filter = (i) =>
                         {
                             if (i is IssueInventory issue)
-                                return IsLike(issue.SectionName, Description);
+                                return issue.SectionName.IsLike(Description);
 
                             return true;
                         };
@@ -230,8 +201,7 @@ namespace BDC_V1.ViewModels
                         InventoryInfoView.Filter = (i) =>
                         {
                             if (i is IssueInventory issue)
-                                return IsLike(issue.InventoryComment.CommentText, 
-                                    Description);
+                                return issue.InventoryComment.CommentText.IsLike(Description);
 
                             return true;
                         };
@@ -246,16 +216,15 @@ namespace BDC_V1.ViewModels
             }
         }
 
-        private void OnCmdRefresh    () { Debug.WriteLine("OnCmdRefresh     not implemented"); }
-        private void OnCmdReviewIssue() { Debug.WriteLine("OnCmdReviewIssue not implemented"); }
-
         private void OnCmdClearFilter()
         {
-            InventoryInfoView.Filter = (i) => true;
+            InventoryInfoView.Filter = null;
             FilterSource = EnumSortingFilter.None;
-            Description = string.Empty;
-
+            //Description = string.Empty;
             //InventoryInfoView.Refresh();
         }
+
+        private void OnCmdRefresh    () { Debug.WriteLine("OnCmdRefresh     not implemented"); }
+        private void OnCmdReviewIssue() { Debug.WriteLine("OnCmdReviewIssue not implemented"); }
     }
 }
