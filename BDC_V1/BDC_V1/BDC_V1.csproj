@@ -118,6 +118,8 @@
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\PropertyBase.cs" />
     <Compile Include="Classes\CommentSection.cs" />
+    <Compile Include="Classes\QcIssueBase.cs" />
+    <Compile Include="Classes\QcViewModelBase.cs" />
     <Compile Include="Classes\SectionInfo.cs" />
     <Compile Include="Classes\WindowBehaviors.cs" />
     <Compile Include="Converters\BoolToObjectConverter.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Converters\DataGridAutoColumnWidth.cs" />
     <Compile Include="Converters\DataGridAutoWidth.cs" />
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Converters\EnumToDescriptionConverter.cs" />
     <Compile Include="Converters\MultiBoolToObjectConverter.cs" />
     <Compile Include="Converters\RatingColorToBrushConverter.cs" />
     <Compile Include="Converters\RatingColorToColorConverter.cs" />
@@ -144,6 +147,7 @@
     <Compile Include="Interfaces\IFacilityInfoHeader.cs" />
     <Compile Include="Interfaces\IImageCollection.cs" />
     <Compile Include="Interfaces\IIndexedCollection.cs" />
+    <Compile Include="Interfaces\IQcIssueBase.cs" />
     <Compile Include="Interfaces\ISectionInfo.cs" />
     <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -151,6 +155,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\DescriptionToEnum.cs" />
     <Compile Include="Utils\EnumRatingConverter.cs" />
     <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="Classes\ComponentInventory.cs" />

@@ -16,7 +16,7 @@
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         MinHeight="450" MinWidth="550"
-        Height="900" Width="1000">
+        Height="930" Width="1000">
 
   <Window.Resources>
     <converters:EnumBooleanConverter   x:Key="EnumBooleanConverter"   />
@@ -33,7 +33,7 @@
       <Setter Property="Margin" Value="0" />
     </Style>
 
-    <Style x:Key="RtgStyle" TargetType="TextBlock">
+    <Style x:Key="DcrStyle" TargetType="TextBlock">
       <Setter Property="HorizontalAlignment" Value="Center" />
       <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
@@ -44,33 +44,6 @@
       <Setter Property="BorderThickness" Value="1" />
     </Style>
 
-    <Style x:Key="CommonButtons" TargetType="RadioButton">
-      <Setter Property="HorizontalAlignment" Value="Left" />
-      <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-
-    <Style x:Key="RowOneButtons" TargetType="RadioButton" BasedOn="{StaticResource CommonButtons}">
-    </Style>
-
-    <Style x:Key="RowTwoButtons" TargetType="RadioButton" BasedOn="{StaticResource CommonButtons}">
-    </Style>
-
-    <Style x:Key="RowThreePlusButtons" TargetType="RadioButton" BasedOn="{StaticResource CommonButtons}">
-    </Style>
-
-    <Style x:Key="CommonLabels" TargetType="Label">
-      <Setter Property="Margin" Value="0,5,0,5" />
-      <Setter Property="HorizontalAlignment" Value="Left" />
-      <Setter Property="VerticalAlignment" Value="Center" />
-      <Setter Property="HorizontalContentAlignment" Value="Left" />
-      <Setter Property="VerticalContentAlignment" Value="Center" />
-    </Style>
-
-    <Style x:Key="RowOneLabels" TargetType="Label" BasedOn="{StaticResource CommonLabels}">
-    </Style>
-
-    <Style x:Key="RowThreePlusLabels" TargetType="Label" BasedOn="{StaticResource CommonLabels}">
-    </Style>
   </Window.Resources>
 
   <Grid>
@@ -81,12 +54,13 @@
       <RowDefinition Height="Auto" /> <!-- Search Term -->
       <RowDefinition Height="*" MinHeight="680" /> <!-- DataGrid -->
       <RowDefinition Height="Auto" /> <!-- Action Buttons -->
+      <RowDefinition Height="*"    /> <!-- Filler -->
     </Grid.RowDefinitions>
       
     <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="150" />
       <ColumnDefinition Width="120" />
-      <ColumnDefinition Width="100" />
-      <ColumnDefinition Width="140" />
+      <ColumnDefinition Width="180" />
       <ColumnDefinition Width="90" />
       <ColumnDefinition Width="90" />
       <ColumnDefinition Width="*" />
@@ -94,12 +68,12 @@
 
     <!-- Source -->
     <Label Grid.Row="0" Grid.Column="0"
-           Style="{StaticResource RowOneLabels}"
+           Style="{StaticResource LabelLJ}"
            Content="Source:" />
 
     <RadioButton Grid.Row="0" Grid.Column="1" Name="SourceBredButton"
                  Content="BRED File"
-                 Style="{DynamicResource RowOneButtons}"
+                 Style="{DynamicResource rbBase}"
                  GroupName="SourceTypeGroup"
                  IsChecked="{Binding Path=FilterSource,
                             Converter={StaticResource ResourceKey=EnumBooleanConverter},
@@ -108,7 +82,7 @@
 
     <RadioButton Grid.Row="0" Grid.Column="2" Name="SourceSavedButton"
                  Content="My Saved Comments"
-                 Style="{DynamicResource RowTwoButtons}"
+                 Style="{DynamicResource rbBase}"
                  GroupName="SourceTypeGroup"
                  IsChecked="{Binding Path=FilterSource,
                             Converter={StaticResource ResourceKey=EnumBooleanConverter},
@@ -116,12 +90,13 @@
                             Mode=TwoWay}" />
 
     <Label Grid.Row="0" Grid.Column="3"
-           Style="{StaticResource RowThreePlusLabels}"
+           Margin="5,5,0,5"
+           Style="{StaticResource LabelLJ}"
            HorizontalAlignment="Right"
            Content="Facility:" />
 
     <ComboBox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"
-              Margin="0,5,0,5"
+              Margin="5"
               IsEnabled="{Binding ElementName=SourceSavedButton, Path=IsEnabled}"
               ItemsSource="{Binding ListOfFacilities, Mode=OneWay}"
               SelectedItem="{Binding SelectedFacility, Mode=TwoWay}">
@@ -139,12 +114,12 @@
 
     <!-- Related to Content -->
     <Label Grid.Row="1" Grid.Column="0"
-           Style="{StaticResource RowOneLabels}"
+           Style="{StaticResource LabelLJ}"
            Content="Related to current:" />
 
     <RadioButton Grid.Row="1" Grid.Column="1" 
                  Content="System Type"
-                 Style="{DynamicResource RowOneButtons}"
+                 Style="{DynamicResource rbBase}"
                  GroupName="CurrentTypeGroup"
                  IsChecked="{Binding Path=RelatedSource,
                             Converter={StaticResource ResourceKey=EnumBooleanConverter},
@@ -153,7 +128,7 @@
 
     <RadioButton Grid.Row="1" Grid.Column="2" 
                  Content="Component Type"
-                 Style="{DynamicResource RowTwoButtons}"
+                 Style="{DynamicResource rbBase}"
                  GroupName="CurrentTypeGroup"
                  IsChecked="{Binding Path=RelatedSource,
                             Converter={StaticResource ResourceKey=EnumBooleanConverter},
@@ -162,48 +137,56 @@
 
     <!-- Rated as -->
     <Label Grid.Row="2" Grid.Column="0"
-           Style="{StaticResource RowOneLabels}"
+           Style="{StaticResource LabelLJ}"
            Content="Rated as:" />
 
-    <RadioButton Grid.Row="2" Grid.Column="1" 
-                 Content="Any"
-                 Style="{DynamicResource RowThreePlusButtons}"
-                 GroupName="RatedTypeGroup"
-                 IsChecked="{Binding Path=FilterRatingColor,
-                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
-                            ConverterParameter=None,
-                            Mode=TwoWay}" />
+    <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="120" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <RadioButton Grid.Column="0" 
+                   Content="Any"
+                   Style="{DynamicResource rbBase}"
+                   GroupName="RatedTypeGroup"
+                   IsChecked="{Binding Path=FilterRatingColor,
+                              Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                              ConverterParameter=None,
+                              Mode=TwoWay}" />
 
-    <RadioButton Grid.Row="2" Grid.Column="2" 
-                 Style="{DynamicResource RowThreePlusButtons}"
-                 Content="Green"
-                 GroupName="RatedTypeGroup"
-                 IsChecked="{Binding Path=FilterRatingColor,
-                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
-                            ConverterParameter=Green,
-                            Mode=TwoWay}" />
+      <RadioButton Grid.Column="1" 
+                   Style="{DynamicResource rbBase}"
+                   Content="Green"
+                   GroupName="RatedTypeGroup"
+                   IsChecked="{Binding Path=FilterRatingColor,
+                              Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                              ConverterParameter=Green,
+                              Mode=TwoWay}" />
 
-    <RadioButton Grid.Row="2" Grid.Column="3" 
-                 Style="{DynamicResource RowThreePlusButtons}"
-                 Content="Amber"
-                 GroupName="RatedTypeGroup"
-                 IsChecked="{Binding Path=FilterRatingColor,
-                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
-                            ConverterParameter=Amber,
-                            Mode=TwoWay}" />
+      <RadioButton Grid.Column="2" 
+                   Style="{DynamicResource rbBase}"
+                   Content="Amber"
+                   GroupName="RatedTypeGroup"
+                   IsChecked="{Binding Path=FilterRatingColor,
+                              Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                              ConverterParameter=Amber,
+                              Mode=TwoWay}" />
 
-    <RadioButton Grid.Row="2" Grid.Column="4" 
-                 Style="{DynamicResource RowThreePlusButtons}"
-                 Content="Red"
-                 GroupName="RatedTypeGroup"
-                 IsChecked="{Binding Path=FilterRatingColor,
-                            Converter={StaticResource ResourceKey=EnumBooleanConverter},
-                            ConverterParameter=Red,
-                            Mode=TwoWay}" />
+      <RadioButton Grid.Column="3" 
+                   Style="{DynamicResource rbBase}"
+                   Content="Red"
+                   GroupName="RatedTypeGroup"
+                   IsChecked="{Binding Path=FilterRatingColor,
+                              Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                              ConverterParameter=Red,
+                              Mode=TwoWay}" />
+    </Grid>
 
     <!-- Search Term -->
     <Label Grid.Row="3" Grid.Column="0"
-           Style="{StaticResource RowOneLabels}"
+           Style="{StaticResource LabelLJ}"
            Content="Search term:" />
 
     <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
@@ -213,7 +196,7 @@
       Text="{Binding SearchTerm, Mode=TwoWay}"/>
 
     <!-- DataGrid -->
-    <DataGrid Name="LvUsers" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" 
+    <DataGrid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" 
               Margin="5"
               MinHeight="680"
               AutoGenerateColumns="False"
@@ -222,12 +205,19 @@
               GridLinesVisibility="All"
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
+              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderBase}"
               ItemsSource="{Binding FilteredCommentary, Mode=OneWay}">
       <DataGrid.Columns>
         <DataGridTextColumn Header=" Facility" Binding="{Binding Path=FacilityId}" Width="100" />
         <DataGridTextColumn Header=" Code"     Binding="{Binding Path=CodeIdText}" Width="100" />
         <DataGridTextColumn Header=" DCR"      Binding="{Binding Path=Rating    }" Width="50"
-                            ElementStyle="{StaticResource RtgStyle}">
+                            ElementStyle="{StaticResource DcrStyle}">
+          <DataGridTextColumn.HeaderStyle>
+            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderBase}">
+              <Setter Property="HorizontalAlignment" Value="Stretch" />
+              <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+          </DataGridTextColumn.HeaderStyle>
           <DataGridTextColumn.CellStyle>
             <Style TargetType="DataGridCell" >
               <Setter Property="Background" 

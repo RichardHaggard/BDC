@@ -11,16 +11,13 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Interfaces
 {
-    public interface IIssueInspection : INotifyPropertyChanged
-    {
-        string FacilityId  { get; set; }
-        string SystemId    { get; set; }
-        string ComponentId { get; set; }
-        string TypeName    { get; set; }
-        string SectionName { get; set; }
-        string RatingText  { get; }
+    //<!-- TODO: Collapse QaInventoryView and QaInspectionView into a single source -->
 
+    /// <inheritdoc />
+    public interface IIssueInspection : IQcIssueBase
+    {
         CommentBase    InspectionComment { get; set; }
         EnumRatingType Rating            { get; set; }
+        string         RatingText        { get; }
     }
 }

@@ -16,7 +16,10 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class QaInspectionViewModel : ViewModelBase
+    //<!-- TODO: Collapse QaInventoryView and QaInspectionView into a single source -->
+
+    /// <inheritdoc />
+    public class QaInspectionViewModel : QcViewModelBase
     {
         // **************** Class enumerations ********************************************** //
 
@@ -24,30 +27,8 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
         
-        public ICommand CmdFilterButtonChecked { get; }
-        
-        public ICommand CmdRefresh     { get; }
-        public ICommand CmdReviewIssue { get; }
-        public ICommand CmdClearFilter { get; }
-
-        public string Description
-        {
-            get => _description;
-            set => SetProperty(ref _description, value, () => InspectionInfoView.Refresh());
-        }
-        private string _description;
-
-        public EnumSortingFilter FilterSource
-        {
-            get => _filterSource;
-            set => SetProperty(ref _filterSource, value);
-        }
-        private EnumSortingFilter _filterSource;
-
         public ObservableCollection<IssueInspection> InspectionInfo { get; } =
             new ObservableCollection<IssueInspection>();
-
-        public ListCollectionView InspectionInfoView { get; } 
 
         // **************** Class data members ********************************************** //
         // **************** Class constructors ********************************************** //
@@ -55,13 +36,7 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "QaInspectionItemControl";
 
-            CmdFilterButtonChecked  = new DelegateCommand<object>(OnFilterButtonChecked);
-        
-            CmdRefresh     = new DelegateCommand(OnCmdRefresh    );
-            CmdReviewIssue = new DelegateCommand(OnCmdReviewIssue);
-            CmdClearFilter = new DelegateCommand(OnCmdClearFilter);
-
-            InspectionInfoView = new ListCollectionView(InspectionInfo);
+            ItemsView = new ListCollectionView(InspectionInfo);
 
 #if DEBUG
 #warning Using MOCK data for QaInspectionViewModel
@@ -140,102 +115,5 @@ namespace BDC_V1.ViewModels
         {
             return false;
         }
-
-        private void OnFilterButtonChecked(object item)
-        {
-            if (! (item is string headerText)) return;
-
-            var description = headerText.Trim();
-            foreach (EnumSortingFilter filterType in Enum.GetValues(typeof(EnumSortingFilter)))
-            {
-                if (filterType.Description() != description) continue;
-
-                FilterSource = filterType;
-
-                switch (filterType)
-                {
-                    case EnumSortingFilter.None:
-                        InspectionInfoView.Filter = null;
-                        break;
-
-                    case EnumSortingFilter.FacilityId:
-                        InspectionInfoView.Filter = (i) =>
-                        {
-                            if (i is IssueInspection issue)
-                                return issue.FacilityId.IsLike(Description);
-
-                            return true;
-                        };
-                        break;
-
-                    case EnumSortingFilter.SystemId:
-                        InspectionInfoView.Filter = (i) =>
-                        {
-                            if (i is IssueInspection issue)
-                                return issue.SystemId.IsLike(Description);
-
-                            return true;
-                        };
-                        break;
-
-                    case EnumSortingFilter.InventoryId:
-                        InspectionInfoView.Filter = (i) =>
-                        {
-                            if (i is IssueInspection issue)
-                                return issue.ComponentId.IsLike(Description);
-
-                            return true;
-                        };
-                        break;
-
-                    case EnumSortingFilter.TypeId:
-                        InspectionInfoView.Filter = (i) =>
-                        {
-                            if (i is IssueInspection issue)
-                                return issue.TypeName.IsLike(Description);
-
-                            return true;
-                        };
-                        break;
-
-                    case EnumSortingFilter.SectionName:
-                        InspectionInfoView.Filter = (i) =>
-                        {
-                            if (i is IssueInspection issue)
-                                return issue.SectionName.IsLike(Description);
-
-                            return true;
-                        };
-                        break;
-
-                    case EnumSortingFilter.InspectionIssue:
-                        InspectionInfoView.Filter = (i) =>
-                        {
-                            if (i is IssueInspection issue)
-                                return issue.InspectionComment.CommentText.IsLike(Description);
-
-                            return true;
-                        };
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                //InspectionInfoView.Refresh();
-                break;
-            }
-        }
-
-        private void OnCmdClearFilter()
-        {
-            InspectionInfoView.Filter = null;
-            FilterSource = EnumSortingFilter.None;
-            //Description = string.Empty;
-            //InspectionInfoView.Refresh();
-        }
-
-        private void OnCmdRefresh    () { Debug.WriteLine("OnCmdRefresh     not implemented"); }
-        private void OnCmdReviewIssue() { Debug.WriteLine("OnCmdReviewIssue not implemented"); }
     }
 }

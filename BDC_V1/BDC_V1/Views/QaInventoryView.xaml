@@ -12,12 +12,14 @@
     xmlns:local="clr-namespace:BDC_V1.Views"
     xmlns:converters="clr-namespace:BDC_V1.Converters"
     xmlns:classes="clr-namespace:BDC_V1.Classes"
+    xmlns:enumerations="clr-namespace:BDC_V1.Enumerations"
     mc:Ignorable="d"
     MinHeight="400" Width="1000"
     >
 
+  <!-- TODO: Collapse QaInventoryView and QaInspectionView into a single source -->
   <UserControl.Resources>
-    <converters:EnumBooleanConverter       x:Key="EnumBooleanConverter"       />
+    <converters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter" />
     <converters:DataFilterBooleanConverter x:Key="DataFilterBooleanConverter" />
     <converters:DataGridAutoColumnWidth    x:Key="DataGridAutoColumnWidth"    />
     <converters:DataGridAutoWidth          x:Key="DataGridAutoWidth"          />
@@ -205,7 +207,7 @@
                 ColumnHeaderHeight="60"
                 ColumnWidth="100"
                 ColumnHeaderStyle="{StaticResource DataGridColumnHeaderBase}"
-                ItemsSource="{Binding InventoryInfoView}"
+                ItemsSource="{Binding ItemsView}"
                 CanUserSortColumns="True"
                 CanUserResizeColumns="False"
                 GridLinesVisibility="All"
@@ -224,12 +226,29 @@
         -->
         <DataGrid.Columns>
           <!-- The header titles must match the EnumSortingFilter descriptions, ignoring leading spaces -->
-          <DataGridTextColumn Header=" Facility ID" Binding="{Binding Path=FacilityId }" />
-          <DataGridTextColumn Header=" System ID"   Binding="{Binding Path=SystemId}"    />
-          <DataGridTextColumn Header=" Inventory"   Binding="{Binding Path=ComponentId}" />
-          <DataGridTextColumn Header=" Type"        Binding="{Binding Path=TypeName}"    />
-          <DataGridTextColumn Header=" Section"     Binding="{Binding Path=SectionName}" />
-          <DataGridTextColumn Header=" Inventory Issue" 
+          <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.FacilityId}, 
+                                  Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
+                                  Mode=OneTime}" 
+                              Binding="{Binding Path=FacilityId }" />
+          <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.SystemId}, 
+                                  Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
+                                  Mode=OneTime}"  
+                              Binding="{Binding Path=SystemId}" />
+          <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.InventoryId}, 
+                                  Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
+                                  Mode=OneTime}" 
+                              Binding="{Binding Path=ComponentId}" />
+          <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.TypeId}, 
+                                  Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
+                                  Mode=OneTime}"  
+                              Binding="{Binding Path=TypeName}" />
+          <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.SectionName}, 
+                                  Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
+                                  Mode=OneTime}" 
+                              Binding="{Binding Path=SectionName}" />
+          <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.InventoryIssue}, 
+                                  Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
+                                  Mode=OneTime}"  
                               Binding="{Binding Path=InventoryComment.CommentText}" 
                               MinWidth="250"
                               Width="445"

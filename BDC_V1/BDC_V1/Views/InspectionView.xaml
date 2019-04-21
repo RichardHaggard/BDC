@@ -25,7 +25,6 @@
     <UserControl.Resources>
       <converters:EnumBooleanConverter       x:Key="EnumBooleanConverter"       />
       <converters:RatingColorToColorConverter x:Key="RatingColorToColorConverter" />
-      <converters:MultiBoolToObjectConverter  x:Key="MultiBoolToObjectConverter"  />
       
       <Brush x:Key="ButtonGridNotEnabledBackground">#DDEBF7</Brush>
       <Brush x:Key="ButtonGridEnabledBackground"   >White  </Brush>
@@ -422,24 +421,26 @@
                 </StackPanel.Resources>
 
                 <Label
-            Content="Inspection Type"
-            Style="{StaticResource LabelRJ}"/>
-                <RadioButton
-            Content="Direct Rating"
-            GroupName="InspectionType"
-            Margin="20 0 0 0"
-            VerticalContentAlignment="Center"
-            IsChecked="{Binding Path=InspectionInfo.InspectionType, 
+                  Content="Inspection Type:"
+                  Style="{StaticResource LabelRJ}"/>
+            <RadioButton
+                Content="Direct Rating"
+                GroupName="InspectionType"
+                Margin="20 0 0 0"
+                VerticalContentAlignment="Center"
+                Style="{DynamicResource rbBase}"
+                IsChecked="{Binding Path=InspectionInfo.InspectionType, 
                             Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                             ConverterParameter=DirectRating,
                             Mode=TwoWay}" />
-                <RadioButton
-            Margin="20 0 0 0"
-            GroupName="InspectionType"
-            Content="Distress Survey"
-            IsEnabled="false"
-            VerticalContentAlignment="Center"
-            IsChecked="{Binding Path=InspectionInfo.InspectionType, 
+            <RadioButton
+                Margin="20 0 0 0"
+                GroupName="InspectionType"
+                Content="Distress Survey"
+                IsEnabled="false"
+                VerticalContentAlignment="Center"
+                Style="{DynamicResource rbBase}"
+                IsChecked="{Binding Path=InspectionInfo.InspectionType, 
                             Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                             ConverterParameter=DistressSurvey,
                             Mode=TwoWay}" />
@@ -455,7 +456,7 @@
                     <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="170" />
+                    <ColumnDefinition Width="160" />
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -472,7 +473,6 @@
                 <Border 
                     Grid.Row="0" Grid.RowSpan="4"
                     Grid.Column="5" Grid.ColumnSpan="5"
-                    BorderBrush="Black"
                     BorderThickness="0"
                     Background="{StaticResource ButtonGridNotEnabledBackground}"
                     >
@@ -521,33 +521,14 @@
                     />
 
                 <!--Row 1-->
-                <!--<TextBox 
-                    Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"
-                    Background="Transparent"
-                    BorderBrush="Transparent"     
-                    Focusable="False"
-                    HorizontalContentAlignment="Right"
-                    IsReadOnly="True" 
-                    Text="Direct Condition Rating:"
-                    VerticalContentAlignment="Top"
-                    Style="{StaticResource TextBoxWrapNoMO}"
-                    />-->
-                <StackPanel
-                    Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"
-                    Orientation="Vertical">
-                    <Label
-                        Content="Direct Condition"
-                        Margin="0,0,5,0"
-                        Style="{StaticResource LabelRJ}"
-                        />
-                    <Label
-                        Content="Rating:"
-                        Margin="0,-11,5,0"
-                        Style="{StaticResource LabelRJ}"
-                        />
-                </StackPanel>
-                    
-
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"
+                         Margin="0"
+                         TextWrapping="Wrap"
+                         HorizontalContentAlignment="Right"
+                         Background="Transparent"
+                         Style="{StaticResource TextBoxRO}"
+                         Text="Direct Condition Rating:"
+                    />
 
                 <!-- ***************************************************** -->
                 <!-- Direct Condition Rating, Green -->
@@ -558,7 +539,7 @@
                         Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="2" Grid.Column="1" Content="Green" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonGreenDirect}" 
@@ -567,7 +548,7 @@
                         Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="3" Grid.Column="1" Content="Green-" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonGreenDirect}" 
@@ -576,7 +557,7 @@
                         Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <!-- Direct Condition Rating, Amber -->
                 <RadioButton Grid.Row="1" Grid.Column="2" Content="Amber+" GroupName="DrCondGroup"
@@ -586,7 +567,7 @@
                         Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="2" Grid.Column="2" Content="Amber" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonAmberDirect}" 
@@ -595,7 +576,7 @@
                         Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="3" Grid.Column="2" Content="Amber-" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonAmberDirect}" 
@@ -604,7 +585,7 @@
                         Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <!-- Direct Condition Rating, Red -->
                 <RadioButton Grid.Row="1" Grid.Column="3" Content="Red+" GroupName="DrCondGroup"
@@ -614,7 +595,7 @@
                         Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="2" Grid.Column="3" Content="Red" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonRedDirect}" 
@@ -623,7 +604,7 @@
                         Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="3" Grid.Column="3" Content="Red-" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonRedDirect}" 
@@ -632,7 +613,7 @@
                         Path=InspectionInfo.DirectCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <!-- ***************************************************** -->
                 <!-- Painted / Coated Condition Rating, Green -->
@@ -643,7 +624,7 @@
                         Path=InspectionInfo.PaintedCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, FallbackValue=true}" 
-        />
+                />
 
                 <RadioButton Grid.Row="2" Grid.Column="6" Content="Green" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonGreenPainted}" 
@@ -652,7 +633,7 @@
                         Path=InspectionInfo.PaintedCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="3" Grid.Column="6" Content="Green-" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonGreenPainted}" 
@@ -661,7 +642,7 @@
                         Path=InspectionInfo.PaintedCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="1" Grid.Column="7" Content="Amber+" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonAmberPainted}" 
@@ -670,7 +651,7 @@
                         Path=InspectionInfo.PaintedCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <!-- Painted / Coated Condition Rating, Amber -->
                 <RadioButton Grid.Row="2" Grid.Column="7" Content="Amber" GroupName="PtCondGroup"
@@ -680,7 +661,7 @@
                         Path=InspectionInfo.PaintedCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="3" Grid.Column="7" Content="Amber-" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonAmberPainted}" 
@@ -689,7 +670,7 @@
                         Path=InspectionInfo.PaintedCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <!-- Painted / Coated Condition Rating, Red -->
                 <RadioButton Grid.Row="1" Grid.Column="8" Content="Red+" GroupName="PtCondGroup"
@@ -699,7 +680,7 @@
                         Path=InspectionInfo.PaintedCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="2" Grid.Column="8" Content="Red" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonRedPainted}" 
@@ -708,7 +689,7 @@
                         Path=InspectionInfo.PaintedCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
                 <RadioButton Grid.Row="3" Grid.Column="8" Content="Red-" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonRedPainted}"
@@ -717,7 +698,7 @@
                         Path=InspectionInfo.PaintedCondition, 
                         Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-        />
+                />
 
             </Grid>
 

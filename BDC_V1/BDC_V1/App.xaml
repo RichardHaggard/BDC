@@ -17,7 +17,7 @@
           </ResourceDictionary.MergedDictionaries>
 
             <!--DataGridHeader-->
-            <Style TargetType="DataGridColumnHeader">
+            <Style x:Key="DataGridColumnHeaderBase" TargetType="DataGridColumnHeader">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 <Setter Property="Background" Value="#E0F2FF" />
                 <Setter Property="BorderBrush" Value="Black" />
@@ -52,56 +52,21 @@
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
-                    
                 </Setter>
             </Style>
 
+          <Style BasedOn="{StaticResource DataGridColumnHeaderBase}" TargetType="DataGridColumnHeader" />
+
             <!--Data grid row-->
-            <Style TargetType="DataGridRow">
+            <Style x:Key="DataGridRowBase" TargetType="DataGridRow">
                 <Setter Property="Background" Value="White" />
                 <Setter Property="BorderBrush" Value="Black" />
                 <Setter Property="BorderThickness" Value="1" />
             </Style>
 
-            <!--Data grid header filter related-->
-            <Style x:Key="FilterButtonStyleBase" TargetType="Button">
-                <Setter Property="HorizontalAlignment"  Value="Stretch" />
-                <Setter Property="Height" Value="30" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Border CornerRadius="3"
-                                BorderThickness="2"
-                                Background="#E0F2FF"
-                                BorderBrush="Green">
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+          <Style BasedOn="{StaticResource DataGridRowBase}" TargetType="DataGridRow" />
 
-            <Style x:Key="FilterButtonStyle" TargetType="Button">
-                <Setter Property="HorizontalAlignment"  Value="Stretch" />
-                <Setter Property="Height" Value="30" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Grid>
-                                <Border CornerRadius="3"
-                                    BorderThickness="2"
-                                    Background="#E0F2FF"
-                                    BorderBrush="Green">
-                                    <Image Source="/BDC_V1;component/Resources/Filter (1).png"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"/>
-                                </Border>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <!--ListBox style related-->
+          <!--ListBox style related-->
             <Style x:Key="CommentBoxStyle" TargetType="ListBox">
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="BorderThickness" Value="1" />
@@ -213,6 +178,20 @@
                 <Setter Property="Margin" Value="5" />
             </Style>
 
+          <!--RadioButton base-->
+          <Style TargetType="RadioButton" x:Key="rbBase">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="5" />
+            <Style.Triggers>
+              <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground"  Value="DarkGray" />
+                <Setter Property="BorderBrush" Value="DarkGray" />
+              </Trigger>
+            </Style.Triggers>Te
+          </Style>
+
             <!--ComboBox base-->
             <Style TargetType="ComboBox" x:Key="ComboBase">
                 <Setter Property="FontSize" Value="15" />
@@ -251,7 +230,7 @@
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
             </Style>
 
-            <!--Lbel that is right justified.-->
+            <!--Label that is right justified.-->
             <Style TargetType="Label" x:Key="LabelRJ" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="HorizontalContentAlignment" Value="Right" />
                 <Setter Property="Margin" Value="0" />

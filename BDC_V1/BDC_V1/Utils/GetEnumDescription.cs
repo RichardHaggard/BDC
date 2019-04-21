@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace BDC_V1.Utils
 {
@@ -13,25 +14,35 @@ namespace BDC_V1.Utils
         public static string Description<T>(this T enumerationValue)
             where T : struct
         {
-            var type = enumerationValue.GetType();
-            if (! type.IsEnum)
-                throw new ArgumentException(@"EnumerationValue must be of Enum type", nameof(enumerationValue));
+            return GetDescription(enumerationValue as Enum);
+        }
 
-            //Tries to find a DescriptionAttribute for a potential friendly name
-            //for the enum
-            var memberInfo = type.GetMember(enumerationValue.ToString());
-            if (memberInfo.Length > 0)
+        public static string GetDescription([CanBeNull] Enum value)
+        {
+            if (value == null) return string.Empty;
+
+            var type = value.GetType();
+            if (! type.IsEnum)
+                throw new ArgumentException($@"{nameof(value)} must be of Enum type", nameof(value));
+
+            if (Enum.IsDefined(type, value))
             {
-                var attrs = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
-                if (attrs.Length > 0)
+                //Tries to find a DescriptionAttribute for a potential friendly name
+                //for the enum
+                var memberInfo = type.GetMember(value.ToString());
+                if (memberInfo.Length > 0)
                 {
-                    //Pull out the description value
-                    return ((DescriptionAttribute)attrs[0]).Description;
+                    var attrs = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+                    if (attrs.Length > 0)
+                    {
+                        //Pull out the description value
+                        return ((DescriptionAttribute)attrs[0]).Description;
+                    }
                 }
             }
 
             //If we have no description attribute, just return the ToString of the enum
-            return enumerationValue.ToString();
+            return value.ToString();
         }
     }
 }

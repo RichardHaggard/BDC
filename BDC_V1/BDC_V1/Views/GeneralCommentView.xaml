@@ -137,6 +137,7 @@
       </StackPanel.Style>
 
       <RadioButton Margin="5,5,15,5"
+                   Style="{DynamicResource rbBase}"
                    GroupName="RepairType"
                    Content="Repair is recommended" 
                    IsChecked="{Binding Path=RepairType, 
@@ -144,6 +145,7 @@
                                 ConverterParameter=Repair,
                                 Mode=TwoWay}" />
       <RadioButton Margin="5,5,15,5"
+                   Style="{DynamicResource rbBase}"
                    GroupName="RepairType"
                    Content="Replacement is recommended"
                    IsChecked="{Binding Path=RepairType, 
@@ -151,6 +153,7 @@
                                 ConverterParameter=Replace,
                                 Mode=TwoWay}" />
       <RadioButton Margin="5,5,15,5"
+                   Style="{DynamicResource rbBase}"
                    GroupName="RepairType"
                    Content="No recommendation" 
                    IsChecked="{Binding Path=RepairType, 

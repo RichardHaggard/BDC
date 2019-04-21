@@ -10,14 +10,11 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Interfaces
 {
-    public interface IIssueInventory : INotifyPropertyChanged
-    {
-        string FacilityId  { get; set; }
-        string SystemId    { get; set; }
-        string ComponentId { get; set; }
-        string TypeName    { get; set; }
-        string SectionName { get; set; }
+    //<!-- TODO: Collapse QaInventoryView and QaInspectionView into a single source -->
 
+    /// <inheritdoc />
+    public interface IIssueInventory : IQcIssueBase
+    {
         CommentBase InventoryComment { get; set; }
     }
 }
