@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="75" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -160,7 +160,7 @@
             Grid.Column="0"
             Command="{Binding CmdUnlinkExistingPhoto}"
             Height="40"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             Margin="5"
             Width="225"
             >
@@ -188,17 +188,9 @@
                 </Grid>
             </Button.Content>
         </Button>
-      <Button
-        Grid.Row="8"
-        Grid.Column="1"
-        Command="{Binding CmdOkCommand}"
-        Height="40"
-        HorizontalAlignment="Center"
-        Margin="5"
-        Width="100"
-        Content="OK"
-      />
 
+        <!--Second column-->
+        
         <Label
             Grid.Row="0" Grid.Column="1"
             Content="Description"
@@ -231,7 +223,16 @@
             Style="{StaticResource TextBoxNoWrap}"
              />
 
-
+        <Button
+            Grid.Row="8"
+            Grid.Column="1"
+            Command="{Binding CmdOkCommand}"
+            Height="40"
+            HorizontalAlignment="Center"
+            Margin="5"
+            Width="100"
+            Content="OK"
+            />
     </Grid>
     
 </Window>
