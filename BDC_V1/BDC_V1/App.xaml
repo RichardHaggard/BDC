@@ -227,6 +227,12 @@
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
+            
+            <!--DatePicker text box-->
+            <Style TargetType="DatePickerTextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
 
             <!--Base for Labels. Sets the font size, vertical alignment and margin-->
             <Style TargetType="Label" x:Key="LabelBase">
