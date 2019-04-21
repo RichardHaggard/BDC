@@ -474,14 +474,15 @@
                     Grid.Column="5" Grid.ColumnSpan="5"
                     BorderBrush="Black"
                     BorderThickness="0"
+                    Background="{StaticResource ButtonGridNotEnabledBackground}"
                     >
-                  <Border.Background>
+                  <!--<Border.Background>
                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}" >
                       <Binding Path="IsChecked" ElementName="CheckboxPainted" />
                       <Binding Source="{StaticResource ButtonGridEnabledBackground}"    />
                       <Binding Source="{StaticResource ButtonGridNotEnabledBackground}" />
                     </MultiBinding>
-                  </Border.Background>
+                  </Border.Background>-->
                 </Border>
 
                 <!--Row 0-->
