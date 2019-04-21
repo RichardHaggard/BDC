@@ -277,6 +277,15 @@
             <Setter Property="Margin" Value="5" />
         </Style>
 
+        <Style x:Key="TextBoxWrapNoMO" TargetType="TextBox" BasedOn="{StaticResource TextBoxWrap}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
     </UserControl.Resources>
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto"
@@ -471,38 +480,67 @@
                     />
 
                 <!--Row 0-->
-                <Label
-            Grid.Row="0" Grid.Column="0"
-            Content="Painted/Coated:"
-            Style="{StaticResource LabelRJ}"
+                <!--What we want here is a right justified Label. However, the desire is to have
+                it detect a click event which a Label is not designed to do. Instead, make a
+                button that looks like a label and have its click event sent back to VM.-->
+                <Button
+                    Grid.Row="0" Grid.Column="0"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Content="Painted/Coated:"
+                    Foreground="Black"
+                    FontSize="15"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Right"  HorizontalContentAlignment="Right"
+                    Margin="5"
+                    Padding="0"
+                    Command="{Binding CmdPaintedCoated}"
                     />
                 <CheckBox
-            Grid.Row="0" Grid.Column="1"
-            Name="CheckboxPainted"
-            VerticalContentAlignment="Center"
-            Content="                  "
-            IsChecked="{Binding InspectionInfo.IsPainted}"
-            Style="{StaticResource cbBase}"
+                    Grid.Row="0" Grid.Column="1"
+                    Name="CheckboxPainted"
+                    VerticalContentAlignment="Center"
+                    Content="                  "
+                    IsChecked="{Binding InspectionInfo.IsPainted}"
+                    Style="{StaticResource cbBase}"
                     />
                 <Label
-            Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3"
-            Content="Paint/Coating Condition Rating:"
-            Margin="0"
-            HorizontalContentAlignment="Left"
-            Style="{StaticResource LabelCJ}"
+                    Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3"
+                    Content="Paint/Coating Condition Rating:"
+                    Margin="0"
+                    HorizontalContentAlignment="Left"
+                    Style="{StaticResource LabelCJ}"
                     />
 
                 <!--Row 1-->
-                <TextBox 
+                <!--<TextBox 
                     Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"
-                    Text="Direct Condition Rating:"
-                    BorderBrush="Transparent"     
-                    HorizontalContentAlignment="Right"
-                    VerticalContentAlignment="Top"
-                    IsReadOnly="True" 
                     Background="Transparent"
-                    Style="{StaticResource TextBoxWrap}"
-                    />
+                    BorderBrush="Transparent"     
+                    Focusable="False"
+                    HorizontalContentAlignment="Right"
+                    IsReadOnly="True" 
+                    Text="Direct Condition Rating:"
+                    VerticalContentAlignment="Top"
+                    Style="{StaticResource TextBoxWrapNoMO}"
+                    />-->
+                <StackPanel
+                    Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"
+                    Orientation="Vertical">
+                    <Label
+                        Content="Direct Condition"
+                        Margin="0,0,5,0"
+                        Style="{StaticResource LabelRJ}"
+                        />
+                    <Label
+                        Content="Rating:"
+                        Margin="0,-11,5,0"
+                        Style="{StaticResource LabelRJ}"
+                        />
+                </StackPanel>
+                    
+
 
                 <!-- ***************************************************** -->
                 <!-- Direct Condition Rating, Green -->

@@ -138,11 +138,11 @@ namespace BDC_V1.Classes
 
             // Simplistic launcher of the PM view. If this were real we'd pass in
             // info from the caller and upon return there would be an update of the photo carousel.
-            var view = new PhotoManagementView();
-            if (!(view.DataContext is PhotoManagementView model))
-                throw new InvalidCastException("model is not the expected data type");
+            var view = new PhotoManagementView( TabName, PhotoTypeText);
+            //if (!(view.DataContext is PhotoManagementView model))
+            //    throw new InvalidCastException("model is not the expected data type");
 
-            model.Title = $"{TabName} - {PhotoTypeText}";
+            //model.Title = $"{TabName} - {PhotoTypeText}";
 
             view.ShowDialog();
         }
