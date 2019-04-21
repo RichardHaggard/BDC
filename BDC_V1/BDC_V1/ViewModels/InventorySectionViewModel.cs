@@ -55,14 +55,6 @@ namespace BDC_V1.ViewModels
         public IInventorySection InventorySection { get; }
 
 
-        public int SelectedIndex 
-            {
-            get => _selectedIndex;
-            set => SetProperty(ref _selectedIndex, value);
-        }
-        private int _selectedIndex;
-
-
         // **************** Class data members ********************************************** //
 
         //public override IComponentFacility LocalFacilityInfo
@@ -95,6 +87,10 @@ namespace BDC_V1.ViewModels
         public override ObservableCollection<ImageSource> ImageContainer => 
             InventorySection.Images;
 
+        public IndexedCollection<string> FunctionalArea { get; }
+        private readonly ObservableCollection<string> _functionalArea =
+            new ObservableCollection<string>();
+
         public override string TabName       => "INVENTORY SECTION";
         public override string PhotoTypeText => "Section photos";
 
@@ -104,23 +100,28 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "InventorySectionItemControl";
 
-            CmdAddSection     = new DelegateCommand(OnAddSection);
+            CmdAddSection     = new DelegateCommand(OnAddSection    );
             CmdCancelEdit     = new DelegateCommand(OnCancelEdit    );
-            CmdDecValue       = new DelegateCommand(OnCmdDecValue);
+            CmdDecValue       = new DelegateCommand(OnCmdDecValue   );
             CmdDeleteSection  = new DelegateCommand(OnDeleteSection );
-            CmdIncValue       = new DelegateCommand(OnCmdIncValue);
-            CmdNextSection    = new DelegateCommand(OnNextSection);
+            CmdIncValue       = new DelegateCommand(OnCmdIncValue   );
+            CmdNextSection    = new DelegateCommand(OnNextSection   );
             CmdSectionComment = new DelegateCommand(OnSectionComment);
-            CmdToday          = new DelegateCommand(OnCmdToday);
+            CmdToday          = new DelegateCommand(OnCmdToday      );
+
+            FunctionalArea = new IndexedCollection<string>(_functionalArea);
 
 #if DEBUG
 #warning Using MOCK data for InventorySection
             InventorySection = new MockInventorySection();
+
+            FunctionalArea.Items.Add("Please select functional area...");
+            FunctionalArea.SelectedIndex = 0;
 #endif
             if (InventorySection != null)
             {
-                InventorySection.ComponentType = InventorySection.ComponentTypes.FirstOrDefault();
-                InventorySection.SectionName   = InventorySection.SectionNames  .FirstOrDefault();
+                InventorySection.ComponentType = InventorySection.ComponentTypes[0];
+                InventorySection.SectionName   = InventorySection.SectionNames  [0];
             }
         }
 
@@ -170,12 +171,16 @@ namespace BDC_V1.ViewModels
             }
         }
 
-        private void OnNextSection  () 
+        private void OnNextSection()
         {
-            if (++SelectedIndex >= InventorySection.SectionNames.Count)
-                SelectedIndex = 0;
+            if (!InventorySection.SectionNames.Any()) return;
 
-            InventorySection.SectionName = InventorySection.SectionNames[SelectedIndex];
+            var index = InventorySection.SectionNames.IndexOf(InventorySection.SectionName);
+
+            if (++index >= InventorySection.SectionNames.Count)
+                index = 0;
+
+            InventorySection.SectionName = InventorySection.SectionNames[index];
         }
 
         private void OnSectionComment() { OnSelectedComment(null); }

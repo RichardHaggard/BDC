@@ -74,7 +74,6 @@
                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="8"
                 ItemsSource="{Binding InventorySection.SectionNames}"
                 SelectedItem="{Binding InventorySection.SectionName}"
-                SelectedIndex="{Binding SectionIndex}"      
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -202,10 +201,12 @@
                 />
 
             <Label Grid.Row="5" Grid.Column="0" 
-                Content="Funtional Area:"
+                Content="Functional Area:"
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"
-                Style="{StaticResource ComboBase}"
+                      ItemsSource="{Binding FunctionalArea.Items}"
+                      SelectedItem="{Binding FunctionalArea.SelectedItem}"
+                      Style="{StaticResource ComboBase}"
                 />
 
             <Label 
@@ -213,7 +214,10 @@
                 Content="NOT Energy Efficient:"
                 Style="{StaticResource LabelRJ}"/>
             <CheckBox 
-                Grid.Row="6" Grid.Column="1" FontSize="15"/>
+                Grid.Row="6" Grid.Column="1" FontSize="15"
+                Foreground="Transparent"  
+                Content="NOT Energy Efficient"
+              />
             <Border
                 Grid.Row="6" Grid.RowSpan="2" Grid.Column="2"  Grid.ColumnSpan="7"
                 Background="#D9D9D9"
@@ -225,7 +229,9 @@
                 Content="Painted/Coated:"
                 Style="{StaticResource LabelRJ}"/>
             <CheckBox Grid.Row="7" Grid.Column="1"
-                IsChecked="{Binding InventorySection.PaintedIsChecked}"
+                      IsChecked="{Binding InventorySection.PaintedIsChecked}"
+                      Foreground="Transparent"  
+                      Content="Painted - Coated"
                 />
             <Label Grid.Row="7" Grid.Column="2" 
                 Content="Year P/C:"
