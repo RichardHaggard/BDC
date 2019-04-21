@@ -38,6 +38,38 @@ namespace BDC_V1.ViewModels
         [NotNull]
         public IInventoryDetail InventoryDetails { get; }
 
+        public string EquipmentMakeUserEntered
+        {
+            get { return _EquipmentMakeUserEntered; }
+            set
+            {
+                if (_EquipmentMakeUserEntered != value)
+                {
+                    _EquipmentMakeUserEntered = value;
+                    InventoryDetails.EquipmentMakes.Add(_EquipmentMakeUserEntered);
+                    InventoryDetails.EquipmentMake = EquipmentMakeUserEntered;
+                }
+            }
+        }
+        private string _EquipmentMakeUserEntered = "";
+
+
+        public string ManufacturerUserEntered
+        {
+            get { return _ManufacturerUserEntered; }
+            set
+            {
+                if (_ManufacturerUserEntered != value)
+                {
+                    _ManufacturerUserEntered = value;
+                    InventoryDetails.Manufacturers.Add(_ManufacturerUserEntered);
+                    InventoryDetails.Manufacturer = ManufacturerUserEntered;
+                }
+            }
+        }
+        private string _ManufacturerUserEntered = "";
+
+
         // **************** Class data members ********************************************** //
 
         //public override IComponentFacility LocalFacilityInfo
@@ -88,10 +120,18 @@ namespace BDC_V1.ViewModels
             CmdShowBarcodeScanner = new DelegateCommand( OnCmdShowBarcodeScanner );
 
 #if DEBUG
-#warning Using MOCK data for InventoryDetails
+//#warning Using MOCK data for InventoryDetails
             InventoryDetails = new MockInventoryDetails();
 #endif
+            if (InventoryDetails != null)
+            {
+                if (InventoryDetails.Manufacturers != null && InventoryDetails.Manufacturers.Count > 0)
+                    InventoryDetails.Manufacturer = InventoryDetails.Manufacturers[0];
+                if (InventoryDetails.EquipmentMakes!= null && InventoryDetails.EquipmentMakes.Count > 0)
+                    InventoryDetails.EquipmentMake = InventoryDetails.EquipmentMakes[0];
+            }
         }
+
 
         // **************** Class members *************************************************** //
 
