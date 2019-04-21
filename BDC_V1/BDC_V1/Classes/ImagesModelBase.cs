@@ -14,6 +14,7 @@ using System.Windows.Media;
 using BDC_V1.Converters;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
+using BDC_V1.Utils;
 using BDC_V1.ViewModels;
 using BDC_V1.Views;
 using JetBrains.Annotations;
@@ -79,7 +80,8 @@ namespace BDC_V1.Classes
                 ? "INSPECTION COMMENTS"
                 : "COMMENTS";
 
-            if (view.ShowDialog() != true) return;
+            //if (view.ShowDialog() != true) return;
+            if (view.ShowDialogInParent(true) != true) return;
 
             // TODO: Fix the CommentViewModel to return a CommentBase class on success
             DoSelectedComment(model.Result, comment, model.CommentText);
@@ -144,7 +146,8 @@ namespace BDC_V1.Classes
 
             //model.Title = $"{TabName} - {PhotoTypeText}";
 
-            view.ShowDialog();
+            //view.ShowDialog();
+            view.ShowDialogInParent(true);
         }
 
         protected virtual void DoSelectedImage(EnumControlResult result, [CanBeNull] ImageSource itemImage, [CanBeNull] ImageSource modelImage)

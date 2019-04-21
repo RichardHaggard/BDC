@@ -11,6 +11,7 @@ using System.Windows.Input;
 using BDC_V1.Enumerations;
 using BDC_V1.Views;
 using JetBrains.Annotations;
+using BDC_V1.Utils;
 
 namespace BDC_V1.ViewModels
 {
@@ -119,7 +120,8 @@ namespace BDC_V1.ViewModels
                 throw new InvalidCastException(nameof(view.DataContext));
 
             //model.SourceImage = PendingItem.Filename TODO: not sure how to convert this
-            if (view.ShowDialog() != true) return;
+            //if (view.ShowDialog() != true) return;
+            if (view.ShowDialogInParent(true) != true) return;
 
             // TODO: Add / delete results from PendingList in the proper manner
             switch (model.Result)

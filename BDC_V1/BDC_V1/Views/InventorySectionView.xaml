@@ -266,10 +266,13 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="0"
-                      Height="100" Width="180" Margin="5"
-                      Style="{DynamicResource FacilityBlockButtonStyle}"
-                      Command="{Binding CmdSectionComment}">
+                <Button 
+                    Grid.Row="0" Grid.Column="0"
+                    Height="100" Width="180" Margin="5"
+                    Style="{DynamicResource FacilityBlockButtonStyle}"
+                    Command="{Binding CmdCommentDoubleClicked}"  
+                    CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"
+                    >
                     <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                         <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                          Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
@@ -324,7 +327,7 @@
                         <TextBlock TextWrapping="Wrap"  
                            Text="{Binding Path=.}"
                            Width="{Binding Path=Width,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
-                />
+                        />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

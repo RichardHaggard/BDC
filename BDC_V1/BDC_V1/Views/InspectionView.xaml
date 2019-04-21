@@ -728,9 +728,12 @@
              Style="{StaticResource LabelRO}"/>
 
             <!-- Inspection Comment -->
-            <Button Grid.Row="8" Grid.Column="0"
-              Style="{DynamicResource FacilityBlockButtonStyle}"
-              Command="{Binding CmdInspectionComment}">
+            <Button 
+                Grid.Row="8" Grid.Column="0"
+                Style="{DynamicResource FacilityBlockButtonStyle}"
+                Command="{Binding CmdCommentDoubleClicked}"  
+                CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"
+                >
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                  Style="{StaticResource ImageClickBlockCommentImageStyle}"/>

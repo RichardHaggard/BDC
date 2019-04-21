@@ -277,9 +277,12 @@
                 Text="{Binding InventoryDetails.WarrantyCompany2}"
                 />
 
-            <Button Grid.Row="10" Grid.Column="0"
-                  Style="{DynamicResource ImageClickBlockButtonStyle}"
-                  Command="{Binding CmdDetailsComment}">
+            <Button 
+                Grid.Row="10" Grid.Column="0"
+                Style="{DynamicResource ImageClickBlockButtonStyle}"
+                Command="{Binding CmdCommentDoubleClicked}"
+                CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"
+                >
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                      Style="{StaticResource ImageClickBlockCommentImageStyle}"/>

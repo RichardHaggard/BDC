@@ -215,9 +215,12 @@
                 Style="{StaticResource LabelRO}"
                 Content="{Binding LocalFacilityInfo.AlternateIdSource}" />
 
-            <Button Grid.Row="7" Grid.Column="0"
-                    Style="{DynamicResource ImageClickBlockButtonStyle}"
-                    Command="{Binding CmdFacilityComment}">
+            <Button 
+                Grid.Row="7" Grid.Column="0"
+                Style="{DynamicResource ImageClickBlockButtonStyle}"
+                Command="{Binding CmdCommentDoubleClicked}"  
+                CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"
+                >
               <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                   <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                          Margin="12,0,0,0"

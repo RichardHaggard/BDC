@@ -402,7 +402,8 @@ namespace BDC_V1.ViewModels
 
             model.FacilityBaseInfo = null;              //TODO: Put real data in here
             model.CommentText = comment?.CommentText;
-            if (view.ShowDialog() != true) return;
+            //if (view.ShowDialog() != true) return;
+            if (view.ShowDialogInParent(true) != true) return;
 
             // TODO: Fix the CommentViewModel to return a CommentBase class on success
             DoSelectedComment(model.Result, comment, model.CommentText);

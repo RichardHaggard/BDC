@@ -398,6 +398,50 @@ namespace BDC_V1.Utils
         }
 
 
+        /// <summary>
+        /// Assert the application's main window as the parent of this window
+        /// and then show it centered within the parent window.
+        /// </summary>
+        /// <param name="window"></param>
+        public static bool? ShowDialogInParent( this Window window, bool center)
+        {
+            bool? retValue = null;
+            bool show      = false;
+
+            do
+            {
+                if (Application.Current == null || window == null)
+                    break;
+
+                // Just a check - do not make a window the parent of itself.
+                if (Application.Current.MainWindow == window)
+                    break;
+
+                show = true;
+
+                // Assert the parent.
+                window.Owner = Application.Current.MainWindow;
+
+                // Do not allow extra icons to appear, cluttering up the task bar.
+                window.ShowInTaskbar = false;
+
+                if (center)
+                {
+                    // Yes. Center it.
+                    window.Left = window.Owner.Left + (window.Owner.Width - window.Width) / 2;
+                    window.Top = window.Owner.Top + (window.Owner.Height - window.Height) / 2;
+                }
+
+            } while (false);
+
+            if (show)
+            {
+                retValue = window.ShowDialog();
+            }
+
+            return retValue;
+        }
+
 
         /// <summary>
         /// Sets the calling Window to topmost

@@ -216,9 +216,10 @@ namespace BDC_V1.ViewModels
             // in the real code.
             //EventTypeAggregator.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
 
-        #if USE_PASSWORD
+#if USE_PASSWORD
             var view = new PasswordView(new PasswordViewModel());
-            view.ShowDialog();
+            //view.ShowDialog();
+            view.ShowDialogInParent(true);
 
             if (!(view.DataContext is PasswordViewModel viewModel))       
                 throw new InvalidCastException("Invalid View Model");
@@ -246,7 +247,7 @@ namespace BDC_V1.ViewModels
                 EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                     .Publish(new CloseWindowEvent(typeof(LoginView).Name));
             }
-        #else
+#else
             DialogResultEx = true;
 
         #if false

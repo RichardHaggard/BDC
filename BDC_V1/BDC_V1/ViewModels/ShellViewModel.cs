@@ -15,6 +15,7 @@ using BDC_V1.Converters;
 using BDC_V1.Enumerations;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
+using BDC_V1.Utils;
 using BDC_V1.Views;
 using JetBrains.Annotations;
 using Microsoft.Win32;
@@ -462,7 +463,8 @@ namespace BDC_V1.ViewModels
             model.WindowTitle = "SELECT COMMENT TO COPY…";
             model.FacilityBaseInfo = null;      // TODO: Put real data here 
 
-            if (view.ShowDialog() != true) return;
+            //if (view.ShowDialog() != true) return;
+            if (view.ShowDialogInParent(true) != true) return;
 
             switch (model.Result)
             {
@@ -490,7 +492,8 @@ namespace BDC_V1.ViewModels
             model.WindowTitle = "SELECT COMMENT TO COPY…";
             model.UnFilteredCommentary.Clear();
 
-            if (view.ShowDialog() != true) return;
+            //if (view.ShowDialog() != true) return;
+            if (view.ShowDialogInParent(true) != true) return;
 
             switch (model.Result)
             {
@@ -514,19 +517,22 @@ namespace BDC_V1.ViewModels
             if (!(view.DataContext is AboutBdcViewModel model)) 
                 throw new InvalidCastException("Invalid View Model");
 
-            view.ShowDialog();
+            //view.ShowDialog();
+            view.ShowDialogInParent(true);
         }
 
         private void OnAddComponent()
         {
             var dlg = new AddNewComponentView();
-            dlg.ShowDialog();
+            //dlg.ShowDialog();
+            dlg.ShowDialogInParent(true);
         }
 
         private void OnAddSystem()
         {
-           var dlg = new AddSystemView();
-            dlg.ShowDialog();
+            var dlg = new AddSystemView();
+            //dlg.ShowDialog();
+            dlg.ShowDialogInParent(true);
         }
 
         private void OnAddSection()
@@ -600,7 +606,9 @@ namespace BDC_V1.ViewModels
             model.FacilityBaseInfo = null;              //TODO: Put real data in here
             model.CommentText = string.Empty;
 
-            if (view.ShowDialog() != true) return;
+            view.Owner = Application.Current.MainWindow;
+            //if (view.ShowDialog() != true) return;
+            if (view.ShowDialogInParent(true) != true) return;
 
             // TODO: Fix the CommentViewModel to return a CommentBase class on success
         }
@@ -678,7 +686,8 @@ namespace BDC_V1.ViewModels
             if (!(view.DataContext is CopySectionViewModel model))        
                 throw new InvalidCastException("Invalid View Model");
 
-            if (view.ShowDialog() != true) return;
+            //if (view.ShowDialog() != true) return;
+            if (view.ShowDialogInParent(true) != true) return;
 
             switch (model.Result)
             {
@@ -702,7 +711,8 @@ namespace BDC_V1.ViewModels
             if (!(view.DataContext is CopyInventoryViewModel model))        
                 throw new InvalidCastException("Invalid View Model");
 
-            if (view.ShowDialog() != true) return;
+            //if (view.ShowDialog() != true) return;
+            if (view.ShowDialogInParent(true) != true) return;
 
             switch (model.Result)
             {
@@ -726,7 +736,8 @@ namespace BDC_V1.ViewModels
             if (!(view.DataContext is CopyInspectionViewModel model))        
                 throw new InvalidCastException("Invalid View Model");
 
-            if (view.ShowDialog() != true) return;
+            //if (view.ShowDialog() != true) return;
+            if (view.ShowDialogInParent(true) != true) return;
 
             switch (model.Result)
             {

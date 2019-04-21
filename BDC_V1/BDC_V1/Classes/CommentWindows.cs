@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
+using BDC_V1.Utils;
 using BDC_V1.ViewModels;
 using BDC_V1.Views;
 using JetBrains.Annotations;
@@ -69,6 +71,7 @@ namespace BDC_V1.Classes
             var view = new CopyCommentView();
             if (!(view.DataContext is CopyCommentViewModel model)) 
                 throw new InvalidCastException("Invalid View Model");
+            view.Owner = Application.Current.MainWindow;
 
             model.WindowTitle = (! string.IsNullOrEmpty(CopyWindowTitle)) 
                 ? CopyWindowTitle 
@@ -78,7 +81,8 @@ namespace BDC_V1.Classes
             model.FacilityBaseInfo = FacilityBaseInfo;
             model.UnFilteredCommentary.AddRange(CommentaryList);
 
-            if (view.ShowDialog() != true) return;
+            //if (view.ShowDialog() != true) return;
+            if (view.ShowDialogInParent(true) != true) return;
 
             switch (model.Result)
             {
