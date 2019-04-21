@@ -12,7 +12,6 @@ namespace BDC_V1.Mock_Data
     public class MockInventorySection : InventorySection
     {
 #if DEBUG
-#warning Using MOCK data for InventorySection
         public MockInventorySection()
         {
             SectionNames.AddRange(new []
@@ -81,6 +80,8 @@ namespace BDC_V1.Mock_Data
                 new BitmapImage(new Uri(@"pack://application:,,,/Images/th5.jpg")),
                 new BitmapImage(new Uri(@"pack://application:,,,/Images/th6.jpg"))
             });
+
+            YearInstalledRenewed = "2007";
         }
 #endif
     }

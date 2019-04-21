@@ -14,23 +14,24 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         WindowStyle="None"
-        Height="Auto" MinHeight="400" MaxHeight="600"
-        Width="Auto"  MinWidth="700"  MaxWidth="1000"
+        Height="Auto" MaxHeight="600"
+        Width="Auto"  MaxWidth="1000"
         d:DesignHeight="400" d:DesignWidth="500">
 
-	<shell:WindowChrome.WindowChrome>
-		<shell:WindowChrome
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
             ResizeBorderThickness="6"
             CaptionHeight="43"
             CornerRadius="25,25,10,10"
             GlassFrameThickness="0">
-		</shell:WindowChrome>
-	  
-	</shell:WindowChrome.WindowChrome>
+        </shell:WindowChrome>
+      
+    </shell:WindowChrome.WindowChrome>
 
-	<Window.Resources>
-		<ResourceDictionary>
+    <Window.Resources>
+        <ResourceDictionary>
 
 
       <!-- CLOSE BUTTON -->
@@ -216,100 +217,100 @@
       </Style>
 
       <ResourceDictionary.MergedDictionaries>
-			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
-	</Window.Resources>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-		</Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-		<Grid.RowDefinitions>
-			<RowDefinition Height="auto" />
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-		<!--
+        <!--
       provide the background for the entire form.  
       In practice, this appears as the window's resize border, because the title and window content obscure the rest
     -->
-		<Border Grid.RowSpan="2" 
-		        CornerRadius="10,10,5,5" 
-		        BorderThickness="3" 
-		        BorderBrush="LightSteelBlue"
-		        >
-			<Border.Background>
-				<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-					<GradientStop Color="#99bbbbff" Offset="0" />
-					<GradientStop Color="#ff7777bb" Offset="1" />
-				</LinearGradientBrush>
+        <Border Grid.RowSpan="2" 
+                CornerRadius="10,10,5,5" 
+                BorderThickness="3" 
+                BorderBrush="LightSteelBlue"
+                >
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#99bbbbff" Offset="0" />
+                    <GradientStop Color="#ff7777bb" Offset="1" />
+                </LinearGradientBrush>
         <!--<SolidColorBrush>White</SolidColorBrush>-->
-			</Border.Background>
-		</Border>
+            </Border.Background>
+        </Border>
 
-		<!--title bar-->
-		<Border Grid.Row="0" 
-		        CornerRadius="10,10,0,0" 
-		        BorderThickness="3,3,3,1" 
-		        BorderBrush="LightSteelBlue" 
-		        Margin="{Binding Path=CaptionButtonMargin}"
-		        >
-			<Border.Background>
-				<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-					<GradientStop Color="#ffbbbbff" Offset="0" />
-					<GradientStop Color="#ff7777bb" Offset="1" />
-				</LinearGradientBrush>
-			</Border.Background>
+        <!--title bar-->
+        <Border Grid.Row="0" 
+                CornerRadius="10,10,0,0" 
+                BorderThickness="3,3,3,1" 
+                BorderBrush="LightSteelBlue" 
+                Margin="{Binding Path=CaptionButtonMargin}"
+                >
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#ffbbbbff" Offset="0" />
+                    <GradientStop Color="#ff7777bb" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
 
-			<!--Window Icon and Title-->
-			<StackPanel Orientation="Horizontal" Margin="0" VerticalAlignment="Top">
+            <!--Window Icon and Title-->
+            <StackPanel Orientation="Horizontal" Margin="0" VerticalAlignment="Top">
         <ToggleButton Margin="5,0,10,0"
           Background="Transparent"
           BorderThickness="0"
           shell:WindowChrome.IsHitTestVisibleInChrome="True"
           >
           <ToggleButton.Content>
-			      <Image Width="35" Height="35" Source="{Binding ApplicationIcon}" />
+                  <Image Width="35" Height="35" Source="{Binding ApplicationIcon}" />
           </ToggleButton.Content>
           <ToggleButton.ContextMenu>
-		        <ContextMenu>
-		          <MenuItem Header="Restore">
-		            <MenuItem.Icon>
-		              <Image Height="16" Source="/BDC_V1;component/Resources/icons8-restore-window-96.png" />
-		            </MenuItem.Icon>
-		          </MenuItem>
-		          <MenuItem Header="Move" />
-		          <MenuItem Header="Size" />
-		          <MenuItem Header="Minimize">
-		            <MenuItem.Icon>
-		              <Image Height="16" Source="/BDC_V1;component/Resources/icons8-minimize-window-96.png" />
-		            </MenuItem.Icon>
-		          </MenuItem>
-		          <MenuItem Header="Maximize">
-		            <MenuItem.Icon>
-		              <Image Height="16" Source="/BDC_V1;component/Resources/icons8-maximize-window-96.png" />
-		            </MenuItem.Icon>
-		          </MenuItem>
-		          <Separator />
-		          <MenuItem Header="Close" InputGestureText="Alt+F4">
-		            <Image Height="16" Source="/BDC_V1;component/Resources/icons8-close-window-96.png" />
-		          </MenuItem>
-		        </ContextMenu>
+                <ContextMenu>
+                  <MenuItem Header="Restore">
+                    <MenuItem.Icon>
+                      <Image Height="16" Source="/BDC_V1;component/Resources/icons8-restore-window-96.png" />
+                    </MenuItem.Icon>
+                  </MenuItem>
+                  <MenuItem Header="Move" />
+                  <MenuItem Header="Size" />
+                  <MenuItem Header="Minimize">
+                    <MenuItem.Icon>
+                      <Image Height="16" Source="/BDC_V1;component/Resources/icons8-minimize-window-96.png" />
+                    </MenuItem.Icon>
+                  </MenuItem>
+                  <MenuItem Header="Maximize">
+                    <MenuItem.Icon>
+                      <Image Height="16" Source="/BDC_V1;component/Resources/icons8-maximize-window-96.png" />
+                    </MenuItem.Icon>
+                  </MenuItem>
+                  <Separator />
+                  <MenuItem Header="Close" InputGestureText="Alt+F4">
+                    <Image Height="16" Source="/BDC_V1;component/Resources/icons8-close-window-96.png" />
+                  </MenuItem>
+                </ContextMenu>
           </ToggleButton.ContextMenu>
         </ToggleButton>
 
-				<TextBlock Text="{Binding WindowTitle, FallbackValue=MESSAGE}" 
-				           FontFamily="Calibri" 
-				           FontWeight="Bold" 
-				           FontSize="26" 
-				           Foreground="#FF000044" 
-				           VerticalAlignment="Center"
-				           />
-			</StackPanel>
-		</Border>
+                <TextBlock Text="{Binding WindowTitle, FallbackValue=MESSAGE}" 
+                           FontFamily="Calibri" 
+                           FontWeight="Bold" 
+                           FontSize="26" 
+                           Foreground="#FF000044" 
+                           VerticalAlignment="Center"
+                           />
+            </StackPanel>
+        </Border>
 
-		<!--min/max/close buttons-->
+        <!--min/max/close buttons-->
     <StackPanel Grid.Row="0" Orientation="Horizontal"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
@@ -320,12 +321,12 @@
       <ToggleButton Style="{StaticResource ButtonWindowClose}" />
     </StackPanel>
 
-		<!--Content-->
-		<Grid Grid.Row="1"
-		      Margin="50,10,50,10"
-		      HorizontalAlignment="Stretch"
-		      VerticalAlignment="Center"
-		      >
+        <!--Content-->
+        <Grid Grid.Row="1"
+              Margin="50,10,50,10"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Center"
+              >
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
@@ -388,6 +389,6 @@
             PresentationTraceSources.TraceLevel=High}"
                 />
       </Grid>
-		</Grid>
-	</Grid>
+        </Grid>
+    </Grid>
 </Window>

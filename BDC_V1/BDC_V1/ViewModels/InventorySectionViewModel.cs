@@ -112,7 +112,6 @@ namespace BDC_V1.ViewModels
             FunctionalArea = new IndexedCollection<string>(_functionalArea);
 
 #if DEBUG
-#warning Using MOCK data for InventorySection
             InventorySection = new MockInventorySection();
 
             FunctionalArea.Items.Add("Please select functional area...");
