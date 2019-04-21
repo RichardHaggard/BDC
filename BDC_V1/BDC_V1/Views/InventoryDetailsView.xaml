@@ -172,9 +172,11 @@
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox
                 Grid.Row="4" Grid.Column="1" 
+                IsEditable="True"
                 ItemsSource="{Binding InventoryDetails.Manufacturers}"
                 SelectedItem="{Binding InventoryDetails.Manufacturer}"
-                Style="{StaticResource ComboBase}"
+                Style="{StaticResource ComboBase}" 
+                Text="{Binding ManufacturerUserEntered, UpdateSourceTrigger=LostFocus}"
                 />
             <Label
                 Grid.Row="4" Grid.Column="2" 
@@ -201,7 +203,11 @@
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox
                 Grid.Row="5" Grid.Column="3" 
+                IsEditable="True"
+                ItemsSource="{Binding InventoryDetails.EquipmentMakes}"
+                SelectedIndex="{Binding InventoryDetails.EquipmentMake}"
                 Style="{StaticResource ComboBase}"
+                Text="{Binding EquipmentMakeUserEntered, UpdateSourceTrigger=LostFocus}"
                 />
 
             <Label
