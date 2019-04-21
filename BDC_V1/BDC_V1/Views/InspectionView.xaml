@@ -23,8 +23,12 @@
     </i:Interaction.Triggers>
 
     <UserControl.Resources>
-        <converters:EnumBooleanConverter        x:Key="EnumBooleanConverter"        />
-        <converters:RatingColorToColorConverter x:Key="RatingColorToColorConverter" />
+      <converters:EnumBooleanConverter       x:Key="EnumBooleanConverter"       />
+      <converters:RatingColorToColorConverter x:Key="RatingColorToColorConverter" />
+      <converters:MultiBoolToObjectConverter  x:Key="MultiBoolToObjectConverter"  />
+      
+      <Brush x:Key="ButtonGridNotEnabledBackground">#DDEBF7</Brush>
+      <Brush x:Key="ButtonGridEnabledBackground"   >White  </Brush>
 
         <!-- Insure consistent colors thru out program -->
         <SolidColorBrush x:Key="GreenButtonBrush"
@@ -466,18 +470,19 @@
 
                 <!--Background for some cells-->
                 <Border 
-                    Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="5"
-                    Background="#DDEBF7"
+                    Grid.Row="0" Grid.RowSpan="4"
+                    Grid.Column="5" Grid.ColumnSpan="5"
                     BorderBrush="Black"
                     BorderThickness="0"
-                    />
-
-                <Border 
-                    Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="6" Grid.RowSpan="3"
-                    Background="#DDEBF7"
-                    BorderBrush="Black"
-                    BorderThickness="0"
-                    />
+                    >
+                  <Border.Background>
+                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}" >
+                      <Binding Path="IsChecked" ElementName="CheckboxPainted" />
+                      <Binding Source="{StaticResource ButtonGridEnabledBackground}"    />
+                      <Binding Source="{StaticResource ButtonGridNotEnabledBackground}" />
+                    </MultiBinding>
+                  </Border.Background>
+                </Border>
 
                 <!--Row 0-->
                 <!--What we want here is a right justified Label. However, the desire is to have
@@ -501,7 +506,8 @@
                     Grid.Row="0" Grid.Column="1"
                     Name="CheckboxPainted"
                     VerticalContentAlignment="Center"
-                    Content="                  "
+                    Foreground="Transparent"
+                    Content="Painting - Coated text"
                     IsChecked="{Binding InspectionInfo.IsPainted}"
                     Style="{StaticResource cbBase}"
                     />
