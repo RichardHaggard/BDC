@@ -129,6 +129,7 @@
                      BorderThickness="1"
                      BorderBrush="Black"
                      Style="{StaticResource TextBoxBase}"
+                     Text="{Binding ConfigurationFilename}"
                      materialDesign:HintAssist.Hint="&lt; Select configuration file for this BUILDER FCA project &gt;"
                      VerticalContentAlignment="Center" />
 
@@ -177,6 +178,7 @@
                      BorderThickness="1"
                      BorderBrush="Black"
                      Style="{StaticResource TextBoxBase}"
+                     Text="{Binding BredFilename}"
                      materialDesign:HintAssist.Hint="&lt; Select your BRED file that you downloaded from BUILDER QC &gt;"
                      VerticalContentAlignment="Center"
                      TextWrapping="Wrap" />
