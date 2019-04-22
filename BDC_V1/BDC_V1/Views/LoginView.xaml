@@ -128,7 +128,7 @@
                      x:Name="ConfigFileTextBox"
                      BorderThickness="1"
                      BorderBrush="Black"
-                     Style="{StaticResource TextBoxBase}"
+                     Text="{Binding ConfigurationFilename}"
                      materialDesign:HintAssist.Hint="&lt; Select configuration file for this BUILDER FCA project &gt;"
                      VerticalContentAlignment="Center" />
 
@@ -176,7 +176,7 @@
                      x:Name="SelectQcFileTextBox"
                      BorderThickness="1"
                      BorderBrush="Black"
-                     Style="{StaticResource TextBoxBase}"
+                     Text="{Binding BredFilename}"
                      materialDesign:HintAssist.Hint="&lt; Select your BRED file that you downloaded from BUILDER QC &gt;"
                      VerticalContentAlignment="Center"
                      TextWrapping="Wrap" />
@@ -226,7 +226,6 @@
                       BorderThickness="1"
                       BorderBrush="Black"
                       Margin="0"
-                      Style="{StaticResource ComboBase}"
                       HorizontalAlignment="Stretch"
                       materialDesign:HintAssist.Hint="&lt; Select your name from the pull-down list (or click More) &gt;"
                       VerticalAlignment="Stretch"

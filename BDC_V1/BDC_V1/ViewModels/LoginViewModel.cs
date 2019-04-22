@@ -29,28 +29,14 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        [NotNull]
-        public ICommand CmdCancel { get; }
-
-
-        [NotNull]
-        public ICommand CmdLogin { get; }
-
-        
-        [NotNull]
-        public ICommand CmdSelectConfigFile { get; }
-
-        
-        [NotNull]
-        public ICommand CmdSelectQcFile { get; }
-
-        
-        [NotNull]
-        public ICommand CmdSelectInspector { get; }
+        [NotNull] public ICommand CmdCancel           { get; }
+        [NotNull] public ICommand CmdLogin            { get; }
+        [NotNull] public ICommand CmdSelectConfigFile { get; }
+        [NotNull] public ICommand CmdSelectQcFile     { get; }
+        [NotNull] public ICommand CmdSelectInspector  { get; }
         
         [CanBeNull]
         public IReadOnlyCollection<IPerson> LoginUserList => LocalValidUsers?.Users;
-
         
         [CanBeNull]
         public IPerson SelectedLoginUser
@@ -95,10 +81,6 @@ namespace BDC_V1.ViewModels
                                            !string.IsNullOrEmpty(BredFilename) &&
                                            (SelectedLoginUser != null) && (LoginUserList != null) &&
                                            LoginUserList.Contains(SelectedLoginUser));
-
-        //[NotNull]
-        //public BitmapSource CompanyLogo { get; }
-
 
         // **************** Class data members ********************************************** //
 

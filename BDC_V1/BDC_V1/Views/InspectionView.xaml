@@ -526,6 +526,7 @@
                          TextWrapping="Wrap"
                          HorizontalContentAlignment="Right"
                          Background="Transparent"
+                         BorderThickness="0"
                          Style="{StaticResource TextBoxRO}"
                          Text="Direct Condition Rating:"
                     />
