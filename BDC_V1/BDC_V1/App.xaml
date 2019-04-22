@@ -189,7 +189,7 @@
                 <Setter Property="Foreground"  Value="DarkGray" />
                 <Setter Property="BorderBrush" Value="DarkGray" />
               </Trigger>
-            </Style.Triggers>Te
+            </Style.Triggers>
           </Style>
 
             <!--ComboBox base-->
