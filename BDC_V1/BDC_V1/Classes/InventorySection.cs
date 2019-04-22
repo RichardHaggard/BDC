@@ -135,8 +135,8 @@ namespace BDC_V1.Classes
         public virtual bool HasSectionComments    => SectionComments.Any();
         public virtual bool HasAnySectionComments => HasSectionComments;
 
-        public ObservableCollection<CommentBase> SectionComments { get; } =
-            new ObservableCollection<CommentBase>();
+        public ObservableCollection<ICommentBase> SectionComments { get; } =
+            new ObservableCollection<ICommentBase>();
 
         public virtual bool HasImages => Images.Any();
 

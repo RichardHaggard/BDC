@@ -256,7 +256,9 @@
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
                                   Binding="{Binding Path=RatingText}"  Width="45"
-                                  HeaderStyle="{StaticResource DataGridColumnHeaderRtg}">
+                                  HeaderStyle="{StaticResource DataGridColumnHeaderRtg}"
+                                  ElementStyle="{StaticResource DcrStyle}"
+              >
                 <DataGridTextColumn.CellStyle>
                   <Style TargetType="DataGridCell" >
                     <Setter Property="Background" 

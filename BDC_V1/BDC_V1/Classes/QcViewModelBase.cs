@@ -10,6 +10,7 @@ using System.Windows.Input;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
 using BDC_V1.Utils;
+using JetBrains.Annotations;
 using Prism.Commands;
 
 namespace BDC_V1.Classes
@@ -22,11 +23,11 @@ namespace BDC_V1.Classes
 
         // **************** Class properties ************************************************ //
         
-        public ICommand CmdFilterButtonChecked { get; }
+        [NotNull] public ICommand CmdFilterButtonChecked { get; }
         
-        public ICommand CmdRefresh     { get; }
-        public ICommand CmdReviewIssue { get; }
-        public ICommand CmdClearFilter { get; }
+        [NotNull] public ICommand CmdRefresh     { get; }
+        [NotNull] public ICommand CmdReviewIssue { get; }
+        [NotNull] public ICommand CmdClearFilter { get; }
 
         public string Description
         {
@@ -142,9 +143,10 @@ namespace BDC_V1.Classes
                             return true;
                         };
                         break;
-
+#if DEBUG
                     default:
                         throw new ArgumentOutOfRangeException();
+#endif
                 }
 
                 //InspectionInfoView.Refresh();

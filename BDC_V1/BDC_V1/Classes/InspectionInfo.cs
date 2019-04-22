@@ -90,8 +90,8 @@ namespace BDC_V1.Classes
         public virtual bool HasInspectionComments    => InspectionComments.Any();
         public virtual bool HasAnyInspectionComments => HasInspectionComments;
 
-        public ObservableCollection<CommentBase> InspectionComments { get; } =
-            new ObservableCollection<CommentBase>();
+        public ObservableCollection<ICommentBase> InspectionComments { get; } =
+            new ObservableCollection<ICommentBase>();
 
         // on-demand collection storage is allocated on first use
         // use the Has... properties to check for not empty

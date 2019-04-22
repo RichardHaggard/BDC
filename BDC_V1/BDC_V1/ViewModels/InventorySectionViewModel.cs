@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using BDC_V1.Classes;
@@ -26,14 +27,14 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdAddSection     { get; }
-        public ICommand CmdCancelEdit     { get; }
-        public ICommand CmdDecValue       { get; }
-        public ICommand CmdDeleteSection  { get; }
-        public ICommand CmdIncValue       { get; }
-        public ICommand CmdNextSection    { get; }
-        public ICommand CmdSectionComment { get; }
-        public ICommand CmdToday          { get; }
+        [NotNull] public ICommand CmdAddSection     { get; }
+        [NotNull] public ICommand CmdCancelEdit     { get; }
+        [NotNull] public ICommand CmdDecValue       { get; }
+        [NotNull] public ICommand CmdDeleteSection  { get; }
+        [NotNull] public ICommand CmdIncValue       { get; }
+        [NotNull] public ICommand CmdNextSection    { get; }
+        [NotNull] public ICommand CmdSectionComment { get; }
+        [NotNull] public ICommand CmdToday          { get; }
 
         // TODO: Should this be part of the IInventorySection instead of here ???
         public bool Estimated
@@ -51,9 +52,7 @@ namespace BDC_V1.ViewModels
         }
         private bool _isRemembered;
 
-        [NotNull]
-        public IInventorySection InventorySection { get; }
-
+        [NotNull] public IInventorySection InventorySection { get; }
 
         // **************** Class data members ********************************************** //
 
@@ -81,18 +80,19 @@ namespace BDC_V1.ViewModels
         //    }
         //}
 
-        public override ObservableCollection<CommentBase> CommentContainer =>
-            InventorySection.SectionComments;   // TODO: Fix this
+        protected override ObservableCollection<ICommentBase> CommentContainerSource =>
+            InventorySection.SectionComments;
 
-        public override ObservableCollection<ImageSource> ImageContainer => 
+        protected override ObservableCollection<ImageSource> ImageContainerSource =>
             InventorySection.Images;
 
-        public IndexedCollection<string> FunctionalArea { get; }
-        private readonly ObservableCollection<string> _functionalArea =
-            new ObservableCollection<string>();
+        public IndexedCollection<string> FunctionalArea { get; } =
+            new IndexedCollection<string>(new ObservableCollection<string>());
 
         public override string TabName       => "INVENTORY SECTION";
         public override string PhotoTypeText => "Section photos";
+        public override string DetailHeaderText => 
+            $@"Section Comment for {InventorySection.SectionName}";
 
         // **************** Class constructors ********************************************** //
 
@@ -109,13 +109,10 @@ namespace BDC_V1.ViewModels
             CmdSectionComment = new DelegateCommand(OnSectionComment);
             CmdToday          = new DelegateCommand(OnCmdToday      );
 
-            FunctionalArea = new IndexedCollection<string>(_functionalArea);
-
+            FunctionalArea.Add("Please select functional area...");
+            FunctionalArea.SelectedIndex = 0;
 #if DEBUG
             InventorySection = new MockInventorySection();
-
-            FunctionalArea.Items.Add("Please select functional area...");
-            FunctionalArea.SelectedIndex = 0;
 #endif
             if (InventorySection != null)
             {
@@ -156,17 +153,13 @@ namespace BDC_V1.ViewModels
             switch(result)
             {
                 case MessageBoxResult.None:
-                    break;
                 case MessageBoxResult.OK:
-                    break;
                 case MessageBoxResult.Cancel:
                     break;
-                case MessageBoxResult.Yes:
-                    break;
-                case MessageBoxResult.No:
-                    break;
+#if DEBUG
                 default:
                     throw new ArgumentOutOfRangeException();
+#endif
             }
         }
 

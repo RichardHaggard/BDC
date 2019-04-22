@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using BDC_V1.Classes;
@@ -26,48 +27,38 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdAddDetail          { get; }
-        public ICommand CmdCancelEdit         { get; }
-        public ICommand CmdCopyDetail         { get; }
-        public ICommand CmdDeleteDetail       { get; }
-        public ICommand CmdDetailsComment     { get; }
-        public ICommand CmdNextDetail         { get; }
-        public ICommand CmdShowBarcodeScanner { get; }
+        [NotNull] public ICommand CmdAddDetail          { get; }
+        [NotNull] public ICommand CmdCancelEdit         { get; }
+        [NotNull] public ICommand CmdCopyDetail         { get; }
+        [NotNull] public ICommand CmdDeleteDetail       { get; }
+        [NotNull] public ICommand CmdDetailsComment     { get; }
+        [NotNull] public ICommand CmdNextDetail         { get; }
+        [NotNull] public ICommand CmdShowBarcodeScanner { get; }
 
-
-        [NotNull]
-        public IInventoryDetail InventoryDetails { get; }
+        [NotNull] public IInventoryDetail InventoryDetails { get; }
 
         public string EquipmentMakeUserEntered
         {
-            get { return _EquipmentMakeUserEntered; }
-            set
+            get => _equipmentMakeUserEntered;
+            set => SetProperty(ref _equipmentMakeUserEntered, value, () =>
             {
-                if (_EquipmentMakeUserEntered != value)
-                {
-                    _EquipmentMakeUserEntered = value;
-                    InventoryDetails.EquipmentMakes.Add(_EquipmentMakeUserEntered);
-                    InventoryDetails.EquipmentMake = EquipmentMakeUserEntered;
-                }
-            }
+                InventoryDetails.EquipmentMakes.Add(_equipmentMakeUserEntered);
+                InventoryDetails.EquipmentMake = _equipmentMakeUserEntered;
+            });
         }
-        private string _EquipmentMakeUserEntered = "";
-
+        private string _equipmentMakeUserEntered = string.Empty;
 
         public string ManufacturerUserEntered
         {
-            get { return _ManufacturerUserEntered; }
-            set
+            get => _manufacturerUserEntered;
+            set => SetProperty(ref _equipmentMakeUserEntered, value, () =>
             {
-                if (_ManufacturerUserEntered != value)
-                {
-                    _ManufacturerUserEntered = value;
-                    InventoryDetails.Manufacturers.Add(_ManufacturerUserEntered);
-                    InventoryDetails.Manufacturer = ManufacturerUserEntered;
-                }
-            }
+                InventoryDetails.Manufacturers.Add(_manufacturerUserEntered);
+                InventoryDetails.Manufacturer = _manufacturerUserEntered;
+            });
         }
-        private string _ManufacturerUserEntered = "";
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private string _manufacturerUserEntered = string.Empty;
 
 
         // **************** Class data members ********************************************** //
@@ -96,14 +87,16 @@ namespace BDC_V1.ViewModels
         //    }
         //}
 
-        public override ObservableCollection<CommentBase> CommentContainer =>
+        protected override ObservableCollection<ICommentBase> CommentContainerSource =>
             InventoryDetails.DetailComments;
 
-        public override ObservableCollection<ImageSource> ImageContainer => 
+        protected override ObservableCollection<ImageSource> ImageContainerSource =>
             InventoryDetails.Images;
 
         public override string TabName       => "INVENTORY DETAILS";
         public override string PhotoTypeText => "Inventory detail photos";
+        public override string DetailHeaderText => 
+            $@"Section Detail Comment for {InventoryDetails.CurrentSection}";
 
         // **************** Class constructors ********************************************** //
 
@@ -111,13 +104,13 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "InventoryDetailsItemControl";
 
-            CmdAddDetail          = new DelegateCommand( OnAddDetail             );
-            CmdCancelEdit         = new DelegateCommand( OnCancelEdit            );
-            CmdCopyDetail         = new DelegateCommand( OnCopyDetail            );
-            CmdDeleteDetail       = new DelegateCommand( OnDeleteDetail          );
-            CmdDetailsComment     = new DelegateCommand( OnDetailsComment        );
-            CmdNextDetail         = new DelegateCommand( OnCmdNextDetails        );
-            CmdShowBarcodeScanner = new DelegateCommand( OnCmdShowBarcodeScanner );
+            CmdAddDetail          = new DelegateCommand(OnAddDetail            );
+            CmdCancelEdit         = new DelegateCommand(OnCancelEdit           );
+            CmdCopyDetail         = new DelegateCommand(OnCopyDetail           );
+            CmdDeleteDetail       = new DelegateCommand(OnDeleteDetail         );
+            CmdDetailsComment     = new DelegateCommand(OnDetailsComment       );
+            CmdNextDetail         = new DelegateCommand(OnCmdNextDetails       );
+            CmdShowBarcodeScanner = new DelegateCommand(OnCmdShowBarcodeScanner);
 
 #if DEBUG
 //#warning Using MOCK data for InventoryDetails
@@ -125,20 +118,17 @@ namespace BDC_V1.ViewModels
 #endif
             if (InventoryDetails != null)
             {
-                if (InventoryDetails.Manufacturers != null && InventoryDetails.Manufacturers.Count > 0)
-                    InventoryDetails.Manufacturer = InventoryDetails.Manufacturers[0];
-                if (InventoryDetails.EquipmentMakes!= null && InventoryDetails.EquipmentMakes.Count > 0)
-                    InventoryDetails.EquipmentMake = InventoryDetails.EquipmentMakes[0];
+                InventoryDetails.Manufacturer  = InventoryDetails.Manufacturers .FirstOrDefault();
+                InventoryDetails.EquipmentMake = InventoryDetails.EquipmentMakes.FirstOrDefault();
             }
         }
 
-
         // **************** Class members *************************************************** //
 
-        private void OnCancelEdit    () { Debug.WriteLine("OnCancelEdit     is not implemented"); }
-        private void OnDeleteDetail  () { Debug.WriteLine("OnDeleteDetail   is not implemented"); }
-        private void OnAddDetail     () { Debug.WriteLine("OnAddDetail      is not implemented"); }
-        private void OnCopyDetail    () { Debug.WriteLine("OnCopyDetail     is not implemented"); }
+        private void OnCancelEdit  () { Debug.WriteLine("OnCancelEdit   is not implemented"); }
+        private void OnDeleteDetail() { Debug.WriteLine("OnDeleteDetail is not implemented"); }
+        private void OnAddDetail   () { Debug.WriteLine("OnAddDetail    is not implemented"); }
+        private void OnCopyDetail  () { Debug.WriteLine("OnCopyDetail   is not implemented"); }
 
         private void OnCmdNextDetails()
         {
@@ -150,7 +140,7 @@ namespace BDC_V1.ViewModels
 
         private void OnDetailsComment() 
         {             
-            OnSelectedComment(null);
+            OnSelectedComment(CommentContainer?.FirstOrDefault());
         }
 
         private void OnCmdShowBarcodeScanner()

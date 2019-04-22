@@ -73,7 +73,7 @@
             <ComboBox 
                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="8"
                 ItemsSource="{Binding InventorySection.SectionNames}"
-                SelectedItem="{Binding InventorySection.SectionName}"
+                SelectedItem="{Binding InventorySection.SectionName, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -82,7 +82,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8"
                 ItemsSource="{Binding InventorySection.EquipmentCategories}"
-                SelectedItem="{Binding InventorySection.EquipmentCategory}"
+                SelectedItem="{Binding InventorySection.EquipmentCategory, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -91,7 +91,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"
                 ItemsSource="{Binding InventorySection.ComponentTypes}"
-                SelectedItem="{Binding InventorySection.ComponentType}"
+                SelectedItem="{Binding InventorySection.ComponentType, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -205,9 +205,9 @@
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"
                       ItemsSource="{Binding FunctionalArea.Items}"
-                      SelectedItem="{Binding FunctionalArea.SelectedItem}"
+                      SelectedItem="{Binding FunctionalArea.SelectedItem, Mode=TwoWay}"
                       Style="{StaticResource ComboBase}"
-                />
+                SelectionChanged="ComboBox_SelectionChanged" />
 
             <Label 
                 Grid.Row="6" Grid.Column="0"
@@ -254,7 +254,7 @@
             <ComboBox Grid.Row="7" Grid.Column="6" Grid.ColumnSpan="3"
                 Text="{Binding InventorySection.PcType}"
                 ItemsSource="{Binding InventorySection.PcTypes}"
-                SelectedItem="{Binding InventorySection.PcType}"
+                SelectedItem="{Binding InventorySection.PcType, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
@@ -266,13 +266,12 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Button 
-                    Grid.Row="0" Grid.Column="0"
-                    Height="100" Width="180" Margin="5"
-                    Style="{DynamicResource FacilityBlockButtonStyle}"
-                    Command="{Binding CmdCommentDoubleClicked}"  
-                    CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"
-                    >
+                <Button Grid.Row="0" Grid.Column="0"
+                        Height="100" Width="180" Margin="5"
+                        Style="{DynamicResource FacilityBlockButtonStyle}"
+                        Command="{Binding CmdCommentDoubleClicked}"  
+                        CommandParameter="{Binding CommentContainer.SelectedItem}"
+                  >
                     <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                         <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                          Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
@@ -307,14 +306,14 @@
                 </Border>
             </Grid>
 
-            <ListBox 
-                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
-                Name="CommentListBox"
-                Style="{StaticResource CommentBoxStyle}"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ItemsSource="{Binding CommentContainer}"
-                >
+            <ListBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+                     Name="CommentListBox"
+                     Style="{StaticResource CommentBoxStyle}"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ItemsSource ="{Binding CommentContainer.Items}"
+                     SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
+              >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
@@ -333,27 +332,29 @@
             </ListBox>
 
             <Button Grid.Row="9" Grid.Column="0"
-                  Width="180"
-                  Style="{StaticResource ImageClickBlockButtonStyle}"
-                  Command="{Binding CmdPhotosButton}">
+                    Width="180"
+                    Style="{StaticResource ImageClickBlockButtonStyle}"
+                    Command="{Binding CmdImageDoubleClicked}"  
+                    CommandParameter="{Binding ImageContainer.SelectedItem}"
+            >
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
-                     Style="{StaticResource ImageClickBlockImageStyle}"/>
+                        Style="{StaticResource ImageClickBlockImageStyle}"/>
                     <Label Content="Photo(s)"
-                     Style="{StaticResource ImageClickBlockTextStyle}" />
+                        Style="{StaticResource ImageClickBlockTextStyle}" />
                     <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
-                     Style="{StaticResource ImageClickBlockTextStyle}" />
-                </StackPanel >
+                        Style="{StaticResource ImageClickBlockTextStyle}" />
+                </StackPanel>
             </Button>
 
-            <ListBox 
-                Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="8"
-                Name="ImageListBox"
-                Style="{StaticResource ImageBoxStyle}"
-                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                ItemsSource="{Binding ImageContainer}"
-                >
+            <ListBox Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="8"
+                     Name="ImageListBox"
+                     Style="{StaticResource ImageBoxStyle}"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                     ItemsSource ="{Binding ImageContainer.Items}"
+                     SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
+              >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding CmdImageDoubleClicked}"  
@@ -420,7 +421,7 @@
                 Grid.Row="10" Grid.Column="4" 
                 Width="50"
                 ItemsSource="{Binding InventorySection.Dcrs}"
-                SelectedItem="{Binding InventorySection.Dcr}"
+                SelectedItem="{Binding InventorySection.Dcr, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 />
             <Label 
@@ -434,7 +435,7 @@
                 HorizontalAlignment="Left"
                 Width="50"
                 ItemsSource="{Binding InventorySection.Dcrs}"
-                SelectedItem="{Binding InventorySection.PcRating}"
+                SelectedItem="{Binding InventorySection.PcRating, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 />
 

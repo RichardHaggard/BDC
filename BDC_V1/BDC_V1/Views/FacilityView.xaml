@@ -215,12 +215,11 @@
                 Style="{StaticResource LabelRO}"
                 Content="{Binding LocalFacilityInfo.AlternateIdSource}" />
 
-            <Button 
-                Grid.Row="7" Grid.Column="0"
-                Style="{DynamicResource ImageClickBlockButtonStyle}"
-                Command="{Binding CmdCommentDoubleClicked}"  
-                CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"
-                >
+            <Button Grid.Row="7" Grid.Column="0"
+                    Style="{DynamicResource ImageClickBlockButtonStyle}"
+                    Command="{Binding CmdCommentDoubleClicked}"  
+                    CommandParameter="{Binding CommentContainer.SelectedItem}"
+            >
               <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                   <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                          Margin="12,0,0,0"
@@ -238,7 +237,8 @@
                      Style="{StaticResource CommentBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ItemsSource="{Binding CommentContainer}"
+                     ItemsSource ="{Binding CommentContainer.Items}"
+                     SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
                      >
               <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
@@ -259,7 +259,9 @@
 
             <Button Grid.Row="8" Grid.Column="0"
                     Style="{StaticResource ImageClickBlockButtonStyle}"
-                    Command="{Binding CmdPhotosButton}">
+                    Command="{Binding CmdImageDoubleClicked}"  
+                    CommandParameter="{Binding ImageContainer.SelectedItem}"
+            >
               <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                   <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
                          Style="{StaticResource ImageClickBlockImageStyle}"/>
@@ -275,7 +277,8 @@
                      Style="{StaticResource ImageBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ItemsSource="{Binding ImageContainer}"
+                     ItemsSource ="{Binding ImageContainer.Items}"
+                     SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
                      >
               <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

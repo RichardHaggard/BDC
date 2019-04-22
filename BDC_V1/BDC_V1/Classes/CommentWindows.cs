@@ -18,11 +18,11 @@ namespace BDC_V1.Classes
     {
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdMicOn       { get; }
-        public ICommand CmdMicOff      { get; }
-        public ICommand CmdCopy        { get; }
-        public ICommand CmdSpellCheck  { get; }
-        public ICommand CmdReviewLater { get; }
+        [NotNull] public ICommand CmdMicOn       { get; }
+        [NotNull] public ICommand CmdMicOff      { get; }
+        [NotNull] public ICommand CmdCopy        { get; }
+        [NotNull] public ICommand CmdSpellCheck  { get; }
+        [NotNull] public ICommand CmdReviewLater { get; }
 
         public string HeaderText
         {
@@ -64,8 +64,8 @@ namespace BDC_V1.Classes
             DialogResultEx = false;
         }
 
-        [NotNull]   protected abstract List<Commentary> CommentaryList  { get; set; }
-        [CanBeNull] protected abstract string           CopyWindowTitle { get; }
+        [NotNull]   protected abstract List<ICommentary> CommentaryList  { get; set; }
+        [CanBeNull] protected abstract string            CopyWindowTitle { get; }
         protected virtual void OnCopy()
         {
             var view = new CopyCommentView();

@@ -23,8 +23,8 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdCancelButton { get; }
-        public ICommand CmdCopyButton   { get; }
+        [NotNull] public ICommand CmdCancelButton { get; }
+        [NotNull] public ICommand CmdCopyButton   { get; }
 
         public bool IsSectionNameEnabled
         {
@@ -126,21 +126,16 @@ namespace BDC_V1.ViewModels
         }
         private bool _isIncludeCommentsChecked;
 
-
-        [NotNull]
-        public IndexedCollection<IFacilityInfoHeader> SourceFacilities { get; } =
+        [NotNull] public IndexedCollection<IFacilityInfoHeader> SourceFacilities { get; } =
             new IndexedCollection<IFacilityInfoHeader>(new ObservableCollection<IFacilityInfoHeader>());
 
-        [NotNull]
-        public IndexedCollection<IFacilityInfoHeader> TargetFacilities { get; } =
+        [NotNull] public IndexedCollection<IFacilityInfoHeader> TargetFacilities { get; } =
             new IndexedCollection<IFacilityInfoHeader>(new ObservableCollection<IFacilityInfoHeader>());
 
-        [NotNull]
-        public IndexedCollection<ISectionInfo> Sections { get; } =
+        [NotNull] public IndexedCollection<ISectionInfo> Sections { get; } =
             new IndexedCollection<ISectionInfo>(new ObservableCollection<ISectionInfo>());
 
-        [NotNull]
-        public IndexedCollection<ItemChecklist> Systems { get; } = 
+        [NotNull] public IndexedCollection<ItemChecklist> Systems { get; } =
             new IndexedCollection<ItemChecklist>(new ObservableCollection<ItemChecklist>());
 
         // **************** Class constructors ********************************************** //
@@ -149,6 +144,38 @@ namespace BDC_V1.ViewModels
         {
             CmdCancelButton = new DelegateCommand(OnCancelButton);
             CmdCopyButton   = new DelegateCommand(OnCopyButton  );
+
+#if DEBUG
+#warning Using MOCK data for CmInvViewModel
+
+            // TODO: I think this value is coming from thee tree view selection
+            SectionNode = "<NODE NAME>";
+
+            TargetFacilities.AddRange(new []
+            {
+                new FacilityInfoHeader {BuildingIdNumber = 11057, BuildingName = "National Guard Readiness Center"},
+                new FacilityInfoHeader {BuildingIdNumber = 11612, BuildingName = "Facility # 2"}
+            });
+
+            // TODO: I'm unsure about what this is supposed to be
+            SourceFacilities.AddRange(TargetFacilities);
+            SourceFacilities.SelectedIndex = 0;
+
+            Sections.AddRange(new[]
+            {
+                new SectionInfo("FL1"),
+                new SectionInfo("FL2"),
+                new SectionInfo("EAST WING"),
+                new SectionInfo("WEST WING"),
+                new SectionInfo("MEZZANINE"),
+            });
+
+            foreach (EnumFacilitySystemTypes system in Enum.GetValues(typeof(EnumFacilitySystemTypes)))
+            {
+                Systems.Add(new ItemChecklist
+                    {ItemName = $"{system.ToString()} - {system.Description()}"});
+            }
+#endif
 
             SourceFacilities.PropertyChanged += (o, i) =>
             {
@@ -167,39 +194,6 @@ namespace BDC_V1.ViewModels
                 if (i.PropertyName == nameof(SourceFacilities.SelectedItem))
                     RaisePropertyChanged(nameof(IsSectionNameEnabled));
             };
-
-
-#if DEBUG
-#warning Using MOCK data for CmInvViewModel
-
-            // TODO: I think this value is coming from thee tree view selection
-            SectionNode = "<NODE NAME>";
-
-            TargetFacilities.Items.AddRange(new []
-            {
-                new FacilityInfoHeader {BuildingIdNumber = 11057, BuildingName = "National Guard Readiness Center"},
-                new FacilityInfoHeader {BuildingIdNumber = 11612, BuildingName = "Facility # 2"}
-            });
-
-            // TODO: I'm unsure about what this is supposed to be
-            SourceFacilities.Items.AddRange(TargetFacilities.Items);
-            SourceFacilities.SelectedIndex = 0;
-
-            Sections.Items.AddRange(new[]
-            {
-                new SectionInfo("FL1"),
-                new SectionInfo("FL2"),
-                new SectionInfo("EAST WING"),
-                new SectionInfo("WEST WING"),
-                new SectionInfo("MEZZANINE"),
-            });
-
-            foreach (EnumFacilitySystemTypes system in Enum.GetValues(typeof(EnumFacilitySystemTypes)))
-            {
-                Systems.Items.Add(new ItemChecklist
-                    {ItemName = $"{system.ToString()} - {system.Description()}"});
-            }
-#endif
         }
 
         // **************** Class members *************************************************** //

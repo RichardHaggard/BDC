@@ -31,9 +31,56 @@ namespace BDC_V1.Classes
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdPhotosButton         { get; }
-        public ICommand CmdCommentDoubleClicked { get; }
-        public ICommand CmdImageDoubleClicked   { get; }
+        [NotNull] public ICommand CmdCommentDoubleClicked { get; }
+        [NotNull] public ICommand CmdImageDoubleClicked   { get; }
+
+        [CanBeNull] private IndexedCollection<ICommentBase> _commentContainer;
+        [CanBeNull] protected abstract ObservableCollection<ICommentBase> CommentContainerSource { get; }
+        [NotNull] public IndexedCollection<ICommentBase> CommentContainer 
+        {
+            get
+            {
+                if (_commentContainer == null)
+                {
+                    var source = CommentContainerSource;
+                    if ((source?.Any()).Equals(true))
+                    {
+                        // ReSharper disable once AssignNullToNotNullAttribute
+                        _commentContainer = new IndexedCollection<ICommentBase>(source)
+                        {
+                            SelectedIndex = 0
+                        };
+                    }
+                }
+
+                return _commentContainer ?? 
+                    new IndexedCollection<ICommentBase>(new List<ICommentBase>());
+            }
+        }
+
+        [CanBeNull] private IndexedCollection<ImageSource> _imageContainer;
+        [CanBeNull] protected abstract ObservableCollection<ImageSource> ImageContainerSource { get; }
+        [NotNull] public IndexedCollection<ImageSource> ImageContainer 
+        {
+            get
+            {
+                if (_imageContainer == null)
+                {
+                    var source = ImageContainerSource;
+                    if ((source?.Any()).Equals(true))
+                    {
+                        // ReSharper disable once AssignNullToNotNullAttribute
+                        _imageContainer = new IndexedCollection<ImageSource>(source)
+                        {
+                            SelectedIndex = 0
+                        };
+                    }
+                }
+
+                return _imageContainer ?? 
+                    new IndexedCollection<ImageSource>(new List<ImageSource>());
+            }
+        }
 
         // **************** Class constructors ********************************************** //
 
@@ -41,7 +88,6 @@ namespace BDC_V1.Classes
         {
             RegionManagerName = "FacilityItemControl";
 
-            CmdPhotosButton         = new DelegateCommand(OnPhotosButton );
             CmdCommentDoubleClicked = new DelegateCommand<object>(OnCommentDoubleClicked);
             CmdImageDoubleClicked   = new DelegateCommand<object>(OnImageDoubleClicked  );
         }
@@ -51,34 +97,28 @@ namespace BDC_V1.Classes
         // TODO: Have to figure out how to get the selected item and it's index into here
         private void OnCommentDoubleClicked([CanBeNull] object obj)
         {
-            OnSelectedComment(obj as CommentBase);
+            OnSelectedComment(obj as ICommentBase ?? CommentContainer.FirstOrDefault());
         }
 
         private void OnImageDoubleClicked([CanBeNull] object obj) 
         {             
-            OnSelectedImage(obj as ImageSource);
+            OnSelectedImage(obj as ImageSource ?? ImageContainer.FirstOrDefault());
         }
 
-        protected virtual void OnPhotosButton()
-        {
-            OnSelectedImage(null);
-        }
+        [NotNull]
+        public abstract string DetailHeaderText { get; }
 
-        [CanBeNull]
-        public abstract ObservableCollection<CommentBase> CommentContainer { get; }
-
-        protected virtual void OnSelectedComment([CanBeNull] CommentBase comment, bool isInspection = false)
+        protected virtual void OnSelectedComment([CanBeNull] ICommentBase comment, bool isInspection = false)
         {
             var view = new GeneralCommentView();
             if (!(view.DataContext is GeneralCommentViewModel model)) 
                 throw new InvalidCastException("Invalid View Model");
 
-            model.IsDistressedEnabled = isInspection;
-            model.CommentText = comment?.CommentText;
             model.FacilityBaseInfo = null;              //TODO: Put real data in here
-            model.WindowTitle = isInspection
-                ? "INSPECTION COMMENTS"
-                : "COMMENTS";
+            model.CommentText = comment?.CommentText;
+            model.WindowTitle = $@"{TabName} COMMENTS";
+            model.HeaderText = DetailHeaderText;
+            model.IsDistressedEnabled = isInspection;
 
             //if (view.ShowDialog() != true) return;
             if (view.ShowDialogInParent(true) != true) return;
@@ -88,7 +128,7 @@ namespace BDC_V1.Classes
         }
 
         // these two members are separated so they can be overriden separately
-        protected virtual void DoSelectedComment(EnumControlResult result, [CanBeNull] CommentBase itemBase, [CanBeNull] string modelText)
+        protected virtual void DoSelectedComment(EnumControlResult result, [CanBeNull] ICommentBase itemBase, [CanBeNull] string modelText)
         {
             switch (result)
             {
@@ -109,19 +149,15 @@ namespace BDC_V1.Classes
                             CommentText = modelText
                         };
 
-                        CommentContainer?.Add(newComment);
+                        CommentContainer?.Items.AddNewItem(newComment);
                     }
 
                     break;
 
                 case EnumControlResult.ResultCancelled:
-                default:
-                    break;
+                default: break;
             }
         }
-
-        [CanBeNull]
-        public abstract ObservableCollection<ImageSource> ImageContainer { get; }
 
         public abstract string TabName       { get; }
         public abstract string PhotoTypeText { get; }
@@ -150,7 +186,10 @@ namespace BDC_V1.Classes
             view.ShowDialogInParent(true);
         }
 
-        protected virtual void DoSelectedImage(EnumControlResult result, [CanBeNull] ImageSource itemImage, [CanBeNull] ImageSource modelImage)
+        protected virtual void DoSelectedImage(
+            EnumControlResult result, 
+            [CanBeNull] ImageSource itemImage, 
+            [CanBeNull] ImageSource modelImage)
         {
             switch (result)
             {
@@ -176,8 +215,7 @@ namespace BDC_V1.Classes
                     break;
 
                 case EnumControlResult.ResultCancelled:
-                default:
-                    break;
+                default: break;
             }
         }
     }

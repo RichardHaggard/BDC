@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using BDC_V1.Classes;
@@ -25,31 +26,25 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdFacilityComment { get; }
-
-        public override ObservableCollection<CommentBase> CommentContainer =>
+        protected override ObservableCollection<ICommentBase> CommentContainerSource =>
             LocalFacilityInfo?.FacilityComments;
 
-        public override ObservableCollection<ImageSource> ImageContainer => 
+        protected override ObservableCollection<ImageSource> ImageContainerSource =>
             LocalFacilityInfo?.Images;
 
         public override string TabName       => "FACILITY";
         public override string PhotoTypeText => "Facility photos";
+        public override string DetailHeaderText => LocalFacilityInfo != null 
+            ? $@"Facility Comment for Building {LocalFacilityInfo.BuildingIdNumber} - {LocalFacilityInfo.BuildingName}" 
+            : string.Empty;
 
         // **************** Class constructors ********************************************** //
 
         public FacilityViewModel()
         {
             RegionManagerName = "FacilityItemControl";
-
-            CmdFacilityComment = new DelegateCommand(OnFacilityComment);
         }
 
         // **************** Class members *************************************************** //
-
-        private void OnFacilityComment() 
-        {             
-            OnSelectedComment(null);
-        }
     }
 }

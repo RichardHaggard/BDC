@@ -9,6 +9,7 @@ using System.Windows.Input;
 using BDC_V1.Classes;
 using BDC_V1.Enumerations;
 using BDC_V1.Events;
+using BDC_V1.Interfaces;
 using BDC_V1.Views;
 using JetBrains.Annotations;
 using Prism.Commands;
@@ -23,7 +24,7 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdDistressed { get; }
+        [NotNull] public ICommand CmdDistressed { get; }
 
         public string WindowTitle
         {
@@ -39,8 +40,6 @@ namespace BDC_V1.ViewModels
         }
         private bool _isDistressedEnabled = true;
 
-
-        // TODO: Move these properties into a separate interface / class ???
 
         public EnumRepairType RepairType
         {
@@ -61,12 +60,12 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
-        protected override List<Commentary> CommentaryList
+        protected override List<ICommentary> CommentaryList
         {
-            get => _commentaryList ?? (_commentaryList = new List<Commentary>());
+            get => _commentaryList ?? (_commentaryList = new List<ICommentary>());
             set => SetProperty(ref _commentaryList, value);
         }
-        private List<Commentary> _commentaryList = new List<Commentary>();
+        private List<ICommentary> _commentaryList;
 
         protected override string CopyWindowTitle => "COPY INSPECTION COMMENT";
 

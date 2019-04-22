@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
@@ -38,10 +39,10 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        public ICommand CmdNextButton   { get; }
-        public ICommand CmdPrevButton   { get; }
-        public ICommand CmdCopyButton   { get; }
-        public ICommand CmdCancelButton { get; }
+        [NotNull] public ICommand CmdNextButton   { get; }
+        [NotNull] public ICommand CmdPrevButton   { get; }
+        [NotNull] public ICommand CmdCopyButton   { get; }
+        [NotNull] public ICommand CmdCancelButton { get; }
 
         public string WindowTitle
         {
@@ -51,17 +52,6 @@ namespace BDC_V1.ViewModels
         private string _windowTitle = "COPY COMMENTS";
 
         // TODO: Move these properties into a separate interface / class
-
-        [CanBeNull]
-        public string SelectedFacility
-        {
-            get => (FilterSource == EnumFilterSourceType.SavedFilter)
-                ? _selectedFacility
-                : ListOfFacilities.FirstOrDefault()?.ToString();
-
-            set => SetProperty(ref _selectedFacility, value, OnChangeFilter);
-        }
-        private string _selectedFacility;
 
         public string SearchTerm
         {
@@ -98,15 +88,15 @@ namespace BDC_V1.ViewModels
         }
         private string _matchingResultsText;
 
-        public ObservableCollection<IComponentFacility> ListOfFacilities { get; } =
-            new ObservableCollection<IComponentFacility>();
+        public IndexedCollection<IComponentFacilityHeader> ListOfFacilities { get; } =
+            new IndexedCollection<IComponentFacilityHeader>(new ObservableCollection<IComponentFacilityHeader>());
 
-        public ObservableCollection<Commentary> FilteredCommentary { get; } =
-            new ObservableCollection<Commentary>();
-
-        public ObservableCollection<Commentary> UnFilteredCommentary { get; } =
-            new ObservableCollection<Commentary>();
-
+        private IndexedCollection<ICommentary> _filteredCommentary;
+        public IndexedCollection<ICommentary> FilteredCommentary => _filteredCommentary ??
+            (_filteredCommentary = new IndexedCollection<ICommentary>(UnFilteredCommentary));
+       
+        public ObservableCollection<ICommentary> UnFilteredCommentary { get; } =
+            new ObservableCollection<ICommentary>();
 
         public IFacilityBase FacilityBaseInfo
         {
@@ -114,24 +104,25 @@ namespace BDC_V1.ViewModels
             set => SetProperty(ref _facilityBaseInfo, value, () =>
             {
                 UnFilteredCommentary.Clear();
-                FilteredCommentary  .Clear();
-                ListOfFacilities    .Clear();
-                SelectedFacility = null;
+
+                ListOfFacilities.SelectedIndex = -1;
+                ListOfFacilities.Clear();
 
                 if (!((_facilityBaseInfo?.Facilities == null) || (_facilityBaseInfo.Facilities.Count == 0)))
                 {
                     ListOfFacilities.AddRange(_facilityBaseInfo.Facilities);
 
-                    foreach (var facility in ListOfFacilities)
+                    foreach (var facility in _facilityBaseInfo.Facilities)
                         FindComments(facility);
                 }
 
                 RaisePropertyChanged(new []
                 {
                     nameof(UnFilteredCommentary),
-                    nameof(FilteredCommentary),
                     nameof(ListOfFacilities)
                 });
+
+                FilteredCommentary.Refresh();
             });
         }
         private IFacilityBase _facilityBaseInfo;
@@ -151,13 +142,26 @@ namespace BDC_V1.ViewModels
             FilterRatingColor = EnumRatingColors.Green;
             SearchTerm = "";
 
-            // Hook changes in the Facility list
-            ListOfFacilities.CollectionChanged +=
-                new NotifyCollectionChangedEventHandler(OnFacilitiesCollectionChanged);
+#if DEBUG
+            ListOfFacilities.AddRange(new[]
+            {
+                new ComponentFacilityHeader
+                {
+                    BuildingIdNumber = 11507,
+                    BuildingId   = "ARMRY",
+                    BuildingName = "National Guard Readiness Center"
+                },
 
+                new ComponentFacilityHeader
+                {
+                    BuildingIdNumber = 11444,
+                    BuildingId   = "Facility # 2",
+                    BuildingName = "Facility # 2"
+                } 
+            });
+#endif
             // Hook changes in the Commentary list changes
-            UnFilteredCommentary.CollectionChanged +=
-                new NotifyCollectionChangedEventHandler(OnCommentaryCollectionChanged);
+            UnFilteredCommentary.CollectionChanged += OnCommentaryCollectionChanged;
         }
 
         // **************** Class members *************************************************** //
@@ -200,12 +204,6 @@ namespace BDC_V1.ViewModels
             OnChangeFilter();
         }
 
-        private void OnFacilitiesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (ListOfFacilities.Any(item => item.ToString() == SelectedFacility) == false)
-                SelectedFacility = ListOfFacilities.FirstOrDefault()?.ToString();
-        }
-
         private void OnCancelButton()
         {
             Result = EnumControlResult.ResultCancelled;
@@ -230,7 +228,7 @@ namespace BDC_V1.ViewModels
 
         private void OnChangeFilter()
         {
-            IEnumerable<Commentary> filterList = new List<Commentary>(UnFilteredCommentary);
+            var filter = PredicateBuilder.True<ICommentary>();
 
             // ??? don't know what to do here ???
             switch (FilterSource)
@@ -239,13 +237,14 @@ namespace BDC_V1.ViewModels
                     break;
 
                 case EnumFilterSourceType.SavedFilter:
-                    if (!string.IsNullOrEmpty(SelectedFacility) &&
-                        (SelectedFacility != "<ANY FACILITY>"))
+                    if (ListOfFacilities.SelectedIndex != -1)
                     {
-                        var facilityId = SelectedFacility.Substring(0, 5);
+                        var facilityId = ListOfFacilities.SelectedItem?.BuildingIdNumber.ToString();
 
-                        filterList = filterList.Where(item =>
-                            item.FacilityId == facilityId);
+                        Expression<Func<ICommentary, bool>> savedFilter =
+                            item => item.FacilityId == facilityId;
+
+                        filter.And(savedFilter);
                     }
 
                     break;
@@ -277,20 +276,16 @@ namespace BDC_V1.ViewModels
                 case EnumRatingColors.Green:
                     break;
 
-                case EnumRatingColors.Yellow:
-                    filterList = filterList.Where(item =>
-                        item.Rating.ToRatingColor() == EnumRatingColors.Yellow);
-                    break;
-
                 case EnumRatingColors.Amber:
-                    filterList = filterList.Where(item =>
-                        item.Rating.ToRatingColor() == EnumRatingColors.Amber);
-                    break;
-
+                case EnumRatingColors.Yellow:
                 case EnumRatingColors.Red:
-                    filterList = filterList.Where(item =>
-                        item.Rating.ToRatingColor() == EnumRatingColors.Red);
+                {
+                    Expression<Func<ICommentary, bool>> ratingColorFilter =
+                        item => item.Rating.ToRatingColor() == FilterRatingColor;
+
+                    filter.And(ratingColorFilter);
                     break;
+                } 
 #if DEBUG
                 default:
                     throw new ArgumentOutOfRangeException(nameof(FilterRatingColor),
@@ -300,14 +295,18 @@ namespace BDC_V1.ViewModels
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                filterList = filterList.Where(item =>
-                    item.CommentText.Contains(SearchTerm));
+                Expression<Func<ICommentary, bool>> savedFilter =
+                    item => item.CommentText.Contains(SearchTerm);
+
+                filter.And(savedFilter);
             }
 
-            FilteredCommentary.Clear();
-            FilteredCommentary.AddRange(filterList);
+            var func = filter.Compile();
+            var predicate = new Predicate<ICommentary>(func);
 
-            MatchingResultsText = "Matching Results: " + FilteredCommentary.Count;
+            FilteredCommentary.Filter = predicate;
+
+            MatchingResultsText = $@"Matching Results: {FilteredCommentary.Count}";
         }
     }
 }

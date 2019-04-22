@@ -19,13 +19,13 @@ namespace BDC_V1.ViewModels
 {
     public class FatFingerMessageBoxViewModel : CloseableWindow
     {
-        public ICommand CmdNoButton     { get; }
-        public ICommand CmdCancelButton { get; }
-        public ICommand CmdYesOkCommand { get; }
+        [NotNull] public ICommand CmdNoButton     { get; }
+        [NotNull] public ICommand CmdCancelButton { get; }
+        [NotNull] public ICommand CmdYesOkCommand { get; }
 
-        public ICommand CmdCloseWindow    { get; }
-        public ICommand CmdToggleWindow   { get; }
-        public ICommand CmdMinimizeWindow { get; }
+        [NotNull] public ICommand CmdCloseWindow    { get; }
+        [NotNull] public ICommand CmdToggleWindow   { get; }
+        [NotNull] public ICommand CmdMinimizeWindow { get; }
 
         public string WindowTitle
         {

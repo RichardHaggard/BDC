@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using BDC_V1.Classes;
@@ -28,11 +29,10 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        //public ICommand CmdCondRating        { get; }
-        public ICommand CmdCancelEdit        { get; }
-        public ICommand CmdDeleteInspection  { get; }
-        public ICommand CmdInspectionComment { get; }
-        public ICommand CmdPaintedCoated     { get; }
+        [NotNull] public ICommand CmdCancelEdit        { get; }
+        [NotNull] public ICommand CmdDeleteInspection  { get; }
+        [NotNull] public ICommand CmdInspectionComment { get; }
+        [NotNull] public ICommand CmdPaintedCoated     { get; }
 
         public bool IsRemembered
         {
@@ -45,17 +45,7 @@ namespace BDC_V1.ViewModels
         public IInspectionInfo InspectionInfo
         {
             get => _inspectionInfo;
-            set
-            {
-                if (SetProperty(ref _inspectionInfo, value))
-                {
-//#if DEBUG
-//#warning Overriding Inspection images 
-//                    _inspectionInfo.Images.Clear();
-//                    _inspectionInfo.Images.AddRange(LocalFacilityInfo?.Images);
-//#endif
-                }
-            }
+            set => SetProperty(ref _inspectionInfo, value);
         }
         private IInspectionInfo _inspectionInfo = new InspectionInfo();
 
@@ -75,14 +65,16 @@ namespace BDC_V1.ViewModels
 //            }
 //        }
 
-        public override ObservableCollection<CommentBase> CommentContainer =>
+        protected override ObservableCollection<ICommentBase> CommentContainerSource =>
             InspectionInfo.InspectionComments;
 
-        public override ObservableCollection<ImageSource> ImageContainer => 
+        protected override ObservableCollection<ImageSource> ImageContainerSource =>
             InspectionInfo.Images;
 
         public override string TabName       => "INSPECTION";
         public override string PhotoTypeText => "Inspection photos";
+        public override string DetailHeaderText => 
+            $@"Inspection Comment on {InspectionInfo.Component} for inspection on {InspectionInfo.InspectionDate.ToShortDateString()}";
 
         // **************** Class data members ********************************************** //
 
@@ -97,18 +89,6 @@ namespace BDC_V1.ViewModels
             CmdDeleteInspection  = new DelegateCommand(OnDeleteInspection       );
             CmdInspectionComment = new DelegateCommand(OnCmdInspectionComment   );
             CmdPaintedCoated     = new DelegateCommand(OnCmdPaintedCoated       );
-
-#if false
-            CmdAmberPlus = new DelegateCommand(OnCmdAmberPlus);
-            CmdAmber = new DelegateCommand(OnCmdAmber);
-            CmdAmberMinus = new DelegateCommand(OnCmdAmberMinus);
-            CmdGreenPlus = new DelegateCommand(OnCmdGreenPlus);
-            CmdGreen = new DelegateCommand(OnCmdGreen);
-            CmdGreenMinus = new DelegateCommand(OnCmdGreenMinus);
-            CmdRedPlus = new DelegateCommand(OnCmdRedPlus);
-            CmdRed = new DelegateCommand(OnCmdRed);
-            CmdRedMinus = new DelegateCommand(OnCmdRedMinus);
-#endif
 
             IsRemembered = false;
 #if DEBUG
@@ -130,102 +110,10 @@ namespace BDC_V1.ViewModels
             Debug.WriteLine("OnCancelEdit not implemented");
         }
 
-#if false
-        private void OnCmdAmberPlus()
-        {
-            SetAllButtonColors();
-            AmberPlusBg = Brushes.Orange;
-            AmberPlusFg = Brushes.Black;
-        }
-
-        private void OnCmdAmber()
-        {
-            SetAllButtonColors();
-            AmberBg = Brushes.Orange;
-            AmberFg = Brushes.Black;
-        }
-
-        private void OnCmdAmberMinus()
-        {
-            SetAllButtonColors();
-            AmberMinusBg = Brushes.Orange;
-            AmberMinusFg = Brushes.Black;
-        }
-
-
-
-        private void OnCmdGreenPlus()
-        {
-            SetAllButtonColors();
-            GreenPlusBg = Brushes.Green;
-            GreenPlusFg = Brushes.Black;
-        }
-
-        private void OnCmdGreen()
-        {
-            SetAllButtonColors();
-            GreenBg = Brushes.Green;
-            GreenFg = Brushes.Black;
-        }
-
-        private void OnCmdGreenMinus()
-        {
-            SetAllButtonColors();
-            GreenMinusBg = Brushes.Green;
-            GreenMinusFg = Brushes.Black;
-        }
-
-
-        private void OnCmdRedPlus()
-        {
-            SetAllButtonColors();
-            RedPlusBg = Brushes.Red;
-            RedPlusFg = Brushes.Black;
-        }
-
-        private void OnCmdRed()
-        {
-            SetAllButtonColors();
-            RedBg = Brushes.Red;
-            RedFg = Brushes.Black;
-        }
-
-        private void OnCmdRedMinus()
-        {
-            SetAllButtonColors();
-            RedMinusBg = Brushes.Red;
-            RedMinusFg = Brushes.Black;
-        }
-
-
-        private void SetAllButtonColors()
-        {
-            AmberPlusBg = Brushes.Blue;
-            AmberPlusFg = Brushes.White;
-            AmberBg = Brushes.Blue;
-            AmberFg = Brushes.White;
-            AmberMinusBg = Brushes.Blue;
-            AmberMinusFg = Brushes.White;
-            GreenPlusBg = Brushes.Blue;
-            GreenPlusFg = Brushes.White;
-            GreenBg = Brushes.Blue;
-            GreenFg = Brushes.White;
-            GreenMinusBg = Brushes.Blue;
-            GreenMinusFg = Brushes.White;
-            RedPlusBg = Brushes.Blue;
-            RedPlusFg = Brushes.White;
-            RedBg = Brushes.Blue;
-            RedFg = Brushes.White;
-            RedMinusBg = Brushes.Blue;
-            RedMinusFg = Brushes.White;
-        }
-#endif
-
         private void OnCmdInspectionComment()
         {
-            OnSelectedComment(null, true);
+            OnSelectedComment(CommentContainer?.FirstOrDefault(), true);
         }
-
 
         private void OnCmdPaintedCoated()
         {
@@ -236,89 +124,14 @@ namespace BDC_V1.ViewModels
             InspectionInfo.IsPainted = !InspectionInfo.IsPainted;
         }
 
-
-        protected override void OnSelectedComment(CommentBase comment, bool isInspection=false)
+        protected override void OnSelectedComment(ICommentBase comment, bool isInspection=false)
         {
             base.OnSelectedComment(comment, true);
-#if false
-            var view = new GeneralCommentView();
-            if (!(view.DataContext is GeneralCommentViewModel model))       
-                throw new InvalidCastException("Invalid View Model");
-
-            model.FacilityBaseInfo = null;              //TODO: Put real data in here
-            model.CommentText = comment?.CommentText;
-            //if (view.ShowDialog() != true) return;
-            if (view.ShowDialogInParent(true) != true) return;
-
-            // TODO: Fix the CommentViewModel to return a CommentBase class on success
-            DoSelectedComment(model.Result, comment, model.CommentText);
-#endif
         }
 
         private void OnDeleteInspection()
         {
             Debug.WriteLine("OnDeleteInspection not implemented");
         }
-
-#if false
-        private void OnConditionRating(object param)
-        {
-            if (param is Array paramArray)
-            {
-                if (paramArray.Length == 3)
-                {
-                    var color  = paramArray.GetValue(0) as string;
-                    var colIdx = paramArray.GetValue(1) as string;
-                    var rowIdx = paramArray.GetValue(2) as string;
-
-                    if (!string.IsNullOrEmpty(color) &&
-                        !string.IsNullOrEmpty(colIdx) &&
-                        !string.IsNullOrEmpty(rowIdx))
-                    {
-                        switch (color)
-                        {
-                            case "Green":
-                                break;
-                            case "Amber":
-                                break;
-                            case "Red":
-                                break;
-                            default:
-                                throw new IndexOutOfRangeException($"invalid color:\"{color}\"");
-                        }
-
-                        switch (colIdx)
-                        {
-                            case "0":
-                                break;
-                            case "1":
-                                break;
-                            case "2":
-                                break;
-                            default:
-                                throw new IndexOutOfRangeException($"invalid colIdx:\"{colIdx}\"");
-                        }
-
-                        switch (rowIdx)
-                        {
-                            case "0":
-                                break;
-                            case "1":
-                                break;
-                            case "2":
-                                break;
-                            default:
-                                throw new IndexOutOfRangeException($"invalid rowIdx:\"{rowIdx}\"");
-                        }
-
-                        Debug.WriteLine($"OnConditionRating({color},{colIdx},{rowIdx}) not implemented");
-                        return;
-                    }
-                }
-            }
-
-            throw new InvalidCastException("invalid param");
-        }
-#endif
     }
 }

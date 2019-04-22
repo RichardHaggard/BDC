@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Classes
 {
-    public class ComponentFacility : ComponentBase, IComponentFacility
+    public class ComponentFacility : ComponentFacilityHeader, IComponentFacility
     {
         // **************** Class enumerations ********************************************** //
 
@@ -21,26 +21,6 @@ namespace BDC_V1.Classes
             set => SetProperty(ref _constType, value);
         }
         private EnumConstType _constType;
-
-        public string BuildingId
-        {
-            get => ComponentName;
-            set => ComponentName = value;
-        }
-
-        public uint BuildingIdNumber
-        {
-            get => _buildingIdNumber;
-            set => SetProperty(ref _buildingIdNumber, value);
-        }
-        private uint _buildingIdNumber;
-
-        public string BuildingName
-        {
-            get => _buildingName;
-            set => SetProperty(ref _buildingName, value);
-        }
-        private string _buildingName;
 
         public string BuildingUse
         {
@@ -128,8 +108,8 @@ namespace BDC_V1.Classes
 
         // Facility Comments
         public override bool HasFacilityComments => FacilityComments.Any();
-        public ObservableCollection<CommentBase> FacilityComments { get; } =
-            new ObservableCollection<CommentBase>();
+        public ObservableCollection<ICommentBase> FacilityComments { get; } =
+            new ObservableCollection<ICommentBase>();
 
         public override bool HasInspections => Inspections.Any();
         public ObservableCollection<InspectionInfo> Inspections { get; } =

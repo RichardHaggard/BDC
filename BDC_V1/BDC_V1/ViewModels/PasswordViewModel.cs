@@ -10,8 +10,7 @@ namespace BDC_V1.ViewModels
 {
     public class PasswordViewModel : ViewModelBase
     {
-        [NotNull]
-        public ICommand ValidateCmd { get; }
+        [NotNull] public ICommand ValidateCmd { get; }
 
         public string UserPass
         {

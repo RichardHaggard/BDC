@@ -95,6 +95,7 @@
     <Compile Include="Classes\CommentBase.cs" />
     <Compile Include="Classes\Commentary.cs" />
     <Compile Include="Classes\CommentInventory.cs" />
+    <Compile Include="Classes\ComponentFacilityHeader.cs" />
     <Compile Include="Classes\ComponentSection.cs" />
     <Compile Include="Classes\ComponentSystem.cs" />
     <Compile Include="Classes\ConfigInfo.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Interfaces\IComment.cs" />
     <Compile Include="Interfaces\ICommentCollection.cs" />
     <Compile Include="Interfaces\ICommentInventory.cs" />
+    <Compile Include="Interfaces\IComponentFacilityHeader.cs" />
     <Compile Include="Interfaces\IComponentSection.cs" />
     <Compile Include="Interfaces\IComponentSystem.cs" />
     <Compile Include="Interfaces\IDynamicWindowTitle.cs" />
@@ -146,7 +148,6 @@
     <Compile Include="Interfaces\IFacilityInfo.cs" />
     <Compile Include="Interfaces\IFacilityInfoHeader.cs" />
     <Compile Include="Interfaces\IImageCollection.cs" />
-    <Compile Include="Interfaces\IIndexedCollection.cs" />
     <Compile Include="Interfaces\IQcIssueBase.cs" />
     <Compile Include="Interfaces\ISectionInfo.cs" />
     <Compile Include="Models\PhotoModel.cs" />
@@ -157,6 +158,8 @@
     </Compile>
     <Compile Include="Utils\DescriptionToEnum.cs" />
     <Compile Include="Utils\EnumRatingConverter.cs" />
+    <Compile Include="Utils\NullableTypes.cs" />
+    <Compile Include="Utils\PredicateBuilder.cs" />
     <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="Classes\ComponentInventory.cs" />
     <Compile Include="Classes\ComponentBase.cs" />

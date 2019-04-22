@@ -23,6 +23,8 @@ namespace BDC_V1.Classes
 
         // **************** Class properties ************************************************ //
 
+        [NotNull] public ICommand ViewActivated { get; }
+
         [CanBeNull]
         protected virtual IConfigInfo LocalConfigInfo
         {
@@ -52,9 +54,6 @@ namespace BDC_V1.Classes
             }
         }
         private IBredInfo _bredInfo;
-
-        [NotNull]
-        public ICommand ViewActivated { get; }
 
         [CanBeNull]
         protected IRegionManager RegionManager

@@ -11,6 +11,7 @@
         xmlns:local="clr-namespace:BDC_V1.Views"
         xmlns:utils="clr-namespace:BDC_V1.Utils"
         xmlns:converters="clr-namespace:BDC_V1.Converters"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
         ResizeMode="NoResize"
@@ -18,6 +19,8 @@
         Height="450" Width="650">
 
   <Window.Resources>
+    <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+
     <Style x:Key="bTB"
            TargetType="Button"
            BasedOn="{StaticResource ToolbarButton}">
@@ -33,8 +36,8 @@
       <Setter Property="MinHeight" Value="20" />
     </Style>
 
-    <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
-
+    <system:String x:Key="HeaderFallback" xml:space="preserve">This is a 
+two line header</system:String>
   </Window.Resources>
 
   <Grid>
@@ -48,10 +51,11 @@
 
     <!-- Header text -->
     <StackPanel Grid.Row="0">
-      <Label Content="{Binding HeaderText1, Mode=OneWay}"
-             Style="{StaticResource HeaderText}" />
-      <Label Content="{Binding HeaderText2, Mode=OneWay}"
-             Style="{StaticResource HeaderText}" />
+      <TextBox Text="{Binding HeaderText, Mode=OneWay, FallbackValue={StaticResource HeaderFallback}}"
+               TextWrapping="Wrap" 
+               Background="LightGray"
+               Style="{StaticResource TextBoxRO}"
+               />
     </StackPanel>
 
     <!--Toolbar.-->

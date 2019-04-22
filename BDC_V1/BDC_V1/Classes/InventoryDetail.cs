@@ -194,8 +194,8 @@ namespace BDC_V1.Classes
         public virtual bool HasDetailComments    => DetailComments.Any();
         public virtual bool HasAnyDetailComments => HasDetailComments;
 
-        public ObservableCollection<CommentBase> DetailComments { get; } =
-            new ObservableCollection<CommentBase>();
+        public ObservableCollection<ICommentBase> DetailComments { get; } =
+            new ObservableCollection<ICommentBase>();
 
 
         public virtual bool HasImages => Images.Any();

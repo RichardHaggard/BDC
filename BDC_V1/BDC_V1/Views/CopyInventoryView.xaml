@@ -13,6 +13,7 @@
         xmlns:converters="clr-namespace:BDC_V1.Converters"
         xmlns:classes="clr-namespace:BDC_V1.Classes"
         xmlns:interfaces="clr-namespace:BDC_V1.Interfaces"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -72,6 +73,7 @@
              Content="Source Facility:" 
              />
       <ComboBox Grid.Row="2" Grid.Column="1"
+                materialDesign:HintAssist.Hint="Select a Source Facility..."
                 ItemsSource="{Binding SourceFacilities.Items, Mode=OneTime}"
                 SelectedItem="{Binding SourceFacilities.SelectedItem, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}">
@@ -96,6 +98,7 @@
              Content="Target Facility:" 
              />
       <ComboBox Grid.Row="3" Grid.Column="1"
+                materialDesign:HintAssist.Hint="Select a Target Facility..."
                 ItemsSource="{Binding TargetFacilities.Items}"
                 SelectedItem="{Binding TargetFacilities.SelectedItem, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}">
@@ -120,9 +123,10 @@
              Content="Section Name:" 
              />
       <ComboBox Grid.Row="4" Grid.Column="1"
+                materialDesign:HintAssist.Hint="Select a Section Name..."
                 IsEnabled="{Binding IsSectionNameEnabled, FallbackValue=False}"
                 ItemsSource="{Binding Sections.Items}"
-                SelectedItem="{Binding Sections.SelectedItem}"
+                SelectedItem="{Binding Sections.SelectedItem, Mode=TwoWay}"
                 >
         <ComboBox.Style>
           <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBase}">

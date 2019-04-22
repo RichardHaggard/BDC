@@ -1,14 +1,15 @@
 ﻿using System.Windows.Input;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
+using JetBrains.Annotations;
 using Prism.Commands;
 
 namespace BDC_V1.Classes
 {
     public abstract class CloseableResultsWindow : CloseableWindow, ICloseableResultsWindow
     {
-        public ICommand CmdCancelUndo  { get; }
-        public ICommand CmdOkCommand   { get; }
+        [NotNull] public ICommand CmdCancelUndo { get; }
+        [NotNull] public ICommand CmdOkCommand  { get; }
 
         /// <inheritdoc/>
         public virtual EnumControlResult Result

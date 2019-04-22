@@ -23,12 +23,11 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-
-        public ICommand CmdAddAllPending       { get; }
-        public ICommand CmdCapturePhoto        { get; }
-        public ICommand CmdRemoveSelected      { get; }
-        public ICommand CmdSelectPhoto         { get; }
-        public ICommand CmdUnlinkExistingPhoto { get; }
+        [NotNull] public ICommand CmdAddAllPending       { get; }
+        [NotNull] public ICommand CmdCapturePhoto        { get; }
+        [NotNull] public ICommand CmdRemoveSelected      { get; }
+        [NotNull] public ICommand CmdSelectPhoto         { get; }
+        [NotNull] public ICommand CmdUnlinkExistingPhoto { get; }
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         [CanBeNull]
@@ -143,9 +142,10 @@ namespace BDC_V1.ViewModels
                         PendingItem = pm;
                     }
                     break;
-
+#if DEBUG
                 default:
                     throw new ArgumentOutOfRangeException();
+#endif
             }
         }
 

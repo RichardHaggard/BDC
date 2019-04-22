@@ -100,7 +100,7 @@
                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
                 ItemsSource="{Binding InventoryDetails.DetailSelectors}"
                 SelectedItem="{Binding InventoryDetails.DetailSelector}"
-                SelectedIndex="{Binding InventoryDetails.DetailSelectedIndex}"
+                SelectedIndex="{Binding InventoryDetails.DetailSelectedIndex, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 />
             <Button
@@ -174,7 +174,7 @@
                 Grid.Row="4" Grid.Column="1" 
                 IsEditable="True"
                 ItemsSource="{Binding InventoryDetails.Manufacturers}"
-                SelectedItem="{Binding InventoryDetails.Manufacturer}"
+                SelectedItem="{Binding InventoryDetails.Manufacturer, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}" 
                 Text="{Binding ManufacturerUserEntered, UpdateSourceTrigger=LostFocus}"
                 />
@@ -205,7 +205,7 @@
                 Grid.Row="5" Grid.Column="3" 
                 IsEditable="True"
                 ItemsSource="{Binding InventoryDetails.EquipmentMakes}"
-                SelectedIndex="{Binding InventoryDetails.EquipmentMake}"
+                SelectedIndex="{Binding InventoryDetails.EquipmentMake, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 Text="{Binding EquipmentMakeUserEntered, UpdateSourceTrigger=LostFocus}"
                 />
@@ -217,7 +217,7 @@
             <DatePicker
                 Grid.Row="6" Grid.Column="1" 
                 Style="{StaticResource dpBase}"
-                Text="{Binding InventoryDetails.DateManufactured}"
+                Text="{Binding InventoryDetails.DateManufactured, Mode=TwoWay}"
                 />
             <Label
                 Grid.Row="6" Grid.Column="2" 
@@ -246,7 +246,7 @@
             <DatePicker
                 Grid.Row="8" Grid.Column="1" 
                 Style="{StaticResource dpBase}"
-                Text="{Binding InventoryDetails.WarrantyDate}"
+                Text="{Binding InventoryDetails.WarrantyDate, Mode=TwoWay}"
                 />
             <Label
                 Grid.Row="8" Grid.Column="2" 
@@ -277,12 +277,11 @@
                 Text="{Binding InventoryDetails.WarrantyCompany2}"
                 />
 
-            <Button 
-                Grid.Row="10" Grid.Column="0"
-                Style="{DynamicResource ImageClickBlockButtonStyle}"
-                Command="{Binding CmdCommentDoubleClicked}"
-                CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"
-                >
+            <Button Grid.Row="10" Grid.Column="0"
+                    Style="{DynamicResource ImageClickBlockButtonStyle}"
+                    Command="{Binding CmdCommentDoubleClicked}"
+                    CommandParameter="{Binding CommentContainer.SelectedItem}"
+              >
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                      Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
@@ -294,14 +293,14 @@
                 </StackPanel>
             </Button>
 
-            <ListBox 
-                Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3"
-                Name="CommentListBox"
-                Style="{StaticResource CommentBoxStyle}"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ItemsSource="{Binding CommentContainer}"
-                >
+            <ListBox Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3"
+                     Name="CommentListBox"
+                     Style="{StaticResource CommentBoxStyle}"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ItemsSource ="{Binding CommentContainer.Items}"
+                     SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
+              >
               <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                   <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
@@ -321,14 +320,16 @@
 
             <Button Grid.Row="11" Grid.Column="0"
                   Style="{StaticResource ImageClickBlockButtonStyle}"
-                  Command="{Binding CmdPhotosButton}">
+                    Command="{Binding CmdImageDoubleClicked}"  
+                    CommandParameter="{Binding ImageContainer.SelectedItem}"
+            >
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
-                     Style="{StaticResource ImageClickBlockImageStyle}"/>
+                        Style="{StaticResource ImageClickBlockImageStyle}"/>
                     <Label Content="Photo(s)"
-                     Style="{StaticResource ImageClickBlockTextStyle}" />
+                        Style="{StaticResource ImageClickBlockTextStyle}" />
                     <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
-                     Style="{StaticResource ImageClickBlockTextStyle}" />
+                        Style="{StaticResource ImageClickBlockTextStyle}" />
                 </StackPanel >
             </Button>
 
@@ -337,7 +338,8 @@
                      Style="{StaticResource ImageBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ItemsSource="{Binding ImageContainer}"
+                     ItemsSource ="{Binding ImageContainer.Items}"
+                     SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
             >
               <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

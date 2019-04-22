@@ -535,7 +535,7 @@ namespace BDC_V1.Mock_Data
         {
             var facility2 = CreateFacilityFramework();
             facility2.ConstType = EnumConstType.Permanent;
-            facility2.BuildingId = "11444 - Facility # 2";
+            facility2.BuildingId = "Facility # 2";
             facility2.BuildingIdNumber = 11444;
             facility2.BuildingName = "Facility # 2";
             facility2.YearBuilt = 2000;

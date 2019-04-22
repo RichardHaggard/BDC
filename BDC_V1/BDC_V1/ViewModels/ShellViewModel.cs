@@ -34,27 +34,27 @@ namespace BDC_V1.ViewModels
         // **************** Class properties ************************************************ //
 
         // commands are read only to the outside world
-        public ICommand CmdAddComponent { get; }
-        public ICommand CmdAddSection { get; }
-        public ICommand CmdAddSystem { get; }
-        public ICommand CmdCopyInventory { get; }
-        public ICommand CmdCopySections { get; }
-        public ICommand CmdDefaultInventoryMode { get; }
-        public ICommand CmdDeleteSystem { get; }
-        public ICommand CmdInspectionMode { get; }
-        public ICommand CmdMenuExit { get; }
-        public ICommand CmdMenuAbout { get; }
-        public ICommand CmdMenuBluebeam { get; }
-        public ICommand CmdMenuCalculators { get; }
-        public ICommand CmdMenuSwitchFile { get; }
-        public ICommand CmdMenuViewAllSystems { get; }
-        public ICommand CmdMenuViewAssignedSystems { get; }
-        public ICommand CmdMenuInspectionSummary { get; }
-        public ICommand CmdMenuQcReports { get; }
-        public ICommand CmdMicOn { get; }
-        public ICommand CmdMicOff { get; }
-        public ICommand CmdTabSelectionChanged { get; }
-        public ICommand CmdCopyInspection { get; }
+        [NotNull] public ICommand CmdAddComponent { get; }
+        [NotNull] public ICommand CmdAddSection { get; }
+        [NotNull] public ICommand CmdAddSystem { get; }
+        [NotNull] public ICommand CmdCopyInventory { get; }
+        [NotNull] public ICommand CmdCopySections { get; }
+        [NotNull] public ICommand CmdDefaultInventoryMode { get; }
+        [NotNull] public ICommand CmdDeleteSystem { get; }
+        [NotNull] public ICommand CmdInspectionMode { get; }
+        [NotNull] public ICommand CmdMenuExit { get; }
+        [NotNull] public ICommand CmdMenuAbout { get; }
+        [NotNull] public ICommand CmdMenuBluebeam { get; }
+        [NotNull] public ICommand CmdMenuCalculators { get; }
+        [NotNull] public ICommand CmdMenuSwitchFile { get; }
+        [NotNull] public ICommand CmdMenuViewAllSystems { get; }
+        [NotNull] public ICommand CmdMenuViewAssignedSystems { get; }
+        [NotNull] public ICommand CmdMenuInspectionSummary { get; }
+        [NotNull] public ICommand CmdMenuQcReports { get; }
+        [NotNull] public ICommand CmdMicOn { get; }
+        [NotNull] public ICommand CmdMicOff { get; }
+        [NotNull] public ICommand CmdTabSelectionChanged { get; }
+        [NotNull] public ICommand CmdCopyInspection { get; }
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
         public string Title => @"Builder DC";
@@ -153,32 +153,26 @@ namespace BDC_V1.ViewModels
 
         public string InspectionBg
         {
-            get { return _InspectionBg; }
-            set
+            get => _inspectionBg;
+            set => SetProperty(ref _inspectionBg, value, () =>
             {
-                if (SetProperty(ref _InspectionBg, value))
-                {
-                    if (value == ConstActiveBg)
-                        InventoryBg = ConstInactiveBg;
-                }
-            }
+                if (value == ConstActiveBg)
+                    InventoryBg = ConstInactiveBg;
+            });
         }
-        private string _InspectionBg = ConstInactiveBg;
+        private string _inspectionBg = ConstInactiveBg;
 
 
         public string InventoryBg
         {
-            get { return _InventoryBg; }
-            set
+            get => _inventoryBg;
+            set => SetProperty(ref _inventoryBg, value, () =>
             {
-                if (SetProperty(ref _InventoryBg, value))
-                {
-                    if (value == ConstActiveBg)
-                        InspectionBg = ConstInactiveBg;
-                }
-            }
+                if (value == ConstActiveBg)
+                    InspectionBg = ConstInactiveBg;
+            });
         }
-        private string _InventoryBg = ConstActiveBg;
+        private string _inventoryBg = ConstActiveBg;
 
 
         public DateTime StatusDateTime

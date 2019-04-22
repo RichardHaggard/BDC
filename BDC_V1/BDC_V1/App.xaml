@@ -16,6 +16,11 @@
             <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
           </ResourceDictionary.MergedDictionaries>
 
+          <Style x:Key="DcrStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+          </Style>
+
             <!--DataGridHeader-->
             <Style x:Key="DataGridColumnHeaderBase" TargetType="DataGridColumnHeader">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
