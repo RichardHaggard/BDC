@@ -14,12 +14,13 @@ namespace BDC_V1.Classes
     {
         // **************** Class members *************************************************** //
 
-        protected virtual bool SetPropertyFlagged<T>(ref T storage, 
+        protected virtual bool SetPropertyFlagged<T>(
+            ref T storage, 
             [CanBeNull] T value, 
             [CanBeNull] string flag,
             [CanBeNull, CallerMemberName] string propertyName = null)
         {
-            if (!base.SetProperty(ref storage, value, propertyName)) 
+            if (! base.SetProperty(ref storage, value, propertyName))
                 return false;
 
             if (! string.IsNullOrEmpty(flag)) 
@@ -28,25 +29,27 @@ namespace BDC_V1.Classes
             return true;
         }
 
-        protected virtual bool SetPropertyFlagged<T>(ref T storage, 
+        protected virtual bool SetPropertyFlagged<T>(
+            ref T storage, 
             [CanBeNull] T value,
-            [NotNull] IEnumerable<string> flags,
+            [NotNull]   IEnumerable<string> flags,
             [CanBeNull, CallerMemberName] string propertyName = null)
         {
             if (!base.SetProperty(ref storage, value, propertyName)) 
                 return false;
 
-            RaisePropertyChanged(flags.Where(flag => ! string.IsNullOrEmpty(flag)));
+            RaisePropertyChanged(flags);
             return true;
         }
 
-        protected virtual bool SetPropertyFlagged<T>(ref T storage, 
+        protected virtual bool SetPropertyFlagged<T>(
+            ref T storage, 
             [CanBeNull] T value, 
             [CanBeNull] string flag,
-            [CanBeNull] Action onChanged,
+            [NotNull]   Action onChanged,
             [CanBeNull, CallerMemberName] string propertyName = null)
         {
-            if (base.SetProperty(ref storage, value, onChanged, propertyName))
+            if (! base.SetProperty(ref storage, value, onChanged, propertyName))
                 return false;
 
             if (! string.IsNullOrEmpty(flag)) 
@@ -55,24 +58,23 @@ namespace BDC_V1.Classes
             return true;
         }
 
-        protected virtual bool SetPropertyFlagged<T>(ref T storage,
+        protected virtual bool SetPropertyFlagged<T>(
+            ref T storage,
             [CanBeNull] T value, 
-            [NotNull] IEnumerable<string> flags, 
-            [CanBeNull] Action onChanged,
+            [NotNull]   IEnumerable<string> flags, 
+            [NotNull]   Action onChanged,
             [CanBeNull, CallerMemberName] string propertyName = null)
         {
             if (!base.SetProperty(ref storage, value, onChanged, propertyName)) 
                 return false;
 
-            RaisePropertyChanged(flags
-                .Where(flag => ! string.IsNullOrEmpty(flag)));
-
+            RaisePropertyChanged(flags);
             return true;
         }
 
-        protected void RaisePropertyChanged(IEnumerable<string> propertyNames)
+        protected void RaisePropertyChanged([NotNull] IEnumerable<string> propertyNames)
         {
-            foreach (var propertyName in propertyNames)
+            foreach (var propertyName in propertyNames.Where(s => !string.IsNullOrEmpty(s)))
                 RaisePropertyChanged(propertyName);
         }
     }

@@ -24,188 +24,78 @@ namespace BDC_V1.Classes
     /// This is a wrapper around a <see cref="T:ObservableCollection"/> adding a Selected Index and Item
     /// </summary>
     /// <typeparam name="T">Class of the collection</typeparam>
-    public class IndexedCollection<T> : PropertyBase, INotifyPropertyChanged, IList<T>
+    public class IndexedCollection<T> : ListCollectionView, INotifyPropertyChanged, INotifyCollectionChanged, IPropertyBaseHelper
     {
-        [NotNull] public ListCollectionView Items { get; }
+        /// <summary>Occurs when a property value changes.</summary>
+        /// <remarks>Can't use the ListCollectionView.PropertyChanged as it is protected and is only used for internal changes</remarks>
+        public new event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Condenses all the property notification into one common class for those classes that can't inherit PropertyBase directly
+        /// </summary>
+        protected readonly PropertyBaseHelper PBase;
 
         public int SelectedIndex
         {
             get => _selectedIndex;
-            set => SetProperty(ref _selectedIndex, Math.Max(-1, Math.Min(Items.Count - 1, value)),
-                () =>
+            set => PBase.SetProperty(
+                ref _selectedIndex,
+                Math.Max(-1, Math.Min(base.Count - 1, value)),
+                new[]
                 {
-                    _selectedItem = (_selectedIndex >= 0)
-                        ? (T) Items.GetItemAt(_selectedIndex)
-                        : default(T);
-
-                    RaisePropertyChanged(nameof(SelectedItem));
+                    nameof(SelectedIndex),
+                    nameof(SelectedItem)
                 });
         }
-
         private int _selectedIndex = -1;
 
         [CanBeNull]
         public T SelectedItem
         {
-            get
-            {
-                try
-                {
-                    return (_selectedIndex == -1)
-                        ? _selectedItem = default(T)
-                        : _selectedItem;
-                }
-                catch (Exception)
-                {
-                    return default(T);
-                }
-            }
+            get => (_selectedIndex >= 0)
+                ? (T) GetItemAt(_selectedIndex)
+                : default(T);
 
             set
             {
-                try
-                {
-                    SetProperty(ref _selectedItem, value,
-                        () =>
-                        {
-                            var oldIndex = _selectedIndex;
+                var index = ((value != null) && Contains(value))
+                    ? IndexOf(value)
+                    : -1;
 
-                            _selectedIndex = Items.Contains(_selectedItem) 
-                                ? Items.IndexOf(_selectedItem) 
-                                : -1;
-
-                            if (oldIndex != _selectedIndex)
-                                RaisePropertyChanged(nameof(SelectedIndex));
-                        });
-                }
-                catch (Exception)
-                {
-                    _selectedItem = default(T);
-                }
+                PBase.SetProperty(
+                    ref _selectedIndex,
+                    Math.Max(-1, Math.Min(base.Count - 1, index)),
+                    new[]
+                    {
+                        nameof(SelectedIndex),
+                        nameof(SelectedItem)
+                    });
             }
         }
-        private T _selectedItem;
 
-        /// <inheritdoc />
         public IndexedCollection([NotNull] IList items)
-            : this(new ListCollectionView(items)) 
+            : base(items)
+        {
+            PBase = new PropertyBaseHelper(this);
+        }
+
+        public IndexedCollection([NotNull] IndexedCollection<T> srcItems)
+            // ReSharper disable once AssignNullToNotNullAttribute
+            : this(srcItems.SourceCollection as IList)
         {
         }
 
-        public IndexedCollection([NotNull] ListCollectionView itemView)
+        // Get access to the base collection
+        [NotNull] public IList<T> Collection => (IList<T>) SourceCollection;
+
+        [CanBeNull] public T FirstOrDefault()
         {
-            Items = itemView;
-            ((INotifyCollectionChanged)Items).CollectionChanged += (o, i) =>
-            {
-                if (SelectedIndex == -1) return;
-
-                var oldItem = SelectedItem;
-                switch (i.Action)
-                {
-                    case NotifyCollectionChangedAction.Add:
-                    case NotifyCollectionChangedAction.Move:
-                    case NotifyCollectionChangedAction.Remove:
-                    case NotifyCollectionChangedAction.Replace:
-                        SelectedIndex = Items.IndexOf(oldItem);
-                        break;
-
-                    case NotifyCollectionChangedAction.Reset:
-                        //SelectedIndex = -1;
-                        RaisePropertyChanged(new[]
-                        {
-                            nameof(SelectedIndex),
-                            nameof(SelectedItem)
-                        });
-                        break;
-#if DEBUG
-                    default:
-                        throw new ArgumentOutOfRangeException();
-#endif
-                }
-            };
+            return (Count > 0)
+                ? (T) GetItemAt(0)
+                : default(T);
         }
 
-        public void Refresh() => Items.Refresh();
-
-        public Predicate<T> Filter
-        {
-            get => Items.Filter as Predicate<T>;
-            set => Items.Filter = value as Predicate<object>;
-        }
-
-        public IEnumerable<T> Collection => Items.SourceCollection.Cast<T>();
-
-        public IList<T> CollectionList
-        {
-            get
-            {
-                if (!(Collection is IList<T> list))
-                    throw new InvalidCastException();
-
-                return list;
-            }
-        }
-
-        [NotNull] public T First() => CollectionList.First();
-        [NotNull] public T Last () => CollectionList.Last ();
-
-        [CanBeNull] public T FirstOrDefault() => CollectionList.FirstOrDefault();
-        [CanBeNull] public T LastOrDefault () => CollectionList.LastOrDefault ();
-
-        public void AddRange([NotNull] IndexedCollection<T> items) => AddRange(items.Collection);
-        public void AddRange([CanBeNull] IEnumerable<T> items)
-        {
-            if (items == null) return;
-
-            var itemArray = items.Where(i => i != null).ToArray();
-            if (!itemArray.Any()) return;
-
-            foreach (var item in itemArray) Add(item);
-        }
-
-        /// <inheritdoc />
-        public void Add(T item) => CollectionList.Add(item);
-
-        /// <inheritdoc />
-        public bool Contains(T item) => (item != null) && Items.Contains(item);
-
-        /// <inheritdoc />
-        public void CopyTo(T[] array, int arrayIndex) => CollectionList.CopyTo(array, arrayIndex);
-
-        /// <inheritdoc />
-        bool ICollection<T>.Remove(T item) => CollectionList.Remove(item);
-
-        /// <inheritdoc />
-        public int IndexOf(T item) => (item != null) ? Items.IndexOf(item) : -1; 
-
-        /// <inheritdoc />
-        public void Insert(int index, T item) => CollectionList.Insert(index, item);
-
-        /// <inheritdoc />
-        public void RemoveAt(int index) => CollectionList.RemoveAt(index);
-
-        public void Remove(T item) => CollectionList.Remove(item);
-
-        /// <inheritdoc />
-        public T this[int index]
-        {
-            get => CollectionList[index];
-            set => CollectionList[index] = value;
-        }
-
-        /// <inheritdoc />
-        public void Clear() => CollectionList.Clear();
-
-        /// <inheritdoc />
-        public int Count => Items.Count;
-
-        /// <inheritdoc />
-        public bool IsReadOnly => CollectionList.IsReadOnly;
-
-        /// <inheritdoc />
-        public IEnumerator<T> GetEnumerator() => CollectionList.GetEnumerator();
-
-        /// <inheritdoc />
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        public new void OnPropertyChanged(PropertyChangedEventArgs args) =>
+            this.PropertyChanged?.Invoke(this, args);
     }
 }

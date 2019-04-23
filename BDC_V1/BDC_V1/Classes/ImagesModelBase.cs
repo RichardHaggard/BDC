@@ -14,6 +14,7 @@ using System.Windows.Media;
 using BDC_V1.Converters;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
+using BDC_V1.Models;
 using BDC_V1.Utils;
 using BDC_V1.ViewModels;
 using BDC_V1.Views;
@@ -43,7 +44,7 @@ namespace BDC_V1.Classes
                 if (_commentContainer == null)
                 {
                     var source = CommentContainerSource;
-                    if ((source?.Any()).Equals(true))
+                    if (source != null)
                     {
                         // ReSharper disable once AssignNullToNotNullAttribute
                         _commentContainer = new IndexedCollection<ICommentBase>(source)
@@ -54,7 +55,8 @@ namespace BDC_V1.Classes
                 }
 
                 return _commentContainer ?? 
-                    new IndexedCollection<ICommentBase>(new List<ICommentBase>());
+                       // insure we never have a null CommentContainer
+                       new IndexedCollection<ICommentBase>(new List<ICommentBase>());
             }
         }
 
@@ -67,7 +69,7 @@ namespace BDC_V1.Classes
                 if (_imageContainer == null)
                 {
                     var source = ImageContainerSource;
-                    if ((source?.Any()).Equals(true))
+                    if (source != null)
                     {
                         // ReSharper disable once AssignNullToNotNullAttribute
                         _imageContainer = new IndexedCollection<ImageSource>(source)
@@ -78,9 +80,14 @@ namespace BDC_V1.Classes
                 }
 
                 return _imageContainer ?? 
-                    new IndexedCollection<ImageSource>(new List<ImageSource>());
+                       // insure we never have a null ImageContainer
+                       new IndexedCollection<ImageSource>(new List<ImageSource>());
             }
         }
+
+        [NotNull] public abstract string DetailHeaderText { get; }
+        [NotNull] public abstract string TabName          { get; }
+        [NotNull] public abstract string PhotoTypeText    { get; }
 
         // **************** Class constructors ********************************************** //
 
@@ -97,27 +104,28 @@ namespace BDC_V1.Classes
         // TODO: Have to figure out how to get the selected item and it's index into here
         private void OnCommentDoubleClicked([CanBeNull] object obj)
         {
-            OnSelectedComment(obj as ICommentBase ?? CommentContainer.FirstOrDefault());
+            OnSelectedComment(obj as ICommentBase ?? 
+                              CommentContainer.FirstOrDefault());
         }
 
         private void OnImageDoubleClicked([CanBeNull] object obj) 
         {             
-            OnSelectedImage(obj as ImageSource ?? ImageContainer.FirstOrDefault());
+            OnSelectedImage(obj as ImageSource ?? 
+                            ImageContainer.FirstOrDefault());
         }
 
-        [NotNull]
-        public abstract string DetailHeaderText { get; }
-
-        protected virtual void OnSelectedComment([CanBeNull] ICommentBase comment, bool isInspection = false)
+        protected virtual void OnSelectedComment(
+            [CanBeNull] ICommentBase comment, 
+            bool isInspection = false)
         {
             var view = new GeneralCommentView();
             if (!(view.DataContext is GeneralCommentViewModel model)) 
                 throw new InvalidCastException("Invalid View Model");
 
-            model.FacilityBaseInfo = null;              //TODO: Put real data in here
+            model.FacilityBaseInfo = null;              // TODO: Put real data in here
             model.CommentText = comment?.CommentText;
             model.WindowTitle = $@"{TabName} COMMENTS";
-            model.HeaderText = DetailHeaderText;
+            model.HeaderText  = DetailHeaderText;
             model.IsDistressedEnabled = isInspection;
 
             //if (view.ShowDialog() != true) return;
@@ -128,7 +136,10 @@ namespace BDC_V1.Classes
         }
 
         // these two members are separated so they can be overriden separately
-        protected virtual void DoSelectedComment(EnumControlResult result, [CanBeNull] ICommentBase itemBase, [CanBeNull] string modelText)
+        protected virtual void DoSelectedComment(
+            EnumControlResult result, 
+            [CanBeNull] ICommentBase itemBase, 
+            [CanBeNull] string modelText)
         {
             switch (result)
             {
@@ -144,23 +155,23 @@ namespace BDC_V1.Classes
                         // TODO: Need to add the proper kind of comment here...
                         var newComment = new CommentBase
                         {
-                            EntryUser = new Person() {FirstName = "John", LastName = "Doe"},
-                            EntryTime = DateTime.Now,
+                            EntryUser   = new Person() {FirstName = "John", LastName = "Doe"},
+                            EntryTime   = DateTime.Now,
                             CommentText = modelText
                         };
 
-                        CommentContainer?.Items.AddNewItem(newComment);
-                    }
+                        // adding to the base collection prevents the filter getting in the way
+                        CommentContainer.Collection.Add(newComment);
 
+                        // this selection will be filtered, it may become a -1 (not found)
+                        CommentContainer.SelectedItem = newComment;
+                    }
                     break;
 
                 case EnumControlResult.ResultCancelled:
                 default: break;
             }
         }
-
-        public abstract string TabName       { get; }
-        public abstract string PhotoTypeText { get; }
 
         // these two members are separated so they can be overriden separately
         protected virtual void OnSelectedImage([CanBeNull] ImageSource image)
@@ -176,47 +187,45 @@ namespace BDC_V1.Classes
 
             // Simplistic launcher of the PM view. If this were real we'd pass in
             // info from the caller and upon return there would be an update of the photo carousel.
-            var view = new PhotoManagementView( TabName, PhotoTypeText);
             //if (!(view.DataContext is PhotoManagementView model))
             //    throw new InvalidCastException("model is not the expected data type");
 
             //model.Title = $"{TabName} - {PhotoTypeText}";
 
             //view.ShowDialog();
-            view.ShowDialogInParent(true);
+            var view = new PhotoManagementView(TabName, PhotoTypeText);
+            if (! (view.DataContext is PhotoManagementViewModel model))
+                throw new InvalidCastException("Invalid View Model");
+
+            // TODO: convert this to real data Probably means changing all images into PhotoModel
+            model.PendingList.Clear();
+            model.PendingList.AddRange(new[]
+            {
+                new PhotoModel("EmeraldHils.jpg", "Emerald Hills", "3/13/2019"),
+                new PhotoModel("FlamingoWater.jpg.jpg", "FlamingoWater.jpg", "3/12/2019"),
+                new PhotoModel("th7.jpg", "Fans", "3/11/2019")
+            });
+            model.PendingItem = model.PendingList[0];
+
+            if (view.ShowDialogInParent(true) != true) return;
+
+            DoSelectedImage(model.Result, model.PendingList, model.PendingItem);
         }
 
         protected virtual void DoSelectedImage(
             EnumControlResult result, 
-            [CanBeNull] ImageSource itemImage, 
-            [CanBeNull] ImageSource modelImage)
+            [NotNull] IEnumerable<PhotoModel> itemImages, 
+            [NotNull] PhotoModel selectedImage)
         {
             switch (result)
             {
                 case EnumControlResult.ResultDeleteItem:
-                    if (itemImage != null) ImageContainer?.Remove(itemImage);
-                    break;
-
                 case EnumControlResult.ResultDeferred:
                 case EnumControlResult.ResultSaveNow:
-                    if ((modelImage != null) && (ImageContainer != null))
-                    {
-                        if ((itemImage != null) && 
-                            (modelImage != itemImage) &&
-                            ImageContainer.Contains(itemImage))
-                        {
-                            var imageIdx = ImageContainer.IndexOf(itemImage);
-                            ImageContainer[imageIdx] = modelImage;
-                        }
-
-                        else ImageContainer.Add(modelImage);
-                    }
-
-                    break;
-
                 case EnumControlResult.ResultCancelled:
                 default: break;
             }
         }
     }
 }
+

@@ -46,36 +46,23 @@ namespace BDC_V1.ViewModels
             get => _pendingList;
             set => SetProperty(ref _pendingList, value);
         }
-        private ObservableCollection<PhotoModel> _pendingList = new ObservableCollection<PhotoModel>();
+        private ObservableCollection<PhotoModel> _pendingList = 
+            new ObservableCollection<PhotoModel>();
 
 
         public string PhotoType
         {
-            get { return _PhotoType; }
-            set
-            {
-                if (_PhotoType != value)
-                {
-                    _PhotoType = value;
-                    RefreshTitle();
-                }
-            }
+            get => _photoType;
+            set => SetProperty(ref _photoType, value, RefreshTitle);
         }
-        private string _PhotoType = "";
+        private string _photoType = "";
 
         public string Tab
         {
-            get { return _Tab; }
-            set
-            {
-                if (_Tab != value)
-                {
-                    _Tab = value;
-                    RefreshTitle();
-                }
-            }
+            get => _tab;
+            set => SetProperty(ref _tab, value, RefreshTitle);
         }
-        private string _Tab = "";
+        private string _tab = "";
 
 
         public string Title
@@ -97,11 +84,6 @@ namespace BDC_V1.ViewModels
             CmdRemoveSelected       = new DelegateCommand(OnCmdRemoveSelected);
             CmdSelectPhoto          = new DelegateCommand(OnCmdSelectPhoto);
             CmdUnlinkExistingPhoto  = new DelegateCommand(OnCmdUnlinkExistingPhoto);
-
-            PendingList.Add(new PhotoModel("EmeraldHils.jpg", "Emerald Hills", "3/13/2019"));
-            PendingList.Add(new PhotoModel("FlamingoWater.jpg.jpg", "FlamingoWater.jpg", "3/12/2019"));
-            PendingList.Add(new PhotoModel("th7.jpg", "Fans", "3/11/2019"));
-            PendingItem = PendingList[0];
         }
 
 
@@ -166,7 +148,10 @@ namespace BDC_V1.ViewModels
 
             if (true == dlg.ShowDialog())
             {
-                var pm = new PhotoModel(dlg.FileName, Path.GetFileNameWithoutExtension(dlg.FileName), DateTime.Now.ToShortDateString());
+                var pm = new PhotoModel(dlg.FileName, 
+                    Path.GetFileNameWithoutExtension(dlg.FileName), 
+                    DateTime.Now.ToShortDateString());
+
                 PendingList.Add(pm);
                 PendingItem = pm;
             }
@@ -176,7 +161,6 @@ namespace BDC_V1.ViewModels
         {
             DialogResultEx = true;
         }
-
 
         private void RefreshTitle()
         {

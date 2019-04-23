@@ -151,17 +151,19 @@ namespace BDC_V1.ViewModels
             // TODO: I think this value is coming from thee tree view selection
             SectionNode = "<NODE NAME>";
 
-            TargetFacilities.AddRange(new []
+            // cannot directly manipulate a ListCollectionView at initialization,
+            // manipulate the base collection instead
+            TargetFacilities.Collection.AddRange(new []
             {
                 new FacilityInfoHeader {BuildingIdNumber = 11057, BuildingName = "National Guard Readiness Center"},
                 new FacilityInfoHeader {BuildingIdNumber = 11612, BuildingName = "Facility # 2"}
             });
 
             // TODO: I'm unsure about what this is supposed to be
-            SourceFacilities.AddRange(TargetFacilities);
+            SourceFacilities.Collection.AddRange(TargetFacilities.Collection);
             SourceFacilities.SelectedIndex = 0;
 
-            Sections.AddRange(new[]
+            Sections.Collection.AddRange(new[]
             {
                 new SectionInfo("FL1"),
                 new SectionInfo("FL2"),
@@ -172,7 +174,7 @@ namespace BDC_V1.ViewModels
 
             foreach (EnumFacilitySystemTypes system in Enum.GetValues(typeof(EnumFacilitySystemTypes)))
             {
-                Systems.Add(new ItemChecklist
+                Systems.Collection.Add(new ItemChecklist
                     {ItemName = $"{system.ToString()} - {system.Description()}"});
             }
 #endif
@@ -185,13 +187,13 @@ namespace BDC_V1.ViewModels
 
             TargetFacilities.PropertyChanged += (o, i) =>
             {
-                if (i.PropertyName == nameof(SourceFacilities.SelectedItem))
+                if (i.PropertyName == nameof(TargetFacilities.SelectedItem))
                     RaisePropertyChanged(nameof(IsSectionNameEnabled));
             };
 
             Sections.PropertyChanged += (o, i) =>
             {
-                if (i.PropertyName == nameof(SourceFacilities.SelectedItem))
+                if (i.PropertyName == nameof(Sections.SelectedItem))
                     RaisePropertyChanged(nameof(IsSectionNameEnabled));
             };
         }

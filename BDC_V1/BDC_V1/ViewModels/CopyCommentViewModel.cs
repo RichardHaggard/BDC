@@ -105,14 +105,16 @@ namespace BDC_V1.ViewModels
             {
                 UnFilteredCommentary.Clear();
 
+                // cannot directly manipulate a ListCollectionView at initialization,
+                // manipulate the base collection instead
                 ListOfFacilities.SelectedIndex = -1;
-                ListOfFacilities.Clear();
+                ListOfFacilities.Collection.Clear();
 
                 if (!((_facilityBaseInfo?.Facilities == null) || (_facilityBaseInfo.Facilities.Count == 0)))
                 {
-                    ListOfFacilities.AddRange(_facilityBaseInfo.Facilities);
+                    ListOfFacilities.Collection.AddRange(_facilityBaseInfo.Facilities);
 
-                    foreach (var facility in _facilityBaseInfo.Facilities)
+                    foreach (var facility in ListOfFacilities.Collection)
                         FindComments(facility);
                 }
 
@@ -140,10 +142,10 @@ namespace BDC_V1.ViewModels
             FilterSource      = EnumFilterSourceType.BredFilter;
             RelatedSource     = EnumFilterRelatedType.SystemFilter;
             FilterRatingColor = EnumRatingColors.Green;
-            SearchTerm = "";
+            SearchTerm        = string.Empty;
 
 #if DEBUG
-            ListOfFacilities.AddRange(new[]
+            ListOfFacilities.Collection.AddRange(new[]
             {
                 new ComponentFacilityHeader
                 {
@@ -168,28 +170,30 @@ namespace BDC_V1.ViewModels
 
         private void FindComments([CanBeNull] IComponentBase component)
         {
-            if (component == null) return;
-
-            if ((component is IComponentFacility facility) && (facility.HasFacilityComments))
-                UnFilteredCommentary.AddRange(facility.FacilityComments.Cast<Commentary>());
-
-            if ((component is IComponentSection section) && (section.HasComments))
+            switch (component)
             {
-                //UnFilteredCommentary.AddRange(section.Comments.Cast<Commentary>());
+                case null: return;
+
+                case IComponentFacility facility when (facility.HasFacilityComments):
+                    UnFilteredCommentary.AddRange(facility.FacilityComments.Cast<ICommentary>());
+                    break;
+
+                case IComponentSection section when (section.HasComments):
+                    //UnFilteredCommentary.AddRange(section.Comments.Cast<ICommentary>());
+                    break;
+
+                case IComponentSystem system when (system.HasComments):
+                    //UnFilteredCommentary.AddRange(system.Comments.Cast<ICommentary>());
+                    break;
             }
-             
-            if ((component is IComponentSystem system) && (system.HasComments))
-            {
-                //UnFilteredCommentary.AddRange(system.Comments.Cast<Commentary>());
-            }
-             
+
             if (component is IComponentInventory inventory)
             {
                 if (inventory.Detail.HasDetailComments)
-                    UnFilteredCommentary.AddRange(inventory.Detail.DetailComments.Cast<Commentary>());
+                    UnFilteredCommentary.AddRange(inventory.Detail.DetailComments.Cast<ICommentary>());
 
                 if (inventory.Section.HasSectionComments)
-                    UnFilteredCommentary.AddRange(inventory.Section.SectionComments.Cast<Commentary>());
+                    UnFilteredCommentary.AddRange(inventory.Section.SectionComments.Cast<ICommentary>());
             }
 
             if (component.HasChildren)
@@ -303,8 +307,7 @@ namespace BDC_V1.ViewModels
 
             var func = filter.Compile();
             var predicate = new Predicate<ICommentary>(func);
-
-            FilteredCommentary.Filter = predicate;
+            FilteredCommentary.Filter = (Predicate<object>) predicate;
 
             MatchingResultsText = $@"Matching Results: {FilteredCommentary.Count}";
         }

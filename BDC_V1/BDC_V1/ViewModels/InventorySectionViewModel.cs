@@ -109,7 +109,7 @@ namespace BDC_V1.ViewModels
             CmdSectionComment = new DelegateCommand(OnSectionComment);
             CmdToday          = new DelegateCommand(OnCmdToday      );
 
-            FunctionalArea.Add("Please select functional area...");
+            FunctionalArea.Collection.Add("Please select functional area...");
             FunctionalArea.SelectedIndex = 0;
 #if DEBUG
             InventorySection = new MockInventorySection();

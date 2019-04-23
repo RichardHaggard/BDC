@@ -298,7 +298,7 @@
                      Style="{StaticResource CommentBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ItemsSource ="{Binding CommentContainer.Items}"
+                     ItemsSource ="{Binding CommentContainer}"
                      SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
               >
               <i:Interaction.Triggers>
@@ -338,7 +338,7 @@
                      Style="{StaticResource ImageBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ItemsSource ="{Binding ImageContainer.Items}"
+                     ItemsSource ="{Binding ImageContainer}"
                      SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
             >
               <i:Interaction.Triggers>

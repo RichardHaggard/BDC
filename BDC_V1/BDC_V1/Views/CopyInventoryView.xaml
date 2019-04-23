@@ -74,7 +74,7 @@
              />
       <ComboBox Grid.Row="2" Grid.Column="1"
                 materialDesign:HintAssist.Hint="Select a Source Facility..."
-                ItemsSource="{Binding SourceFacilities.Items, Mode=OneTime}"
+                ItemsSource="{Binding SourceFacilities, Mode=OneTime}"
                 SelectedItem="{Binding SourceFacilities.SelectedItem, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}">
         <ComboBox.ItemTemplate>
@@ -99,7 +99,7 @@
              />
       <ComboBox Grid.Row="3" Grid.Column="1"
                 materialDesign:HintAssist.Hint="Select a Target Facility..."
-                ItemsSource="{Binding TargetFacilities.Items}"
+                ItemsSource="{Binding TargetFacilities}"
                 SelectedItem="{Binding TargetFacilities.SelectedItem, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}">
         <ComboBox.ItemTemplate>
@@ -125,7 +125,7 @@
       <ComboBox Grid.Row="4" Grid.Column="1"
                 materialDesign:HintAssist.Hint="Select a Section Name..."
                 IsEnabled="{Binding IsSectionNameEnabled, FallbackValue=False}"
-                ItemsSource="{Binding Sections.Items}"
+                ItemsSource="{Binding Sections}"
                 SelectedItem="{Binding Sections.SelectedItem, Mode=TwoWay}"
                 >
         <ComboBox.Style>
@@ -158,8 +158,7 @@
               BorderThickness="0.5"
               >
 
-        <ListView Grid.Row="5" Grid.Column="1"
-                  ItemsSource="{Binding Systems.Items, Mode=OneTime}"
+        <ListView ItemsSource="{Binding Systems, Mode=OneTime}"
                   SelectedItem="{Binding Systems.SelectedItem, Mode=TwoWay}"
                   MinHeight="100"
                   MaxHeight="250"

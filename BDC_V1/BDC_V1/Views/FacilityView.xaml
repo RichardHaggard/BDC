@@ -10,6 +10,7 @@
              xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:utils="clr-namespace:BDC_V1.Utils"
              xmlns:forms="http://xamarin.com/schemas/2014/forms"
+             xmlns:converters="clr-namespace:BDC_V1.Converters"
              mc:Ignorable="d"
              MaxHeight="920" MinWidth="880" MaxWidth="1000"
              d:DesignHeight="820" d:DesignWidth="880">
@@ -21,6 +22,8 @@
     </i:Interaction.Triggers>
 
     <UserControl.Resources>
+      <converters:DiagnosticConverter x:Key="DiagnosticConverter" />
+                                      
     </UserControl.Resources>
 
   <ScrollViewer HorizontalScrollBarVisibility="Auto"
@@ -237,9 +240,18 @@
                      Style="{StaticResource CommentBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ItemsSource ="{Binding CommentContainer.Items}"
+                     ItemsSource ="{Binding CommentContainer}"
                      SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
                      >
+              <!-- DEBUG -->
+              <ListBox.Tag>
+                  <MultiBinding Converter="{StaticResource DiagnosticConverter}" ConverterParameter="CommentListBox" Mode="TwoWay">
+                    <Binding Path="." RelativeSource="{RelativeSource Self}" />
+                    <Binding Path="CommentContainer" />
+                    <Binding Path="CommentContainer.SelectedItem" />
+                  </MultiBinding>
+              </ListBox.Tag>
+
               <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                   <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
@@ -277,7 +289,7 @@
                      Style="{StaticResource ImageBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ItemsSource ="{Binding ImageContainer.Items}"
+                     ItemsSource ="{Binding ImageContainer}"
                      SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
                      >
               <i:Interaction.Triggers>

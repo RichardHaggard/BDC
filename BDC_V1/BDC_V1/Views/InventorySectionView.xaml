@@ -8,6 +8,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:local="clr-namespace:BDC_V1.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="715" d:DesignWidth="990">
 
@@ -74,6 +75,7 @@
                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="8"
                 ItemsSource="{Binding InventorySection.SectionNames}"
                 SelectedItem="{Binding InventorySection.SectionName, Mode=TwoWay}"
+                materialDesign:HintAssist.Hint="Please select a section name..."
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -83,6 +85,7 @@
             <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8"
                 ItemsSource="{Binding InventorySection.EquipmentCategories}"
                 SelectedItem="{Binding InventorySection.EquipmentCategory, Mode=TwoWay}"
+                materialDesign:HintAssist.Hint="Please select an equipment category..."
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -92,6 +95,7 @@
             <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"
                 ItemsSource="{Binding InventorySection.ComponentTypes}"
                 SelectedItem="{Binding InventorySection.ComponentType, Mode=TwoWay}"
+                materialDesign:HintAssist.Hint="Please select a component type..."
                 Style="{StaticResource ComboBase}"
                 />
 
@@ -204,10 +208,11 @@
                 Content="Functional Area:"
                 Style="{StaticResource LabelRJ}"/>
             <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"
-                      ItemsSource="{Binding FunctionalArea.Items}"
+                      ItemsSource="{Binding FunctionalArea}"
                       SelectedItem="{Binding FunctionalArea.SelectedItem, Mode=TwoWay}"
+                      materialDesign:HintAssist.Hint="Please select a functional area..."
                       Style="{StaticResource ComboBase}"
-                SelectionChanged="ComboBox_SelectionChanged" />
+                      />
 
             <Label 
                 Grid.Row="6" Grid.Column="0"
@@ -257,6 +262,7 @@
                 SelectedItem="{Binding InventorySection.PcType, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
+                materialDesign:HintAssist.Hint="Please select a P/C type..."
                 />
 
             <Grid Grid.Row="8" Grid.Column="0">
@@ -311,7 +317,7 @@
                      Style="{StaticResource CommentBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ItemsSource ="{Binding CommentContainer.Items}"
+                     ItemsSource ="{Binding CommentContainer}"
                      SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
               >
                 <i:Interaction.Triggers>
@@ -352,7 +358,7 @@
                      Style="{StaticResource ImageBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ItemsSource ="{Binding ImageContainer.Items}"
+                     ItemsSource ="{Binding ImageContainer}"
                      SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
               >
                 <i:Interaction.Triggers>
