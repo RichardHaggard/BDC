@@ -1,115 +1,118 @@
-﻿<Window Title="CAPTURE PHOTO"
-        x:Class="BDC_V1.Views.CameraView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-        xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-        xmlns:local="clr-namespace:BDC_V1.Views"
-        xmlns:utils="clr-namespace:BDC_V1.Utils"
-        utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        Width="1000" Height="800">
+﻿<Window 
+    Title="CAPTURE PHOTO"
+    x:Class="BDC_V1.Views.CameraView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+    xmlns:local="clr-namespace:BDC_V1.Views"
+    xmlns:utils="clr-namespace:BDC_V1.Utils"
+    utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
+    mc:Ignorable="d"
+    WindowStartupLocation="CenterScreen"
+    Width="1000" Height="800">
 
-  <Window.Resources>
-    <Style TargetType="Button" x:Key="bTB" BasedOn="{StaticResource ToolbarButton}">
-    </Style>
-  </Window.Resources>
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="bTB" BasedOn="{StaticResource ToolbarButton}">
+        </Style>
+    </Window.Resources>
 
-  <Grid>
-    <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <!--Toolbar.-->
-    <Grid
+        <!--Toolbar.-->
+        <Grid
         Grid.Row="0"
         >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <Border 
-            Grid.ColumnSpan="14" 
-            Background="Gray" />
+            <Border 
+                Grid.ColumnSpan="14" 
+                Background="Gray" />
 
-        <Button 
-            Grid.Column="0"
-            Height="75"
-            Margin="10"
-            Style="{StaticResource bTB}"
-            Command="{Binding CmdCameraButton}"
-            >
-            <Image Source="/BDC_V1;component/Resources/Camera_cropped (1).png" Stretch="Uniform"/>
-        </Button>
+            <Button 
+                Grid.Column="0"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                Command="{Binding CmdCameraButton}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Camera_cropped (1).png" Stretch="Uniform"/>
+            </Button>
 
-      <!-- Added per G. on 4/15 -->     
-      <Button 
-        Grid.Column="1"
-        Height="75"
-        Margin="10"
-        Style="{StaticResource bTB}"
-        Command="{Binding CmdPhotoFlash}"
-      >
-        <Image Source="/BDC_V1;component/Resources/Flash-on-75_icons8.png" Stretch="Uniform"/>
-      </Button>
+            <!-- Added per G. on 4/15 -->
+            <Button 
+                Grid.Column="1"
+                Height="75"
+                Margin="10,7,10,13"
+                Background="{Binding FlashBg}"
+                Style="{StaticResource bTB}"
+                Command="{Binding CmdFlashOn}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Flash-on-75_icons8.png" Stretch="Uniform"/>
+            </Button>
 
-      <Button 
-        Grid.Column="2"
-        Height="75"
-        Margin="10"
-        Style="{StaticResource bTB}"
-        Command="{Binding CmdPhotoFlash}"
-      >
-        <Image Source="/BDC_V1;component/Resources/Flash-OFF-75_icons8.png" Stretch="Uniform"/>
-      </Button>
+            <Button 
+                Grid.Column="2"
+                Height="75"
+                Margin="10"
+                Background="{Binding NoFlashBg}"
+                Style="{StaticResource bTB}"
+                Command="{Binding CmdFlashOff}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Flash-OFF-75_icons8.png" Stretch="Uniform"/>
+            </Button>
 
-      <Button 
-            Grid.Column="3"
-            Height="75"
-            Margin="10"
-            Style="{StaticResource bTB}"
-            Command="{Binding CmdCropPhoto}"
-            >
-            <Image Source="/BDC_V1;component/Resources/Crop (1).png" Stretch="Uniform"/>
-        </Button>
+            <Button 
+                Grid.Column="3"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                Command="{Binding CmdCropPhoto}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Crop (1).png" Stretch="Uniform"/>
+            </Button>
 
-        <Button 
-            Grid.Column="4"
-            Height="75"
-            Margin="10"
-            Style="{StaticResource bTB}"
-            Command="{Binding CmdRotateClockwise}"
-            >
-            <Image Source="/BDC_V1;component/Resources/RotateRight (1).png" Stretch="Uniform"/>
-        </Button>
+            <Button 
+                Grid.Column="4"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                Command="{Binding CmdRotateClockwise}"
+                >
+                <Image Source="/BDC_V1;component/Resources/RotateRight (1).png" Stretch="Uniform"/>
+            </Button>
 
-        <Button 
-            Grid.Column="5"
-            Height="75"
-            Margin="10"
-            Style="{StaticResource bTB}"
-            Command="{Binding CmdRotateCounter}"
-            >
-            <Image Source="/BDC_V1;component/Resources/RotateLeft (1).png" Stretch="Uniform"/>
-        </Button>
+            <Button 
+                Grid.Column="5"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                Command="{Binding CmdRotateCounter}"
+                >
+                <Image Source="/BDC_V1;component/Resources/RotateLeft (1).png" Stretch="Uniform"/>
+            </Button>
 
 
-<!-- Deleted per G. on 4/15
+            <!-- Deleted per G. on 4/15
         <Button 
             Grid.Column="4"
             Height="75"
@@ -142,41 +145,41 @@
             Command="{Binding CmdExtraSizeLarge}"
             >
         </Button>
--->        
-        <Button 
-            Grid.Column="8"
-            Height="75"
-            Margin="10"
-            Style="{StaticResource bTB}"
-            Command="{Binding CmdCancelUndo}"
-            >
-            <Image Source="/BDC_V1;component/Resources/Cancel (1).png" Stretch="Uniform"/>
-        </Button>
+-->
+            <Button 
+                Grid.Column="8"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                Command="{Binding CmdCancelUndo}"
+                >
+                <Image Source="/BDC_V1;component/Resources/Cancel (1).png" Stretch="Uniform"/>
+            </Button>
 
-        <Button 
-            Grid.Column="9"
-            Height="75"
-            Margin="10"
-            Style="{StaticResource bTB}"
-            Command="{Binding CmdOkCommand}"
-            >
-            <Image Source="/BDC_V1;component/Resources/OK (1).png" Stretch="Uniform"/>
-        </Button>
+            <Button 
+                Grid.Column="9"
+                Height="75"
+                Margin="10"
+                Style="{StaticResource bTB}"
+                Command="{Binding CmdOkCommand}"
+                >
+                <Image Source="/BDC_V1;component/Resources/OK (1).png" Stretch="Uniform"/>
+            </Button>
 
-    </Grid>
+        </Grid>
 
-    <Image Grid.Row="1"
+        <Image Grid.Row="1"
            HorizontalAlignment="Stretch"
            VerticalAlignment="Stretch" 
            Stretch="Uniform"
            Source="{Binding SourceImage}"
            />
-    <!--
+        <!--
     <Image Grid.Row="1"
            HorizontalAlignment="Center"
            VerticalAlignment="Center" 
            Source="/BDC_V1;component/Resources/Reactor.png"
            />
     -->
-  </Grid>
+    </Grid>
 </Window>

@@ -27,14 +27,48 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
+        public bool FlashOn
+        {
+            get { return _FlashOn; }
+            set
+            {
+                if (SetProperty(ref _FlashOn, value))
+                {
+                    FlashBg   = value  ? "wHITE" : "Transparent";
+                    NoFlashBg = !value ? "wHITE" : "Transparent";
+                }
+            }
+        }
+        private bool _FlashOn = true;
+
+
         [NotNull] public ICommand CmdCameraButton    { get; }
         [NotNull] public ICommand CmdCropPhoto       { get; }
+        [NotNull] public ICommand CmdFlashOff        { get; }
+        [NotNull] public ICommand CmdFlashOn         { get; }
         [NotNull] public ICommand CmdRotateClockwise { get; }
         [NotNull] public ICommand CmdRotateCounter   { get; }
         [NotNull] public ICommand CmdSizeStandard    { get; }
         [NotNull] public ICommand CmdSizeLarge       { get; }
         [NotNull] public ICommand CmdExtraSizeLarge  { get; }
         [NotNull] public ICommand CmdDeleteCommand   { get; }
+
+
+        public string FlashBg
+        {
+            get { return _FlashBg; }
+            set { SetProperty(ref _FlashBg, value); }
+        }
+        private string _FlashBg = "White";
+
+
+        public string NoFlashBg
+        {
+            get { return _NoFlashBg; }
+            set { SetProperty(ref _NoFlashBg, value); }
+        }
+        private string _NoFlashBg = "Transparent";
+
 
         [CanBeNull] 
         public ImageSource SourceImage
@@ -50,6 +84,8 @@ namespace BDC_V1.ViewModels
         public CameraViewModel()
         {
             CmdCameraButton    = new DelegateCommand(OnCameraButton   );
+            CmdFlashOff        = new DelegateCommand(OnCmdFlashOff    );
+            CmdFlashOn         = new DelegateCommand(OnCmdFlashOn     );
             CmdCropPhoto       = new DelegateCommand(OnCropPhoto      );
             CmdRotateClockwise = new DelegateCommand(OnRotateClockwise);
             CmdRotateCounter   = new DelegateCommand(OnRotateCounter  );
@@ -59,12 +95,22 @@ namespace BDC_V1.ViewModels
             CmdDeleteCommand   = new DelegateCommand(OnDeleteCommand  );
 
 #if DEBUG
-#warning Using MOCK data for CameraViewModel
             SourceImage = new BitmapImage(new Uri(@"pack://application:,,,/Images/Reactor.png"));
 #endif
         }
 
         // **************** Class members *************************************************** //
+
+        private void OnCmdFlashOff()
+        {
+            FlashOn = false;
+        }
+
+        private void OnCmdFlashOn()
+        {
+            FlashOn = true;
+        }
+
 
         // currently not implemented
         private void OnDeleteCommand()
