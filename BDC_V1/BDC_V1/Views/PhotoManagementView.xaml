@@ -13,6 +13,7 @@
     xmlns:utils="clr-namespace:BDC_V1.Utils"
     utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
     mc:Ignorable="d"
+    Background="LightGray"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterOwner"
     Height="600" Width="800">
@@ -110,6 +111,7 @@
 
         <ListBox
             Grid.Row="2"
+            Background="White"
             DisplayMemberPath="Filename"
             ItemsSource="{Binding PendingList}"
             SelectedItem="{Binding PendingItem}"            
@@ -134,14 +136,19 @@
 
             <Button
                 Grid.Column="1"
-                Command="{Binding CmdRemoveSelected}"
-                Content="RemoveSelected"
-                Foreground="Red"
                 Height="40"
                 HorizontalAlignment="Right"
                 Margin="5"
+                Padding="0"
                 Width="175"
+                Command="{Binding CmdRemoveSelected}"
+                >
+                <Label
+                    Content="Remove Selected"
+                    Foreground="Red"
+                    Style="{StaticResource LabelCJ}"
                 />
+            </Button>
 
         </Grid>
 
@@ -152,6 +159,7 @@
 
         <ListBox
             Grid.Row="5" Grid.RowSpan="3"
+            Background="White"
             Height="100"
             />
 
@@ -198,7 +206,6 @@
 
         <Image
             Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Source="/BDC_V1;component/Images/EmeraldHils.jpg"
-            
             />
 
         <Label
@@ -206,14 +213,14 @@
             Content="Title:"
             Style="{StaticResource LabelBold}" />
 
-        <Label
+        <TextBox
             Grid.Row="5" Grid.Column="1"
-            Content="HOOD_11057_D303001_HVAC_NA"
-            Style="{StaticResource LabelRO}" />
+            Text="HOOD_11057_D303001_HVAC_NA"
+            Style="{StaticResource TextBoxNoWrap}" />
 
         <Label
             Grid.Row="6" Grid.Column="1"
-            Content="Title:"
+            Content="Description:"
             Style="{StaticResource LabelBold}" />
 
         <TextBox
