@@ -113,6 +113,7 @@
             Grid.Row="2"
             Background="White"
             DisplayMemberPath="Filename"
+            Margin="5,0,5,0"
             ItemsSource="{Binding PendingList}"
             SelectedItem="{Binding PendingItem}"            
             />
@@ -161,6 +162,7 @@
             Grid.Row="5" Grid.RowSpan="3"
             Background="White"
             Height="100"
+            Margin="5,0,5,0"
             />
 
         <Button
@@ -205,7 +207,9 @@
             Style="{StaticResource LabelBold}" />
 
         <Image
-            Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Source="/BDC_V1;component/Images/EmeraldHils.jpg"
+            Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" 
+            Margin="5,0,5,0"
+            Source="/BDC_V1;component/Images/EmeraldHils.jpg"
             />
 
         <Label
