@@ -26,7 +26,7 @@ namespace BDC_V1.Classes
         private EnumComponentTypes _componentType;
 
         /// <inheritdoc />
-        public string ComponentName
+        public virtual string ComponentName
         {
             get => _componentName;
             set => SetProperty(ref _componentName, value);

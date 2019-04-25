@@ -16,23 +16,25 @@ namespace BDC_V1.Classes
 
         public override EnumComponentTypes ComponentType => EnumComponentTypes.FacilityType;
 
+        public override string ComponentName => $@"{BuildingIdNumber} - {BuildingName}";
+
         public string BuildingId
         {
-            get => ComponentName;
-            set => ComponentName = value;
+            get => base.ComponentName;
+            set => base.ComponentName = value;
         }
 
         public uint BuildingIdNumber
         {
             get => _buildingIdNumber;
-            set => SetProperty(ref _buildingIdNumber, value);
+            set => SetPropertyFlagged(ref _buildingIdNumber, value, nameof(ComponentName));
         }
         private uint _buildingIdNumber;
 
         public string BuildingName
         {
             get => _buildingName;
-            set => SetProperty(ref _buildingName, value);
+            set => SetPropertyFlagged(ref _buildingName, value, nameof(ComponentName));
         }
         private string _buildingName;
 
