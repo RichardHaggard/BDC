@@ -39,8 +39,9 @@
             <Setter Property="Height" Value="82" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Margin" Value="10" />
-          </Style>
+            <Setter Property="Margin" Value="10,0,10,0" />
+            <Setter Property="Padding" Value="0" />
+            </Style>
 
           <!--<system:Double x:Key="FacilityFontSize">14</system:Double>-->
         </ResourceDictionary>
@@ -91,9 +92,9 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
             <Border 
@@ -190,7 +191,7 @@
 
             <!--Microphone On button-->
             <Button 
-                Grid.Column="10"
+                Grid.Column="9"
                 ToolTip="Microphone ON"
                 Background="{Binding MikeOnBg}"
                 BorderBrush="{Binding MikeOnBorderBrush}"
@@ -202,7 +203,7 @@
 
             <!--Microphone Off button-->
             <Button 
-                Grid.Column="11"
+                Grid.Column="10"
                 ToolTip="Microphone OFF"
                 Background="{Binding MikeOffBg}"
                 BorderBrush="{Binding MikeOffBorderBrush}"
