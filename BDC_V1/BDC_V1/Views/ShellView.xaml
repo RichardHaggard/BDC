@@ -62,7 +62,10 @@
 
         <!--Menu-->
         <Border Grid.Row="0" BorderThickness="0" Background="LightGray" />
-        <Menu Grid.Row="0">
+        <Menu 
+            Grid.Row="0"
+            FontSize="18"
+            >
             <MenuItem Header="Tools" >
                 <MenuItem Header="_Bluebeam data"         Command="{Binding CmdMenuBluebeam}"/>
                 <MenuItem Header="_Calculators"           Command="{Binding CmdMenuCalculators}"/>
@@ -72,8 +75,8 @@
             </MenuItem>
 
             <MenuItem Header="Reports" >
-                <MenuItem Header="_InspectionComment Summary" Command="{Binding CmdMenuInspectionSummary}"/>
-                <MenuItem Header="_QC Reports" Command="{Binding CmdMenuQcReports}"/>
+                <MenuItem Header="_Inspection Summary" Command="{Binding CmdMenuInspectionSummary}"/>
+                <MenuItem Header="_QC Report" Command="{Binding CmdMenuQcReports}"/>
             </MenuItem>
 
             <MenuItem Header="Help">
@@ -301,9 +304,12 @@
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
             <!--This TabControl contains a collection of items, each of which preforms a task related to the currently selected Tree item.-->
-            <TabControl Grid.Column="2" Name="ViewTabControl"
-                        SelectedIndex="{Binding Path=ViewTabIndex, Mode=TwoWay}"
-                        SelectedItem="{Binding Path=ViewTabItem, Mode=OneWayToSource}">
+            <TabControl 
+                Grid.Column="2" Name="ViewTabControl"
+                
+                SelectedIndex="{Binding Path=ViewTabIndex, Mode=TwoWay}"
+                SelectedItem="{Binding Path=ViewTabItem, Mode=OneWayToSource}">
+                
                 <!-- A Prism compatible way to reflect events into the ViewModel -->
                 <i:Interaction.Triggers> 
                     <i:EventTrigger EventName="SelectionChanged"> 
