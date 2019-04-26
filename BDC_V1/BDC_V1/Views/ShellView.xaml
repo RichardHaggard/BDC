@@ -43,6 +43,11 @@
             <Setter Property="Padding" Value="0" />
             </Style>
 
+            <Style x:Key="LabelTight" TargetType="Label" BasedOn="{StaticResource LabelRO}" >
+                <Setter Property="Margin" Value="5,0" />
+                <Setter Property="Padding" Value="5,0" />
+            </Style>
+            
           <!--<system:Double x:Key="FacilityFontSize">14</system:Double>-->
         </ResourceDictionary>
     </Window.Resources>
@@ -358,8 +363,17 @@
         </Grid>
         
         <!--Bottom status bar-->
-        <Border Grid.Row="3" BorderThickness="0" Background="Gray" />
-        <StatusBar Grid.Row="3">
+        <Border 
+            Grid.Row="3" 
+            Background="Gray" 
+            BorderThickness="0" 
+            Margin="0"
+            Padding="0"
+            />
+        <StatusBar 
+            Grid.Row="3"
+            Margin="0"
+            Padding="0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -368,14 +382,12 @@
                 <StackPanel
                     Grid.Row="0"
                     Orientation="Horizontal">
-                    <Label Style="{StaticResource LabelRO}" Content="{Binding StatusLookup        }" />
-                    <Label Style="{StaticResource LabelRO}" Content="{Binding StatusInspector     }" />
-                    <Label Style="{StaticResource LabelRO}" Content="{Binding StatusInspectedBy   }" />
-                    <Label Style="{StaticResource LabelRO}" Content="{Binding StatusDateTimeString}" />
+                    <Label Style="{StaticResource LabelTight}" Content="{Binding StatusLookup        }" />
+                    <Label Style="{StaticResource LabelTight}" Content="{Binding StatusInspector     }" />
+                    <Label Style="{StaticResource LabelTight}" Content="{Binding StatusInspectedBy   }" />
+                    <Label Style="{StaticResource LabelTight}" Content="{Binding StatusDateTimeString}" />
                 </StackPanel>
-                <Label 
-                    Grid.Row="1"
-                    Style="{StaticResource LabelRO}" Content="{Binding BredFilename}" />
+                <Label Grid.Row="1" Style="{StaticResource LabelTight}" Content="{Binding BredFilename}"  />
             </Grid>
         </StatusBar>
 
