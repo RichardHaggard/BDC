@@ -856,7 +856,6 @@
                         <Label 
                 Grid.Column="1"
                 Content="Cancel Edit" 
-                Foreground="Red" 
                 Style="{StaticResource lblText}" />
                     </Grid>
                 </Button>
