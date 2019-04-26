@@ -130,6 +130,8 @@
                      BorderBrush="Black"
                      Text="{Binding ConfigurationFilename}"
                      materialDesign:HintAssist.Hint="&lt; Select configuration file for this BUILDER FCA project &gt;"
+                     materialDesign:HintAssist.Foreground="Black"
+                     materialDesign:HintAssist.HintOpacity="1"
                      VerticalContentAlignment="Center" />
 
             <materialDesign:Badged Grid.Column="2"
@@ -178,6 +180,7 @@
                      BorderBrush="Black"
                      Text="{Binding BredFilename}"
                      materialDesign:HintAssist.Hint="&lt; Select your BRED file that you downloaded from BUILDER QC &gt;"
+                     materialDesign:HintAssist.HintOpacity="1"
                      VerticalContentAlignment="Center"
                      TextWrapping="Wrap" />
 
@@ -228,6 +231,8 @@
                       Margin="0"
                       HorizontalAlignment="Stretch"
                       materialDesign:HintAssist.Hint="&lt; Select your name from the pull-down list (or click More) &gt;"
+                      materialDesign:HintAssist.Foreground="Black"
+                      materialDesign:HintAssist.HintOpacity="1"
                       VerticalAlignment="Stretch"
                       ItemsSource="{Binding LoginUserList}" >
               <ComboBox.ItemsPanel>

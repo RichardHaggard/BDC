@@ -29,7 +29,7 @@ namespace BDC_V1.Classes
         [NotNull] public ICommand CmdCopy        { get; }
         [NotNull] public ICommand CmdSpellCheck  { get; }
         [NotNull] public ICommand CmdReviewLater { get; }
-
+        [NotNull] public ICommand CmdDelete      { get; }
 
         public string HeaderText
         {
@@ -38,12 +38,51 @@ namespace BDC_V1.Classes
         }
         private string _headerText;
 
+        public bool IsChanged
+        {
+            get => _isChanged;
+            set => SetProperty(ref _isChanged, value);
+        }
+        private bool _isChanged;
+
         public string CommentText 
         {
             get => _commentText;
-            set => SetProperty(ref _commentText, value);
+            set => SetProperty(ref _commentText, value, () => IsChanged = true);
         }
         private string _commentText;
+
+        public string MikeOffBg
+        {
+            get => _mikeOffBg;
+            set => SetProperty(ref _mikeOffBg, value);
+        }
+        private string _mikeOffBg = ConstBgInactive;
+
+
+        public string MikeOffBorderBrush
+        {
+            get => _mikeOffBorderBrush;
+            set => SetProperty(ref _mikeOffBorderBrush, value);
+        }
+        private string _mikeOffBorderBrush = ConstBgInactive;
+
+
+        public string MikeOnBg
+        {
+            get => _mikeOnBg;
+            set => SetProperty(ref _mikeOnBg, value);
+        }
+        private string _mikeOnBg = ConstBgActive;
+
+
+        public string MikeOnBorderBrush
+        {
+            get => _mikeOnBorderBrush;
+            set => SetProperty(ref _mikeOnBorderBrush, value);
+        }
+        private string _mikeOnBorderBrush = ConstBorderActive;
+
 
         public IFacilityBase FacilityBaseInfo
         {
@@ -51,38 +90,6 @@ namespace BDC_V1.Classes
             set => SetProperty(ref _facilityBaseInfo, value);
         }
         private IFacilityBase _facilityBaseInfo;
-
-        public string MikeOffBg
-        {
-            get { return _MikeOffBg; }
-            set => SetProperty(ref _MikeOffBg, value);
-        }
-        private string _MikeOffBg = ConstBgInactive;
-
-
-        public string MikeOffBorderBrush
-        {
-            get { return _MikeOffBorderBrush; }
-            set => SetProperty(ref _MikeOffBorderBrush, value);
-        }
-        private string _MikeOffBorderBrush = ConstBgInactive;
-
-
-        public string MikeOnBg
-        {
-            get { return _MikeOnBg; }
-            set => SetProperty(ref _MikeOnBg, value);
-        }
-        private string _MikeOnBg = ConstBgActive;
-
-
-        public string MikeOnBorderBrush
-        {
-            get { return _MikeOnBorderBrush; }
-            set => SetProperty(ref _MikeOnBorderBrush, value);
-        }
-        private string _MikeOnBorderBrush = ConstBorderActive;
-
 
         // **************** Class constructors ********************************************** //
 
@@ -93,14 +100,36 @@ namespace BDC_V1.Classes
             CmdCopy        = new DelegateCommand(OnCopy       );
             CmdSpellCheck  = new DelegateCommand(OnSpellCheck );
             CmdReviewLater = new DelegateCommand(OnReviewLater);
+            CmdDelete      = new DelegateCommand(OnDelete     );   
         }
 
         // **************** Class members *************************************************** //
+
+        protected override void OnCancelUndo()
+        {
+            // TODO: Properly determine if changes have been made.
+            if ((! IsChanged) ||
+                (BdcMessageBoxView.Show("Cancel changes?", "CANCEL CHANGES?", MessageBoxButton.YesNo) ==
+                    MessageBoxResult.Yes))
+            {
+                base.OnCancelUndo();
+            }
+        }
 
         protected virtual void OnReviewLater()
         {
             Result = EnumControlResult.ResultDeferred;
             DialogResultEx = false;
+        }
+
+        protected virtual void OnDelete()
+        {
+            if (BdcMessageBoxView.Show("Permanently delete comment?", "DELETE COMMENT?", MessageBoxButton.YesNo) ==
+                MessageBoxResult.Yes)
+            {
+                Result = EnumControlResult.ResultDeleteItem;
+                DialogResultEx = false;
+            }
         }
 
         [NotNull]   protected abstract List<ICommentary> CommentaryList  { get; set; }
@@ -160,5 +189,6 @@ namespace BDC_V1.Classes
 
 
         protected virtual void OnSpellCheck() { Debug.WriteLine("OnSpellCheck not implemented"); }
+        
     }
 }

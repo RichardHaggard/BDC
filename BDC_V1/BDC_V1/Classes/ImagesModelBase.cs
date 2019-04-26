@@ -124,7 +124,7 @@ namespace BDC_V1.Classes
 
             model.FacilityBaseInfo = null;              // TODO: Put real data in here
             model.CommentText = comment?.CommentText;
-            model.WindowTitle = $@"{TabName} COMMENTS";
+            model.WindowTitle = $@"{TabName} COMMENT";
             model.HeaderText  = DetailHeaderText;
             model.IsDistressedEnabled = isInspection;
 

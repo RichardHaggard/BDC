@@ -17,46 +17,54 @@
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        MinHeight="600" MaxHeight="940" Height="Auto"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        MinHeight="550" MaxHeight="900"
         MinWidth="500" MaxWidth="800" Width="Auto"
-        d:DesignHeight="600" d:DesignWidth="500"
+        d:DesignHeight="550" d:DesignWidth="500"
         >
 
   <Window.Resources>
-    <converters:MultiBoolToObjectConverter x:Key="MultiBoolToObjectConverter" />
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <converters:MultiBoolToObjectConverter x:Key="MultiBoolToObjectConverter" />
 
-    <!--CheckBox base-->
-    <Style x:Key="CheckBoxBase" TargetType="CheckBox" BasedOn="{StaticResource cbBase}">
-      <Setter Property="HorizontalAlignment" Value="Left"/>
-    </Style>
+      <!--CheckBox base-->
+      <Style x:Key="CheckBoxBase" TargetType="CheckBox" BasedOn="{StaticResource cbBase}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+      </Style>
 
-    <Style x:Key="IndentedCheckBox" TargetType="CheckBox" BasedOn="{StaticResource CheckBoxBase}">
-      <Setter Property="Margin" Value="50,5,5,5" />
-    </Style>
+      <Style x:Key="IndentedCheckBox" TargetType="CheckBox" BasedOn="{StaticResource CheckBoxBase}">
+        <Setter Property="Margin" Value="50,5,5,5" />
+      </Style>
 
+    </ResourceDictionary>
   </Window.Resources>
 
   <ScrollViewer VerticalScrollBarVisibility="Auto"
                 HorizontalScrollBarVisibility="Auto">
     <Grid Margin="2,5,2,5">
       <Grid.RowDefinitions>
-        <RowDefinition Height="1"    /> <!--  0 - deleted -->
-        <RowDefinition Height="1"    /> <!--  1 - white space -->
-        <RowDefinition Height="Auto" /> <!--  2 - Source -->
-        <RowDefinition Height="Auto" /> <!--  3 - Target -->
-        <RowDefinition Height="Auto" /> <!--  4 - Section -->
-        <RowDefinition Height="Auto" /> <!--  5 - Systems -->
-        <RowDefinition Height="Auto" /> <!--  6 - Options -->
-        <RowDefinition Height="Auto" /> <!--  7 - Year Built -->
-        <RowDefinition Height="Auto" /> <!--  8 - Section Comments -->
-        <RowDefinition Height="Auto" /> <!--  9 - Section Details -->
-        <RowDefinition Height="Auto" /> <!-- 10 -   Detail Comments -->
-        <RowDefinition Height="Auto" /> <!-- 11 - Existing Inventory -->
-        <RowDefinition Height="10"   /> <!-- 12 - white space -->
-        <RowDefinition Height="Auto" /> <!-- 13 - Copy Inspections -->
-        <RowDefinition Height="Auto" /> <!-- 14 -   Include Comments -->
-        <RowDefinition Height="10"   /> <!-- 15 - white space -->
-        <RowDefinition Height="Auto" /> <!-- 16 - Command Buttons -->
+        <RowDefinition Height="0"    />               <!--  0 - deleted -->
+        <RowDefinition Height="0"    />               <!--  1 - white space -->
+        <RowDefinition Height="Auto" />               <!--  2 - Source -->
+        <RowDefinition Height="Auto" />               <!--  3 - Target -->
+        <RowDefinition Height="Auto" />               <!--  4 - Section -->
+        <RowDefinition Height="*" MinHeight="100" />  <!--  5 - Systems -->
+        <RowDefinition Height="Auto" />               <!--  6 - Options -->
+        <RowDefinition Height="Auto" />               <!--  7 - Year Built -->
+        <RowDefinition Height="Auto" />               <!--  8 - Section Comments -->
+        <RowDefinition Height="Auto" />               <!--  9 - Section Details -->
+        <RowDefinition Height="Auto" />               <!-- 10 -   Detail Comments -->
+        <RowDefinition Height="Auto" />               <!-- 11 - Existing Inventory -->
+        <RowDefinition Height="5"    />               <!-- 12 - white space -->
+        <RowDefinition Height="Auto" />               <!-- 13 - Copy Inspections -->
+        <RowDefinition Height="Auto" />               <!-- 14 -   Include Comments -->
+        <RowDefinition Height="5"    />               <!-- 15 - white space -->
+        <RowDefinition Height="Auto" />               <!-- 16 - Command Buttons -->
       </Grid.RowDefinitions>
 
       <Grid.ColumnDefinitions>
@@ -73,10 +81,15 @@
              Content="Source Facility:" 
              />
       <ComboBox Grid.Row="2" Grid.Column="1"
+                Margin="5,5,5,2.5"
                 materialDesign:HintAssist.Hint="Select a Source Facility..."
+                materialDesign:HintAssist.Foreground="Black"
+                FontSize="15"
+                VerticalContentAlignment="Center"
+                Background="LightGray"
                 ItemsSource="{Binding SourceFacilities, Mode=OneTime}"
                 SelectedItem="{Binding SourceFacilities.SelectedItem, Mode=TwoWay}"
-                Style="{StaticResource ComboBase}">
+                >
         <ComboBox.ItemTemplate>
           <DataTemplate DataType="{x:Type classes:FacilityInfoHeader}">
             <TextBlock FontSize="16">
@@ -98,10 +111,15 @@
              Content="Target Facility:" 
              />
       <ComboBox Grid.Row="3" Grid.Column="1"
+                Margin="5,2.5,5,2.5"
                 materialDesign:HintAssist.Hint="Select a Target Facility..."
+                materialDesign:HintAssist.Foreground="Black"
+                FontSize="15"
+                VerticalContentAlignment="Center"
+                Background="LightGray"
                 ItemsSource="{Binding TargetFacilities}"
                 SelectedItem="{Binding TargetFacilities.SelectedItem, Mode=TwoWay}"
-                Style="{StaticResource ComboBase}">
+                >
         <ComboBox.ItemTemplate>
           <DataTemplate DataType="{x:Type classes:FacilityInfoHeader}">
             <TextBlock FontSize="16">
@@ -123,17 +141,21 @@
              Content="Section Name:" 
              />
       <ComboBox Grid.Row="4" Grid.Column="1"
-                materialDesign:HintAssist.Hint="Select a Section Name..."
+                Margin="5,2.5,5,2.5"
                 IsEnabled="{Binding IsSectionNameEnabled, FallbackValue=False}"
                 ItemsSource="{Binding Sections}"
                 SelectedItem="{Binding Sections.SelectedItem, Mode=TwoWay}"
+                FontSize="15"
+                VerticalContentAlignment="Center"
                 >
         <ComboBox.Style>
-          <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBase}">
+          <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}" >
             <Setter Property="Background" Value="LightGray" />
             <Style.Triggers>
               <Trigger Property="IsEnabled" Value="True">
                 <Setter Property="Background" Value="White" />
+                <Setter Property="materialDesign:HintAssist.Hint" Value="Select a Section Name..." />
+                <Setter Property="materialDesign:HintAssist.Foreground" Value="Black" />
               </Trigger>
             </Style.Triggers>
           </Style>
@@ -160,6 +182,7 @@
 
         <ListView ItemsSource="{Binding Systems, Mode=OneTime}"
                   SelectedItem="{Binding Systems.SelectedItem, Mode=TwoWay}"
+                  Margin="5,2.5,5,2.5"
                   MinHeight="100"
                   MaxHeight="250"
                   >
@@ -175,6 +198,7 @@
 
       <!--  6 - Options -->
       <Label Grid.Row="6" Grid.Column="0"
+             Margin="5,0,5,0"
              FontSize="14"
              Style="{StaticResource LabelBase}"
              Content="Options:"
@@ -253,7 +277,7 @@
                 IsEnabled="{Binding ElementName=CopyInspections, Path=IsChecked}"
                 IsChecked="{Binding IsIncludeCommentsChecked}"
                 Style="{StaticResource IndentedCheckBox}"
-                Content="Include Comments"
+                Content="Include Inspection Comments"
                 />
 
       <!-- 16 - Command Buttons -->
