@@ -16,6 +16,12 @@ namespace BDC_V1.Classes
 {
     public abstract class CommentWindows : CloseableResultsWindow
     {
+        // **************** Class enumerations ********************************************** //
+
+        private const string ConstBgActive     = "White";
+        private const string ConstBgInactive   = "Transparent";
+        private const string ConstBorderActive = "Black";
+
         // **************** Class properties ************************************************ //
 
         [NotNull] public ICommand CmdMicOn       { get; }
@@ -23,6 +29,7 @@ namespace BDC_V1.Classes
         [NotNull] public ICommand CmdCopy        { get; }
         [NotNull] public ICommand CmdSpellCheck  { get; }
         [NotNull] public ICommand CmdReviewLater { get; }
+
 
         public string HeaderText
         {
@@ -44,6 +51,38 @@ namespace BDC_V1.Classes
             set => SetProperty(ref _facilityBaseInfo, value);
         }
         private IFacilityBase _facilityBaseInfo;
+
+        public string MikeOffBg
+        {
+            get { return _MikeOffBg; }
+            set => SetProperty(ref _MikeOffBg, value);
+        }
+        private string _MikeOffBg = ConstBgInactive;
+
+
+        public string MikeOffBorderBrush
+        {
+            get { return _MikeOffBorderBrush; }
+            set => SetProperty(ref _MikeOffBorderBrush, value);
+        }
+        private string _MikeOffBorderBrush = ConstBgInactive;
+
+
+        public string MikeOnBg
+        {
+            get { return _MikeOnBg; }
+            set => SetProperty(ref _MikeOnBg, value);
+        }
+        private string _MikeOnBg = ConstBgActive;
+
+
+        public string MikeOnBorderBrush
+        {
+            get { return _MikeOnBorderBrush; }
+            set => SetProperty(ref _MikeOnBorderBrush, value);
+        }
+        private string _MikeOnBorderBrush = ConstBorderActive;
+
 
         // **************** Class constructors ********************************************** //
 
@@ -102,8 +141,24 @@ namespace BDC_V1.Classes
             }
         }
 
-        protected virtual void OnMicOn     () { Debug.WriteLine("OnMicOn      not implemented"); }
-        protected virtual void OnMicOff    () { Debug.WriteLine("OnMicOff     not implemented"); }
+        protected virtual void OnMicOn() 
+        {
+            MikeOffBg          = ConstBgInactive;
+            MikeOffBorderBrush = ConstBgInactive;
+            MikeOnBg           = ConstBgActive;
+            MikeOnBorderBrush  = ConstBorderActive;
+        }
+
+
+        protected virtual void OnMicOff() 
+        {
+            MikeOffBg          = ConstBgActive;
+            MikeOffBorderBrush = ConstBorderActive;
+            MikeOnBg           = ConstBgInactive;
+            MikeOnBorderBrush  = ConstBgInactive;
+        }
+
+
         protected virtual void OnSpellCheck() { Debug.WriteLine("OnSpellCheck not implemented"); }
     }
 }

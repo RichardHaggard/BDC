@@ -28,8 +28,9 @@ namespace BDC_V1.ViewModels
     {
         // **************** Class enumerations ********************************************** //
 
-        private const string ConstActiveBg = "White";
-        private const string ConstInactiveBg = "Transparent";
+        private const string ConstBgActive     = "White";
+        private const string ConstBgInactive   = "Transparent";
+        private const string ConstBorderActive = "Black";
 
         // **************** Class properties ************************************************ //
 
@@ -55,6 +56,39 @@ namespace BDC_V1.ViewModels
         [NotNull] public ICommand CmdMicOff { get; }
         [NotNull] public ICommand CmdTabSelectionChanged { get; }
         [NotNull] public ICommand CmdCopyInspection { get; }
+
+
+        public string MikeOffBg
+        {
+            get { return _MikeOffBg; }
+            set => SetProperty(ref _MikeOffBg, value);
+        }
+        private string _MikeOffBg = ConstBgInactive;
+
+
+        public string MikeOffBorderBrush
+        {
+            get { return _MikeOffBorderBrush; }
+            set => SetProperty(ref _MikeOffBorderBrush, value);
+        }
+        private string _MikeOffBorderBrush = ConstBgInactive;
+
+
+        public string MikeOnBg
+        {
+            get { return _MikeOnBg; }
+            set => SetProperty(ref _MikeOnBg, value);
+        }
+        private string _MikeOnBg = ConstBgActive;
+
+
+        public string MikeOnBorderBrush
+        {
+            get { return _MikeOnBorderBrush; }
+            set => SetProperty(ref _MikeOnBorderBrush, value);
+        }
+        private string _MikeOnBorderBrush = ConstBorderActive;
+
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
         public string Title => @"Builder DC";
@@ -156,11 +190,11 @@ namespace BDC_V1.ViewModels
             get => _inspectionBg;
             set => SetProperty(ref _inspectionBg, value, () =>
             {
-                if (value == ConstActiveBg)
-                    InventoryBg = ConstInactiveBg;
+                if (value == ConstBgActive)
+                    InventoryBg = ConstBgInactive;
             });
         }
-        private string _inspectionBg = ConstInactiveBg;
+        private string _inspectionBg = ConstBgInactive;
 
 
         public string InventoryBg
@@ -168,11 +202,11 @@ namespace BDC_V1.ViewModels
             get => _inventoryBg;
             set => SetProperty(ref _inventoryBg, value, () =>
             {
-                if (value == ConstActiveBg)
-                    InspectionBg = ConstInactiveBg;
+                if (value == ConstBgActive)
+                    InspectionBg = ConstBgInactive;
             });
         }
-        private string _inventoryBg = ConstActiveBg;
+        private string _inventoryBg = ConstBgActive;
 
 
         public DateTime StatusDateTime
@@ -575,7 +609,7 @@ namespace BDC_V1.ViewModels
 
         private void OnDefaultInventoryMode()
         {
-            InventoryBg = ConstActiveBg;
+            InventoryBg = ConstBgActive;
             MessageBox.Show("Default Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
@@ -586,7 +620,7 @@ namespace BDC_V1.ViewModels
 
         private void OnInspectionMode()
         {
-            InspectionBg = ConstActiveBg;
+            InspectionBg = ConstBgActive;
             MessageBox.Show("Inspection Mode", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
@@ -609,18 +643,18 @@ namespace BDC_V1.ViewModels
 
         private void OnMicOff()
         {
-            var results = FatFingerMessageBoxView.Show(
-                "Microphone Off", 
-                "NOT IMPLEMENTED", 
-                MessageBoxButton.OK, 
-                MessageBoxImage.Exclamation
-            );
-//            MessageBox.Show("Microphone Off", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MikeOffBg          = ConstBgActive;
+            MikeOffBorderBrush = ConstBorderActive;
+            MikeOnBg           = ConstBgInactive;
+            MikeOnBorderBrush  = ConstBgInactive;
         }
 
         private void OnMicOn()
         {
-            MessageBox.Show("Microphone On", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MikeOffBg          = ConstBgInactive;
+            MikeOffBorderBrush = ConstBgInactive;
+            MikeOnBg           = ConstBgActive;
+            MikeOnBorderBrush  = ConstBorderActive;
         }
 
         private void OnQcReport()

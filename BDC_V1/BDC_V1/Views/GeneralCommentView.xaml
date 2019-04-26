@@ -74,13 +74,28 @@ two line header</system:String>
           <ColumnDefinition Width="Auto" />             <!-- 6 - OK -->
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Column="0" Style="{StaticResource bTB}"
-                Command="{Binding CmdMicOn}">
-          <Image Source="/BDC_V1;component/Resources/MicrophoneON_75.png" />
-        </Button>
+            <Border
+                Grid.Column="0"  Grid.ColumnSpan="8"
+                BorderBrush="Transparent"
+                Background="LightGray"
+              />
+          
+            <Button 
+                Grid.Column="0" 
+                Background="{Binding MikeOnBg}"
+                BorderBrush="{Binding MikeOnBorderBrush}"
+                BorderThickness="2"
+                Command="{Binding CmdMicOn}"
+                Style="{StaticResource bTB}">
+              <Image Source="/BDC_V1;component/Resources/MicrophoneON_75.png" />
+            </Button>
 
-        <Button Grid.Column="1" Style="{StaticResource bTB}"
-                Command="{Binding CmdMicOff}">
+        <Button 
+            Grid.Column="1" Style="{StaticResource bTB}"
+            Background="{Binding MikeOffBg}"
+            BorderBrush="{Binding MikeOffBorderBrush}"
+            BorderThickness="2"
+            Command="{Binding CmdMicOff}">
           <Image Source="/BDC_V1;component/Resources/MicrophoneOFF_75.png" />
         </Button>
 

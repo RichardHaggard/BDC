@@ -189,18 +189,26 @@
             </Button>
 
             <!--Microphone On button-->
-            <Button Grid.Column="10"
-                    ToolTip="Microphone ON"
-                    Command="{Binding CmdMicOn}"
-                    Style="{DynamicResource TransparentBitmap}">
+            <Button 
+                Grid.Column="10"
+                ToolTip="Microphone ON"
+                Background="{Binding MikeOnBg}"
+                BorderBrush="{Binding MikeOnBorderBrush}"
+                BorderThickness="2"
+                Command="{Binding CmdMicOn}"
+                Style="{DynamicResource TransparentBitmap}">
                 <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/MicrophoneON_75.png"/>
             </Button>
 
             <!--Microphone Off button-->
-            <Button Grid.Column="11"
-                    ToolTip="Microphone OFF"
-                    Command="{Binding CmdMicOff}"
-                    Style="{DynamicResource TransparentBitmap}">
+            <Button 
+                Grid.Column="11"
+                ToolTip="Microphone OFF"
+                Background="{Binding MikeOffBg}"
+                BorderBrush="{Binding MikeOffBorderBrush}"
+                BorderThickness="2"
+                Command="{Binding CmdMicOff}"
+                Style="{DynamicResource TransparentBitmap}">
                 <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/MicrophoneOFF_75.png"/>
             </Button>
         </Grid>
