@@ -41,19 +41,13 @@ namespace BDC_V1.Classes
         {
             get
             {
-                if (_commentContainer == null)
+                if ((_commentContainer == null) && (CommentContainerSource != null))
                 {
-                    _commentContainer =
-                        new IndexedCollection<ICommentBase>(
-                            CommentContainerSource ?? new ObservableCollection<ICommentBase>());
-                    _commentContainer.SelectedIndex = _commentContainer
-                    {
-                        SelectedIndex = 0
-                    };
+                    _commentContainer = new IndexedCollection<ICommentBase>(CommentContainerSource);
+                    _commentContainer.SelectedIndex = _commentContainer.Count > 0 ? 0 : -1;
                 }
 
                 return _commentContainer ?? 
-                       // insure we never have a null CommentContainer
                        new IndexedCollection<ICommentBase>(new ObservableCollection<ICommentBase>());
             }
         }
@@ -64,21 +58,14 @@ namespace BDC_V1.Classes
         {
             get
             {
-                if (_imageContainer == null)
+                if ((_imageContainer == null) && (ImageContainerSource != null))
                 {
-                    var source = ImageContainerSource;
-                    if (source != null)
-                    {
-                        _imageContainer = new IndexedCollection<ImageSource>(source)
-                        {
-                            SelectedIndex = 0
-                        };
-                    }
+                    _imageContainer = new IndexedCollection<ImageSource>(ImageContainerSource);
+                    _imageContainer.SelectedIndex = _imageContainer.Count > 0 ? 0 : -1;
                 }
 
                 return _imageContainer ?? 
-                       // insure we never have a null ImageContainer
-                       new IndexedCollection<ImageSource>(new List<ImageSource>());
+                       new IndexedCollection<ImageSource>(new ObservableCollection<ImageSource>());
             }
         }
 
