@@ -100,9 +100,9 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
             <Border 
@@ -199,7 +199,7 @@
 
             <!--Microphone On button-->
             <Button 
-                Grid.Column="9"
+                Grid.Column="10"
                 ToolTip="Microphone ON"
                 Background="{Binding MikeOnBg}"
                 BorderBrush="{Binding MikeOnBorderBrush}"
@@ -211,7 +211,7 @@
 
             <!--Microphone Off button-->
             <Button 
-                Grid.Column="10"
+                Grid.Column="11"
                 ToolTip="Microphone OFF"
                 Background="{Binding MikeOffBg}"
                 BorderBrush="{Binding MikeOffBorderBrush}"
@@ -252,7 +252,7 @@
                   <Setter Property="FontSize"   Value="12"     />
 
                   <!-- 
-                  Show or hide this node based on the "IsVisible" flag of each component 
+                  Show or hide this node based on the "IsActive" flag of each component 
                   NOTE: A hidden node will also conceal all of it's children
                   -->
                   <Style.Triggers>

@@ -565,7 +565,7 @@ namespace BDC_V1.ViewModels
 
         private void OnAddSection()
         {
-            MessageBox.Show("Add Section", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("Add Section", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         // ReSharper disable IdentifierTypo
@@ -604,24 +604,24 @@ namespace BDC_V1.ViewModels
 
         private void OnCalculators()
         {
-            MessageBox.Show("Calculators", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("Calculators", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnDefaultInventoryMode()
         {
             InventoryBg = ConstBgActive;
-            MessageBox.Show("Default Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("Default Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnExit()
         {
-            App.Current.Shutdown();
+            Application.Current.Shutdown();
         }
 
         private void OnInspectionMode()
         {
             InspectionBg = ConstBgActive;
-            MessageBox.Show("Inspection Mode", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("Inspection Mode", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInspectionSummary()
@@ -659,52 +659,52 @@ namespace BDC_V1.ViewModels
 
         private void OnQcReport()
         {
-            MessageBox.Show("QC Report", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("QC Report", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnSwitchFile()
         {
-            MessageBox.Show("Switch File", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("Switch File", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnViewAllSystems()
         {
-            MessageBox.Show("View All Systems", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("View All Systems", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnViewAssignedSystems()
         {
-            MessageBox.Show("View Assigned Systems", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("View Assigned Systems", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInv2InspFacility()
         {
-            MessageBox.Show("Inventory to Inspection, Facility", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("Inventory to Inspection, Facility", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInv2InspInventory()
         {
-            MessageBox.Show("Inventory to Inspection, Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("Inventory to Inspection, Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInv2InspInspection()
         {
-            MessageBox.Show("Inventory to Inspection, Inspection", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("Inventory to Inspection, Inspection", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInv2InspQcInventory()
         {
-            MessageBox.Show("Inventory to Inspection, QC Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("Inventory to Inspection, QC Inventory", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnInv2InspQcInspection()
         {
-            MessageBox.Show("Inventory to Inspection, QC Inspection", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            BdcMessageBoxView.Show("Inventory to Inspection, QC Inspection", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnDeleteSystem()
         {
-            MessageBox.Show("Do you want to delete the currently-selected System for Facility #####?", 
+            BdcMessageBoxView.Show("Do you want to delete the currently-selected System for Facility #####?", 
                 "DELETE SYSTEM?", MessageBoxButton.OKCancel, MessageBoxImage.Question);
         }
 

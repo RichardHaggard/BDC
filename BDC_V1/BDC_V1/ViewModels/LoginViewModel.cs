@@ -15,6 +15,7 @@ using BDC_V1.Interfaces;
 using BDC_V1.Mock_Data;
 using BDC_V1.Services;
 using BDC_V1.Utils;
+using BDC_V1.Views;
 using CommonServiceLocator;
 using JetBrains.Annotations;
 using Microsoft.Win32;
@@ -299,7 +300,7 @@ namespace BDC_V1.ViewModels
         
         private void OnInspector()
         {
-            MessageBox.Show("To be implemented");
+            BdcMessageBoxView.Show("To be implemented", "NOT IMPLEMENTED");
         }
 
     }

@@ -145,7 +145,7 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdShowBarcodeScanner()
         {
-            MessageBox.Show("Barcode Reader Launches", "Barcode Reader");
+            BdcMessageBoxView.Show("Barcode Reader Launches", "Barcode Reader");
         }
     }
 }

@@ -244,6 +244,7 @@
                      SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
                      >
               <!-- DEBUG -->
+              <!--
               <ListBox.Tag>
                   <MultiBinding Converter="{StaticResource DiagnosticConverter}" ConverterParameter="CommentListBox" Mode="TwoWay">
                     <Binding Path="." RelativeSource="{RelativeSource Self}" />
@@ -251,6 +252,7 @@
                     <Binding Path="CommentContainer.SelectedItem" />
                   </MultiBinding>
               </ListBox.Tag>
+              -->
 
               <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

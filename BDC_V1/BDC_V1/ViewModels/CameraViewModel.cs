@@ -155,7 +155,7 @@ namespace BDC_V1.ViewModels
                 }
                 catch
                 {
-                    MessageBox.Show(
+                    BdcMessageBoxView.Show(
                         "Selected file \"" + PictureFilename + "\" failed to load, try again.",
                         "IMAGE ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }

@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using BDC_V1.ViewModels;
 using JetBrains.Annotations;
 using SystemCommands = Microsoft.Windows.Shell.SystemCommands;
@@ -19,11 +20,11 @@ using SystemCommands = Microsoft.Windows.Shell.SystemCommands;
 namespace BDC_V1.Views
 {
     /// <summary>
-    /// Interaction logic for FatFingerMessageBoxView.xaml
+    /// Interaction logic for BdcMessageBoxView.xaml
     /// </summary>
-    public partial class FatFingerMessageBoxView : Window
+    public partial class BdcMessageBoxView : Window
     {
-        protected FatFingerMessageBoxView()
+        protected BdcMessageBoxView()
         {
             InitializeComponent();
         }
@@ -34,8 +35,8 @@ namespace BDC_V1.Views
             MessageBoxButton button = MessageBoxButton.OK, 
             MessageBoxImage  icon   = MessageBoxImage.None)
         {
-            var view = new FatFingerMessageBoxView();
-            if (! (view.DataContext is FatFingerMessageBoxViewModel model))
+            var view = new BdcMessageBoxView();
+            if (! (view.DataContext is BdcMessageBoxViewModel model))
                 throw new InvalidCastException(@"Invalid DataContext");
 
             model.WindowTitle    = caption;

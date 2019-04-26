@@ -17,7 +17,7 @@ using Prism.Commands;
 
 namespace BDC_V1.ViewModels
 {
-    public class FatFingerMessageBoxViewModel : CloseableWindow
+    public class BdcMessageBoxViewModel : CloseableWindow
     {
         [NotNull] public ICommand CmdNoButton     { get; }
         [NotNull] public ICommand CmdCancelButton { get; }
@@ -165,7 +165,7 @@ namespace BDC_V1.ViewModels
 
         // **************** Class constructors ********************************************** //
 
-        public FatFingerMessageBoxViewModel()
+        public BdcMessageBoxViewModel()
         {
             CmdNoButton       = new DelegateCommand(OnNoButton      );
             CmdCancelButton   = new DelegateCommand(OnCancelButton  );

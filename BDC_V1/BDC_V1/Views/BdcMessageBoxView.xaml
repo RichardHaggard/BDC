@@ -1,4 +1,4 @@
-﻿<Window x:Class="BDC_V1.Views.FatFingerMessageBoxView"
+﻿<Window x:Class="BDC_V1.Views.BdcMessageBoxView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,11 +14,18 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        Height="Auto" MaxHeight="600"
-        Width="Auto"  MaxWidth="1000"
-        d:DesignHeight="400" d:DesignWidth="500">
+        SizeToContent="Height"
+        MinWidth="600"
+        MinHeight="200"
+        d:DesignHeight="200"
+        d:DesignWidth="600">
+
+    <!-- 
+      SizeToContent="WidthAndHeight" has a bug that causes a thick black border on Bottom and Right until 
+      the window gets resized. Setting it to "Height" seems to work properly.
+    -->
 
     <shell:WindowChrome.WindowChrome>
         <shell:WindowChrome
@@ -32,7 +39,6 @@
 
     <Window.Resources>
         <ResourceDictionary>
-
 
       <!-- CLOSE BUTTON -->
       <Style x:Key="ButtonWindowClose" TargetType="{x:Type ToggleButton}">
@@ -216,25 +222,25 @@
         </Setter>
       </Style>
 
-      <ResourceDictionary.MergedDictionaries>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid Height="Auto" Width="Auto">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*"/>
+      <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"    />
         </Grid.RowDefinitions>
 
-        <!--
+      <!--
       provide the background for the entire form.  
       In practice, this appears as the window's resize border, because the title and window content obscure the rest
-    -->
+      -->
         <Border Grid.RowSpan="2" 
                 CornerRadius="10,10,5,5" 
                 BorderThickness="3" 
@@ -271,7 +277,7 @@
           shell:WindowChrome.IsHitTestVisibleInChrome="True"
           >
           <ToggleButton.Content>
-                  <Image Width="35" Height="35" Source="{Binding ApplicationIcon}" />
+                <Image Width="35" Height="35" Source="{Binding ApplicationIcon}" />
           </ToggleButton.Content>
           <ToggleButton.ContextMenu>
                 <ContextMenu>
@@ -300,15 +306,15 @@
           </ToggleButton.ContextMenu>
         </ToggleButton>
 
-                <TextBlock Text="{Binding WindowTitle, FallbackValue=MESSAGE}" 
-                           FontFamily="Calibri" 
-                           FontWeight="Bold" 
-                           FontSize="26" 
-                           Foreground="#FF000044" 
-                           VerticalAlignment="Center"
-                           />
-            </StackPanel>
-        </Border>
+        <TextBlock Text="{Binding WindowTitle, FallbackValue='MESSAGE TITLE'}" 
+                   FontFamily="Calibri" 
+                   FontWeight="Bold" 
+                   FontSize="26" 
+                   Foreground="#FF000044" 
+                   VerticalAlignment="Center"
+                   />
+      </StackPanel>
+    </Border>
 
         <!--min/max/close buttons-->
     <StackPanel Grid.Row="0" Orientation="Horizontal"
@@ -323,19 +329,19 @@
 
         <!--Content-->
         <Grid Grid.Row="1"
-              Margin="50,10,50,10"
+              Margin="10,5,10,5"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Center"
               >
       <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*"    MinHeight="60" />
+        <RowDefinition Height="Auto" MinHeight="70" />
       </Grid.RowDefinitions>
 
       <Grid Grid.Row="0"  
-            Margin="20"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Center"
+            Margin="5"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
             >
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto" />
@@ -344,18 +350,20 @@
 
         <Image Grid.Column="0" 
                Width="50" 
-               Source="{Binding MessageIcon, UpdateSourceTrigger=PropertyChanged, 
-            PresentationTraceSources.TraceLevel=High}" 
+               Source="{Binding MessageIcon, UpdateSourceTrigger=PropertyChanged}" 
                />
 
-        <TextBox Grid.Column="1" Margin="10" FontSize="24"
+        <TextBox Grid.Column="1" Margin="5" FontSize="24"
+                 HorizontalScrollBarVisibility="Hidden" 
+                 VerticalScrollBarVisibility="Auto" 
+                 VerticalAlignment="Stretch"
                  HorizontalAlignment="Stretch"
                  Background="Transparent"
                  BorderThickness="0"
                  TextWrapping="Wrap"
                  IsReadOnly="True"
                  Text="{Binding MessageText, 
-                    FallbackValue='This is a message which can grow to a size where it can wrap when the window is not wide enough to accommodate it.'}"
+                    FallbackValue='This is a message which can grow in size.'}"
                  />
       </Grid>
 
@@ -368,10 +376,8 @@
 
         <Button Grid.Column="0" Margin="10" Height="50" Width="120" 
                 FontSize="24" 
-                Content="{Binding OkYesButtonText, FallbackValue=OK, 
-            PresentationTraceSources.TraceLevel=High}" 
-                Command="{Binding CmdYesOkCommand, 
-            PresentationTraceSources.TraceLevel=High}"
+                Content="{Binding OkYesButtonText, FallbackValue=OK}" 
+                Command="{Binding CmdYesOkCommand}"
         />
 
         <Button Grid.Column="1" Margin="10" Height="50" Width="120" 
@@ -383,10 +389,8 @@
         <Button Grid.Column="2" Margin="10" Height="50" Width="120" 
                 FontSize="24" 
                 Content="Cancel"
-                Visibility="{Binding CancelButtonVisibility, FallbackValue=Visible, 
-            PresentationTraceSources.TraceLevel=High}"
-                Command="{Binding CmdCancelButton, 
-            PresentationTraceSources.TraceLevel=High}"
+                Visibility="{Binding CancelButtonVisibility, FallbackValue=Visible}"
+                Command="{Binding CmdCancelButton}"
                 />
       </Grid>
         </Grid>

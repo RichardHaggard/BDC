@@ -235,7 +235,7 @@
     <Compile Include="ViewModels\AddSystemViewModel.cs" />
     <Compile Include="ViewModels\CameraViewModel.cs" />
     <Compile Include="Classes\CloseableResultsWindow.cs" />
-    <Compile Include="ViewModels\FatFingerMessageBoxViewModel.cs" />
+    <Compile Include="ViewModels\BdcMessageBoxViewModel.cs" />
     <Compile Include="ViewModels\GeneralCommentViewModel.cs" />
     <Compile Include="Classes\CommentWindows.cs" />
     <Compile Include="ViewModels\CopyCommentViewModel.cs" />
@@ -268,8 +268,8 @@
     <Compile Include="Views\CameraView.xaml.cs">
       <DependentUpon>CameraView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FatFingerMessageBoxView.xaml.cs">
-      <DependentUpon>FatFingerMessageBoxView.xaml</DependentUpon>
+    <Compile Include="Views\BdcMessageBoxView.xaml.cs">
+      <DependentUpon>BdcMessageBoxView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GeneralCommentView.xaml.cs">
       <DependentUpon>GeneralCommentView.xaml</DependentUpon>
@@ -371,7 +371,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FatFingerMessageBoxView.xaml">
+    <Page Include="Views\BdcMessageBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

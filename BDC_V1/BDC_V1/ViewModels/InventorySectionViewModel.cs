@@ -144,7 +144,7 @@ namespace BDC_V1.ViewModels
 
         private void OnDeleteSection()
         {
-            var result = FatFingerMessageBoxView.Show(
+            var result = BdcMessageBoxView.Show(
                 "Do you want to delete this section and related information?",
                 "DELETE SECTION?",
                 MessageBoxButton.OKCancel,

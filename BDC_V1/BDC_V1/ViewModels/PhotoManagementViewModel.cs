@@ -91,7 +91,7 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdAddAllPending()
         {
-            MessageBox.Show("Add All Pending");
+            BdcMessageBoxView.Show("Add All Pending", "NOT IMPLEMENTED");
         }
 
         private void OnCmdCapturePhoto()
@@ -133,7 +133,7 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdRemoveSelected()
         {
-            MessageBox.Show("Remove Selected");
+            BdcMessageBoxView.Show("Remove Selected", "NOT IMPLEMENTED");
         }
 
         private void OnCmdSelectPhoto()
