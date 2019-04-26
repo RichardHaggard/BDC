@@ -12,8 +12,8 @@
              xmlns:forms="http://xamarin.com/schemas/2014/forms"
              xmlns:converters="clr-namespace:BDC_V1.Converters"
              mc:Ignorable="d"
-             MaxHeight="920" MinWidth="880" MaxWidth="1000"
-             d:DesignHeight="820" d:DesignWidth="880">
+             MaxHeight="920" MinWidth="830" MaxWidth="1000"
+             d:DesignHeight="820" d:DesignWidth="830">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="125" />
                 <ColumnDefinition Width="58" />
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="120" />
                 <ColumnDefinition Width="35" />
                 <ColumnDefinition Width="100" />
@@ -49,8 +49,8 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
-                <RowDefinition Height="130" />
-                <RowDefinition Height="130" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
                 <RowDefinition Height="25" /> <!-- Address -->
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
@@ -106,7 +106,7 @@
             <Label 
                 Grid.Row="3"
                 Grid.Column="1"
-                Grid.ColumnSpan="3"
+                Grid.ColumnSpan="4"
                 Style="{StaticResource LabelRO}"
                 Content="{Binding LocalFacilityInfo.ConstType}" />
 
@@ -209,7 +209,8 @@
                 Content="{Binding LocalFacilityInfo.AlternateId}" />
             <Label 
                 Grid.Row="6"
-                Grid.Column="3"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
                 Style="{StaticResource LabelRJ}"
                 Content="Alternate ID Source:" />
             <Label 
@@ -219,6 +220,7 @@
                 Content="{Binding LocalFacilityInfo.AlternateIdSource}" />
 
             <Button Grid.Row="7" Grid.Column="0"
+                    Margin="5,2.5,5,2.5"
                     Style="{DynamicResource ImageClickBlockButtonStyle}"
                     Command="{Binding CmdCommentDoubleClicked}"  
                     CommandParameter="{Binding CommentContainer.SelectedItem}"
@@ -236,6 +238,7 @@
             </Button>
 
             <ListBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
+                     Margin="0,2.5,0,2.5"
                      Name="CommentListBox"
                      Style="{StaticResource CommentBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -272,6 +275,7 @@
             </ListBox>
 
             <Button Grid.Row="8" Grid.Column="0"
+                    Margin="5,2.5,5,2.5"
                     Style="{StaticResource ImageClickBlockButtonStyle}"
                     Command="{Binding CmdImageDoubleClicked}"  
                     CommandParameter="{Binding ImageContainer.SelectedItem}"
@@ -288,6 +292,7 @@
 
             <ListBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
                      Name="ImageListBox"
+                     Margin="0,2.5,0,2.5"
                      Style="{StaticResource ImageBoxStyle}"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -305,6 +310,9 @@
                 <ItemsPanelTemplate>
                   <StackPanel IsItemsHost="True" 
                               Orientation="Horizontal"
+                              CanVerticallyScroll="False"
+                              CanHorizontallyScroll="True"
+                              Margin="0"
                               />
                 </ItemsPanelTemplate>
               </ListBox.ItemsPanel>

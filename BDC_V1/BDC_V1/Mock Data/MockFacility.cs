@@ -305,7 +305,10 @@ namespace BDC_V1.Mock_Data
             {
                 EntryUser = new Person("Brian", "Rupert"),
                 EntryTime = new DateTime(2019, 1, 8, 11, 38, 0),
-                CommentText = "No A20 and D10 systems present. Could not gain access to Supply RM C342."
+                CommentText = "No A20 and D10 systems present. Could not gain access to Supply RM C342." +
+                              "\nLine 2" +
+                              "\nLine 3" +
+                              "\nLine 4"
             });
 
             facility1.Address = new Address

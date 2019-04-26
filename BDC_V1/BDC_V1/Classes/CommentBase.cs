@@ -25,7 +25,7 @@ namespace BDC_V1.Classes
         // **************** Class members *************************************************** //
 
         public override string ToString() =>
-            base.ToString() + " " + CommentText;
+            base.ToString() + ":\n" + CommentText;
 
         public static bool TryParse(string formattedString, out CommentBase results)
         {

@@ -43,20 +43,18 @@ namespace BDC_V1.Classes
             {
                 if (_commentContainer == null)
                 {
-                    var source = CommentContainerSource;
-                    if (source != null)
+                    _commentContainer =
+                        new IndexedCollection<ICommentBase>(
+                            CommentContainerSource ?? new ObservableCollection<ICommentBase>());
+                    _commentContainer.SelectedIndex = _commentContainer
                     {
-                        // ReSharper disable once AssignNullToNotNullAttribute
-                        _commentContainer = new IndexedCollection<ICommentBase>(source)
-                        {
-                            SelectedIndex = 0
-                        };
-                    }
+                        SelectedIndex = 0
+                    };
                 }
 
                 return _commentContainer ?? 
                        // insure we never have a null CommentContainer
-                       new IndexedCollection<ICommentBase>(new List<ICommentBase>());
+                       new IndexedCollection<ICommentBase>(new ObservableCollection<ICommentBase>());
             }
         }
 
@@ -71,7 +69,6 @@ namespace BDC_V1.Classes
                     var source = ImageContainerSource;
                     if (source != null)
                     {
-                        // ReSharper disable once AssignNullToNotNullAttribute
                         _imageContainer = new IndexedCollection<ImageSource>(source)
                         {
                             SelectedIndex = 0

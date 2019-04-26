@@ -56,9 +56,8 @@ namespace BDC_V1.Mock_Data
             {
                 EntryUser = new Person {FirstName = "Jane", LastName = "Doe"},
                 EntryTime = new DateTime(2018, 1, 18, 18, 19, 55),
-                CommentText = "[Jane Doe on 1/18/2018 6:19:55 PM]\nThis unit was in a locked room and not visible.\n" +
+                CommentText = "This unit was in a locked room and not visible.\n" +
                               "(Text box large enough for STAMP on line 1 and at least 3 lines of actual comment.)\n" +
-                              "(Line 2)\n" +
                               "(Line 3)"
             });
 
