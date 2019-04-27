@@ -249,13 +249,17 @@
                   <Setter Property="FontWeight" Value="Normal" />
                   <Setter Property="Background" Value="White"  />
                   <Setter Property="Foreground" Value="Black"  />
-                  <Setter Property="FontSize"   Value="12"     />
+                  <Setter Property="FontSize"   Value="15"     />
 
                   <!-- 
                   Show or hide this node based on the "IsActive" flag of each component 
                   NOTE: A hidden node will also conceal all of it's children
                   -->
                   <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                      <Setter Property="FontWeight" Value="Bold"/>
+                    </Trigger>
+
                     <DataTrigger Binding="{Binding IsActive}" Value="False">
                       <Setter Property="Visibility" Value="Collapsed"/>
                     </DataTrigger>
@@ -277,6 +281,17 @@
                       VirtualizingStackPanel.IsVirtualizing="True"
                       VirtualizingStackPanel.VirtualizationMode="Recycling" 
                       >
+              <TreeView.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                 Color="Yellow" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
+                                 Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                 Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                                 Color="Black" />
+              </TreeView.Resources>
+
               <!-- Sets the style for the top-level (Facility) items only -->
               <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem">
@@ -287,7 +302,7 @@
                   <Setter Property="FontWeight" Value="Bold" />
                   <Setter Property="Background" Value="LightGreen" />
                   <Setter Property="Foreground" Value="Black" />
-                  <Setter Property="FontSize"   Value="14" />
+                  <Setter Property="FontSize"   Value="17" />
 
                   <!-- Set the font color based on the existence of issues -->
                   <Style.Triggers>
