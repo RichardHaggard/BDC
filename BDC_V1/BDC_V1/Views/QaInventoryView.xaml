@@ -14,7 +14,7 @@
     xmlns:classes="clr-namespace:BDC_V1.Classes"
     xmlns:enumerations="clr-namespace:BDC_V1.Enumerations"
     mc:Ignorable="d"
-    MinHeight="400" Width="1000"
+    MinHeight="400" Width="870"
     >
 
   <!-- TODO: Collapse QaInventoryView and QaInspectionView into a single source -->
@@ -163,35 +163,34 @@
             </Button>
          </DockPanel>
 
-        <DockPanel HorizontalAlignment="Right"
-                   LastChildFill="True">
-            <Button ToolTip="Clear Filter" DockPanel.Dock="Left"
-                    Height="75" Width="100" Margin="10,0,10,0"
-                    Command="{Binding CmdClearFilter}"
-                    Style="{StaticResource MaterialDesignRaisedLightButton}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <Image Grid.Row="0" Margin="0,0,0,-10"
-                        Source="/BDC_V1;component/Resources/Filter_Clear (1).png"/>
-                    <Label Grid.Row="1" FontSize="13" FontWeight="Bold">
-                        Clear Filter
-                    </Label>
-                </Grid>
-            </Button>
+        <DockPanel Margin="30,0,0,0" LastChildFill="True">
+          <Button ToolTip="Clear Filter" DockPanel.Dock="Left"
+                  Height="75" Width="100" Margin="10,0,10,0"
+                  Command="{Binding CmdClearFilter}"
+                  Style="{StaticResource MaterialDesignRaisedLightButton}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+              </Grid.RowDefinitions>
+              <Image Grid.Row="0" Margin="0,0,0,-10"
+                     Source="/BDC_V1;component/Resources/Filter_Clear (1).png"/>
+              <Label Grid.Row="1" FontSize="13" FontWeight="Bold">
+                Clear Filter
+              </Label>
+            </Grid>
+          </Button>
 
-            <TextBox Height="75" MinWidth="300"
-                     DockPanel.Dock="Right"
-                     Background="LightYellow"
-                     HorizontalAlignment="Stretch"
-                     HorizontalContentAlignment="Left"
-                     VerticalContentAlignment="Center"
-                     VerticalScrollBarVisibility="Auto"
-                     Style="{StaticResource TextBoxWrap}"
-                     Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
-                />
+          <TextBox Height="75" MinWidth="200" MaxWidth="300"
+                   DockPanel.Dock="Left"
+                   Background="LightYellow"
+                   HorizontalAlignment="Left"
+                   HorizontalContentAlignment="Left"
+                   VerticalContentAlignment="Center"
+                   VerticalScrollBarVisibility="Auto"
+                   Style="{StaticResource TextBoxWrap}"
+                   Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+          />
         </DockPanel>
       </DockPanel>
 
@@ -199,13 +198,12 @@
       <DataGrid Grid.Row="1" Grid.Column="0"
                 MinHeight="250"
                 Height="Auto"
-                Width="945"
+                Width="860"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
                 ColumnHeaderHeight="60"
-                ColumnWidth="100"
                 ColumnHeaderStyle="{StaticResource DataGridColumnHeaderBase}"
                 ItemsSource="{Binding ItemsView}"
                 CanUserSortColumns="True"
@@ -224,34 +222,50 @@
           </MultiBinding>
         </DataGrid.Width>
         -->
+        <DataGrid.Resources>
+          <Style TargetType="{x:Type DataGridCell}">
+            <Style.Triggers>
+              <Trigger Property="DataGridCell.IsSelected" Value="True">
+                <Setter Property="Background" Value="Yellow" />
+                <Setter Property="Foreground" Value="Black" />
+              </Trigger>
+            </Style.Triggers>
+          </Style>
+        </DataGrid.Resources>
+
         <DataGrid.Columns>
           <!-- The header titles must match the EnumSortingFilter descriptions, ignoring leading spaces -->
           <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.FacilityId}, 
                                   Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                   Mode=OneTime}" 
+                              Width="65"
                               Binding="{Binding Path=FacilityId }" />
           <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.SystemId}, 
                                   Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                   Mode=OneTime}"  
+                              Width="68"
                               Binding="{Binding Path=SystemId}" />
           <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.InventoryId}, 
                                   Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                   Mode=OneTime}" 
+                              Width="65"
                               Binding="{Binding Path=ComponentId}" />
           <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.TypeId}, 
                                   Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                   Mode=OneTime}"  
+                              Width="65"
                               Binding="{Binding Path=TypeName}" />
           <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.SectionName}, 
                                   Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                   Mode=OneTime}" 
+                              Width="100"
                               Binding="{Binding Path=SectionName}" />
           <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.InventoryIssue}, 
                                   Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                   Mode=OneTime}"  
                               Binding="{Binding Path=InventoryComment.CommentText}" 
                               MinWidth="250"
-                              Width="445"
+                              Width="497"
           >
             <DataGridTextColumn.ElementStyle>
               <Style>                            

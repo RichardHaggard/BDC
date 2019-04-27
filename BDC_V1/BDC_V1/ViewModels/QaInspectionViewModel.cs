@@ -80,7 +80,7 @@ namespace BDC_V1.ViewModels
                 ComponentId  = "D3020",
                 TypeName     = "D302001",
                 SectionName  = "N/A",
-                Rating       = EnumRatingType.YMinus,
+                Rating       = EnumRatingType.AMinus,
                 InspectionComment = new CommentInspection
                 {
                     EntryUser = new Person(),

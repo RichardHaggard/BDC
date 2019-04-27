@@ -65,12 +65,36 @@ namespace BDC_V1.Mock_Data
 
             foreach (EnumRatingType rating in Enum.GetValues(typeof(EnumRatingType)))
             {
-                if (rating == EnumRatingType.None) continue;
+                switch (rating)
+                {
+                    case EnumRatingType.GPlus:
+                    case EnumRatingType.G:
+                    case EnumRatingType.GMinus:
+                    case EnumRatingType.YPlus:
+                    case EnumRatingType.Y:
+                    case EnumRatingType.YMinus:
+                    case EnumRatingType.RPlus:
+                    case EnumRatingType.R:
+                    case EnumRatingType.RMinus:
+                        Dcrs     .Add(rating.Description());
+                        PcRatings.Add(rating.Description());
+                        break;
 
-                Dcrs     .Add(rating.Description());
-                PcRatings.Add(rating.Description());
+                    case EnumRatingType.None:
+                        break;
+
+                    // 4/19: G:IS51 - Change DCR and P/C Rating amber colors to Yellow. Text becomes Y+, Y, Y-.
+                    case EnumRatingType.APlus:
+                    case EnumRatingType.A:
+                    case EnumRatingType.AMinus:
+                        break;
+#if DEBUG
+                    default:
+                        throw new ArgumentOutOfRangeException();
+#endif
+                }
             }
-            Dcr      = Dcrs[1];
+            Dcr      = Dcrs     [1];
             PcRating = PcRatings[1];
 
             Images.AddRange(new[]

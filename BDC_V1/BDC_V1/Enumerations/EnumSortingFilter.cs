@@ -12,13 +12,13 @@ namespace BDC_V1.Enumerations
     {
         None,
 
-        [Description("Facility ID")]
+        [Description("Fac. ID")]
         FacilityId,
 
-        [Description("System ID")]
+        [Description("System")]
         SystemId,
 
-        [Description("Inventory")]
+        [Description("Comp.")]
         InventoryId,
 
         [Description("Type")]
@@ -27,7 +27,7 @@ namespace BDC_V1.Enumerations
         [Description("Section")]
         SectionName,
 
-        [Description("Rtg.")]
+        [Description("DCR")]
         Rating,
 
         [Description("Inventory Issue")]

@@ -13,7 +13,7 @@
     xmlns:converters="clr-namespace:BDC_V1.Converters"
     xmlns:enumerations="clr-namespace:BDC_V1.Enumerations"
     mc:Ignorable="d"
-    MinHeight="400" Width="1000"
+    MinHeight="400" Width="870"
     >
 
   <!-- TODO: Collapse QaInventoryView and QaInspectionView into a single source -->
@@ -90,6 +90,31 @@
 
     <Style x:Key="DataGridColumnHeaderBase" TargetType="DataGridColumnHeader" 
            BasedOn="{StaticResource DataGridColHeaderBase}">
+      <Setter Property="DataGrid.CellStyle">
+        <Setter.Value>
+          <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+              <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                  <Border Padding="0" Margin="0"
+                          BorderBrush="{TemplateBinding BorderBrush}" 
+                          BorderThickness="{TemplateBinding BorderThickness}" 
+                          Background="{TemplateBinding Background}" 
+                          SnapsToDevicePixels="True"
+                          >
+                    <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}"                                          
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                  </Border>
+                </ControlTemplate>
+              </Setter.Value>
+            </Setter>
+          </Style>
+        </Setter.Value>
+      </Setter>
+
       <Setter Property="ContentTemplate">
         <Setter.Value>
           <DataTemplate>
@@ -180,8 +205,7 @@
             </Button>
          </DockPanel>
 
-        <DockPanel HorizontalAlignment="Right"
-                   LastChildFill="True">
+        <DockPanel Margin="30,0,0,0" LastChildFill="True">
             <Button ToolTip="Clear Filter" DockPanel.Dock="Left"
                     Height="75" Width="100" Margin="10,0,10,0"
                     Command="{Binding CmdClearFilter}"
@@ -199,10 +223,10 @@
                 </Grid>
             </Button>
 
-            <TextBox Height="75" MinWidth="300"
-                     DockPanel.Dock="Right"
+            <TextBox Height="75" MinWidth="200" MaxWidth="300"
+                     DockPanel.Dock="Left"
                      Background="LightYellow"
-                     HorizontalAlignment="Stretch"
+                     HorizontalAlignment="Left"
                      HorizontalContentAlignment="Left"
                      VerticalContentAlignment="Center"
                      VerticalScrollBarVisibility="Auto"
@@ -216,46 +240,63 @@
           <DataGrid Grid.Row="1" Grid.Column="0"
                     MinHeight="250"
                     Height="Auto"
-                    Width="945"
+                    Width="860"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
                     ColumnHeaderHeight="60"
-                    ColumnWidth="100"
                     ColumnHeaderStyle="{StaticResource DataGridColumnHeaderBase}"
                     ItemsSource="{Binding ItemsView}"
                     CanUserSortColumns="True"
                     CanUserResizeColumns="False"
                     GridLinesVisibility="All"
                     AutoGenerateColumns="False"
+                    Padding="0"
           >
+            <DataGrid.Resources>
+              <Style TargetType="{x:Type DataGridCell}">
+                <Style.Triggers>
+                  <Trigger Property="DataGridCell.IsSelected" Value="True">
+                    <Setter Property="Background" Value="Yellow" />
+                    <Setter Property="Foreground" Value="Black" />
+                  </Trigger>
+                </Style.Triggers>
+              </Style>
+            </DataGrid.Resources>
+
             <DataGrid.Columns>
               <!-- The header titles must match the EnumSortingFilter descriptions, ignoring leading spaces -->
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.FacilityId}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
+                                  Width="65"
                                   Binding="{Binding Path=FacilityId }" />
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.SystemId}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
-                                  Binding="{Binding Path=SystemId}"    />
+                                  Width="68"
+                                  Binding="{Binding Path=SystemId}" />
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.InventoryId}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
+                                  Width="65"
                                   Binding="{Binding Path=ComponentId}" />
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.TypeId}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
-                                  Binding="{Binding Path=TypeName}"    />
+                                  Width="65"
+                                  Binding="{Binding Path=TypeName}" />
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.SectionName}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
+                                  Width="100"
                                   Binding="{Binding Path=SectionName}" />
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.Rating}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
-                                  Binding="{Binding Path=RatingText}"  Width="45"
+                                  Binding="{Binding Path=Rating, Converter={StaticResource EnumToDescriptionConverter}}"  
+                                  Width="45"
                                   HeaderStyle="{StaticResource DataGridColumnHeaderRtg}"
                                   ElementStyle="{StaticResource DcrStyle}"
               >
@@ -265,6 +306,12 @@
                             Value="{Binding Path=Rating, 
                               Converter={StaticResource RatingToBrushConverter},
                               Mode=OneWay}" />
+                    <Style.Triggers>
+                      <Trigger Property="DataGridCell.IsSelected" Value="True">
+                        <Setter Property="Background" Value="Yellow" />
+                        <Setter Property="Foreground" Value="Black" />
+                      </Trigger>
+                    </Style.Triggers>
                   </Style>
                 </DataGridTextColumn.CellStyle>
               </DataGridTextColumn>
@@ -273,7 +320,7 @@
                                     Mode=OneTime}" 
                                   Binding="{Binding Path=InspectionComment.CommentText}" 
                                   MinWidth="250"
-                                  Width="400"
+                                  Width="452"
               >
                 <DataGridTextColumn.ElementStyle>
                   <Style>                            

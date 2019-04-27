@@ -420,7 +420,7 @@
             
             <DockPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" >
               <CheckBox DockPanel.Dock="Left"
-                        Content="Add current inspector"
+                        Content="Add current inspection"
                         FontSize="15"
                         Margin="5"
                         IsChecked="{Binding InventorySection.AddCurrentInspector}"
