@@ -313,7 +313,14 @@
                               CanVerticallyScroll="False"
                               CanHorizontallyScroll="True"
                               Margin="0"
-                              />
+                              >
+                    <StackPanel.Resources>
+                      <Style TargetType="{x:Type Image}">
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="VerticalAlignment" Value="Stretch" />
+                      </Style>
+                    </StackPanel.Resources>
+                  </StackPanel>
                 </ItemsPanelTemplate>
               </ListBox.ItemsPanel>
 
@@ -327,6 +334,12 @@
                   </WrapPanel>
                 </DataTemplate>
               </ListBox.ItemTemplate>
+
+              <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                  <Setter Property="Padding" Value="0"/>
+                </Style>
+              </ListBox.ItemContainerStyle>
             </ListBox>
 
             <Label 

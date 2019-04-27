@@ -35,17 +35,17 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="165"/>
                 <RowDefinition Height="130"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -72,7 +72,7 @@
             </StackPanel>
             
             <ComboBox 
-                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="8"
+                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"
                 ItemsSource="{Binding InventorySection.SectionNames}"
                 SelectedItem="{Binding InventorySection.SectionName, Mode=TwoWay}"
                 materialDesign:HintAssist.Hint="Please select a section name..."
@@ -82,7 +82,7 @@
             <Label Grid.Row="1" Grid.Column="0"
                 Content="Equipment Category:"
                 Style="{StaticResource LabelRJ}"/>
-            <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8"
+            <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5"
                 ItemsSource="{Binding InventorySection.EquipmentCategories}"
                 SelectedItem="{Binding InventorySection.EquipmentCategory, Mode=TwoWay}"
                 materialDesign:HintAssist.Hint="Please select an equipment category..."
@@ -92,7 +92,7 @@
             <Label Grid.Row="2" Grid.Column="0"
                 Content="Component Type:"
                 Style="{StaticResource LabelRJ}"/>
-            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"
+            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5"
                 ItemsSource="{Binding InventorySection.ComponentTypes}"
                 SelectedItem="{Binding InventorySection.ComponentType, Mode=TwoWay}"
                 materialDesign:HintAssist.Hint="Please select a component type..."
@@ -106,43 +106,46 @@
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding InventorySection.Quantity}"
                 />
-            <Label Grid.Row="3" Grid.Column="2"
-                Content="EA"
-                Style="{StaticResource LabelLJ}"/>
-            
-            <Button
-                Grid.Row="3" Grid.Column="3"
-                x:Name="btnInc"
-                Background="Transparent"
-                Height="35"
-                Margin="0"
-                Padding="0"
-                Width="35"
-                Command="{Binding CmdIncValue}"
-                Style="{StaticResource btnImageText}"
-                >
-                <Image
-                        Height="{Binding ElementName=btnInc, Path=ActualHeight}"
-                        Source="/BDC_V1;component/Resources/Counter_Add_32.png"
-                        />
-            </Button>
 
-            <Button
-                Grid.Row="3" Grid.Column="4"
-                x:Name="btnDec"
-                Background="Transparent"
-                Height="35"
-                Margin="0"
-                Padding="0"
-                Width="35"
-                Command="{Binding CmdDecValue}"
-                Style="{StaticResource btnImageText}"
-                >
-                <Image
-                        Height="{Binding ElementName=btnDec, Path=ActualHeight}"
-                        Source="/BDC_V1;component/Resources/Counter_Subtract_32.png"
-                        />
-            </Button>
+            <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Orientation="Horizontal">
+              <Label Content="EA"
+                     Style="{StaticResource LabelLJ}"
+              />
+              
+              <Button Margin="10,0,10,0"
+                      Height="30" Width="30" Padding="0"
+                      Background="Transparent"
+                      Command="{Binding CmdIncValue}"
+                      Style="{StaticResource btnImageText}"
+              >
+                <Image Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                       Stretch="UniformToFill"
+                       Source="/BDC_V1;component/Resources/Counter_Add_32.png" />
+                <!--
+                <Image Height="{Binding ElementName=btnInc, Path=ActualHeight}"
+                         Stretch="UniformToFill"
+                         Source="/BDC_V1;component/Resources/Counter_Add_32.png"
+                  />
+                -->
+              </Button>
+
+              <Button Margin="10,0,10,0"
+                      Height="30" Width="30" Padding="0"
+                      Background="Transparent"
+                      Command="{Binding CmdDecValue}"
+                      Style="{StaticResource btnImageText}"
+              >
+                <Image Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                       Stretch="UniformToFill"
+                       Source="/BDC_V1;component/Resources/Counter_Subtract_32.png" />
+                <!--
+                  <Image Height="{Binding ElementName=btnDec, Path=ActualHeight}"
+                         Stretch="UniformToFill"
+                         Source="/BDC_V1;component/Resources/Counter_Subtract_32.png"
+                  />
+                -->
+              </Button>
+            </StackPanel>
 
             <Label Grid.Row="3" Grid.Column="5"
                 Content="Select"
@@ -150,70 +153,70 @@
             <Button
                 Grid.Row="3" Grid.Column="6"
                 Content="G.S.F."
-                Margin="5"
                 Padding="0"
-                Width="90"
+                Height="30" Width="90"
+                Margin="5,0,5,0"
                 Style="{StaticResource btnImageText}"
                 />
             <Button
                 Grid.Row="3" Grid.Column="7"
                 Content="Footprint"
-                Margin="5"
                 Padding="0"
-                Width="90"
+                Height="30" Width="90"
+                Margin="5,0,5,0"
                 Style="{StaticResource btnImageText}"
                 />
             <Button
                 Grid.Row="3" Grid.Column="8"
                 Content="Perimeter"
-                Margin="5"
                 Padding="0"
-                Width="90"
+                Height="30" Width="90"
+                Margin="5,0,5,0"
                 Style="{StaticResource btnImageText}"
                 />
 
             <Label Grid.Row="4" Grid.Column="0"
                 Content="Year Installed/Renewed:"
                 Style="{StaticResource LabelRJ}"/>
-            <TextBox
-                Grid.Row="4" Grid.Column="1"
-                FontSize="15"
-                Height="30"
-                HorizontalAlignment="Left"
-                Margin="5"
-                VerticalContentAlignment="Center"
-                Width="50"
-                Text="{Binding InventorySection.YearInstalledRenewed}"
-                >
-                <TextBox.Style>
-                    <Style TargetType="TextBox">
-                        <Setter Property="Background" Value="White" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=CheckboxEstimated, Path=IsChecked}" Value="True">
-                                <Setter Property="Background" Value="Yellow" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
 
-            <CheckBox Name="CheckboxEstimated"
-                Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"
-                FontSize="15"
-                Content="Estimated"
-                IsChecked="{Binding Estimated}"  
-                />
+            <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+              <TextBox
+                  FontSize="15"
+                  Height="30" Width="50" Margin="5"
+                  HorizontalAlignment="Left"
+                  VerticalContentAlignment="Center"
+                  Text="{Binding InventorySection.YearInstalledRenewed}"
+              >
+                  <TextBox.Style>
+                      <Style TargetType="TextBox">
+                          <Setter Property="Background" Value="White" />
+                          <Style.Triggers>
+                              <DataTrigger Binding="{Binding ElementName=CheckboxEstimated, Path=IsChecked}" Value="True">
+                                  <Setter Property="Background" Value="Yellow" />
+                              </DataTrigger>
+                          </Style.Triggers>
+                      </Style>
+                  </TextBox.Style>
+              </TextBox>
 
+              <CheckBox Name="CheckboxEstimated"
+                        FontSize="15"
+                        Content="Estimated"
+                        Margin="20,5,5,5"
+                        IsChecked="{Binding Estimated}"  
+              />
+            </StackPanel>
+<!--
             <Label Grid.Row="5" Grid.Column="0" 
                 Content="Functional Area:"
                 Style="{StaticResource LabelRJ}"/>
-            <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"
+            <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
                       ItemsSource="{Binding FunctionalArea}"
                       SelectedItem="{Binding FunctionalArea.SelectedItem, Mode=TwoWay}"
                       materialDesign:HintAssist.Hint="Please select a functional area..."
                       Style="{StaticResource ComboBase}"
                       />
-
+-->
             <Label 
                 Grid.Row="6" Grid.Column="0"
                 Content="NOT Energy Efficient:"
@@ -256,7 +259,7 @@
                 Style="{StaticResource LabelRJ}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
-            <ComboBox Grid.Row="7" Grid.Column="6" Grid.ColumnSpan="3"
+            <ComboBox Grid.Row="7" Grid.Column="6" Grid.ColumnSpan="2"
                 Text="{Binding InventorySection.PcType}"
                 ItemsSource="{Binding InventorySection.PcTypes}"
                 SelectedItem="{Binding InventorySection.PcType, Mode=TwoWay}"
@@ -386,6 +389,12 @@
                         </WrapPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+
+              <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                  <Setter Property="Padding" Value="0"/>
+                </Style>
+              </ListBox.ItemContainerStyle>
             </ListBox>
 
 
@@ -403,7 +412,7 @@
             
             <CheckBox 
                 Grid.Row="10" Grid.Column="0" 
-                Content="Add current inspection"
+                Content="Add current inspector"
                 FontSize="15"
                 Margin="5"
                 IsChecked="{Binding InventorySection.AddCurrentInspector}"
@@ -445,82 +454,79 @@
                 Style="{StaticResource ComboBase}"
                 />
 
-            <StackPanel
+            <Button 
                 Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
-                Orientation="Horizontal"
+                Command="{Binding CmdCancelEdit}"
+                HorizontalAlignment="Left"
+                Style="{StaticResource btnImageText}"
                 >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <Button 
-                    Command="{Binding CmdCancelEdit}"
-                    HorizontalAlignment="Left"
-                    Margin="5,5,15,5"
-                    Style="{StaticResource btnImageText}"
-                    >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Image
+                    <Image
                             Grid.Column="0" 
                             Height="20"
                             Source="/BDC_V1;component/Resources/Cancel_Undo.png"
                             />
-                        <Label 
+                    <Label 
                             Grid.Column="1"
                             Content="Cancel Edit" 
+                            Foreground="Red" 
                             Style="{StaticResource lblText}" />
-                    </Grid>
-                </Button>
+                </Grid>
+            </Button>
 
-                <Button 
-                    Margin="15,5"
-                    Command="{Binding CmdDeleteSection}"
-                    Style="{StaticResource btnImageText}"
-                    >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image
+            <Button 
+                Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
+                HorizontalAlignment="Center"
+                Command="{Binding CmdDeleteSection}"
+                Style="{StaticResource btnImageText}"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
                             Grid.Column="0" 
                             Height="20"
                             Source="/BDC_V1;component/Resources/Delete.png"
                             />
-                        <Label 
+                    <Label 
                             Grid.Column="1"
                             Content="Delete Section"
                             Foreground="Red" 
                             Style="{StaticResource lblText}" />
-                    </Grid>
-                </Button>
+                </Grid>
+            </Button>
 
 
-                <Button 
-                    Margin="15,5"
-                    Command="{Binding CmdAddSection}"
-                    Style="{StaticResource btnImageText}"
-                    >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image
+            <Button 
+                Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
+                HorizontalAlignment="Right"
+                Command="{Binding CmdAddSection}"
+                Style="{StaticResource btnImageText}"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
                         Grid.Column="0" 
                         Height="20"
                         Source="/BDC_V1;component/Resources/Add.png"
                         />
-                        <Label 
+                    <Label 
                             Grid.Column="1"
                             Content="Add Section"
                             Foreground="#00B050" 
                             Style="{StaticResource lblText}" />
-                    </Grid>
-                </Button>
-            </StackPanel>
+                </Grid>
+            </Button>
 
         </Grid>
     </ScrollViewer>

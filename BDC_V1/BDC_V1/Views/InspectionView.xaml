@@ -826,6 +826,12 @@
                         </WrapPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+
+              <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                  <Setter Property="Padding" Value="0"/>
+                </Style>
+              </ListBox.ItemContainerStyle>
             </ListBox>
 
 
@@ -856,6 +862,7 @@
                         <Label 
                 Grid.Column="1"
                 Content="Cancel Edit" 
+                Foreground="Red" 
                 Style="{StaticResource lblText}" />
                     </Grid>
                 </Button>

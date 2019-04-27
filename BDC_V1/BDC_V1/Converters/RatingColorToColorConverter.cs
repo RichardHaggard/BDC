@@ -44,9 +44,9 @@ namespace BDC_V1.Converters
                 switch (ratingColor)
                 {
                     case EnumRatingColors.None:   return Colors.White;
-                    case EnumRatingColors.Green:  return Colors.Green;
+                    case EnumRatingColors.Green:  return Colors.LightGreen;
                     case EnumRatingColors.Yellow: return Colors.Yellow;
-                    case EnumRatingColors.Amber:  return Color.FromRgb(0xcf, 0x8f, 0x00);
+                    case EnumRatingColors.Amber:  return Color.FromRgb(0xff, 0xbf, 0x00);
                     case EnumRatingColors.Red:    return Colors.Red;
                     default: break;
                 }
