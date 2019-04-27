@@ -29,17 +29,17 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="130" />
-                <RowDefinition Height="130" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
                 <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -64,7 +64,7 @@
                 Content="Current Section:"
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
-                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
+                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                 Background="LightYellow"
                 IsReadOnly="True"
                 Margin="5,0,5,0"
@@ -285,10 +285,7 @@
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                      Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
-                    <Label Content="Detail"
-                     Style="{StaticResource ImageClickBlockTextStyle}" />
-                    <Label Content="Comment"
-                     VerticalContentAlignment="Top"
+                    <Label Content="Detail Comment"
                      Style="{StaticResource ImageClickBlockTextStyle}" />
                 </StackPanel>
             </Button>
@@ -326,10 +323,12 @@
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
                         Style="{StaticResource ImageClickBlockImageStyle}"/>
-                    <Label Content="Photo(s)"
-                        Style="{StaticResource ImageClickBlockTextStyle}" />
-                    <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
-                        Style="{StaticResource ImageClickBlockTextStyle}" />
+                    <StackPanel Orientation="Horizontal">
+                      <Label Content="Photo(s)"
+                          Style="{StaticResource ImageClickBlockTextStyle}" />
+                      <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
+                          Style="{StaticResource ImageClickBlockTextStyle}" />
+                    </StackPanel>
                 </StackPanel >
             </Button>
 

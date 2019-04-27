@@ -229,10 +229,7 @@
                   <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                          Margin="12,0,0,0"
                          Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
-                  <Label Content="Facility"
-                         Style="{StaticResource ImageClickBlockTextStyle}" />
-                  <Label Content="Comment"
-                         VerticalContentAlignment="Top"
+                  <Label Content="Facility Comment"
                          Style="{StaticResource ImageClickBlockTextStyle}" />
               </StackPanel>
             </Button>
@@ -283,10 +280,12 @@
               <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                   <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
                          Style="{StaticResource ImageClickBlockImageStyle}"/>
-                  <Label Content="Photo(s)"
-                         Style="{StaticResource ImageClickBlockTextStyle}" />
-                  <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
-                         Style="{StaticResource ImageClickBlockTextStyle}" />
+                  <StackPanel Orientation="Horizontal">
+                    <Label Content="Photo(s)"
+                           Style="{StaticResource ImageClickBlockTextStyle}" />
+                    <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
+                           Style="{StaticResource ImageClickBlockTextStyle}" />
+                  </StackPanel>
               </StackPanel >
             </Button>
 

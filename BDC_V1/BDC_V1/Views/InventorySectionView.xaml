@@ -22,7 +22,7 @@
                 VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="170" />
                 <ColumnDefinition Width="130" />
                 <ColumnDefinition Width="130" />
                 <ColumnDefinition Width="50" />
@@ -35,7 +35,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="45"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -43,8 +43,8 @@
                 <RowDefinition Height="0"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="165"/>
-                <RowDefinition Height="130"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
@@ -72,7 +72,7 @@
             </StackPanel>
             
             <ComboBox 
-                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"
+                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="8"
                 ItemsSource="{Binding InventorySection.SectionNames}"
                 SelectedItem="{Binding InventorySection.SectionName, Mode=TwoWay}"
                 materialDesign:HintAssist.Hint="Please select a section name..."
@@ -147,33 +147,28 @@
               </Button>
             </StackPanel>
 
-            <Label Grid.Row="3" Grid.Column="5"
-                Content="Select"
-                Style="{StaticResource LabelRJ}"/>
-            <Button
-                Grid.Row="3" Grid.Column="6"
-                Content="G.S.F."
-                Padding="0"
-                Height="30" Width="90"
-                Margin="5,0,5,0"
-                Style="{StaticResource btnImageText}"
-                />
-            <Button
-                Grid.Row="3" Grid.Column="7"
-                Content="Footprint"
-                Padding="0"
-                Height="30" Width="90"
-                Margin="5,0,5,0"
-                Style="{StaticResource btnImageText}"
-                />
-            <Button
-                Grid.Row="3" Grid.Column="8"
-                Content="Perimeter"
-                Padding="0"
-                Height="30" Width="90"
-                Margin="5,0,5,0"
-                Style="{StaticResource btnImageText}"
-                />
+            <StackPanel Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="4" Orientation="Horizontal">
+              <Label Content="Select"
+                     Style="{StaticResource LabelRJ}"/>
+              <Button Content="G.S.F."
+                      Padding="0"
+                      Height="30" Width="90"
+                      Margin="5,0,5,0"
+                      Style="{StaticResource btnImageText}"
+                      />
+              <Button Content="Footprint"
+                      Padding="0"
+                      Height="30" Width="90"
+                      Margin="5,0,5,0"
+                      Style="{StaticResource btnImageText}"
+                      />
+              <Button Content="Perimeter"
+                      Padding="0"
+                      Height="30" Width="90"
+                      Margin="5,0,5,0"
+                      Style="{StaticResource btnImageText}"
+                      />
+            </StackPanel>
 
             <Label Grid.Row="4" Grid.Column="0"
                 Content="Year Installed/Renewed:"
@@ -270,29 +265,33 @@
 
             <Grid Grid.Row="8" Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="100" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Button Grid.Row="0" Grid.Column="0"
-                        Height="100" Width="180" Margin="5"
+                        Margin="0,5,0,5"
+                        Height="90"
                         Style="{DynamicResource FacilityBlockButtonStyle}"
                         Command="{Binding CmdCommentDoubleClicked}"  
                         CommandParameter="{Binding CommentContainer.SelectedItem}"
                   >
                     <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                         <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
-                         Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
+                               Margin="0"
+                               Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
                         <Label Content="Section Comment"
-                         Style="{StaticResource ImageClickBlockTextStyle}" />
+                               Margin="0"
+                               Style="{StaticResource ImageClickBlockTextStyle}" />
                     </StackPanel>
                 </Button>
 
                 <!-- Remember -->
-                <Border Grid.Row="2"
-                      Grid.Column="0"
-                      Style="{StaticResource BorderBlue}">
+                <Border Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="5,0,5,5"
+                        Height="45"
+                        Style="{StaticResource BorderBlue}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -307,10 +306,10 @@
                             Style="{StaticResource cbBase}"
                             IsChecked="{Binding IsRemembered}" />
                         <Image Grid.Column="1"
-                         Margin="5,2,5,2"
-                         Height="40"
-                         Source="/BDC_V1;component/Resources/Remember (1).png"
-                         Width="35" />
+                               Margin="5,0,5,0"
+                               Height="40"
+                               Source="/BDC_V1;component/Resources/Remember (1).png"
+                               Width="35" />
                     </Grid>
                 </Border>
             </Grid>
@@ -341,7 +340,6 @@
             </ListBox>
 
             <Button Grid.Row="9" Grid.Column="0"
-                    Width="180"
                     Style="{StaticResource ImageClickBlockButtonStyle}"
                     Command="{Binding CmdImageDoubleClicked}"  
                     CommandParameter="{Binding ImageContainer.SelectedItem}"
@@ -349,10 +347,12 @@
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
                         Style="{StaticResource ImageClickBlockImageStyle}"/>
-                    <Label Content="Photo(s)"
-                        Style="{StaticResource ImageClickBlockTextStyle}" />
-                    <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
-                        Style="{StaticResource ImageClickBlockTextStyle}" />
+                    <StackPanel Orientation="Horizontal">
+                      <Label Content="Photo(s)"
+                          Style="{StaticResource ImageClickBlockTextStyle}" />
+                      <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
+                          Style="{StaticResource ImageClickBlockTextStyle}" />
+                    </StackPanel>
                 </StackPanel>
             </Button>
 
@@ -410,22 +410,27 @@
                 BorderBrush="Transparent"
                 />
             
-            <CheckBox 
-                Grid.Row="10" Grid.Column="0" 
-                Content="Add current inspector"
-                FontSize="15"
-                Margin="5"
-                IsChecked="{Binding InventorySection.AddCurrentInspector}"
-                />
-            <Label Grid.Row="10" Grid.Column="1" 
-                Content="Date:"
-                Style="{StaticResource LabelRJ}"
-                />
-            <DatePicker 
-                Grid.Row="10" Grid.Column="2" 
-                Style="{StaticResource dpBase}"
-                Text="{Binding InventorySection.Date}"
-                />
+            <DockPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" >
+              <CheckBox DockPanel.Dock="Left"
+                        Content="Add current inspector"
+                        FontSize="15"
+                        Margin="5"
+                        IsChecked="{Binding InventorySection.AddCurrentInspector}"
+                        />
+
+              <DockPanel Margin="15,0,0,0" DockPanel.Dock="Right">
+                  <Label HorizontalAlignment="Right" DockPanel.Dock="Left"
+                         Content="Date:"
+                         Style="{StaticResource LabelRJ}"
+                         />
+
+                    <DatePicker DockPanel.Dock="Right"
+                      Style="{StaticResource dpBase}"
+                      Text="{Binding InventorySection.Date}"
+                    />
+              </DockPanel>
+            </DockPanel>
+
             <Label 
                 Grid.Row="10" Grid.Column="3"
                 Content="DCR:"
@@ -474,7 +479,7 @@
                     <Label 
                             Grid.Column="1"
                             Content="Cancel Edit" 
-                            Foreground="Red" 
+                            Foreground="Black" 
                             Style="{StaticResource lblText}" />
                 </Grid>
             </Button>

@@ -273,21 +273,6 @@
            BasedOn="{StaticResource ImageClickBlockButtonStyle}">
             <Setter Property="Width" Value="160" />
         </Style>
-
-        <Style x:Key="BtnStatusBase" TargetType="ToggleButton"
-           >
-            <!--     BasedOn="{StaticResource MaterialDesignRaisedLightButton}"> -->
-            <Setter Property="Margin" Value="5" />
-        </Style>
-
-        <Style x:Key="TextBoxWrapNoMO" TargetType="TextBox" BasedOn="{StaticResource TextBoxWrap}">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="BorderThickness" Value="0" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
         
     </UserControl.Resources>
 
@@ -295,37 +280,22 @@
                 VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="5"    />
-                <!--  0 - white space at top -->
-                <RowDefinition Height="40"   />
-                <!--  1 - Component -->
-                <RowDefinition Height="40"   />
-                <!--  2 - Equip/Mat -->
-                <RowDefinition Height="40"   />
-                <!--  3 - Component Type -->
-                <RowDefinition Height="40"   />
-                <!--  4 - Section Quantity -->
-                <RowDefinition Height="Auto" />
-                <!--  5 - Inspection Date -->
-                <RowDefinition Height="Auto" />
-                <!--  6 - Painted & Direct -->
-                <RowDefinition Height="40"   />
-                <!--  7 - Note -->
-                <RowDefinition Height="100"  />
-                <!--  8 - Inspection Comment -->
+                <RowDefinition Height="5"    /> <!--  0 - white space at top -->
+                <RowDefinition Height="40"   /> <!--  1 - Component -->
+                <RowDefinition Height="40"   /> <!--  2 - Equip/Mat -->
+                <RowDefinition Height="40"   /> <!--  3 - Component Type -->
+                <RowDefinition Height="40"   /> <!--  4 - Section Quantity -->
+                <RowDefinition Height="Auto" /> <!--  5 - Inspection Date -->
+                <RowDefinition Height="Auto" /> <!--  6 - Painted & Direct -->
+                <RowDefinition Height="40"   /> <!--  7 - Note -->
+                <RowDefinition Height="90"   /> <!--  8 - Inspection Comment -->
                 <!-- TODO: Merge this style with the InventorySection -->
-                <RowDefinition Height="5"    />
-                <!--  9 - white space -->
-                <RowDefinition Height="55"   />
-                <!-- 10 - Remember -->
-                <RowDefinition Height="130"  />
-                <!-- 11 - Inspection Photos -->
-                <RowDefinition Height="10"   />
-                <!-- 12 - white space -->
-                <RowDefinition Height="60"   />
-                <!-- 13 - Action Buttons -->
-                <RowDefinition Height="5"    />
-                <!-- 14 - white space at bottom -->
+                <RowDefinition Height="5"    /> <!--  9 - white space -->
+                <RowDefinition Height="45"   /> <!-- 10 - Remember -->
+                <RowDefinition Height="100"  /> <!-- 11 - Inspection Photos -->
+                <RowDefinition Height="10"   /> <!-- 12 - white space -->
+                <RowDefinition Height="60"   /> <!-- 13 - Action Buttons -->
+                <RowDefinition Height="5"    /> <!-- 14 - white space at bottom -->
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -786,10 +756,12 @@
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
                       Style="{StaticResource ImageClickBlockImageStyle}"/>
-                    <Label Content="Photo(s)"
-                      Style="{StaticResource ImageClickBlockTextStyle}" />
-                    <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
-                      Style="{StaticResource ImageClickBlockTextStyle}" />
+                    <StackPanel Orientation="Horizontal">
+                      <Label Content="Photo(s)"
+                        Style="{StaticResource ImageClickBlockTextStyle}" />
+                      <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
+                        Style="{StaticResource ImageClickBlockTextStyle}" />
+                    </StackPanel>
                 </StackPanel >
             </Button>
 
