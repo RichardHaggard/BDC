@@ -297,19 +297,19 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="5"    />
                 <!--  0 - white space at top -->
-                <RowDefinition Height="40"   />
+                <RowDefinition Height="30"   />
                 <!--  1 - Component -->
-                <RowDefinition Height="40"   />
+                <RowDefinition Height="30"   />
                 <!--  2 - Equip/Mat -->
-                <RowDefinition Height="40"   />
+                <RowDefinition Height="30"   />
                 <!--  3 - Component Type -->
-                <RowDefinition Height="40"   />
+                <RowDefinition Height="30"   />
                 <!--  4 - Section Quantity -->
                 <RowDefinition Height="Auto" />
                 <!--  5 - Inspection Date -->
                 <RowDefinition Height="Auto" />
                 <!--  6 - Painted & Direct -->
-                <RowDefinition Height="40"   />
+                <RowDefinition Height="30"   />
                 <!--  7 - Note -->
                 <RowDefinition Height="100"  />
                 <!--  8 - Inspection Comment -->
@@ -837,17 +837,17 @@
 
             <!-- Action Buttons -->
             <StackPanel 
-        Grid.Row="13"
-        Grid.Column="0"
-        Grid.ColumnSpan="4"
-        Orientation="Horizontal"
-        Grid.RowSpan="1">
+                Grid.Row="13"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                Orientation="Horizontal"
+                Grid.RowSpan="1">
 
                 <Button 
-        Width="160"
-        Command="{Binding CmdCancelEdit}"
-        Style="{StaticResource btnImageText}"
-        >
+                    Width="160"
+                    Command="{Binding CmdCancelEdit}"
+                    Style="{StaticResource btnImageText}"
+                    >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -855,23 +855,22 @@
                         </Grid.ColumnDefinitions>
 
                         <Image
-                Grid.Column="0" 
-                Height="20"
-                Source="/BDC_V1;component/Resources/Cancel_Undo (1).png"
-                />
+                            Grid.Column="0" 
+                            Height="20"
+                            Source="/BDC_V1;component/Resources/Cancel_Undo (1).png"
+                            />
                         <Label 
-                Grid.Column="1"
-                Content="Cancel Edit" 
-                Foreground="Red" 
-                Style="{StaticResource lblText}" />
+                            Grid.Column="1"
+                            Content="Cancel Edit" 
+                            Style="{StaticResource lblText}" />
                     </Grid>
                 </Button>
 
                 <Button 
-          Width="160"
-        Command="{Binding CmdDeleteInspection}"
-        Style="{StaticResource btnImageText}"
-        >
+                    Width="160"
+                    Command="{Binding CmdDeleteInspection}"
+                    Style="{StaticResource btnImageText}"
+                    >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -879,15 +878,15 @@
                         </Grid.ColumnDefinitions>
 
                         <Image
-                Grid.Column="0" 
-                Height="20"
-                Source="/BDC_V1;component/Resources/Delete.png"
-                />
+                            Grid.Column="0" 
+                            Height="20"
+                            Source="/BDC_V1;component/Resources/Delete.png"
+                            />
                         <Label 
-                Grid.Column="1"
-                Content="Delete Inspection"
-                Foreground="Red" 
-                Style="{StaticResource lblText}" />
+                            Grid.Column="1"
+                            Content="Delete Inspection"
+                            Foreground="Red" 
+                            Style="{StaticResource lblText}" />
                     </Grid>
                 </Button>
             </StackPanel>

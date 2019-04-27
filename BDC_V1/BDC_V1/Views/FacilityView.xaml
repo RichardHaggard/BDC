@@ -12,8 +12,7 @@
              xmlns:forms="http://xamarin.com/schemas/2014/forms"
              xmlns:converters="clr-namespace:BDC_V1.Converters"
              mc:Ignorable="d"
-             MaxHeight="920" MinWidth="830" MaxWidth="1000"
-             d:DesignHeight="820" d:DesignWidth="830">
+             d:DesignHeight="640" d:DesignWidth="800">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -23,7 +22,7 @@
 
     <UserControl.Resources>
       <converters:DiagnosticConverter x:Key="DiagnosticConverter" />
-                                      
+
     </UserControl.Resources>
 
   <ScrollViewer HorizontalScrollBarVisibility="Auto"
@@ -43,31 +42,30 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" /> <!-- Identity -->
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="25" /> <!-- Address -->
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
                 <RowDefinition Height="25" /> <!-- Point of Contact -->
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
                 <RowDefinition Height="*" /> <!-- make room for the scroll bar -->
             </Grid.RowDefinitions>
 
             <Label 
                 Grid.Row="0"
                 Grid.Column="0"
-                Margin="0,0,0,36"
                 Style="{StaticResource LabelBold}"
-                Content="Identity" Grid.RowSpan="2" />
+                Content="Identity"/>
 
             <Label 
                 Grid.Row="1"
@@ -343,20 +341,18 @@
             </ListBox>
 
             <Label 
-            Grid.Row="9"
-            Grid.Column="0"
-            Margin="0,0,0,36"
-            Style="{StaticResource LabelBold}"
-            Content="Address" Grid.RowSpan="2" />
+                Grid.Row="9" Grid.Column="0"
+                Content="Address" 
+                Style="{StaticResource LabelBold}"
+                />
 
             <Label 
-                Grid.Row="10"
-                 Grid.Column="0"
-                 Style="{StaticResource LabelRJ}"
-                 Content="Street:" />
+                Grid.Row="10" Grid.Column="0"
+                Content="Street:" 
+                Style="{StaticResource LabelRJ}"
+                />
             <Label 
-                Grid.Row="10"
-                Grid.Column="1"
+                Grid.Row="10" Grid.Column="1"
                 Grid.ColumnSpan="4"
                 Style="{StaticResource LabelRO}"
                 Content="{Binding LocalFacilityInfo.Address.Street1}" />
@@ -364,8 +360,9 @@
             <Label 
                 Grid.Row="11"
                 Grid.Column="0"
+                Content="City:" 
                 Style="{StaticResource LabelRJ}"
-                Content="City:" />
+                />
             <Label 
                 Grid.Row="11"
                 Grid.Column="1"
@@ -376,8 +373,9 @@
             <Label 
                 Grid.Row="12"
                 Grid.Column="0"
+                Content="State/Prov:" 
                 Style="{StaticResource LabelRJ}"
-                Content="State/Prov:" />
+                />
             <Label 
                 Grid.Row="12"
                 Grid.Column="1"
@@ -386,9 +384,10 @@
                 Content="{Binding LocalFacilityInfo.Address.State}" />
             <Label 
                 Grid.Row="12"
-                Grid.Column="3"
+                Grid.Column="2" Grid.ColumnSpan="2"
+                Content="ZIP/Postal Code:" 
                 Style="{StaticResource LabelRJ}"
-                Content="ZIP/Postal Code:" />
+                />
             <Label 
                 Grid.Row="12"
                 Grid.Column="4"
@@ -399,10 +398,10 @@
 
             <Label 
                 Grid.Row="13"
-                Grid.Column="0"
-                Margin="0,0,0,36"
+                Grid.Column="0" Grid.ColumnSpan="2"
+                Content="Point of Contact" 
                 Style="{StaticResource LabelBold}"
-                Content="Point of Contact" Grid.RowSpan="2" />
+                />
 
             <Label 
                 Grid.Row="14"
@@ -419,8 +418,9 @@
             <Label 
                 Grid.Row="15"
                 Grid.Column="0"
+                Content="Phone:" 
                 Style="{StaticResource LabelRJ}"
-                Content="Phone:" />
+                />
             <Label 
                 Grid.Row="15"
                 Grid.Column="1"
@@ -431,8 +431,9 @@
             <Label 
                 Grid.Row="16"
                 Grid.Column="0"
+                Content="E-Mail:"
                 Style="{StaticResource LabelRJ}"
-                Content="E-Mail:" />
+                />
             <Label 
                 Grid.Row="16"
                 Grid.Column="1"
