@@ -19,9 +19,9 @@
 
 
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding ViewActivated}" />
-        </i:EventTrigger>
+      <i:EventTrigger EventName="Loaded">
+        <i:InvokeCommandAction Command="{Binding ViewActivated}" />
+      </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto"
@@ -99,8 +99,7 @@
             <ComboBox
                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
                 ItemsSource="{Binding InventoryDetails.DetailSelectors}"
-                SelectedItem="{Binding InventoryDetails.DetailSelector}"
-                SelectedIndex="{Binding InventoryDetails.DetailSelectedIndex, Mode=TwoWay}"
+                SelectedItem="{Binding InventoryDetails.DetailSelector, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 />
             <Button
@@ -175,10 +174,11 @@
                 Grid.Row="4" Grid.Column="1" 
                 IsEditable="True"
                 ItemsSource="{Binding InventoryDetails.Manufacturers}"
-                SelectedItem="{Binding InventoryDetails.Manufacturer, Mode=TwoWay}"
+                SelectedItem="{Binding InventoryDetails.Manufacturers.SelectedItem}"
                 Style="{StaticResource ComboBase}" 
                 Text="{Binding ManufacturerUserEntered, UpdateSourceTrigger=LostFocus}"
-                />
+                >
+            </ComboBox>
             <Label
                 Grid.Row="4" Grid.Column="2" 
                 Content="Capacity:"
@@ -206,7 +206,7 @@
                 Grid.Row="5" Grid.Column="3" 
                 IsEditable="True"
                 ItemsSource="{Binding InventoryDetails.EquipmentMakes}"
-                SelectedIndex="{Binding InventoryDetails.EquipmentMake, Mode=TwoWay}"
+                SelectedIndex="{Binding InventoryDetails.EquipmentMakes.SelectedItem}"
                 Style="{StaticResource ComboBase}"
                 Text="{Binding EquipmentMakeUserEntered, UpdateSourceTrigger=LostFocus}"
                 />

@@ -35,17 +35,45 @@ namespace BDC_V1.Classes
         /// </summary>
         protected readonly PropertyBaseHelper PBase;
 
+        ///// <summary>
+        ///// prevent control initialization from resetting the index
+        ///// </summary>
+        //public bool FreezeIndex
+        //{
+        //    get => _freezeIndex;
+        //    set
+        //    {
+        //        PBase.SetProperty(ref _freezeIndex, value, nameof(FreezeIndex));
+
+        //        // try raising these each time Freeze is set
+        //        PBase.RaisePropertyChanged(new[]
+        //        {
+        //            nameof(SelectedIndex),
+        //            nameof(SelectedItem)
+        //        });
+        //    }
+        //}
+        //private bool _freezeIndex;
+
         public int SelectedIndex
         {
             get => _selectedIndex;
-            set => PBase.SetProperty(
-                ref _selectedIndex,
-                Math.Max(-1, Math.Min(base.Count - 1, value)),
-                new[]
+            set
+            {
+                // prevent control initialization from resetting the index
+                //if (!FreezeIndex)
+                if (true)
                 {
-                    nameof(SelectedIndex),
-                    nameof(SelectedItem)
-                });
+                    PBase.SetProperty(
+                        ref _selectedIndex,
+                        Math.Max(-1, Math.Min(base.Count - 1, value)),
+                        new[]
+                        {
+                            nameof(SelectedIndex),
+                            nameof(SelectedItem)
+                        });
+                }
+            }
         }
         private int _selectedIndex = -1;
 
@@ -58,18 +86,22 @@ namespace BDC_V1.Classes
 
             set
             {
-                var index = ((value != null) && Contains(value))
-                    ? IndexOf(value)
-                    : -1;
+                //if (!FreezeIndex)
+                if (true)
+                {
+                    var index = ((value != null) && Contains(value))
+                        ? IndexOf(value)
+                        : -1;
 
-                PBase.SetProperty(
-                    ref _selectedIndex,
-                    Math.Max(-1, Math.Min(base.Count - 1, index)),
-                    new[]
-                    {
-                        nameof(SelectedIndex),
-                        nameof(SelectedItem)
-                    });
+                    PBase.SetProperty(
+                        ref _selectedIndex,
+                        Math.Max(-1, Math.Min(base.Count - 1, index)),
+                        new[]
+                        {
+                            nameof(SelectedIndex),
+                            nameof(SelectedItem)
+                        });
+                }
             }
         }
 

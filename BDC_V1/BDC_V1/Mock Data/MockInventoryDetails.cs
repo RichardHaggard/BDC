@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
+using BDC_V1.Utils;
 
 namespace BDC_V1.Mock_Data
 {
@@ -28,27 +29,27 @@ namespace BDC_V1.Mock_Data
 
             SerialNumber = "";
 
-            Manufacturers.AddRange(new []
+            Manufacturers.Collection.AddRange(new []
             {
                 "GE",
                 "Westinghouse",
                 "Craftsman",
                 "Whirlpool"
             });
-            Manufacturer = Manufacturers[0];
+            Manufacturers.SelectedIndex = 0;
 
             Capacity = "200 amp";
 
             EquipmentType = "MLO Panel";
 
-            EquipmentMakes.AddRange(new []
+            EquipmentMakes.Collection.AddRange(new []
             {
                 "GE",
                 "Westinghouse",
                 "Craftsman",
                 "Whirlpool"
             });
-            EquipmentMake = EquipmentMakes[0];
+            EquipmentMakes.SelectedIndex = 0;
 
             var dateMfg = new DateTime(1956, 8, 18, 01, 13, 45);
             DateManufactured = dateMfg.ToShortDateString();
@@ -57,10 +58,10 @@ namespace BDC_V1.Mock_Data
 
             ControlTypeMake = "N/A";
 
-            WarrantyCompany  = "";
-            WarrantyDate     = "";
-            WarrantyCompany2 = "";
-            WarrantyDate2    = "";
+            WarrantyCompany  = string.Empty;
+            WarrantyDate     = string.Empty;
+            WarrantyCompany2 = string.Empty;
+            WarrantyDate2    = string.Empty;
 
             DetailComments.Add(new CommentBase
             {

@@ -34,27 +34,38 @@ namespace BDC_V1.ViewModels
         [NotNull] public ICommand CmdDetailsComment     { get; }
         [NotNull] public ICommand CmdNextDetail         { get; }
         [NotNull] public ICommand CmdShowBarcodeScanner { get; }
+        [NotNull] public ICommand CmdContentRendered    { get; }
 
         [NotNull] public IInventoryDetail InventoryDetails { get; }
 
         public string EquipmentMakeUserEntered
         {
-            get => _equipmentMakeUserEntered;
+            get => _equipmentMakeUserEntered = InventoryDetails.EquipmentMakes.SelectedItem;
             set => SetProperty(ref _equipmentMakeUserEntered, value, () =>
             {
-                InventoryDetails.EquipmentMakes.Add(_equipmentMakeUserEntered);
-                InventoryDetails.EquipmentMake = _equipmentMakeUserEntered;
+                if (! string.IsNullOrEmpty(value))
+                {
+                    if (! InventoryDetails.EquipmentMakes.Contains(value))
+                        InventoryDetails.EquipmentMakes.Collection.Add(value);
+
+                    InventoryDetails.EquipmentMakes.SelectedItem = value;
+                }
             });
         }
         private string _equipmentMakeUserEntered = string.Empty;
 
         public string ManufacturerUserEntered
         {
-            get => _manufacturerUserEntered;
-            set => SetProperty(ref _equipmentMakeUserEntered, value, () =>
+            get => _manufacturerUserEntered = InventoryDetails.Manufacturers.SelectedItem;
+            set => SetProperty(ref _manufacturerUserEntered, value, () =>
             {
-                InventoryDetails.Manufacturers.Add(_manufacturerUserEntered);
-                InventoryDetails.Manufacturer = _manufacturerUserEntered;
+                if (! string.IsNullOrEmpty(value))
+                {
+                    if (! InventoryDetails.Manufacturers.Contains(value))
+                        InventoryDetails.Manufacturers.Collection.Add(value);
+
+                    InventoryDetails.Manufacturers.SelectedItem = value;
+                }
             });
         }
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
@@ -111,6 +122,7 @@ namespace BDC_V1.ViewModels
             CmdDetailsComment     = new DelegateCommand(OnDetailsComment       );
             CmdNextDetail         = new DelegateCommand(OnCmdNextDetails       );
             CmdShowBarcodeScanner = new DelegateCommand(OnCmdShowBarcodeScanner);
+            CmdContentRendered    = new DelegateCommand(OnContentRendered      );
 
 #if DEBUG
 //#warning Using MOCK data for InventoryDetails
@@ -118,8 +130,11 @@ namespace BDC_V1.ViewModels
 #endif
             if (InventoryDetails != null)
             {
-                InventoryDetails.Manufacturer  = InventoryDetails.Manufacturers .FirstOrDefault();
-                InventoryDetails.EquipmentMake = InventoryDetails.EquipmentMakes.FirstOrDefault();
+                //if (InventoryDetails.Manufacturers.SelectedIndex != -1) 
+                //    InventoryDetails.Manufacturers.FreezeIndex = true;
+
+                //if (InventoryDetails.EquipmentMakes.SelectedIndex != -1) 
+                //    InventoryDetails.EquipmentMakes.FreezeIndex = true;
             }
         }
 
@@ -134,8 +149,10 @@ namespace BDC_V1.ViewModels
         {
             // Go to the next Details item in the list.
             // If already at the last then wrap back to the first.
-            if (++InventoryDetails.DetailSelectedIndex >= InventoryDetails.DetailSelectors.Count)
-                InventoryDetails.DetailSelectedIndex = 0;
+            var index = InventoryDetails.DetailSelectors.IndexOf(InventoryDetails.DetailSelector);
+            if (++index >= InventoryDetails.DetailSelectors.Count) index = 0;
+
+            InventoryDetails.DetailSelector = InventoryDetails.DetailSelectors[index];
         }
 
         private void OnDetailsComment() 
@@ -146,6 +163,18 @@ namespace BDC_V1.ViewModels
         private void OnCmdShowBarcodeScanner()
         {
             BdcMessageBoxView.Show("Barcode Reader Launches", "Barcode Reader");
+        }
+
+        private void OnContentRendered()
+        {
+            //InventoryDetails.Manufacturers .FreezeIndex = false;
+            //InventoryDetails.EquipmentMakes.FreezeIndex = false;
+        }
+
+        protected override void ViewActivatedEventHandler(object sender, object e)
+        {
+            base.ViewActivatedEventHandler(sender, e);
+            OnContentRendered();
         }
     }
 }

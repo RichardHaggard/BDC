@@ -21,12 +21,12 @@ namespace BDC_V1.Interfaces
         //string DetailComment     { get; set; }
         string DetailIdNumber    { get; set; }
         string DetailPhotosCount { get; set; }
-        int DetailSelectedIndex  { get; set; }
+        //int DetailSelectedIndex  { get; set; }
         string DetailSelector    { get; set; }
-        string EquipmentMake     { get; set; }
+        //string EquipmentMake     { get; set; }
         string EquipmentType     { get; set; }
         string Location          { get; set; }
-        string Manufacturer      { get; set; }
+        //string Manufacturer      { get; set; }
         string Model             { get; set; }
         string SerialNumber      { get; set; }
         string WarrantyCompany   { get; set; }
@@ -37,8 +37,8 @@ namespace BDC_V1.Interfaces
         string InventoryDetails  { get; set; }
 
         [NotNull] ObservableCollection<string> DetailSelectors { get; }
-        [NotNull] ObservableCollection<string> EquipmentMakes  { get; }
-        [NotNull] ObservableCollection<string> Manufacturers   { get; }
+        [NotNull] IndexedCollection<string>    EquipmentMakes  { get; }
+        [NotNull] IndexedCollection<string>    Manufacturers   { get; }
 
         [NotNull] ObservableCollection<ICommentBase> DetailComments { get; }
         bool HasDetailComments    { get; }

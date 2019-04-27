@@ -69,12 +69,12 @@ namespace BDC_V1.Classes
         private string _detailPhotosCount;
 
 
-        public int DetailSelectedIndex
-        {
-            get => _detailSelectedIndex;
-            set => SetProperty(ref _detailSelectedIndex, value);
-        }
-        private int _detailSelectedIndex;
+        //public int DetailSelectedIndex
+        //{
+        //    get => _detailSelectedIndex;
+        //    set => SetProperty(ref _detailSelectedIndex, value);
+        //}
+        //private int _detailSelectedIndex;
 
 
         public string DetailSelector
@@ -85,12 +85,12 @@ namespace BDC_V1.Classes
         private string _detailSelector;
 
 
-        public string EquipmentMake
-        {
-            get => _equipmentMake;
-            set => SetProperty(ref _equipmentMake, value);
-        }
-        private string _equipmentMake;
+        //public string EquipmentMake
+        //{
+        //    get => _equipmentMake;
+        //    set => SetProperty(ref _equipmentMake, value);
+        //}
+        //private string _equipmentMake;
 
 
         public string EquipmentType
@@ -109,12 +109,12 @@ namespace BDC_V1.Classes
         private string _location;
 
 
-        public string Manufacturer
-        {
-            get => _manufacturer;
-            set => SetProperty(ref _manufacturer, value);
-        }
-        private string _manufacturer;
+        //public string Manufacturer
+        //{
+        //    get => _manufacturer;
+        //    set => SetProperty(ref _manufacturer, value);
+        //}
+        //private string _manufacturer;
 
 
         public string Model
@@ -184,11 +184,11 @@ namespace BDC_V1.Classes
         public ObservableCollection<string> DetailSelectors { get; } = 
             new ObservableCollection<string>();
 
-        public ObservableCollection<string> EquipmentMakes { get; } = 
-            new ObservableCollection<string>();
+        public IndexedCollection<string> EquipmentMakes { get; } = 
+            new IndexedCollection<string>(new ObservableCollection<string>());
 
-        public ObservableCollection<string> Manufacturers { get; } = 
-            new ObservableCollection<string>();
+        public IndexedCollection<string> Manufacturers { get; } = 
+            new IndexedCollection<string>(new ObservableCollection<string>());
 
 
         public virtual bool HasDetailComments    => DetailComments.Any();
