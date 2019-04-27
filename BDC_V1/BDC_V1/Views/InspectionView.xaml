@@ -826,6 +826,12 @@
                         </WrapPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+
+              <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                  <Setter Property="Padding" Value="0"/>
+                </Style>
+              </ListBox.ItemContainerStyle>
             </ListBox>
 
 
