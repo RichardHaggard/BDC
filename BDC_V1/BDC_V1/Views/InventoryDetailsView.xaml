@@ -104,11 +104,12 @@
                 Style="{StaticResource ComboBase}"
                 />
             <Button
-                Grid.Row="1" Grid.Column="4" 
+                Grid.Row="0" Grid.RowSpan="3" Grid.Column="4" 
                 Content="Grid"
                 Height="25"
-                Margin="5"
+                Margin="5,0"
                 Padding="0"
+                VerticalAlignment="Center" VerticalContentAlignment="Center"
                 Width="75"
                 />
 
@@ -153,10 +154,10 @@
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="0"
-                Grid.Row="3" Grid.RowSpan="2"  Grid.Column="4" 
+                Grid.Row="2" Grid.RowSpan="3"  Grid.Column="4" 
                 Height="40"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center" VerticalContentAlignment="Center"
                 Command="{Binding CmdShowBarcodeScanner}"
                 >
                 <Image

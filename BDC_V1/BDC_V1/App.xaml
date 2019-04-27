@@ -233,12 +233,14 @@
             <!--Label that is left justified.-->
             <Style TargetType="Label" x:Key="LabelLJ" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="Padding" Value="0" />
             </Style>
 
             <!--Label that is right justified.-->
             <Style TargetType="Label" x:Key="LabelRJ" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="HorizontalContentAlignment" Value="Right" />
-                <Setter Property="Margin" Value="0" />
+                <Setter Property="Margin" Value="0,0,2,0" />
+                <Setter Property="Padding" Value="0" />
             </Style>
 
             <!--Label that is gray bg with a black border. Indicates to user that contents are RO.-->
@@ -247,6 +249,7 @@
                 <Setter Property="BorderBrush" Value="Black" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Margin" Value="3" />
+                <Setter Property="Padding" Value="0" />
             </Style>
 
             <!--Label that is soft yellow with a black border. Indicates to user that contents are RO
@@ -258,6 +261,8 @@
             <!--Label that is bold.-->
             <Style TargetType="Label" x:Key="LabelBold" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Margin" Value="6,0,0,0" />
+                <Setter Property="Padding" Value="0" />
             </Style>
 
 

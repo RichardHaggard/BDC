@@ -809,17 +809,17 @@
 
             <!-- Action Buttons -->
             <StackPanel 
-        Grid.Row="13"
-        Grid.Column="0"
-        Grid.ColumnSpan="4"
-        Orientation="Horizontal"
-        Grid.RowSpan="1">
+                Grid.Row="13"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                Orientation="Horizontal"
+                Grid.RowSpan="1">
 
                 <Button 
-        Width="160"
-        Command="{Binding CmdCancelEdit}"
-        Style="{StaticResource btnImageText}"
-        >
+                    Width="160"
+                    Command="{Binding CmdCancelEdit}"
+                    Style="{StaticResource btnImageText}"
+                    >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -827,23 +827,22 @@
                         </Grid.ColumnDefinitions>
 
                         <Image
-                Grid.Column="0" 
-                Height="20"
-                Source="/BDC_V1;component/Resources/Cancel_Undo (1).png"
-                />
+                            Grid.Column="0" 
+                            Height="20"
+                            Source="/BDC_V1;component/Resources/Cancel_Undo (1).png"
+                            />
                         <Label 
-                Grid.Column="1"
-                Content="Cancel Edit" 
-                Foreground="Red" 
-                Style="{StaticResource lblText}" />
+                            Grid.Column="1"
+                            Content="Cancel Edit" 
+                            Style="{StaticResource lblText}" />
                     </Grid>
                 </Button>
 
                 <Button 
-          Width="160"
-        Command="{Binding CmdDeleteInspection}"
-        Style="{StaticResource btnImageText}"
-        >
+                    Width="160"
+                    Command="{Binding CmdDeleteInspection}"
+                    Style="{StaticResource btnImageText}"
+                    >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -851,15 +850,15 @@
                         </Grid.ColumnDefinitions>
 
                         <Image
-                Grid.Column="0" 
-                Height="20"
-                Source="/BDC_V1;component/Resources/Delete.png"
-                />
+                            Grid.Column="0" 
+                            Height="20"
+                            Source="/BDC_V1;component/Resources/Delete.png"
+                            />
                         <Label 
-                Grid.Column="1"
-                Content="Delete Inspection"
-                Foreground="Red" 
-                Style="{StaticResource lblText}" />
+                            Grid.Column="1"
+                            Content="Delete Inspection"
+                            Foreground="Red" 
+                            Style="{StaticResource lblText}" />
                     </Grid>
                 </Button>
             </StackPanel>

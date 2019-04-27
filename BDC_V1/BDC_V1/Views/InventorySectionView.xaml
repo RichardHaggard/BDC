@@ -54,7 +54,8 @@
             <StackPanel
                 Grid.Row="0" Grid.Column="0"
                 HorizontalAlignment="Right"
-                Orientation="Horizontal">
+                Orientation="Horizontal"
+                >
                 <Label 
                     Content="Section Name:"
                     Style="{StaticResource LabelRJ}"/>
@@ -103,14 +104,18 @@
                 Content="Quantity:"
                 Style="{StaticResource LabelRJ}"/>
             <TextBox Grid.Row="3" Grid.Column="1"
+                     Margin="2"
+                     Padding="0"
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding InventorySection.Quantity}"
                 />
 
-            <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Orientation="Horizontal">
-              <Label Content="EA"
-                     Style="{StaticResource LabelLJ}"
-              />
+            <StackPanel 
+                Grid.Row="3" Grid.Column="2" Orientation="Horizontal">
+                <Label 
+                    Content="EA"
+                    Style="{StaticResource LabelLJ}"
+                    />
               
               <Button Margin="10,0,10,0"
                       Height="30" Width="30" Padding="0"
@@ -177,11 +182,13 @@
             <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
               <TextBox
                   FontSize="15"
-                  Height="30" Width="50" Margin="5"
+                  Height="30" Width="50"
                   HorizontalAlignment="Left"
+                  Margin="1"
+                  Padding="0"
                   VerticalContentAlignment="Center"
                   Text="{Binding InventorySection.YearInstalledRenewed}"
-              >
+                    >
                   <TextBox.Style>
                       <Style TargetType="TextBox">
                           <Setter Property="Background" Value="White" />
@@ -194,12 +201,13 @@
                   </TextBox.Style>
               </TextBox>
 
-              <CheckBox Name="CheckboxEstimated"
-                        FontSize="15"
-                        Content="Estimated"
-                        Margin="20,5,5,5"
-                        IsChecked="{Binding Estimated}"  
-              />
+                <CheckBox 
+                    Name="CheckboxEstimated"
+                    Content="Estimated"
+                    FontSize="15"
+                    Margin="20,5,5,5"
+                    IsChecked="{Binding Estimated}"  
+                    />
             </StackPanel>
 <!--
             <Label Grid.Row="5" Grid.Column="0" 
@@ -459,17 +467,20 @@
                 Style="{StaticResource ComboBase}"
                 />
 
-            <Button 
+            <StackPanel
                 Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
-                Command="{Binding CmdCancelEdit}"
-                HorizontalAlignment="Left"
-                Style="{StaticResource btnImageText}"
+                Orientation="Horizontal"
                 >
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <Button 
+                    Command="{Binding CmdCancelEdit}"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource btnImageText}"
+                    >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
                     <Image
                             Grid.Column="0" 
@@ -484,55 +495,55 @@
                 </Grid>
             </Button>
 
-            <Button 
-                Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
-                HorizontalAlignment="Center"
-                Command="{Binding CmdDeleteSection}"
-                Style="{StaticResource btnImageText}"
-                >
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Image
+                <Button 
+                    Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
+                    HorizontalAlignment="Center"
+                    Command="{Binding CmdDeleteSection}"
+                    Style="{StaticResource btnImageText}"
+                    >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                                Grid.Column="0" 
+                                Height="20"
+                                Source="/BDC_V1;component/Resources/Delete.png"
+                                />
+                        <Label 
+                                Grid.Column="1"
+                                Content="Delete Section"
+                                Foreground="Red" 
+                                Style="{StaticResource lblText}" />
+                    </Grid>
+                </Button>
+
+
+                <Button 
+                    Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
+                    HorizontalAlignment="Right"
+                    Command="{Binding CmdAddSection}"
+                    Style="{StaticResource btnImageText}"
+                    >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
                             Grid.Column="0" 
                             Height="20"
-                            Source="/BDC_V1;component/Resources/Delete.png"
+                            Source="/BDC_V1;component/Resources/Add.png"
                             />
-                    <Label 
-                            Grid.Column="1"
-                            Content="Delete Section"
-                            Foreground="Red" 
-                            Style="{StaticResource lblText}" />
-                </Grid>
-            </Button>
-
-
-            <Button 
-                Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
-                HorizontalAlignment="Right"
-                Command="{Binding CmdAddSection}"
-                Style="{StaticResource btnImageText}"
-                >
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Image
-                        Grid.Column="0" 
-                        Height="20"
-                        Source="/BDC_V1;component/Resources/Add.png"
-                        />
-                    <Label 
-                            Grid.Column="1"
-                            Content="Add Section"
-                            Foreground="#00B050" 
-                            Style="{StaticResource lblText}" />
-                </Grid>
-            </Button>
-
+                        <Label 
+                                Grid.Column="1"
+                                Content="Add Section"
+                                Foreground="#00B050" 
+                                Style="{StaticResource lblText}" />
+                    </Grid>
+                </Button>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </UserControl>
