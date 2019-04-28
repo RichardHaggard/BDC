@@ -109,8 +109,9 @@ namespace BDC_V1.Classes
         {
             // TODO: Properly determine if changes have been made.
             if ((! IsChanged) ||
-                (BdcMessageBoxView.Show("Cancel changes?", "CANCEL CHANGES?", MessageBoxButton.YesNo) ==
-                    MessageBoxResult.Yes))
+                (BdcMessageBoxView.Show("Cancel changes?", "CANCEL CHANGES?", 
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                 MessageBoxResult.Yes))
             {
                 base.OnCancelUndo();
             }
@@ -119,16 +120,17 @@ namespace BDC_V1.Classes
         protected virtual void OnReviewLater()
         {
             Result = EnumControlResult.ResultDeferred;
-            DialogResultEx = false;
+            DialogResultEx = true;
         }
 
         protected virtual void OnDelete()
         {
-            if (BdcMessageBoxView.Show("Permanently delete comment?", "DELETE COMMENT?", MessageBoxButton.YesNo) ==
+            if (BdcMessageBoxView.Show("Permanently delete comment?", "DELETE COMMENT?", 
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) ==
                 MessageBoxResult.Yes)
             {
                 Result = EnumControlResult.ResultDeleteItem;
-                DialogResultEx = false;
+                DialogResultEx = true;
             }
         }
 
@@ -178,7 +180,6 @@ namespace BDC_V1.Classes
             MikeOnBorderBrush  = ConstBorderActive;
         }
 
-
         protected virtual void OnMicOff() 
         {
             MikeOffBg          = ConstBgActive;
@@ -186,7 +187,6 @@ namespace BDC_V1.Classes
             MikeOnBg           = ConstBgInactive;
             MikeOnBorderBrush  = ConstBgInactive;
         }
-
 
         protected virtual void OnSpellCheck() { Debug.WriteLine("OnSpellCheck not implemented"); }
         

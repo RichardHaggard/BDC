@@ -17,10 +17,10 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         SizeToContent="Height"
-        MinWidth="600"
-        MinHeight="200"
-        d:DesignHeight="200"
-        d:DesignWidth="600">
+        MinWidth="600"  MaxWidth="800"
+        MinHeight="200" MaxHeight="400"
+        d:DesignHeight="400"
+        d:DesignWidth="800">
 
     <!-- 
       SizeToContent="WidthAndHeight" has a bug that causes a thick black border on Bottom and Right until 
@@ -235,13 +235,14 @@
       <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*"    />
+            <RowDefinition Height="70"   />
         </Grid.RowDefinitions>
 
       <!--
       provide the background for the entire form.  
       In practice, this appears as the window's resize border, because the title and window content obscure the rest
       -->
-        <Border Grid.RowSpan="2" 
+        <Border Grid.RowSpan="3" 
                 CornerRadius="10,10,5,5" 
                 BorderThickness="3" 
                 BorderBrush="LightSteelBlue"
@@ -328,17 +329,7 @@
     </StackPanel>
 
         <!--Content-->
-        <Grid Grid.Row="1"
-              Margin="10,5,10,5"
-              HorizontalAlignment="Stretch"
-              VerticalAlignment="Center"
-              >
-      <Grid.RowDefinitions>
-        <RowDefinition Height="*"    MinHeight="60" />
-        <RowDefinition Height="Auto" MinHeight="70" />
-      </Grid.RowDefinitions>
-
-      <Grid Grid.Row="0"  
+      <Grid Grid.Row="1"  
             Margin="5"
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
@@ -367,7 +358,7 @@
                  />
       </Grid>
 
-      <Grid Grid.Row="1" HorizontalAlignment="Right" >
+      <Grid Grid.Row="2" HorizontalAlignment="Right" >
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
@@ -395,5 +386,4 @@
                 />
       </Grid>
         </Grid>
-    </Grid>
 </Window>

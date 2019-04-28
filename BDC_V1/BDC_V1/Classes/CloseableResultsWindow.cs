@@ -32,7 +32,7 @@ namespace BDC_V1.Classes
         protected virtual void OnCancelUndo()
         {
             Result = EnumControlResult.ResultCancelled;
-            DialogResultEx = false;
+            DialogResultEx = true;
         }
 
         protected virtual void OnOkCommand()
