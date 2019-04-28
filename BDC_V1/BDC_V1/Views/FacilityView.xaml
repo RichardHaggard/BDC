@@ -223,13 +223,15 @@
                     Command="{Binding CmdCommentDoubleClicked}"  
                     CommandParameter="{Binding CommentContainer.SelectedItem}"
             >
-              <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                  <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
-                         Margin="12,0,0,0"
-                         Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
-                  <Label Content="Facility Comment"
-                         Style="{StaticResource ImageClickBlockTextStyle}" />
-              </StackPanel>
+                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
+                    <Image 
+                        Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
+                        Height="35"
+                        Margin="12,0,0,0"
+                        Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
+                    <Label Content="Facility Comment"
+                        Style="{StaticResource ImageClickBlockTextStyle}" />
+                </StackPanel>
             </Button>
 
             <ListBox 
@@ -270,22 +272,32 @@
               </ListBox.ItemTemplate>
             </ListBox>
 
-            <Button Grid.Row="8" Grid.Column="0"
-                    Margin="5,2.5,5,2.5"
-                    Style="{StaticResource ImageClickBlockButtonStyle}"
-                    Command="{Binding CmdImageDoubleClicked}"  
-                    CommandParameter="{Binding ImageContainer.SelectedItem}"
-            >
-              <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                  <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
-                         Style="{StaticResource ImageClickBlockImageStyle}"/>
-                  <StackPanel Orientation="Horizontal">
-                    <Label Content="Photo(s)"
-                           Style="{StaticResource ImageClickBlockTextStyle}" />
-                    <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
-                           Style="{StaticResource ImageClickBlockTextStyle}" />
-                  </StackPanel>
-              </StackPanel >
+            <!--Photos-->
+            <Button 
+                Grid.Row="8" Grid.Column="0"
+                Margin="5,2.5,5,2.5"
+                Style="{StaticResource ImageClickBlockButtonStyle}"
+                Command="{Binding CmdImageDoubleClicked}"  
+                CommandParameter="{Binding ImageContainer.SelectedItem}"
+                >
+                <StackPanel 
+                    Style="{StaticResource ImageClickBlockPanelStyle}">
+                    <Image 
+                        Source="/BDC_V1;component/Resources/PhotoIcon.png"
+                        Height="35"
+                        Style="{StaticResource ImageClickBlockImageStyle}"/>
+                    <StackPanel 
+                        Margin="0,-10,0,0"
+                        Orientation="Vertical">
+                        <Label 
+                            Content="Photo(s)"
+                            Style="{StaticResource ImageClickBlockTextStyle}" />
+                        <Label 
+                            Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
+                            ContentStringFormat="Qty: {0}"
+                            Style="{StaticResource ImageClickBlockTextStyle}" />
+                    </StackPanel>
+                </StackPanel >
             </Button>
 
             <ListBox 
