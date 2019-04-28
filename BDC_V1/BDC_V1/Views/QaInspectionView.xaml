@@ -253,6 +253,7 @@
                     GridLinesVisibility="All"
                     AutoGenerateColumns="False"
                     Padding="0"
+                    SelectionUnit="Cell"
           >
             <DataGrid.Resources>
               <Style TargetType="{x:Type DataGridCell}">
