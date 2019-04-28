@@ -9,7 +9,7 @@
              xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:local="clr-namespace:BDC_V1.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1100">
+             d:DesignHeight="640" d:DesignWidth="850">
 
   <Grid>
         <TabControl>

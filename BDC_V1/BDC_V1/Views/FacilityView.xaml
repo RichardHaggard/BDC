@@ -12,7 +12,7 @@
              xmlns:forms="http://xamarin.com/schemas/2014/forms"
              xmlns:converters="clr-namespace:BDC_V1.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="640" d:DesignWidth="800">
+             d:DesignHeight="640" d:DesignWidth="850">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

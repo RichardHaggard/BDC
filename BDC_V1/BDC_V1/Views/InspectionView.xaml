@@ -1,20 +1,20 @@
-﻿<UserControl x:Class="BDC_V1.Views.InspectionView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:prism="http://prismlibrary.com/"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             prism:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-             xmlns:utils="clr-namespace:BDC_V1.Utils"
-             xmlns:converters="clr-namespace:BDC_V1.Converters"
-             xmlns:classes="clr-namespace:BDC_V1.Classes"
-             xmlns:local="clr-namespace:BDC_V1.Enumerations"
-             mc:Ignorable="d"
-             MaxHeight="800" MaxWidth="875"
-             d:DesignHeight="800" d:DesignWidth="875">
+﻿<UserControl 
+    x:Class="BDC_V1.Views.InspectionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+    xmlns:utils="clr-namespace:BDC_V1.Utils"
+    xmlns:converters="clr-namespace:BDC_V1.Converters"
+    xmlns:classes="clr-namespace:BDC_V1.Classes"
+    xmlns:local="clr-namespace:BDC_V1.Enumerations"
+    mc:Ignorable="d"
+    d:DesignHeight="640" d:DesignWidth="850">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -280,27 +280,21 @@
                 VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="5"    /> <!--  0 - white space at top -->
-                <RowDefinition Height="40"   /> <!--  1 - Component -->
-                <RowDefinition Height="40"   /> <!--  2 - Equip/Mat -->
-                <RowDefinition Height="40"   /> <!--  3 - Component Type -->
-                <RowDefinition Height="40"   /> <!--  4 - Section Quantity -->
-                <RowDefinition Height="Auto" /> <!--  5 - Inspection Date -->
-                <RowDefinition Height="Auto" /> <!--  6 - Painted & Direct -->
-                <RowDefinition Height="40"   /> <!--  7 - Note -->
-                <RowDefinition Height="90"   /> <!--  8 - Inspection Comment -->
-                <!-- TODO: Merge this style with the InventorySection -->
-                <RowDefinition Height="5"    /> <!--  9 - white space -->
-                <RowDefinition Height="45"   /> <!-- 10 - Remember -->
-                <RowDefinition Height="100"  /> <!-- 11 - Inspection Photos -->
-                <RowDefinition Height="10"   /> <!-- 12 - white space -->
-                <RowDefinition Height="60"   /> <!-- 13 - Action Buttons -->
-                <RowDefinition Height="5"    /> <!-- 14 - white space at bottom -->
+                <RowDefinition Height="35"   /> <!--  0 - Component -->
+                <RowDefinition Height="35"   /> <!--  1 - Equip/Mat -->
+                <RowDefinition Height="35"   /> <!--  2 - Component Type -->
+                <RowDefinition Height="35"   /> <!--  3 - Section Quantity -->
+                <RowDefinition Height="35"  />  <!--  4 - Inspection Date -->
+                <RowDefinition Height="170"  /> <!--  5 - Painted & Direct -->
+                <RowDefinition Height="35"   /> <!--  6 - Note -->
+                <RowDefinition Height="100"   /> <!-- 7 - Inspection Comment -->
+                <RowDefinition Height="100"  /> <!--  8 - Inspection Photos -->
+                <RowDefinition Height="60"   /> <!--  9 - Action Buttons -->
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="170" />
-                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="80"  />
                 <ColumnDefinition Width="80"  />
                 <ColumnDefinition Width="80"  />
@@ -308,122 +302,122 @@
                 <ColumnDefinition Width="80"  />
                 <ColumnDefinition Width="80"  />
                 <ColumnDefinition Width="80"  />
-                <ColumnDefinition Width="5"   />
                 <!-- Make room for the scroll bar -->
             </Grid.ColumnDefinitions>
 
             <!-- -->
             <Label
-          Grid.Row="1" Grid.Column="0"
-          Content="Component:"
-          Style="{StaticResource LabelRJ}"/>
+                Grid.Row="0" Grid.Column="0"
+                Content="Component:"
+                Style="{StaticResource LabelRJ}"/>
             <Label
-          Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"
-          Content="{Binding InspectionInfo.Component}"
-          Style="{StaticResource LabelROExtEd}"
+                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
+                Content="{Binding InspectionInfo.Component}"
+                Style="{StaticResource LabelROExtEd}"
                 />
             <Label
-          Grid.Row="1" Grid.Column="5"
-          Content="Section:"
-          Style="{StaticResource LabelRJ}"
+                Grid.Row="0" Grid.Column="5"
+                Content="Section:"
+                Style="{StaticResource LabelRJ}"
                 />
             <Label
-          Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3"
-          Content="{Binding InspectionInfo.Section}"
-          Style="{StaticResource LabelROExtEd}"
+                Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3"
+                Content="{Binding InspectionInfo.Section}"
+                Style="{StaticResource LabelROExtEd}"
                 />
 
             <!-- Equip / Mat Category -->
             <Label
-          Grid.Row="2" Grid.Column="0"
-          Content="Equip./Mat. Category:"
-          Style="{StaticResource LabelRJ}"
+                Grid.Row="1" Grid.Column="0"
+                Content="Equip./Mat. Category:"
+                Style="{StaticResource LabelRJ}"
                 />
             <Label
-          Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"
-          Content="{Binding InspectionInfo.Category}"
-          Style="{StaticResource LabelROExtEd}"/>
+                Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8"
+                Content="{Binding InspectionInfo.Category}"
+                Style="{StaticResource LabelROExtEd}"/>
 
             <!-- Component Type -->
             <Label
-          Grid.Row="3" Grid.Column="0"
-          Content="Component Type:"
-          Style="{StaticResource LabelRJ}"
+                Grid.Row="2" Grid.Column="0"
+                Content="Component Type:"
+                Style="{StaticResource LabelRJ}"
                 />
             <Label
-          Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8"
-          Content="{Binding InspectionInfo.ComponentType}"
-          Style="{StaticResource LabelROExtEd}"/>
+                Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"
+                Content="{Binding InspectionInfo.ComponentType}"
+                Style="{StaticResource LabelROExtEd}"/>
 
             <!-- Section Quantity -->
             <Label
-          Grid.Row="4" Grid.Column="0"
-          Content="Section Quantity:"
-          Style="{StaticResource LabelRJ}"/>
+                Grid.Row="3" Grid.Column="0"
+                Content="Section Quantity:"
+                Style="{StaticResource LabelRJ}"/>
             <Label
-          Grid.Row="4" Grid.Column="1"
-          Content="{Binding InspectionInfo.Quantity}"
-          ContentStringFormat="{}{0:#,#.00}"
-          Style="{StaticResource LabelROExtEd}"/>
+                Grid.Row="3" Grid.Column="1"
+                Content="{Binding InspectionInfo.Quantity}"
+                ContentStringFormat="{}{0:#,#.00}"
+                Style="{StaticResource LabelROExtEd}"/>
             <Label
-          Grid.Row="4" Grid.Column="2"
-          Content="MBH"
-          Style="{StaticResource LabelLJ}"/>
+                Grid.Row="3" Grid.Column="2"
+                Content="MBH"
+                Style="{StaticResource LabelLJ}"/>
 
             <!-- Inspection Date -->
             <Label
-          Grid.Row="5" Grid.Column="0"
-          Content="Inspection Date:"
-          Style="{StaticResource LabelRJ}"/>
+                Grid.Row="4" Grid.Column="0"
+                Content="Inspection Date:"
+                Style="{StaticResource LabelRJ}"/>
             <DatePicker
-          Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
-          Height="35"
-          HorizontalAlignment="Left"
-          Width="150"
-          Style="{StaticResource dpBase}"
-          Text="{Binding InspectionInfo.InspectionDate, StringFormat=d}" />
+                Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+                Height="35"
+                HorizontalAlignment="Left"
+                Margin="5,0"
+                Width="150"
+                Style="{StaticResource dpBase}"
+                Text="{Binding InspectionInfo.InspectionDate, StringFormat=d}" />
 
             <StackPanel
-          Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="6"
-          Orientation="Horizontal">
+                Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="6"
+                Orientation="Horizontal">
                 <StackPanel.Resources>
                     <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
                 </StackPanel.Resources>
 
                 <Label
-                  Content="Inspection Type:"
-                  Style="{StaticResource LabelRJ}"/>
-            <RadioButton
-                Content="Direct Rating"
-                GroupName="InspectionType"
-                Margin="20 0 0 0"
-                VerticalContentAlignment="Center"
-                Style="{DynamicResource rbBase}"
-                IsChecked="{Binding Path=InspectionInfo.InspectionType, 
-                            Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                            ConverterParameter=DirectRating,
-                            Mode=TwoWay}" />
-            <RadioButton
-                Margin="20 0 0 0"
-                GroupName="InspectionType"
-                Content="Distress Survey"
-                IsEnabled="false"
-                VerticalContentAlignment="Center"
-                Style="{DynamicResource rbBase}"
-                IsChecked="{Binding Path=InspectionInfo.InspectionType, 
-                            Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
-                            ConverterParameter=DistressSurvey,
-                            Mode=TwoWay}" />
+                    Content="Inspection Type:"
+                    Style="{StaticResource LabelRJ}"/>
+                <RadioButton
+                    Content="Direct Rating"
+                    GroupName="InspectionType"
+                    Margin="20 0 0 0"
+                    VerticalContentAlignment="Center"
+                    Style="{DynamicResource rbBase}"
+                    IsChecked="{Binding Path=InspectionInfo.InspectionType, 
+                    Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                    ConverterParameter=DirectRating,
+                    Mode=TwoWay}" />
+                <RadioButton
+                    Margin="20 0 0 0"
+                    GroupName="InspectionType"
+                    Content="Distress Survey"
+                    IsEnabled="false"
+                    VerticalContentAlignment="Center"
+                    Style="{DynamicResource rbBase}"
+                    IsChecked="{Binding Path=InspectionInfo.InspectionType, 
+                    Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
+                    ConverterParameter=DistressSurvey,
+                    Mode=TwoWay}" />
             </StackPanel>
 
             <!-- Painted & Direct -->
-            <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="9"
-            Margin="5">
+            <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="9"
+                Margin="5">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="40" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="45" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="160" />
@@ -441,8 +435,7 @@
 
                 <!--Background for some cells-->
                 <Border 
-                    Grid.Row="0" Grid.RowSpan="4"
-                    Grid.Column="5" Grid.ColumnSpan="5"
+                    Grid.Row="0" Grid.RowSpan="4" Grid.Column="5" Grid.ColumnSpan="5"
                     BorderThickness="0"
                     Background="{StaticResource ButtonGridNotEnabledBackground}"
                     >
@@ -469,7 +462,7 @@
                     FontSize="15"
                     FontWeight="Bold"
                     HorizontalAlignment="Right"  HorizontalContentAlignment="Right"
-                    Margin="5"
+                    Margin="5, 0, 5, -5"
                     Padding="0"
                     Command="{Binding CmdPaintedCoated}"
                     />
@@ -485,8 +478,8 @@
                 <Label
                     Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3"
                     Content="Paint/Coating Condition Rating:"
-                    Margin="0"
                     HorizontalContentAlignment="Left"
+                    Margin="5, 0, 5, -5"
                     Style="{StaticResource LabelCJ}"
                     />
 
@@ -501,7 +494,6 @@
                          Text="Direct Condition Rating:"
                     />
 
-                <!-- ***************************************************** -->
                 <!-- Direct Condition Rating, Green -->
                 <RadioButton Grid.Row="1" Grid.Column="1" Content="Green+" GroupName="DrCondGroup"
                      Style="{StaticResource ToggleButtonGreenDirect}" 
@@ -586,7 +578,6 @@
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                 />
 
-                <!-- ***************************************************** -->
                 <!-- Painted / Coated Condition Rating, Green -->
                 <RadioButton Grid.Row="1" Grid.Column="6" Content="Green+" GroupName="PtCondGroup"
                      Style="{StaticResource ToggleButtonGreenPainted}"
@@ -674,61 +665,66 @@
             </Grid>
 
             <!--Content="{Binding InspectionInfo.Note}"-->
-            <Label Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
-             Background="Orange"
-             Margin="5,0,5,0"
-             Content="{Binding InspectionInfo.Note}"
-             Style="{StaticResource LabelRO}"/>
+            <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="8"
+                Background="Orange"
+                Margin="5,0,5,0"
+                Content="{Binding InspectionInfo.Note}"
+                Style="{StaticResource LabelRO}"/>
 
             <!-- Inspection Comment -->
             <Button 
-                Grid.Row="8" Grid.Column="0"
+                Grid.Row="7" Grid.Column="0"
+                Padding="0"
                 Style="{DynamicResource FacilityBlockButtonStyle}"
                 Command="{Binding CmdCommentDoubleClicked}"  
                 CommandParameter="{Binding CommentContainer.SelectedItem}"
                 >
-                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                    <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
-                 Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
-                    <Label Content="Inspection Comment"
-                 Style="{StaticResource ImageClickBlockTextStyle}" />
+                <StackPanel 
+                    Margin="0,0,0,0"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource ImageClickBlockPanelStyle}"
+                    >
+                    <Image 
+                        Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
+                        Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
+                    <!--<Label 
+                        Margin="0,-5,0,0"
+                        Padding="0"
+                        Content="Inspection Comment"
+                 Style="{StaticResource ImageClickBlockTextStyle}" />-->
+                    <!-- Remember -->
+                    <Grid
+                        Margin="0,-9,0,0"
+                        >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox Grid.Column="0"
+                        Margin="5,0,0,0"
+                        Content="Remember"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Style="{StaticResource cbBase}"
+                        IsChecked="{Binding IsRemembered}" />
+                        <Image Grid.Column="1"
+                         Margin="5,2,5,2"
+                         Height="40"
+                         Source="/BDC_V1;component/Resources/Remember (1).png"
+                         Width="35" />
+                    </Grid>
                 </StackPanel>
             </Button>
 
-            <!-- Remember -->
-            <Border Grid.Row="10"
-              Grid.Column="0"
-              Margin="5,0,5,5"
-              Style="{StaticResource BorderBlue}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <CheckBox Grid.Column="0"
-                    Margin="5,0,0,0"
-                    Content="Remember"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Style="{StaticResource cbBase}"
-                    IsChecked="{Binding IsRemembered}" />
-                    <Image Grid.Column="1"
-                 Margin="5,2,5,2"
-                 Height="40"
-                 Source="/BDC_V1;component/Resources/Remember (1).png"
-                 Width="35" />
-                </Grid>
-            </Border>
-
-            <ListBox Grid.Row="8" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="8"
-                     Name="CommentListBox"
-                     Style="{StaticResource CommentBoxStyle}"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ItemsSource ="{Binding CommentContainer}"
-                     SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
-              >
+            <ListBox Grid.Row="7" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="8"
+                Name="CommentListBox"
+                Style="{StaticResource CommentBoxStyle}"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ItemsSource ="{Binding CommentContainer}"
+                SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
+                >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}" 
@@ -739,16 +735,16 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock TextWrapping="Wrap"  
-                       Text="{Binding Path=.}"
-                       Width="{Binding Path=Width,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
-            />
+                        Text="{Binding Path=.}"
+                        Width="{Binding Path=Width,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                        />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
 
             <!-- Photos -->
-            <Button Grid.Row="11" Grid.Column="0"
+            <Button Grid.Row="8" Grid.Column="0"
                     Style="{StaticResource PhotosBlockButtonStyle}"
                     Command="{Binding CmdImageDoubleClicked}"  
                     CommandParameter="{Binding ImageContainer.SelectedItem}"
@@ -765,13 +761,14 @@
                 </StackPanel >
             </Button>
 
-            <ListBox Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="8"
-                     Name="ImageListBox"
-                     Style="{StaticResource ImageBoxStyle}"
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ItemsSource ="{Binding ImageContainer}"
-                     SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
+            <ListBox 
+                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+                Name="ImageListBox"
+                Style="{StaticResource ImageBoxStyle}"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ItemsSource ="{Binding ImageContainer}"
+                SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
             >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
@@ -809,7 +806,7 @@
 
             <!-- Action Buttons -->
             <StackPanel 
-                Grid.Row="13"
+                Grid.Row="9"
                 Grid.Column="0"
                 Grid.ColumnSpan="4"
                 Orientation="Horizontal"
