@@ -10,9 +10,7 @@
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
     xmlns:local="clr-namespace:BDC_V1.Views"
     mc:Ignorable="d" 
-    MaxHeight="720"
-    MaxWidth="920"
-    d:DesignHeight="720" d:DesignWidth="920">
+    d:DesignHeight="640" d:DesignWidth="850">
 
     <UserControl.Resources>
     </UserControl.Resources>
@@ -28,16 +26,16 @@
                 VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
                 <RowDefinition Height="40" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="60" />
@@ -46,9 +44,9 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="225"/>
                 <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="225"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
@@ -60,14 +58,14 @@
                 />
             <Label
                 Grid.Row="0" Grid.Column="0" 
-                Margin="0"
+                Margin="5"
                 Content="Current Section:"
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
-                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
+                Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
                 Background="LightYellow"
                 IsReadOnly="True"
-                Margin="5,0,5,0"
+                Margin="5"
                 Style="{StaticResource TextBoxWrap}"
                 Text="{Binding InventoryDetails.CurrentSection}"
                 />
@@ -85,19 +83,19 @@
                     Background="Transparent"
                     BorderBrush="Transparent"
                     BorderThickness="0"
-                    Margin="-15,0,-5,0"
-                    Width="50"
+                    Margin="-5,0,-7,0"
+                    Padding="0,0,0,0"
+                    Width="40"
                     Command="{Binding CmdNextDetail}">
                     <Image 
                         Height="20"
                        Source="/BDC_V1;component/Resources/GreenDownArrow.png" />
                 </Button>
-
             </StackPanel>
-            
             
             <ComboBox
                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
+                Margin="5,0"
                 ItemsSource="{Binding InventoryDetails.DetailSelectors}"
                 SelectedItem="{Binding InventoryDetails.DetailSelector, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
@@ -106,7 +104,7 @@
                 Grid.Row="0" Grid.RowSpan="3" Grid.Column="4" 
                 Content="Grid"
                 Height="25"
-                Margin="5,0"
+                Margin="5,15,5,0"
                 Padding="0"
                 VerticalAlignment="Center" VerticalContentAlignment="Center"
                 Width="75"
@@ -154,8 +152,8 @@
                 BorderBrush="Transparent"
                 BorderThickness="0"
                 Grid.Row="2" Grid.RowSpan="3"  Grid.Column="4" 
-                Height="40"
-                HorizontalAlignment="Left"
+                Height="45"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center" VerticalContentAlignment="Center"
                 Command="{Binding CmdShowBarcodeScanner}"
                 >
@@ -177,8 +175,7 @@
                 SelectedItem="{Binding InventoryDetails.Manufacturers.SelectedItem}"
                 Style="{StaticResource ComboBase}" 
                 Text="{Binding ManufacturerUserEntered, UpdateSourceTrigger=LostFocus}"
-                >
-            </ComboBox>
+                />
             <Label
                 Grid.Row="4" Grid.Column="2" 
                 Content="Capacity:"
@@ -278,33 +275,37 @@
                 Text="{Binding InventoryDetails.WarrantyCompany2}"
                 />
 
-            <Button Grid.Row="10" Grid.Column="0"
-                    Style="{DynamicResource ImageClickBlockButtonStyle}"
-                    Command="{Binding CmdCommentDoubleClicked}"
-                    CommandParameter="{Binding CommentContainer.SelectedItem}"
-              >
+            <Button 
+                Grid.Row="10" Grid.Column="0"
+                Command="{Binding CmdCommentDoubleClicked}"
+                CommandParameter="{Binding CommentContainer.SelectedItem}"
+                Style="{DynamicResource ImageClickBlockButtonStyle}"
+                >
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                    <Image Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
-                     Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
-                    <Label Content="Detail Comment"
-                     Style="{StaticResource ImageClickBlockTextStyle}" />
+                    <Image 
+                        Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
+                        Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
+                    <Label 
+                        Content="Detail Comment"
+                        Style="{StaticResource ImageClickBlockTextStyle}" />
                 </StackPanel>
             </Button>
 
-            <ListBox Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3"
-                     Name="CommentListBox"
-                     Style="{StaticResource CommentBoxStyle}"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ItemsSource ="{Binding CommentContainer}"
-                     SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
-              >
-              <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                  <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
-                                         CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"/>
-                </i:EventTrigger>
-              </i:Interaction.Triggers>
+            <ListBox 
+                Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3"
+                Name="CommentListBox"
+                Style="{StaticResource CommentBoxStyle}"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ItemsSource ="{Binding CommentContainer}"
+                SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
+                >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
+                                                CommandParameter="{Binding ElementName=CommentListBox, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
               <ListBox.ItemTemplate>
                 <DataTemplate>
