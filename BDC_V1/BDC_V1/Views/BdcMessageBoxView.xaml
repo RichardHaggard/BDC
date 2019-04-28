@@ -384,6 +384,7 @@
                 FontSize="24" 
                 Content="No"
                 Visibility="{Binding NoButtonVisibility, FallbackValue=Visible}"
+                Command="{Binding CmdNoButton}"
                 />
 
         <Button Grid.Column="2" Margin="10" Height="50" Width="120" 
