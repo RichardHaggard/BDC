@@ -10,9 +10,24 @@
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
     xmlns:local="clr-namespace:BDC_V1.Views"
     mc:Ignorable="d" 
-    d:DesignHeight="640" d:DesignWidth="850">
+    d:DesignHeight="590" d:DesignWidth="850">
 
     <UserControl.Resources>
+        <!--TextBox with no wrap and suitable for tight conditions.-->
+        <Style TargetType="TextBox" x:Key="TextBoxNoWrapT" BasedOn="{StaticResource TextBoxNoWrap}">
+            <Setter Property="Margin" Value="5,2" />
+        </Style>
+        
+        <!--ComboBox suitable for tight conditions.-->
+        <Style TargetType="ComboBox" x:Key="ComboBaseT" BasedOn="{StaticResource ComboBase}" >
+            <Setter Property="Margin" Value="5,2" />
+        </Style>
+        
+        <!--DatePicker modified to be suitable for tight conditions-->
+        <Style TargetType="DatePicker" x:Key="dpBaseT" BasedOn="{StaticResource dpBase}">
+            <Setter Property="Margin" Value="5,1" />
+        </Style>
+        
     </UserControl.Resources>
 
 
@@ -27,26 +42,25 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="60" />
-                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="225"/>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="225"/>
+                <ColumnDefinition Width="215"/>
+                <ColumnDefinition Width="145"/>
+                <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
@@ -55,6 +69,7 @@
                 Background="#C6E0B4"
                 BorderBrush="Transparent"
                 BorderThickness="0"
+                Margin="5"
                 />
             <Label
                 Grid.Row="0" Grid.Column="0" 
@@ -73,6 +88,7 @@
             <StackPanel
                 Grid.Row="1" Grid.Column="0" 
                 HorizontalAlignment="Right"
+                Margin="0,0,5,0"
                 Orientation="Horizontal"
                 >
                 <Label
@@ -98,7 +114,7 @@
                 Margin="5,0"
                 ItemsSource="{Binding InventoryDetails.DetailSelectors}"
                 SelectedItem="{Binding InventoryDetails.DetailSelector, Mode=TwoWay}"
-                Style="{StaticResource ComboBase}"
+                Style="{StaticResource ComboBaseT}"
                 />
             <Button
                 Grid.Row="0" Grid.RowSpan="3" Grid.Column="4" 
@@ -116,7 +132,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="2" Grid.Column="1" 
-                Style="{StaticResource TextBoxNoWrap}"
+                Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.DetailIdNumber}"
                 />
             <Label
@@ -125,7 +141,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="2" Grid.Column="3" 
-                Style="{StaticResource TextBoxNoWrap}"
+                Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.Location}"
                 />
 
@@ -135,7 +151,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="3" Grid.Column="1" 
-                Style="{StaticResource TextBoxNoWrap}"
+                Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.Model}"
                 />
             <Label
@@ -144,7 +160,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="3" Grid.Column="3" 
-                Style="{StaticResource TextBoxNoWrap}"
+                Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.SerialNumber}"
                 />
             <Button
@@ -173,7 +189,7 @@
                 IsEditable="True"
                 ItemsSource="{Binding InventoryDetails.Manufacturers}"
                 SelectedItem="{Binding InventoryDetails.Manufacturers.SelectedItem}"
-                Style="{StaticResource ComboBase}" 
+                Style="{StaticResource ComboBaseT}" 
                 Text="{Binding ManufacturerUserEntered, UpdateSourceTrigger=LostFocus}"
                 />
             <Label
@@ -182,7 +198,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="4" Grid.Column="3" 
-                Style="{StaticResource TextBoxNoWrap}"
+                Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.Capacity}"
                 />
 
@@ -192,7 +208,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="5" Grid.Column="1" 
-                Style="{StaticResource TextBoxNoWrap}"
+                Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.EquipmentType}"
                 />
             <Label
@@ -204,7 +220,7 @@
                 IsEditable="True"
                 ItemsSource="{Binding InventoryDetails.EquipmentMakes}"
                 SelectedIndex="{Binding InventoryDetails.EquipmentMakes.SelectedItem}"
-                Style="{StaticResource ComboBase}"
+                Style="{StaticResource ComboBaseT}"
                 Text="{Binding EquipmentMakeUserEntered, UpdateSourceTrigger=LostFocus}"
                 />
 
@@ -214,7 +230,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <DatePicker
                 Grid.Row="6" Grid.Column="1" 
-                Style="{StaticResource dpBase}"
+                Style="{StaticResource dpBaseT}"
                 Text="{Binding InventoryDetails.DateManufactured, Mode=TwoWay}"
                 />
             <Label
@@ -223,7 +239,9 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="6" Grid.Column="3" 
-                Style="{StaticResource TextBoxNoWrap}"
+                HorizontalAlignment="Left" HorizontalContentAlignment="Left"
+                Width="50"
+                Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.YearInstalled}"
                 />
 
@@ -233,7 +251,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="7" Grid.Column="1" 
-                Style="{StaticResource TextBoxNoWrap}"
+                Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.ControlTypeMake}"
                 />
 
@@ -243,7 +261,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <DatePicker
                 Grid.Row="8" Grid.Column="1" 
-                Style="{StaticResource dpBase}"
+                Style="{StaticResource dpBaseT}"
                 Text="{Binding InventoryDetails.WarrantyDate, Mode=TwoWay}"
                 />
             <Label
@@ -252,7 +270,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="8" Grid.Column="3" 
-                Style="{StaticResource TextBoxNoWrap}"
+                Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.WarrantyCompany}"
                 />
 
@@ -262,7 +280,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <DatePicker
                 Grid.Row="9" Grid.Column="1" 
-                Style="{StaticResource dpBase}"
+                Style="{StaticResource dpBaseT}"
                 Text="{Binding InventoryDetails.WarrantyDate2}"
                 />
             <Label
@@ -271,7 +289,7 @@
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="9" Grid.Column="3" 
-                Style="{StaticResource TextBoxNoWrap}"
+                Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.WarrantyCompany2}"
                 />
 
@@ -284,6 +302,7 @@
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image 
                         Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
+                        Height="35"
                         Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
                     <Label 
                         Content="Detail Comment"
@@ -317,30 +336,40 @@
               </ListBox.ItemTemplate>
             </ListBox>
 
+            <!--Photos-->
             <Button Grid.Row="11" Grid.Column="0"
-                  Style="{StaticResource ImageClickBlockButtonStyle}"
-                    Command="{Binding CmdImageDoubleClicked}"  
-                    CommandParameter="{Binding ImageContainer.SelectedItem}"
-            >
-                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                    <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
+                Style="{StaticResource ImageClickBlockButtonStyle}"
+                Command="{Binding CmdImageDoubleClicked}"  
+                CommandParameter="{Binding ImageContainer.SelectedItem}"
+                >
+                <StackPanel 
+                    Style="{StaticResource ImageClickBlockPanelStyle}">
+                    <Image 
+                        Source="/BDC_V1;component/Resources/PhotoIcon.png"
+                        Height="35"
                         Style="{StaticResource ImageClickBlockImageStyle}"/>
-                    <StackPanel Orientation="Horizontal">
-                      <Label Content="Photo(s)"
-                          Style="{StaticResource ImageClickBlockTextStyle}" />
-                      <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
-                          Style="{StaticResource ImageClickBlockTextStyle}" />
+                    <StackPanel 
+                        Margin="0,-10,0,0"
+                        Orientation="Vertical">
+                        <Label 
+                            Content="Photo(s)"
+                            Style="{StaticResource ImageClickBlockTextStyle}" />
+                        <Label 
+                            Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
+                            ContentStringFormat="Qty: {0}"
+                            Style="{StaticResource ImageClickBlockTextStyle}" />
                     </StackPanel>
                 </StackPanel >
             </Button>
 
-            <ListBox Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"
-                     Name="ImageListBox"
-                     Style="{StaticResource ImageBoxStyle}"
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ItemsSource ="{Binding ImageContainer}"
-                     SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
+            <ListBox 
+                Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"
+                Name="ImageListBox"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ItemsSource ="{Binding ImageContainer}"
+                SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
+                Style="{StaticResource ImageBoxStyle}"
             >
               <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

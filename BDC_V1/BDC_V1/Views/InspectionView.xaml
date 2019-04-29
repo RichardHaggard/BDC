@@ -667,34 +667,34 @@
             <!--Content="{Binding InspectionInfo.Note}"-->
             <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="8"
                 Background="Orange"
-                Margin="5,0,5,0"
+                Margin="0,0,5,0"
                 Content="{Binding InspectionInfo.Note}"
                 Style="{StaticResource LabelRO}"/>
 
             <!-- Inspection Comment -->
             <Button 
                 Grid.Row="7" Grid.Column="0"
-                Padding="0"
                 Style="{DynamicResource FacilityBlockButtonStyle}"
                 Command="{Binding CmdCommentDoubleClicked}"  
                 CommandParameter="{Binding CommentContainer.SelectedItem}"
                 >
                 <StackPanel 
-                    Margin="0,0,0,0"
+                    Margin="0,5,0,0"
                     VerticalAlignment="Top"
                     Style="{StaticResource ImageClickBlockPanelStyle}"
                     >
                     <Image 
+                        Height="35"
                         Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                         Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
-                    <!--<Label 
-                        Margin="0,-5,0,0"
+                    <Label 
+                        Margin="0,0,0,0"
                         Padding="0"
                         Content="Inspection Comment"
-                 Style="{StaticResource ImageClickBlockTextStyle}" />-->
+                        Style="{StaticResource ImageClickBlockTextStyle}" />
                     <!-- Remember -->
                     <Grid
-                        Margin="0,-9,0,0"
+                        Margin="0,0,0,-0"
                         >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -702,28 +702,30 @@
                         </Grid.ColumnDefinitions>
 
                         <CheckBox Grid.Column="0"
-                        Margin="5,0,0,0"
-                        Content="Remember"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Style="{StaticResource cbBase}"
-                        IsChecked="{Binding IsRemembered}" />
+                            Margin="5,0,0,0"
+                            Content="Remember"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Style="{StaticResource cbBase}"
+                            IsChecked="{Binding IsRemembered}" />
                         <Image Grid.Column="1"
-                         Margin="5,2,5,2"
-                         Height="40"
-                         Source="/BDC_V1;component/Resources/Remember (1).png"
-                         Width="35" />
+                            Margin="5,2,5,2"
+                            Height="25"
+                            Source="/BDC_V1;component/Resources/Remember (1).png"
+                            Width="35" />
                     </Grid>
                 </StackPanel>
             </Button>
 
-            <ListBox Grid.Row="7" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="8"
+            <ListBox 
+                Grid.Row="7" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="8"
                 Name="CommentListBox"
-                Style="{StaticResource CommentBoxStyle}"
+                Margin="0,5,5,0"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ItemsSource ="{Binding CommentContainer}"
                 SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
+                Style="{StaticResource CommentBoxStyle}"
                 >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
@@ -744,19 +746,28 @@
 
 
             <!-- Photos -->
-            <Button Grid.Row="8" Grid.Column="0"
-                    Style="{StaticResource PhotosBlockButtonStyle}"
-                    Command="{Binding CmdImageDoubleClicked}"  
-                    CommandParameter="{Binding ImageContainer.SelectedItem}"
-            >
-                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                    <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
-                      Style="{StaticResource ImageClickBlockImageStyle}"/>
-                    <StackPanel Orientation="Horizontal">
-                      <Label Content="Photo(s)"
-                        Style="{StaticResource ImageClickBlockTextStyle}" />
-                      <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
-                        Style="{StaticResource ImageClickBlockTextStyle}" />
+            <Button 
+                Grid.Row="8" Grid.Column="0"
+                Style="{StaticResource PhotosBlockButtonStyle}"
+                Command="{Binding CmdImageDoubleClicked}"  
+                CommandParameter="{Binding ImageContainer.SelectedItem}"
+                >
+                <StackPanel 
+                    Style="{StaticResource ImageClickBlockPanelStyle}">
+                    <Image 
+                        Source="/BDC_V1;component/Resources/PhotoIcon.png"
+                        Height="35"
+                        Style="{StaticResource ImageClickBlockImageStyle}"/>
+                    <StackPanel 
+                        Margin="0,-10,0,0"
+                        Orientation="Vertical">
+                        <Label 
+                            Content="Inspection Photo(s)"
+                            Style="{StaticResource ImageClickBlockTextStyle}" />
+                        <Label 
+                            Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
+                            ContentStringFormat="Qty: {0}"
+                            Style="{StaticResource ImageClickBlockTextStyle}" />
                     </StackPanel>
                 </StackPanel >
             </Button>
@@ -764,11 +775,12 @@
             <ListBox 
                 Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
                 Name="ImageListBox"
-                Style="{StaticResource ImageBoxStyle}"
+                Margin="0,5,5,5"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ItemsSource ="{Binding ImageContainer}"
                 SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
+                Style="{StaticResource ImageBoxStyle}"
             >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
@@ -813,7 +825,6 @@
                 Grid.RowSpan="1">
 
                 <Button 
-                    Width="160"
                     Command="{Binding CmdCancelEdit}"
                     Style="{StaticResource btnImageText}"
                     >
@@ -836,7 +847,7 @@
                 </Button>
 
                 <Button 
-                    Width="160"
+                    Margin="15,5"
                     Command="{Binding CmdDeleteInspection}"
                     Style="{StaticResource btnImageText}"
                     >

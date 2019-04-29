@@ -181,6 +181,7 @@
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="Margin" Value="5" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
           <!--RadioButton base-->
@@ -189,7 +190,8 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Margin" Value="5" />
-            <Style.Triggers>
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Style.Triggers>
               <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground"  Value="DarkGray" />
                 <Setter Property="BorderBrush" Value="DarkGray" />

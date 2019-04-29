@@ -72,6 +72,7 @@
             
             <ComboBox 
                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="8"
+                Margin="0,2"
                 ItemsSource="{Binding InventorySection.SectionNames}"
                 SelectedItem="{Binding InventorySection.SectionName, Mode=TwoWay}"
                 materialDesign:HintAssist.Hint="Please select a section name..."
@@ -81,7 +82,8 @@
             <Label Grid.Row="1" Grid.Column="0"
                 Content="Equipment Category:"
                 Style="{StaticResource LabelRJ}"/>
-            <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5"
+            <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8"
+                Margin="0,2"
                 ItemsSource="{Binding InventorySection.EquipmentCategories}"
                 SelectedItem="{Binding InventorySection.EquipmentCategory, Mode=TwoWay}"
                 materialDesign:HintAssist.Hint="Please select an equipment category..."
@@ -91,7 +93,8 @@
             <Label Grid.Row="2" Grid.Column="0"
                 Content="Component Type:"
                 Style="{StaticResource LabelRJ}"/>
-            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5"
+            <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"
+                Margin="0,2"
                 ItemsSource="{Binding InventorySection.ComponentTypes}"
                 SelectedItem="{Binding InventorySection.ComponentType, Mode=TwoWay}"
                 materialDesign:HintAssist.Hint="Please select a component type..."
@@ -101,9 +104,10 @@
             <Label Grid.Row="3" Grid.Column="0"
                 Content="Quantity:"
                 Style="{StaticResource LabelRJ}"/>
-            <TextBox Grid.Row="3" Grid.Column="1"
-                     Margin="2"
-                     Padding="0"
+            <TextBox 
+                Grid.Row="3" Grid.Column="1"
+                Margin="0,2,5,2"
+                Padding="0"
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding InventorySection.Quantity}"
                 />
@@ -152,7 +156,8 @@
 
             <StackPanel 
                 Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="6" 
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Left"
+                Margin="20,0,0,0"
                 Orientation="Horizontal">
               <Label Content="Select"
                      Style="{StaticResource LabelRJ}"/>
@@ -177,7 +182,7 @@
             </StackPanel>
 
             <Label Grid.Row="4" Grid.Column="0"
-                Content="Yr. Inst/Renewed:"
+                Content="Yr Installed/Renewed:"
                 Style="{StaticResource LabelRJ}"/>
 
             <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
@@ -258,7 +263,7 @@
                 Text="{Binding InventorySection.YearPc}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
-            <Label Grid.Row="7" Grid.Column="5"
+            <Label Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2"
                 Content="P/C Type:"
                 Style="{StaticResource LabelRJ}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
@@ -280,15 +285,17 @@
 
                 <Button 
                     Grid.Row="0" Grid.Column="0"
-                    Margin="5"
                     Style="{DynamicResource FacilityBlockButtonStyle}"
                     Command="{Binding CmdCommentDoubleClicked}"  
                     CommandParameter="{Binding CommentContainer.SelectedItem}"
                     >
                     <StackPanel 
-                        Margin="-20,0,0,0"
+                        Margin="-12,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
                         Style="{StaticResource ImageClickBlockPanelStyle}">
                         <Image 
+                            Height="35"
                             Source="/BDC_V1;component/Resources/EditText_Comments (1).png"
                             Margin="0"
                             Style="{StaticResource ImageClickBlockCommentImageStyle}"/>
@@ -296,6 +303,29 @@
                             Content="Section Comment"
                             Margin="0"
                             Style="{StaticResource ImageClickBlockTextStyle}" />
+                        
+                        <!-- Remember -->
+                        <Grid
+                            Margin="0,0,0,-0"
+                            >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Column="0"
+                                Margin="5,0,0,0"
+                                Content="Remember"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Style="{StaticResource cbBase}"
+                                IsChecked="{Binding IsRemembered}" />
+                            <Image Grid.Column="1"
+                                Margin="5,2,5,2"
+                                Height="25"
+                                Source="/BDC_V1;component/Resources/Remember (1).png"
+                                Width="35" />
+                        </Grid>
                     </StackPanel>
                 </Button>
 
@@ -327,14 +357,16 @@
                 </Border>
             </Grid>
 
-            <ListBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
-                     Name="CommentListBox"
-                     Style="{StaticResource CommentBoxStyle}"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ItemsSource ="{Binding CommentContainer}"
-                     SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
-              >
+            <ListBox 
+                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+                Name="CommentListBox"
+                Margin="0,5,5,0"
+                Style="{StaticResource CommentBoxStyle}"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ItemsSource ="{Binding CommentContainer}"
+                SelectedItem="{Binding CommentContainer.SelectedItem, Mode=TwoWay}"
+                >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding CmdCommentDoubleClicked}"  
@@ -352,31 +384,43 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Button Grid.Row="9" Grid.Column="0"
-                    Style="{StaticResource ImageClickBlockButtonStyle}"
-                    Command="{Binding CmdImageDoubleClicked}"  
-                    CommandParameter="{Binding ImageContainer.SelectedItem}"
-            >
-                <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
-                    <Image Source="/BDC_V1;component/Resources/PhotoIcon.png"
+            <!--Photos-->
+            <Button 
+                Grid.Row="9" Grid.Column="0"
+                Style="{StaticResource ImageClickBlockButtonStyle}"
+                Command="{Binding CmdImageDoubleClicked}"  
+                CommandParameter="{Binding ImageContainer.SelectedItem}"
+                >
+                <StackPanel 
+                    Style="{StaticResource ImageClickBlockPanelStyle}">
+                    <Image 
+                        Source="/BDC_V1;component/Resources/PhotoIcon.png"
+                        Height="35"
                         Style="{StaticResource ImageClickBlockImageStyle}"/>
-                    <StackPanel Orientation="Horizontal">
-                      <Label Content="Photo(s)"
-                          Style="{StaticResource ImageClickBlockTextStyle}" />
-                      <Label Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
-                          Style="{StaticResource ImageClickBlockTextStyle}" />
+                    <StackPanel 
+                        Margin="0,-10,0,0"
+                        Orientation="Vertical">
+                        <Label 
+                            Content="Photo(s)"
+                            Style="{StaticResource ImageClickBlockTextStyle}" />
+                        <Label 
+                            Content="{Binding ElementName=ImageListBox, Path=Items.Count}"
+                            ContentStringFormat="Qty: {0}"
+                            Style="{StaticResource ImageClickBlockTextStyle}" />
                     </StackPanel>
-                </StackPanel>
+                </StackPanel >
             </Button>
 
-            <ListBox Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="8"
-                     Name="ImageListBox"
-                     Style="{StaticResource ImageBoxStyle}"
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ItemsSource ="{Binding ImageContainer}"
-                     SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
-              >
+            <ListBox 
+                Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="8"
+                Margin="0,5"
+                Name="ImageListBox"
+                Style="{StaticResource ImageBoxStyle}"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ItemsSource ="{Binding ImageContainer}"
+                SelectedItem="{Binding ImageContainer.SelectedItem, Mode=TwoWay}"
+                >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding CmdImageDoubleClicked}"  
@@ -461,20 +505,25 @@
                 SelectedItem="{Binding InventorySection.Dcr, Mode=TwoWay}"
                 Style="{StaticResource ComboBase}"
                 />
-            <Label 
-                Grid.Row="10" Grid.Column="6"
-                Content="P/C Rating:"
-                HorizontalAlignment="Right"
-                Style="{StaticResource LabelRJ}"
-                />
-            <ComboBox 
-                Grid.Row="10" Grid.Column="7" 
-                HorizontalAlignment="Left"
-                Width="50"
-                ItemsSource="{Binding InventorySection.Dcrs}"
-                SelectedItem="{Binding InventorySection.PcRating, Mode=TwoWay}"
-                Style="{StaticResource ComboBase}"
-                />
+
+            <StackPanel
+                Grid.Row="10" Grid.Column="6" Grid.ColumnSpan="2"
+                Margin="15,0,0,0"
+                Orientation="Horizontal"
+                >
+                <Label 
+                    Content="P/C Rating:"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource LabelRJ}"
+                    />
+                <ComboBox 
+                    HorizontalAlignment="Left"
+                    Width="50"
+                    ItemsSource="{Binding InventorySection.Dcrs}"
+                    SelectedItem="{Binding InventorySection.PcRating, Mode=TwoWay}"
+                    Style="{StaticResource ComboBase}"
+                    />
+            </StackPanel>
 
             <StackPanel
                 Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
