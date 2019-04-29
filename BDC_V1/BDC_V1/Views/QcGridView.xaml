@@ -51,7 +51,8 @@
 
       <Style.Triggers>
         <DataTrigger Value="true" 
-                     Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}, 
+                     Binding="{Binding (ToggleButton.IsChecked), 
+                     RelativeSource={RelativeSource Self}, 
                      FallbackValue=false}">
           <Setter Property="Template">
             <Setter.Value>
@@ -248,6 +249,7 @@
                     ColumnHeaderHeight="60"
                     ColumnHeaderStyle="{StaticResource DataGridColumnHeaderBase}"
                     ItemsSource="{Binding GridItemsView}"
+                    
                     CanUserSortColumns="True"
                     CanUserResizeColumns="False"
                     GridLinesVisibility="All"
@@ -256,7 +258,7 @@
                     SelectionUnit="Cell"
           >
             <DataGrid.Resources>
-              <DiscreteObjectKeyFrame x:Key="proxy" Value="{Binding ElementName=QcGridViewControl}"/>
+              <DiscreteObjectKeyFrame x:Key="Proxy" Value="{Binding ElementName=QcGridViewControl}"/>
 
               <Style TargetType="{x:Type DataGridCell}">
                 <Style.Triggers>
@@ -274,41 +276,46 @@
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
                                   Width="65"
-                                  Binding="{Binding Path=FacilityId }" />
+                                  Binding="{Binding Path=(interfaces:IQcIssueBase.FacilityId)}" />
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.SystemId}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
                                   Width="45"
-                                  Binding="{Binding Path=SystemId}" />
+                                  Binding="{Binding Path=(interfaces:IQcIssueBase.SystemId)}" />
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.InventoryId}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
                                   Width="65"
-                                  Binding="{Binding Path=ComponentId}" />
+                                  Binding="{Binding Path=(interfaces:IQcIssueBase.ComponentId)}" />
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.TypeId}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
                                   Width="65"
-                                  Binding="{Binding Path=TypeName}" />
+                                  Binding="{Binding Path=(interfaces:IQcIssueBase.TypeName)}" />
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.SectionName}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
                                   Width="100"
-                                  Binding="{Binding Path=SectionName}" />
+                                  Binding="{Binding Path=(interfaces:IQcIssueBase.SectionName)}" />
+              <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
               <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.Rating}, 
                                     Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                     Mode=OneTime}" 
-                                  Binding="{Binding Path=Rating, Converter={StaticResource EnumToDescriptionConverter}}"  
+                                  Binding="{Binding Path=(interfaces:IQcIssueBase.Rating), 
+                                    Converter={StaticResource EnumToDescriptionConverter}}"  
                                   Width="45"
                                   HeaderStyle="{StaticResource DataGridColumnHeaderRtg}"
                                   ElementStyle="{StaticResource DcrStyle}"
-                                  Visibility="{Binding Value.HasRatings, Source={StaticResource proxy},
-                                    Converter={StaticResource BoolToVisibilityConverter}}"
+                                  Visibility="{Binding (ObjectKeyFrame.Value).HasRatings, 
+                                    Source={StaticResource Proxy},
+                                    Converter={StaticResource BoolToVisibilityConverter},
+                                    Mode=OneTime,
+                                    FallbackValue=Visible}"
               >
                 <DataGridTextColumn.CellStyle>
                   <Style TargetType="DataGridCell" >
                     <Setter Property="Background" 
-                            Value="{Binding Path=Rating, 
+                            Value="{Binding Path=(interfaces:IQcIssueBase.Rating), 
                               Converter={StaticResource RatingToBrushConverter},
                               Mode=OneWay}" />
                     <Style.Triggers>
@@ -320,9 +327,13 @@
                   </Style>
                 </DataGridTextColumn.CellStyle>
               </DataGridTextColumn>
-              <DataGridTextColumn Header="{Binding Value.CommentType, Source={StaticResource proxy},
-                                    Converter={StaticResource ResourceKey=EnumToDescriptionConverter}}" 
-                                  Binding="{Binding Path=Comment.CommentText}" 
+              <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+              <DataGridTextColumn Header="{Binding (ObjectKeyFrame.Value).CommentType, 
+                                    Source={StaticResource Proxy},
+                                    Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
+                                    Mode=OneTime,
+                                    FallbackValue='Inspection Comments'}" 
+                                  Binding="{Binding Path=(interfaces:IQcIssueBase.Comment).CommentText }" 
                                   MinWidth="250"
                                   Width="*"
               >

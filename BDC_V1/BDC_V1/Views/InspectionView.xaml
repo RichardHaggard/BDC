@@ -35,6 +35,8 @@
                         Converter={StaticResource RatingColorToColorConverter}, 
                         Mode=OneTime}" />
 
+        <SolidColorBrush x:Key="GreenButtonForeground" Color="DarkGreen" />
+
         <SolidColorBrush x:Key="RedButtonBrush" 
                      Color="{Binding Source={x:Static local:EnumRatingColors.Red}, 
                         Converter={StaticResource RatingColorToColorConverter}, 
@@ -44,6 +46,8 @@
                      Color="{Binding Source={x:Static local:EnumRatingColors.Amber}, 
                         Converter={StaticResource RatingColorToColorConverter}, 
                         Mode=OneTime}" />
+
+        <SolidColorBrush x:Key="AmberButtonForeground" Color="#700e01" />
 
         <SolidColorBrush x:Key="YellowButtonBrush" 
                      Color="{Binding Source={x:Static local:EnumRatingColors.Yellow}, 
@@ -117,7 +121,7 @@
                           ConverterParameter=None, Mode=OneWay}" />
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Background" Value="White" />
-                    <Setter Property="Foreground" Value="{DynamicResource GreenButtonBrush}" />
+                    <Setter Property="Foreground" Value="{DynamicResource GreenButtonForeground}" />
                 </MultiDataTrigger>
 
             </Style.Triggers>
@@ -138,7 +142,7 @@
                           ConverterParameter=None, Mode=OneWay}" />
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Background" Value="White" />
-                    <Setter Property="Foreground" Value="{DynamicResource GreenButtonBrush}" />
+                    <Setter Property="Foreground" Value="{DynamicResource GreenButtonForeground}" />
                 </MultiDataTrigger>
 
             </Style.Triggers>
@@ -176,7 +180,7 @@
                           ConverterParameter=None, Mode=OneWay}" />
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Background" Value="White" />
-                    <Setter Property="Foreground" Value="{DynamicResource AmberButtonBrush}" />
+                    <Setter Property="Foreground" Value="{DynamicResource AmberButtonForeground}" />
                 </MultiDataTrigger>
 
             </Style.Triggers>
@@ -197,7 +201,7 @@
                           ConverterParameter=None, Mode=OneWay}" />
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Background" Value="White" />
-                    <Setter Property="Foreground" Value="{DynamicResource AmberButtonBrush}" />
+                    <Setter Property="Foreground" Value="{DynamicResource AmberButtonForeground}" />
                 </MultiDataTrigger>
 
             </Style.Triggers>
