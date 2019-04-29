@@ -14,7 +14,7 @@
     xmlns:classes="clr-namespace:BDC_V1.Classes"
     xmlns:enumerations="clr-namespace:BDC_V1.Enumerations"
     mc:Ignorable="d"
-    MinHeight="400" Width="870"
+    Height="640" Width="850"
     >
 
   <!-- TODO: Collapse QaInventoryView and QaInspectionView into a single source -->
@@ -129,22 +129,15 @@
 
   <ScrollViewer HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto"
-                Margin="5,10,5,10">
+                Margin="5">
     <Grid>
         <Grid.RowDefinitions>
-          <RowDefinition Height="Auto" /> <!-- 1 - Component -->
-          <RowDefinition Height="Auto" /> <!-- 2 - Data Grid -->
-          <RowDefinition Height="*"    /> <!-- room for the auto scroll -->
+          <RowDefinition Height="Auto" /> <!-- 0 - Buttons -->
+          <RowDefinition Height="*"    /> <!-- 1 - Data Grid -->
         </Grid.RowDefinitions>
 
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="*" /> <!-- room for the auto scroll -->
-      </Grid.ColumnDefinitions>
-
         <!-- Button row -->
-      <DockPanel Grid.Row="0" Grid.Column="0"
-                 Margin="0,0,0,10" 
+      <DockPanel Grid.Row="0" Margin="0" 
                  HorizontalAlignment="Stretch">
 
         <DockPanel HorizontalAlignment="Left">
@@ -196,11 +189,8 @@
 
       <!-- DataGrid -->
       <DataGrid Grid.Row="1" Grid.Column="0"
-                MinHeight="250"
-                Height="Auto"
-                Width="860"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
+                Height="545"
+                Width="840"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
                 ColumnHeaderHeight="60"
@@ -244,7 +234,7 @@
           <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.SystemId}, 
                                   Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
                                   Mode=OneTime}"  
-                              Width="68"
+                              Width="45"
                               Binding="{Binding Path=SystemId}" />
           <DataGridTextColumn Header="{Binding Source={x:Static enumerations:EnumSortingFilter.InventoryId}, 
                                   Converter={StaticResource ResourceKey=EnumToDescriptionConverter},
@@ -266,7 +256,7 @@
                                   Mode=OneTime}"  
                               Binding="{Binding Path=InventoryComment.CommentText}" 
                               MinWidth="250"
-                              Width="497"
+                              Width="500"
           >
             <DataGridTextColumn.ElementStyle>
               <Style>                            

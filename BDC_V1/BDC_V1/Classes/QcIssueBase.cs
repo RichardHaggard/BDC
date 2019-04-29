@@ -11,7 +11,7 @@ using BDC_V1.Utils;
 namespace BDC_V1.Classes
 {
     /// <inheritdoc cref="IQcIssueBase"/>
-    public class QcIssueBase : PropertyBase, IQcIssueBase
+    public abstract class QcIssueBase : PropertyBase, IQcIssueBase
     {
         /// <inheritdoc />
         public string FacilityId
@@ -52,5 +52,14 @@ namespace BDC_V1.Classes
             set => SetProperty(ref _sectionName, value);
         }
         private string _sectionName;
+
+        /// <inheritdoc />
+        public abstract CommentBase Comment { get; set; }
+
+        /// <inheritdoc />
+        public abstract bool HasRating { get; }
+
+        /// <inheritdoc />
+        public abstract EnumRatingType Rating { get; set; }
     }
 }

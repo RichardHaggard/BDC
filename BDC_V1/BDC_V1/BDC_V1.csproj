@@ -121,10 +121,10 @@
     <Compile Include="Classes\CommentSection.cs" />
     <Compile Include="Classes\PropertyBaseHelper.cs" />
     <Compile Include="Classes\QcIssueBase.cs" />
-    <Compile Include="Classes\QcViewModelBase.cs" />
     <Compile Include="Classes\SectionInfo.cs" />
     <Compile Include="Classes\WindowBehaviors.cs" />
     <Compile Include="Converters\BoolToObjectConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\CaptionButtonRectToMarginConverter.cs" />
     <Compile Include="Converters\DataFilterBooleanConverter.cs" />
     <Compile Include="Converters\DataGridAutoColumnWidth.cs" />
@@ -153,6 +153,8 @@
     <Compile Include="Interfaces\IPropertyBaseHelper.cs" />
     <Compile Include="Interfaces\IQcIssueBase.cs" />
     <Compile Include="Interfaces\ISectionInfo.cs" />
+    <Compile Include="Mock Data\MockQcInspectionData.cs" />
+    <Compile Include="Mock Data\MockQcInventoryData.cs" />
     <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -252,8 +254,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />
     <Compile Include="ViewModels\PhotoManagementViewModel.cs" />
-    <Compile Include="ViewModels\QaInspectionViewModel.cs" />
-    <Compile Include="ViewModels\QaInventoryViewModel.cs" />
+    <Compile Include="ViewModels\QcGridViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Classes\ViewModelBase.cs" />
     <Compile Include="Views\AboutBdcView.xaml.cs">
@@ -310,12 +311,11 @@
     <Compile Include="Views\PhotoManagementView.xaml.cs">
       <DependentUpon>PhotoManagementView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\QaInspectionView.xaml.cs">
-      <DependentUpon>QaInspectionView.xaml</DependentUpon>
+    <Compile Include="Views\QcGridView.xaml.cs">
+      <DependentUpon>QcGridView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\QaInventoryView.xaml.cs">
-      <DependentUpon>QaInventoryView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\QcInspectionView.cs" />
+    <Compile Include="Views\QcInventoryView.cs" />
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -427,11 +427,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\QaInspectionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\QaInventoryView.xaml">
+    <Page Include="Views\QcGridView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

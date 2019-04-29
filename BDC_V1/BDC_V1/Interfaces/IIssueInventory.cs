@@ -10,8 +10,6 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Interfaces
 {
-    //<!-- TODO: Collapse QaInventoryView and QaInspectionView into a single source -->
-
     /// <inheritdoc />
     public interface IIssueInventory : IQcIssueBase
     {

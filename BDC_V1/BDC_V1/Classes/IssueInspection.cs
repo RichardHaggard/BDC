@@ -7,28 +7,33 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Classes
 {
-    //<!-- TODO: Collapse QaInventoryView and QaInspectionView into a single source -->
-
     /// <inheritdoc cref="IIssueInspection"/>
     public class IssueInspection : QcIssueBase, IIssueInspection
     {
         /// <inheritdoc />
-        public string RatingText => Rating.Description();
+        public override bool HasRating => true;
 
         /// <inheritdoc />
-        public EnumRatingType Rating
+        public override EnumRatingType Rating
         {
             get => _rating;
-            set => SetPropertyFlagged(ref _rating, value, nameof(RatingText));
+            set => SetProperty(ref _rating, value);
         }
         private EnumRatingType _rating;
 
         /// <inheritdoc />
+        public override CommentBase Comment
+        {
+            get => InspectionComment;
+            set => InspectionComment = value;
+        }
+
+        /// <inheritdoc />
         public CommentBase InspectionComment
         {
-            get => _inspectionComment;
-            set => SetProperty(ref _inspectionComment, value);
+            get => _comment;
+            set => SetPropertyFlagged(ref _comment, value, nameof(Comment));
         }
-        private CommentBase _inspectionComment;
+        private CommentBase _comment;
     }
 }

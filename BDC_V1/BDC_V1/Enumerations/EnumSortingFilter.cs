@@ -15,7 +15,7 @@ namespace BDC_V1.Enumerations
         [Description("Fac. ID")]
         FacilityId,
 
-        [Description("System")]
+        [Description("Sys.")]
         SystemId,
 
         [Description("Comp.")]

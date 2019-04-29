@@ -11,13 +11,9 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Interfaces
 {
-    //<!-- TODO: Collapse QaInventoryView and QaInspectionView into a single source -->
-
     /// <inheritdoc />
     public interface IIssueInspection : IQcIssueBase
     {
-        CommentBase    InspectionComment { get; set; }
-        EnumRatingType Rating            { get; set; }
-        string         RatingText        { get; }
+        CommentBase InspectionComment { get; set; }
     }
 }

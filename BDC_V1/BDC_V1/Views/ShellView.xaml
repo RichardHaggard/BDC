@@ -467,7 +467,7 @@
                     Background="{Binding QaInventoryTabBackgroundColor}"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Top">
-                  <local:QaInventoryView />
+                  <local:QcInventoryView />
                 </TabItem>
 
                 <TabItem 
@@ -476,7 +476,7 @@
                     Background="{Binding QaInspectionTabBackgroundColor}"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Top">
-                    <local:QaInspectionView />
+                    <local:QcInspectionView />
                 </TabItem>
                 
             </TabControl>
