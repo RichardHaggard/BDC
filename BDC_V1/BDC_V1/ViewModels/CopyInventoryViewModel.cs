@@ -26,24 +26,38 @@ namespace BDC_V1.ViewModels
         [NotNull] public ICommand CmdCancelButton { get; }
         [NotNull] public ICommand CmdCopyButton   { get; }
 
-        public bool IsSectionNameEnabled
-        {
-            get
-            {
-                var enabled = (SourceFacilities.SelectedItem == TargetFacilities.SelectedItem);
-                if (!enabled) Sections.SelectedIndex = -1;
-
-                return enabled;
-            }
-        }
+        public bool IsSectionNameEnabled => 
+            (SourceFacility == TargetFacilities.SelectedItem);
 
         // TODO: Move these into a data interface / class ???
+
+        public string SectionName
+        {
+            get => (IsSectionNameEnabled)? _sectionName : string.Empty;
+            set => SetProperty(ref _sectionName, value);
+        }
+        private string _sectionName;
+
+        public IFacilityInfoHeader SourceFacility
+        {
+            get => _sourceFacility;
+            set => SetPropertyFlagged(ref _sourceFacility, value, new []
+            {
+                nameof(SectionName),
+                nameof(IsSectionNameEnabled)
+            });
+        }
+        private IFacilityInfoHeader _sourceFacility;
 
         // TODO: Get the real data for this
         public ISectionInfo Node
         {
             get => _node;
-            set => SetPropertyFlagged(ref _node, value, nameof(IsSectionNameEnabled));
+            set => SetPropertyFlagged(ref _node, value, new []
+            {
+                nameof(SectionName),
+                nameof(IsSectionNameEnabled)
+            });
         }
         private ISectionInfo _node;
 
@@ -51,7 +65,11 @@ namespace BDC_V1.ViewModels
         public string SectionNode
         {
             get => _sectionNode;
-            set => SetPropertyFlagged(ref _sectionNode, value, nameof(IsSectionNameEnabled));
+            set => SetPropertyFlagged(ref _sectionNode, value, new []
+            {
+                nameof(SectionName),
+                nameof(IsSectionNameEnabled)
+            });
         }
         private string _sectionNode;
 
@@ -74,7 +92,8 @@ namespace BDC_V1.ViewModels
         public bool IsOverYearChecked
         {
             get => _isOverYearChecked;
-            set => SetPropertyFlagged(ref _isOverYearChecked, value, nameof(YearBuilt));
+            set => SetPropertyFlagged(ref _isOverYearChecked, value, 
+                nameof(YearBuilt));
         }
         private bool _isOverYearChecked;
 
@@ -90,7 +109,8 @@ namespace BDC_V1.ViewModels
         public bool IsSectionDetailsChecked
         {
             get => _isSectionDetailsChecked;
-            set => SetPropertyFlagged(ref _isSectionDetailsChecked, value, nameof(IsDetailCommentsChecked));
+            set => SetPropertyFlagged(ref _isSectionDetailsChecked, value, 
+                nameof(IsDetailCommentsChecked));
         }
         private bool _isSectionDetailsChecked;
 
@@ -114,7 +134,8 @@ namespace BDC_V1.ViewModels
         public bool IsCopyInspectionsChecked
         {
             get => _isCopyInspectionsChecked;
-            set => SetPropertyFlagged(ref _isCopyInspectionsChecked, value, nameof(IsIncludeCommentsChecked));
+            set => SetPropertyFlagged(ref _isCopyInspectionsChecked, value, 
+                nameof(IsIncludeCommentsChecked));
         }
         private bool _isCopyInspectionsChecked;
 
@@ -126,14 +147,8 @@ namespace BDC_V1.ViewModels
         }
         private bool _isIncludeCommentsChecked;
 
-        [NotNull] public IndexedCollection<IFacilityInfoHeader> SourceFacilities { get; } =
-            new IndexedCollection<IFacilityInfoHeader>(new ObservableCollection<IFacilityInfoHeader>());
-
         [NotNull] public IndexedCollection<IFacilityInfoHeader> TargetFacilities { get; } =
             new IndexedCollection<IFacilityInfoHeader>(new ObservableCollection<IFacilityInfoHeader>());
-
-        [NotNull] public IndexedCollection<ISectionInfo> Sections { get; } =
-            new IndexedCollection<ISectionInfo>(new ObservableCollection<ISectionInfo>());
 
         [NotNull] public IndexedCollection<ItemChecklist> Systems { get; } =
             new IndexedCollection<ItemChecklist>(new ObservableCollection<ItemChecklist>());
@@ -155,22 +170,15 @@ namespace BDC_V1.ViewModels
             // manipulate the base collection instead
             TargetFacilities.Collection.AddRange(new []
             {
-                new FacilityInfoHeader {BuildingIdNumber = 11057, BuildingName = "National Guard Readiness Center"},
-                new FacilityInfoHeader {BuildingIdNumber = 11612, BuildingName = "Facility # 2"}
+                new FacilityInfoHeader {BuildingIdNumber = 11057, 
+                    BuildingName = "National Guard Readiness Center"},
+
+                new FacilityInfoHeader {BuildingIdNumber = 11612, 
+                    BuildingName = "Facility # 2"}
             });
 
             // TODO: I'm unsure about what this is supposed to be
-            SourceFacilities.Collection.AddRange(TargetFacilities.Collection);
-            SourceFacilities.SelectedIndex = 0;
-
-            Sections.Collection.AddRange(new[]
-            {
-                new SectionInfo("FL1"),
-                new SectionInfo("FL2"),
-                new SectionInfo("EAST WING"),
-                new SectionInfo("WEST WING"),
-                new SectionInfo("MEZZANINE"),
-            });
+            SourceFacility = TargetFacilities.FirstOrDefault();
 
             foreach (EnumFacilitySystemTypes system in Enum.GetValues(typeof(EnumFacilitySystemTypes)))
             {
@@ -178,22 +186,9 @@ namespace BDC_V1.ViewModels
                     {ItemName = $"{system.ToString()} - {system.Description()}"});
             }
 #endif
-
-            SourceFacilities.PropertyChanged += (o, i) =>
-            {
-                if (i.PropertyName == nameof(SourceFacilities.SelectedItem))
-                    RaisePropertyChanged(nameof(IsSectionNameEnabled));
-            };
-
             TargetFacilities.PropertyChanged += (o, i) =>
             {
                 if (i.PropertyName == nameof(TargetFacilities.SelectedItem))
-                    RaisePropertyChanged(nameof(IsSectionNameEnabled));
-            };
-
-            Sections.PropertyChanged += (o, i) =>
-            {
-                if (i.PropertyName == nameof(Sections.SelectedItem))
                     RaisePropertyChanged(nameof(IsSectionNameEnabled));
             };
         }
@@ -203,7 +198,7 @@ namespace BDC_V1.ViewModels
         private void OnCancelButton()
         {
             Result = EnumControlResult.ResultCancelled;
-            DialogResultEx = false;
+            DialogResultEx = true;
         }
 
         private void OnCopyButton()
@@ -211,7 +206,6 @@ namespace BDC_V1.ViewModels
             Result = EnumControlResult.ResultSaveNow;
             DialogResultEx = true;
         }
-
 
     }
 }
