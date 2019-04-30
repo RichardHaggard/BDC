@@ -133,7 +133,7 @@ two line header</system:String>
 
         <Button Grid.Column="6" Style="{StaticResource bTB}"
                 Command="{Binding CmdCancelUndo}">
-          <Image Source="/BDC_V1;component/Resources/Cancel (1).png" />
+          <Image Source="/BDC_V1;component/Resources/Cancel_Undo.png" />
         </Button>
 
         <Button Grid.Column="7" Style="{StaticResource bTB}"
