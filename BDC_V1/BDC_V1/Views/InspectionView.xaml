@@ -28,6 +28,7 @@
       
       <Brush x:Key="ButtonGridNotEnabledBackground">#DDEBF7</Brush>
       <Brush x:Key="ButtonGridEnabledBackground"   >White  </Brush>
+      <Brush x:Key="ButtonGridCheckedForeground"   >Black  </Brush>
 
         <!-- Insure consistent colors thru out program -->
         <SolidColorBrush x:Key="GreenButtonBrush"
@@ -100,7 +101,7 @@
                         <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Background" Value="{DynamicResource GreenButtonBrush}" />
-                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="Foreground" Value="{DynamicResource ButtonGridCheckedForeground}" />
                 </MultiDataTrigger>
 
             </Style.Triggers>
@@ -120,7 +121,7 @@
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
                     </MultiDataTrigger.Conditions>
-                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Background" Value="{DynamicResource ButtonGridEnabledBackground}" />
                     <Setter Property="Foreground" Value="{DynamicResource GreenButtonForeground}" />
                 </MultiDataTrigger>
 
@@ -141,7 +142,7 @@
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
                     </MultiDataTrigger.Conditions>
-                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Background" Value="{DynamicResource ButtonGridEnabledBackground}" />
                     <Setter Property="Foreground" Value="{DynamicResource GreenButtonForeground}" />
                 </MultiDataTrigger>
 
@@ -159,7 +160,7 @@
                         <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Background" Value="{DynamicResource AmberButtonBrush}" />
-                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="Foreground" Value="{DynamicResource ButtonGridCheckedForeground}" />
                 </MultiDataTrigger>
 
             </Style.Triggers>
@@ -179,7 +180,7 @@
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
                     </MultiDataTrigger.Conditions>
-                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Background" Value="{DynamicResource ButtonGridEnabledBackground}" />
                     <Setter Property="Foreground" Value="{DynamicResource AmberButtonForeground}" />
                 </MultiDataTrigger>
 
@@ -200,7 +201,7 @@
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
                     </MultiDataTrigger.Conditions>
-                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Background" Value="{DynamicResource ButtonGridEnabledBackground}" />
                     <Setter Property="Foreground" Value="{DynamicResource AmberButtonForeground}" />
                 </MultiDataTrigger>
 
@@ -218,7 +219,7 @@
                         <Condition Value="true" Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Background" Value="{DynamicResource RedButtonBrush}" />
-                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="Foreground" Value="{DynamicResource ButtonGridCheckedForeground}" />
                 </MultiDataTrigger>
 
             </Style.Triggers>
@@ -238,7 +239,7 @@
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
                     </MultiDataTrigger.Conditions>
-                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Background" Value="{DynamicResource ButtonGridEnabledBackground}" />
                     <Setter Property="Foreground" Value="{DynamicResource RedButtonBrush}" />
                 </MultiDataTrigger>
 
@@ -259,7 +260,7 @@
                           Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
                           ConverterParameter=None, Mode=OneWay}" />
                     </MultiDataTrigger.Conditions>
-                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Background" Value="{DynamicResource ButtonGridEnabledBackground}" />
                     <Setter Property="Foreground" Value="{DynamicResource RedButtonBrush}" />
                 </MultiDataTrigger>
 
