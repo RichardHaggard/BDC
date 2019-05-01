@@ -53,6 +53,8 @@ namespace BDC_V1.Classes
             return true;
         }
 
+        protected override IFacilityBase FacilityBaseInfo => this;
+
         protected FacilityBaseClass()
         {
             _facilityBase.PropertyChanged += (o, i) =>

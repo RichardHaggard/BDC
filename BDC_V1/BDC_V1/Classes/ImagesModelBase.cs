@@ -98,6 +98,8 @@ namespace BDC_V1.Classes
                             ImageContainer.FirstOrDefault());
         }
 
+        protected abstract IFacilityBase FacilityBaseInfo { get; }
+
         protected virtual void OnSelectedComment(
             [CanBeNull] ICommentBase comment, 
             bool isInspection = false)
@@ -106,7 +108,7 @@ namespace BDC_V1.Classes
             if (!(view.DataContext is GeneralCommentViewModel model)) 
                 throw new InvalidCastException("Invalid View Model");
 
-            model.FacilityBaseInfo = null;              // TODO: Put real data in here
+            model.FacilityBaseInfo = FacilityBaseInfo;
             model.CommentText = comment?.CommentText;
             model.WindowTitle = $@"{TabName} COMMENT";
             model.HeaderText  = DetailHeaderText;

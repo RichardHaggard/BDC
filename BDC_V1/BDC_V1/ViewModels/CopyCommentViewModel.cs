@@ -113,9 +113,22 @@ namespace BDC_V1.ViewModels
                 if (!((_facilityBaseInfo?.Facilities == null) || (_facilityBaseInfo.Facilities.Count == 0)))
                 {
                     ListOfFacilities.Collection.AddRange(_facilityBaseInfo.Facilities);
+                    ListOfFacilities.SelectedIndex = 0;
+
+                    // TODO: remove this MOCK data
+                    UnFilteredCommentary.Add(new Commentary
+                    {
+                        FacilityId  = "11057",
+                        CodeIdText  = "C102001",
+                        Rating      = EnumRatingType.R,
+                        CommentText = "DAMAGED - All the wood doors have 70% severe moisture damage. " +
+                                      "CRACKED - All of the doors have 65% severe cracking and splintering"
+                    });
 
                     foreach (var facility in ListOfFacilities.Collection)
+                    {
                         FindComments(facility);
+                    }
                 }
 
                 RaisePropertyChanged(new []
@@ -168,6 +181,7 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
+        // TODO: Extract actual comments to place into found comments
         private void FindComments([CanBeNull] IComponentBase component)
         {
             switch (component)
@@ -175,25 +189,25 @@ namespace BDC_V1.ViewModels
                 case null: return;
 
                 case IComponentFacility facility when (facility.HasFacilityComments):
-                    UnFilteredCommentary.AddRange(facility.FacilityComments.Cast<ICommentary>());
+                    //UnFilteredCommentary.AddRange(facility.FacilityComments);
                     break;
 
                 case IComponentSection section when (section.HasComments):
-                    //UnFilteredCommentary.AddRange(section.Comments.Cast<ICommentary>());
+                    //UnFilteredCommentary.AddRange(section.Comments);
                     break;
 
                 case IComponentSystem system when (system.HasComments):
-                    //UnFilteredCommentary.AddRange(system.Comments.Cast<ICommentary>());
+                    //UnFilteredCommentary.AddRange(system.Comments);
                     break;
             }
 
             if (component is IComponentInventory inventory)
             {
-                if (inventory.Detail.HasDetailComments)
-                    UnFilteredCommentary.AddRange(inventory.Detail.DetailComments.Cast<ICommentary>());
+                //if (inventory.Detail.HasDetailComments)
+                //    UnFilteredCommentary.AddRange(inventory.Detail.DetailComments);
 
-                if (inventory.Section.HasSectionComments)
-                    UnFilteredCommentary.AddRange(inventory.Section.SectionComments.Cast<ICommentary>());
+                //if (inventory.Section.HasSectionComments)
+                //    UnFilteredCommentary.AddRange(inventory.Section.SectionComments);
             }
 
             if (component.HasChildren)

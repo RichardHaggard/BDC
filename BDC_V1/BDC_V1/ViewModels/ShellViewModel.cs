@@ -481,64 +481,6 @@ namespace BDC_V1.ViewModels
             return false;
         }
 
-        // place holder
-        private void OnCopyCommentary()
-        {
-            var view = new CopyCommentView();
-            if (!(view.DataContext is CopyCommentViewModel model))        
-                throw new InvalidCastException("Invalid View Model");
-
-            model.WindowTitle = "SELECT COMMENT TO COPY…";
-            model.FacilityBaseInfo = null;      // TODO: Put real data here 
-
-            //if (view.ShowDialog() != true) return;
-            if (view.ShowDialogInParent(true) != true) return;
-
-            switch (model.Result)
-            {
-                case EnumControlResult.ResultDeleteItem:
-                case EnumControlResult.ResultCancelled:
-                case EnumControlResult.ResultDeferred:
-                    break;
-
-                case EnumControlResult.ResultSaveNow:
-                    break;
-#if DEBUG
-                default:
-                    throw new ArgumentOutOfRangeException();
-#endif
-            }
-        }
-
-        // place holder
-        private void OnCopyInspectionCommentary()
-        {
-            var view = new CopyCommentView();
-            if (!(view.DataContext is CopyCommentViewModel model))        
-                throw new InvalidCastException("Invalid View Model");
-
-            model.WindowTitle = "SELECT COMMENT TO COPY…";
-            model.UnFilteredCommentary.Clear();
-
-            //if (view.ShowDialog() != true) return;
-            if (view.ShowDialogInParent(true) != true) return;
-
-            switch (model.Result)
-            {
-                case EnumControlResult.ResultDeleteItem:
-                case EnumControlResult.ResultCancelled:
-                case EnumControlResult.ResultDeferred:
-                    break;
-
-                case EnumControlResult.ResultSaveNow:
-                    break;
-#if DEBUG
-                default:
-                    throw new ArgumentOutOfRangeException();
-#endif
-            }
-        }
-
         private void OnAbout()
         {
             var view = new AboutBdcView();

@@ -22,29 +22,34 @@
         Height="930" Width="1000">
 
   <Window.Resources>
-    <converters:EnumBooleanConverter   x:Key="EnumBooleanConverter"   />
-    <converters:RatingToBrushConverter x:Key="RatingToBrushConverter"/>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <converters:EnumBooleanConverter   x:Key="EnumBooleanConverter"   />
+      <converters:RatingToBrushConverter x:Key="RatingToBrushConverter"/>
 
-    <Style TargetType="DataGridColumnHeader">
-      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-      <Setter Property="Background" Value="LightGray" />
-      <Setter Property="BorderBrush" Value="Black" />
-      <Setter Property="BorderThickness" Value="1" />
-      <Setter Property="FontWeight" Value="Bold" />
-      <Setter Property="FontSize" Value="16" />
-      <Setter Property="Height" Value="35" />
-      <Setter Property="Margin" Value="0" />
-    </Style>
+      <Style TargetType="DataGridColumnHeader">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Margin" Value="0" />
+      </Style>
 
-    <Style TargetType="DataGridRow">
-      <Setter Property="Background" Value="WhiteSmoke" />
-      <Setter Property="BorderBrush" Value="Black" />
-      <Setter Property="BorderThickness" Value="1" />
-    </Style>
-
+      <Style TargetType="DataGridRow">
+        <Setter Property="Background" Value="WhiteSmoke" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+      </Style>
+    </ResourceDictionary>
   </Window.Resources>
 
-  <Grid>
+  <Grid Margin="5">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" /> <!-- Source -->
       <RowDefinition Height="Auto" /> <!-- Related to Content -->
@@ -97,7 +102,7 @@
               Margin="5"
               materialDesign:HintAssist.Hint="Select a Facility..."
               IsEnabled="{Binding ElementName=SourceSavedButton, Path=IsEnabled}"
-              ItemsSource="{Binding ListOfFacilities.Items, Mode=OneWay}"
+              ItemsSource="{Binding ListOfFacilities, Mode=OneWay}"
               SelectedItem="{Binding ListOfFacilities.SelectedItem, Mode=TwoWay}">
         <ComboBox.Style>
           <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBase}">

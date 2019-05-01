@@ -138,10 +138,13 @@ namespace BDC_V1.Classes
         [CanBeNull] protected abstract string            CopyWindowTitle { get; }
         protected virtual void OnCopy()
         {
-            var view = new CopyCommentView();
+            var view = new CopyCommentView
+            {
+                Owner = Application.Current.MainWindow
+            };
+
             if (!(view.DataContext is CopyCommentViewModel model)) 
                 throw new InvalidCastException("Invalid View Model");
-            view.Owner = Application.Current.MainWindow;
 
             model.WindowTitle = (! string.IsNullOrEmpty(CopyWindowTitle)) 
                 ? CopyWindowTitle 
