@@ -359,12 +359,12 @@
                 Content="Section Quantity:"
                 Style="{StaticResource LabelRJ}"/>
             <Label
-                Grid.Row="3" Grid.Column="1"
+                Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
                 Content="{Binding InspectionInfo.Quantity}"
                 ContentStringFormat="{}{0:#,#.00}"
                 Style="{StaticResource LabelROExtEd}"/>
             <Label
-                Grid.Row="3" Grid.Column="2"
+                Grid.Row="3" Grid.Column="3"
                 Content="MBH"
                 Style="{StaticResource LabelLJ}"/>
 
@@ -463,11 +463,11 @@
                     BorderBrush="Transparent"
                     BorderThickness="0"
                     Content="Painted/Coated:"
-                    Foreground="Black"
                     FontSize="15"
-                    FontWeight="Bold"
+                    Foreground="Black"
+                    FontWeight="Normal"
                     HorizontalAlignment="Right"  HorizontalContentAlignment="Right"
-                    Margin="5, 0, 5, -5"
+                    Margin="5, -5, 5, -5"
                     Padding="0"
                     Command="{Binding CmdPaintedCoated}"
                     />
@@ -670,11 +670,14 @@
             </Grid>
 
             <!--Content="{Binding InspectionInfo.Note}"-->
-            <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="8"
+            <Label 
+                Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="8"
                 Background="Orange"
                 Margin="0,0,5,0"
                 Content="{Binding InspectionInfo.Note}"
-                Style="{StaticResource LabelRO}"/>
+                Style="{StaticResource LabelRO}"
+                Visibility="{Binding InspectionInfo.VisibilityNote}"   
+                />
 
             <!-- Inspection Comment -->
             <Button 

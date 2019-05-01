@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
@@ -62,7 +63,30 @@ namespace BDC_V1.Classes
         public EnumRatingType DirectCondition
         {
             get => _drRating;
-            set => SetProperty(ref _drRating, value);
+            set
+            {
+                if (SetProperty(ref _drRating, value))
+                {
+                    switch (value)
+                    {
+                        case EnumRatingType.A:
+                        case EnumRatingType.AMinus:
+                        case EnumRatingType.APlus:
+                        case EnumRatingType.R:
+                        case EnumRatingType.RMinus:
+                        case EnumRatingType.RPlus:
+                            {
+                                VisibilityNote = Visibility.Visible;
+                                break;
+                            }
+                        default:
+                            {
+                                VisibilityNote = Visibility.Hidden;
+                                break;
+                            }
+                    }
+                }
+            }
         }
         private EnumRatingType _drRating;
 
@@ -99,6 +123,15 @@ namespace BDC_V1.Classes
 
         public ObservableCollection<ImageSource> Images { get; } =
             new ObservableCollection<ImageSource>();
+
+
+
+        public Visibility VisibilityNote
+        {
+            get { return _VisibilityNote; }
+            set { SetProperty(ref _VisibilityNote, value); }
+        }
+        private Visibility _VisibilityNote = Visibility.Hidden;
 
         /******************** Constructors ******************************/
 

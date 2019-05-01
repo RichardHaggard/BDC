@@ -132,6 +132,8 @@
             <TextBox 
                 Grid.Row="4"
                 Grid.Column="4"
+                Margin="5,2"
+                Padding="0"
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding LocalFacilityInfo.Width}" 
                 />
@@ -169,6 +171,8 @@
             <TextBox
                 Grid.Row="5"
                 Grid.Column="4"
+                Margin="5,2"
+                Padding="0"
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding LocalFacilityInfo.Depth}" 
                 />
@@ -185,6 +189,8 @@
             <TextBox
                 Grid.Row="5"
                 Grid.Column="7"
+                Margin="5,2"
+                Padding="0"
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding LocalFacilityInfo.Height}" 
                 />

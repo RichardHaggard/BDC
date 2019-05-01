@@ -251,7 +251,7 @@
                 <Setter Property="BorderBrush" Value="Black" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Margin" Value="3" />
-                <Setter Property="Padding" Value="0" />
+                <Setter Property="Padding" Value="2,0,0,0" />
             </Style>
 
             <!--Label that is soft yellow with a black border. Indicates to user that contents are RO
@@ -329,8 +329,8 @@
                 EndPoint="0,1">
                 <LinearGradientBrush.GradientStops>
                     <GradientStop Color="#3fffffff" Offset=".0"/>
-                    <GradientStop Color="#7fffffff" Offset=".05"/>
-                    <GradientStop Color="#3fffffff" Offset=".60"/>
+                    <GradientStop Color="#afffffff" Offset=".05"/>
+                    <GradientStop Color="#Cfffffff" Offset=".75"/>
                     <GradientStop Color="#3f000000" Offset="1"/>
                 </LinearGradientBrush.GradientStops>
             </LinearGradientBrush>
@@ -365,15 +365,24 @@
                                     HorizontalAlignment="Center"
                                     ContentSource="Header"
                                     Margin="12,0"/>
+                                <Border 
+                                    Name="Underline"
+                                    Background="Transparent"
+                                    BorderBrush="Black" 
+                                    BorderThickness="0" 
+                                    Margin="10,5,10,5"
+                                    VerticalAlignment="Bottom"
+                                    />
 
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter TargetName="Border" Property="Margin" Value="5,0,5,0"/>
-                                    <Setter TargetName="ContentSite"  Property="Height" Value="40"/>
-                                    <Setter Property="FontWeight" Value="Bold" />
-                                    <Setter TargetName="ContentSite"  Property="Margin" Value="12,10,12,0" />
+                                    <Setter TargetName="Border" Property="BorderThickness" Value="2,2,2,0"/>
+                                    <Setter TargetName="ContentSite" Property="Height" Value="30"/>
+                                    <Setter TargetName="ContentSite" Property="Margin" Value="12,10,12,0" />
                                     <Setter TargetName="Shine" Property="Background" Value="{StaticResource Chrome_TabItemHotBackground}" />
+                                    <Setter TargetName="Underline" Property="BorderThickness" Value="0,0,0,3" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

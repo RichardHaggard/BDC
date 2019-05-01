@@ -27,14 +27,16 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        [NotNull] public ICommand CmdAddSection     { get; }
-        [NotNull] public ICommand CmdCancelEdit     { get; }
-        [NotNull] public ICommand CmdDecValue       { get; }
-        [NotNull] public ICommand CmdDeleteSection  { get; }
-        [NotNull] public ICommand CmdIncValue       { get; }
-        [NotNull] public ICommand CmdNextSection    { get; }
-        [NotNull] public ICommand CmdSectionComment { get; }
-        [NotNull] public ICommand CmdToday          { get; }
+        [NotNull] public ICommand CmdAddSection         { get; }
+        [NotNull] public ICommand CmdCancelEdit         { get; }
+        [NotNull] public ICommand CmdDecValue           { get; }
+        [NotNull] public ICommand CmdDeleteSection      { get; }
+        [NotNull] public ICommand CmdIncValue           { get; }
+        [NotNull] public ICommand CmdNextSection        { get; }
+        [NotNull] public ICommand CmdNotEnergyEfficient { get; }
+        [NotNull] public ICommand CmdPaintedCoated      { get; }
+        [NotNull] public ICommand CmdSectionComment     { get; }
+        [NotNull] public ICommand CmdToday              { get; }
 
         // TODO: Should this be part of the IInventorySection instead of here ???
         public bool Estimated
@@ -53,6 +55,15 @@ namespace BDC_V1.ViewModels
         private bool _isRemembered;
 
         [NotNull] public IInventorySection InventorySection { get; }
+
+
+        public bool NotEnergyEfficient
+        {
+            get { return _NotEnergyEfficient; }
+            set { SetProperty(ref _NotEnergyEfficient, value); }
+        }
+        private bool _NotEnergyEfficient = false;
+
 
         // **************** Class data members ********************************************** //
 
@@ -100,14 +111,16 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "InventorySectionItemControl";
 
-            CmdAddSection     = new DelegateCommand(OnAddSection    );
-            CmdCancelEdit     = new DelegateCommand(OnCancelEdit    );
-            CmdDecValue       = new DelegateCommand(OnCmdDecValue   );
-            CmdDeleteSection  = new DelegateCommand(OnDeleteSection );
-            CmdIncValue       = new DelegateCommand(OnCmdIncValue   );
-            CmdNextSection    = new DelegateCommand(OnNextSection   );
-            CmdSectionComment = new DelegateCommand(OnSectionComment);
-            CmdToday          = new DelegateCommand(OnCmdToday      );
+            CmdAddSection         = new DelegateCommand(OnAddSection           );
+            CmdCancelEdit         = new DelegateCommand(OnCancelEdit           );
+            CmdDecValue           = new DelegateCommand(OnCmdDecValue          );
+            CmdDeleteSection      = new DelegateCommand(OnDeleteSection        );
+            CmdIncValue           = new DelegateCommand(OnCmdIncValue          );
+            CmdNextSection        = new DelegateCommand(OnNextSection          );
+            CmdNotEnergyEfficient = new DelegateCommand(OnCmdNotEnergyEfficient);
+            CmdPaintedCoated      = new DelegateCommand(OnCmdPaintedCoated     );
+            CmdSectionComment     = new DelegateCommand(OnSectionComment       );
+            CmdToday              = new DelegateCommand(OnCmdToday             );
 
             FunctionalArea.Collection.Add("Please select functional area...");
             FunctionalArea.SelectedIndex = 0;
@@ -174,6 +187,19 @@ namespace BDC_V1.ViewModels
 
             InventorySection.SectionName = InventorySection.SectionNames[index];
         }
+
+
+        private void OnCmdNotEnergyEfficient()
+        {
+            NotEnergyEfficient = !NotEnergyEfficient;
+        }
+
+
+        private void OnCmdPaintedCoated()
+        {
+            InventorySection.PaintedIsChecked = !InventorySection.PaintedIsChecked;
+        }
+
 
         private void OnSectionComment() { OnSelectedComment(null); }
         private void OnCmdToday() { InventorySection.Date = DateTime.Now.ToShortDateString(); }

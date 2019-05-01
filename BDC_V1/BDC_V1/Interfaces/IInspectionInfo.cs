@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using BDC_V1.Classes;
 using BDC_V1.Enumerations;
@@ -43,5 +44,7 @@ namespace BDC_V1.Interfaces
         /// </remarks>>
         ObservableCollection<ImageSource> Images { get; }
         bool HasImages { get; }
+
+        Visibility VisibilityNote { get; }
     }
 }

@@ -92,7 +92,7 @@ namespace BDC_V1.ViewModels
 
             IsRemembered = false;
 #if DEBUG
-#warning Using MOCK data for InspectionInfo
+//#warning Using MOCK data for InspectionInfo
             InspectionInfo = new MockInspectionInfo();
 #endif
         }

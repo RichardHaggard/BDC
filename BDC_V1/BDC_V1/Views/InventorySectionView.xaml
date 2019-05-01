@@ -226,14 +226,33 @@
                       Style="{StaticResource ComboBase}"
                       />
 -->
-            <Label 
+            <!--<Label 
                 Grid.Row="6" Grid.Column="0"
                 Content="NOT Energy Efficient:"
-                Style="{StaticResource LabelRJ}"/>
+                Style="{StaticResource LabelRJ}"/>-->
+
+            <!--What we want here is a right justified Label. However, the desire is to have
+                it detect a click event which a Label is not designed to do. Instead, make a
+                button that looks like a label and have its click event sent back to VM.-->
+            <Button
+                Grid.Row="6" Grid.Column="0"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                Content="NOT Energy Efficient:"
+                Foreground="Black"
+                FontSize="15"
+                FontWeight="Normal"
+                HorizontalAlignment="Right"  HorizontalContentAlignment="Right"
+                Margin="5, -5, 5, -5"
+                Padding="0"
+                Command="{Binding CmdNotEnergyEfficient}"
+                />
             <CheckBox 
                 Grid.Row="6" Grid.Column="1" FontSize="15"
                 Foreground="Transparent"  
                 Content="NOT Energy Efficient"
+                IsChecked="{Binding NotEnergyEfficient}"
               />
             <Border
                 Grid.Row="6" Grid.RowSpan="2" Grid.Column="2"  Grid.ColumnSpan="7"
@@ -242,33 +261,56 @@
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
 
-            <Label Grid.Row="7" Grid.Column="0" 
+            <!--<Label Grid.Row="7" Grid.Column="0" 
                 Content="Painted/Coated:"
-                Style="{StaticResource LabelRJ}"/>
-            <CheckBox Grid.Row="7" Grid.Column="1"
-                      IsChecked="{Binding InventorySection.PaintedIsChecked}"
-                      Foreground="Transparent"  
-                      Content="Painted - Coated"
+                Style="{StaticResource LabelRJ}"/>-->
+            <!--What we want here is a right justified Label. However, the desire is to have
+                it detect a click event which a Label is not designed to do. Instead, make a
+                button that looks like a label and have its click event sent back to VM.-->
+            <Button
+                Grid.Row="7" Grid.Column="0"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                Content="Painted/Coated:"
+                Foreground="Black"
+                FontSize="15"
+                FontWeight="Normal"
+                HorizontalAlignment="Right"  HorizontalContentAlignment="Right"
+                Margin="5, -5, 5, -5"
+                Padding="0"
+                Command="{Binding CmdPaintedCoated}"
                 />
-            <Label Grid.Row="7" Grid.Column="2" 
+            <CheckBox Grid.Row="7" Grid.Column="1"
+                IsChecked="{Binding InventorySection.PaintedIsChecked}"
+                Foreground="Transparent"  
+                Content="Painted - Coated"
+                />
+            <StackPanel
+                Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="7"
+                Orientation="Horizontal"
+                >
+            <Label 
                 Content="Year P/C:"
+                Margin="5,0"
                 Style="{StaticResource LabelRJ}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
             <TextBox 
-                Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2"
                 HorizontalAlignment="Left"
                 Width="50"
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding InventorySection.YearPc}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
-            <Label Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2"
+            <Label
                 Content="P/C Type:"
+                Margin="20,0,0,0"
                 Style="{StaticResource LabelRJ}"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 />
-            <ComboBox Grid.Row="7" Grid.Column="6" Grid.ColumnSpan="2"
+            <ComboBox 
+                Width="250"
                 Text="{Binding InventorySection.PcType}"
                 ItemsSource="{Binding InventorySection.PcTypes}"
                 SelectedItem="{Binding InventorySection.PcType, Mode=TwoWay}"
@@ -276,6 +318,7 @@
                 Visibility="{Binding InventorySection.YearPcVisibility}"
                 materialDesign:HintAssist.Hint="Please select a P/C type..."
                 />
+            </StackPanel>
 
             <Grid Grid.Row="8" Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -456,58 +499,59 @@
 
 
             <Border
-                Grid.Row="10" Grid.Column="0"  Grid.ColumnSpan="6"
+                Grid.Row="10" Grid.Column="0"  Grid.ColumnSpan="4"
                 Background="#C6E0B4"
                 BorderBrush="Transparent"
                 />
 
             <Border
-                Grid.Row="10" Grid.Column="6"  Grid.ColumnSpan="3"
+                Grid.Row="10" Grid.Column="4"  Grid.ColumnSpan="5"
                 Background="LightGray"
                 BorderBrush="Transparent"
                 />
-            
-            <DockPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" >
-              <CheckBox DockPanel.Dock="Left"
-                        Content="Add current inspection"
-                        FontSize="15"
-                        Margin="5"
-                        IsChecked="{Binding InventorySection.AddCurrentInspector}"
-                        />
 
-              <DockPanel 
-                  Margin="15,0,0,0" DockPanel.Dock="Right">
-                  <Label HorizontalAlignment="Right" DockPanel.Dock="Left"
-                         Content="Date:"
-                         Style="{StaticResource LabelRJ}"
-                         />
+            <StackPanel 
+                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="4"
+                Orientation="Horizontal">
+                <CheckBox 
+                    Content="Add current inspection"
+                    FontSize="15"
+                    Margin="5"
+                    IsChecked="{Binding InventorySection.AddCurrentInspector}"
+                    />
+
+                <Label 
+                    HorizontalAlignment="Right" DockPanel.Dock="Left"
+                    Content="Date:"
+                    Margin="10,0,5,0"
+                    Style="{StaticResource LabelRJ}"
+                    />
 
                 <DatePicker 
-                    DockPanel.Dock="Right"
                     Margin="0"
+                    Width="125"
                     Style="{StaticResource dpBase}"
                     Text="{Binding InventorySection.Date}"
-                />
-              </DockPanel>
-            </DockPanel>
+                    />
 
-            <Label 
-                Grid.Row="10" Grid.Column="3"
-                Content="DCR:"
-                HorizontalAlignment="Right"
-                Style="{StaticResource LabelRJ}"
-                />
-            <ComboBox 
-                Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="2"
-                Width="50"
-                HorizontalAlignment="Left"
-                ItemsSource="{Binding InventorySection.Dcrs}"
-                SelectedItem="{Binding InventorySection.Dcr, Mode=TwoWay}"
-                Style="{StaticResource ComboBase}"
-                />
+                <Label 
+                    Content="DCR:"
+                    Padding="0"
+                    Margin="15,0,5,0"
+                    Style="{StaticResource LabelBase}"
+                    />
+
+                <ComboBox 
+                    Width="50"
+                    HorizontalAlignment="Left"
+                    ItemsSource="{Binding InventorySection.Dcrs}"
+                    SelectedItem="{Binding InventorySection.Dcr, Mode=TwoWay}"
+                    Style="{StaticResource ComboBase}"
+                    />
+            </StackPanel>
 
             <StackPanel
-                Grid.Row="10" Grid.Column="6" Grid.ColumnSpan="2"
+                Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="3"
                 Margin="15,0,0,0"
                 Orientation="Horizontal"
                 >

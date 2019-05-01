@@ -70,9 +70,9 @@ namespace BDC_V1.Mock_Data
                     case EnumRatingType.GPlus:
                     case EnumRatingType.G:
                     case EnumRatingType.GMinus:
-                    case EnumRatingType.YPlus:
-                    case EnumRatingType.Y:
-                    case EnumRatingType.YMinus:
+                    case EnumRatingType.APlus:
+                    case EnumRatingType.A:
+                    case EnumRatingType.AMinus:
                     case EnumRatingType.RPlus:
                     case EnumRatingType.R:
                     case EnumRatingType.RMinus:
@@ -84,9 +84,10 @@ namespace BDC_V1.Mock_Data
                         break;
 
                     // 4/19: G:IS51 - Change DCR and P/C Rating amber colors to Yellow. Text becomes Y+, Y, Y-.
-                    case EnumRatingType.APlus:
-                    case EnumRatingType.A:
-                    case EnumRatingType.AMinus:
+                    // 4/30: G:IS51 - Nope. Ditch the Yellow. Keep the Amber.
+                    case EnumRatingType.YPlus:
+                    case EnumRatingType.Y:
+                    case EnumRatingType.YMinus:
                         break;
 #if DEBUG
                     default:

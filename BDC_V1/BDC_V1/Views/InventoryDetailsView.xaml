@@ -41,7 +41,7 @@
                 VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
+                <RowDefinition Height="57" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
@@ -116,7 +116,7 @@
                 SelectedItem="{Binding InventoryDetails.DetailSelector, Mode=TwoWay}"
                 Style="{StaticResource ComboBaseT}"
                 />
-            <Button
+            <!--<Button
                 Grid.Row="0" Grid.RowSpan="3" Grid.Column="4" 
                 Content="Grid"
                 Height="25"
@@ -124,7 +124,7 @@
                 Padding="0"
                 VerticalAlignment="Center" VerticalContentAlignment="Center"
                 Width="75"
-                />
+                />-->
 
             <Label
                 Grid.Row="2" Grid.Column="0" 
@@ -163,11 +163,34 @@
                 Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.SerialNumber}"
                 />
+
             <Button
+                Grid.Row="2" Grid.RowSpan="3"  Grid.Column="4" 
+                Height="30"
+                Margin="5,5,15,5"
+                Width="60"
+                Command="{Binding CmdShowBarcodeScanner}"
+                Style="{StaticResource btnImageText}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Grid.Column="0" 
+                        Height="20"
+                        Source="/BDC_V1;component/Resources/BarcodeScan2.png"
+                        />
+                </Grid>
+            </Button>
+
+
+
+            <!--<Button
+                Grid.Row="2" Grid.RowSpan="3"  Grid.Column="4" 
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="0"
-                Grid.Row="2" Grid.RowSpan="3"  Grid.Column="4" 
                 Height="45"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center" VerticalContentAlignment="Center"
@@ -178,7 +201,7 @@
                 Source="/BDC_V1;component/Resources/BarcodeScan2.png"
                 Width="40"
                 />
-            </Button>
+            </Button>-->
 
             <Label
                 Grid.Row="4" Grid.Column="0" 
