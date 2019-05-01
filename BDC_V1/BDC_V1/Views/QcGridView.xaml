@@ -249,13 +249,12 @@
                     ColumnHeaderHeight="60"
                     ColumnHeaderStyle="{StaticResource DataGridColumnHeaderBase}"
                     ItemsSource="{Binding GridItemsView}"
-                    
                     CanUserSortColumns="True"
                     CanUserResizeColumns="False"
                     GridLinesVisibility="All"
                     AutoGenerateColumns="False"
                     Padding="0"
-                    SelectionUnit="Cell"
+                    SelectionUnit="FullRow"
           >
             <DataGrid.Resources>
               <DiscreteObjectKeyFrame x:Key="Proxy" Value="{Binding ElementName=QcGridViewControl}"/>

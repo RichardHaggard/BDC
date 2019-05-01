@@ -305,9 +305,8 @@ namespace BDC_V1.ViewModels
                 filter.And(savedFilter);
             }
 
-            var func = filter.Compile();
-            var predicate = new Predicate<ICommentary>(func);
-            FilteredCommentary.Filter = (Predicate<object>) predicate;
+            var predicate = filter.ToPredicate();
+            FilteredCommentary.Filter = t => predicate(t as ICommentary);
 
             MatchingResultsText = $@"Matching Results: {FilteredCommentary.Count}";
         }
