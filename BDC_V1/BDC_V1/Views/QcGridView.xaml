@@ -255,6 +255,7 @@
                     AutoGenerateColumns="False"
                     Padding="0"
                     SelectionUnit="FullRow"
+                    SelectionMode="Single"
           >
             <DataGrid.Resources>
               <DiscreteObjectKeyFrame x:Key="Proxy" Value="{Binding ElementName=QcGridViewControl}"/>
