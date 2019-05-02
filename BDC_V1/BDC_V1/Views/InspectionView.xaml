@@ -14,7 +14,7 @@
     xmlns:classes="clr-namespace:BDC_V1.Classes"
     xmlns:local="clr-namespace:BDC_V1.Enumerations"
     mc:Ignorable="d"
-    d:DesignHeight="640" d:DesignWidth="850">
+    Height="640" Width="850">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -26,17 +26,17 @@
       <converters:EnumBooleanConverter       x:Key="EnumBooleanConverter"       />
       <converters:RatingColorToColorConverter x:Key="RatingColorToColorConverter" />
       
-      <Brush x:Key="ButtonGridNotEnabledBackground">#DDEBF7</Brush>
-      <Brush x:Key="ButtonGridEnabledBackground"   >White  </Brush>
-      <Brush x:Key="ButtonGridCheckedForeground"   >Black  </Brush>
+      <SolidColorBrush x:Key="ButtonGridNotEnabledBackground" Color="#DDEBF7"   />
+      <SolidColorBrush x:Key="ButtonGridEnabledBackground"    Color="White"     />
+      <SolidColorBrush x:Key="ButtonGridCheckedForeground"    Color="Black"     />
+      <SolidColorBrush x:Key="GreenButtonForeground"          Color="DarkGreen" />
+      <SolidColorBrush x:Key="AmberButtonForeground"          Color="#700e01"   />
 
         <!-- Insure consistent colors thru out program -->
         <SolidColorBrush x:Key="GreenButtonBrush"
                      Color="{Binding Source={x:Static local:EnumRatingColors.Green}, 
                         Converter={StaticResource RatingColorToColorConverter}, 
                         Mode=OneTime}" />
-
-        <SolidColorBrush x:Key="GreenButtonForeground" Color="DarkGreen" />
 
         <SolidColorBrush x:Key="RedButtonBrush" 
                      Color="{Binding Source={x:Static local:EnumRatingColors.Red}, 
@@ -47,8 +47,6 @@
                      Color="{Binding Source={x:Static local:EnumRatingColors.Amber}, 
                         Converter={StaticResource RatingColorToColorConverter}, 
                         Mode=OneTime}" />
-
-        <SolidColorBrush x:Key="AmberButtonForeground" Color="#700e01" />
 
         <SolidColorBrush x:Key="YellowButtonBrush" 
                      Color="{Binding Source={x:Static local:EnumRatingColors.Yellow}, 
@@ -377,13 +375,12 @@
                 Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
                 Height="35"
                 HorizontalAlignment="Left"
-                Margin="5,0"
                 Width="150"
                 Style="{StaticResource dpBase}"
                 Text="{Binding InspectionInfo.InspectionDate, StringFormat=d}" />
 
             <StackPanel
-                Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="6"
+                Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="4"
                 Orientation="Horizontal">
                 <StackPanel.Resources>
                     <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
@@ -396,7 +393,6 @@
                     Content="Direct Rating"
                     GroupName="InspectionType"
                     Margin="20 0 0 0"
-                    VerticalContentAlignment="Center"
                     Style="{DynamicResource rbBase}"
                     IsChecked="{Binding Path=InspectionInfo.InspectionType, 
                     Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
@@ -407,7 +403,6 @@
                     GroupName="InspectionType"
                     Content="Distress Survey"
                     IsEnabled="false"
-                    VerticalContentAlignment="Center"
                     Style="{DynamicResource rbBase}"
                     IsChecked="{Binding Path=InspectionInfo.InspectionType, 
                     Converter={StaticResource ResourceKey=EnumBooleanConverter}, 
@@ -474,7 +469,6 @@
                 <CheckBox
                     Grid.Row="0" Grid.Column="1"
                     Name="CheckboxPainted"
-                    VerticalContentAlignment="Center"
                     Foreground="Transparent"
                     Content="Painting - Coated text"
                     IsChecked="{Binding InspectionInfo.IsPainted}"
@@ -712,8 +706,6 @@
                         <CheckBox Grid.Column="0"
                             Margin="5,0,0,0"
                             Content="Remember"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
                             Style="{StaticResource cbBase}"
                             IsChecked="{Binding IsRemembered}" />
                         <Image Grid.Column="1"
@@ -726,7 +718,7 @@
             </Button>
 
             <ListBox 
-                Grid.Row="7" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="8"
+                Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
                 Name="CommentListBox"
                 Margin="0,5,5,0"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -830,7 +822,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="4"
                 Orientation="Horizontal"
-                Grid.RowSpan="1">
+                >
 
                 <Button 
                     Command="{Binding CmdCancelEdit}"
