@@ -380,7 +380,7 @@
                 Text="{Binding InspectionInfo.InspectionDate, StringFormat=d}" />
 
             <StackPanel
-                Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="4"
+                Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="5"
                 Orientation="Horizontal">
                 <StackPanel.Resources>
                     <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
