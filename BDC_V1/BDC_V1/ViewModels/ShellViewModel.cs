@@ -568,19 +568,21 @@ namespace BDC_V1.ViewModels
 
         private void OnInspectionSummary()
         {
-            var view = new GeneralCommentView();
-            if (!(view.DataContext is GeneralCommentViewModel model)) 
-                throw new InvalidCastException("Invalid View Model");
+            //var view = new GeneralCommentView();
+            //if (!(view.DataContext is GeneralCommentViewModel model)) 
+            //    throw new InvalidCastException("Invalid View Model");
 
-            model.IsDistressedEnabled = true;
-            model.FacilityBaseInfo = null;              //TODO: Put real data in here
-            model.CommentText = string.Empty;
+            //model.IsDistressedEnabled = true;
+            //model.FacilityBaseInfo = null;              //TODO: Put real data in here
+            //model.CommentText = string.Empty;
 
-            view.Owner = Application.Current.MainWindow;
-            //if (view.ShowDialog() != true) return;
-            if (view.ShowDialogInParent(true) != true) return;
+            //view.Owner = Application.Current.MainWindow;
+            ////if (view.ShowDialog() != true) return;
+            //if (view.ShowDialogInParent(true) != true) return;
 
-            // TODO: Fix the CommentViewModel to return a CommentBase class on success
+            //// TODO: Fix the CommentViewModel to return a CommentBase class on success
+            ///
+            MessageBox.Show("This will present a grid-style report with Inspection Summary", "Inspection", MessageBoxButton.OK);
         }
 
         private void OnMicOff()

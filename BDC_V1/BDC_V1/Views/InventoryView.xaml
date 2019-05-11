@@ -20,7 +20,7 @@
             </TabItem>
 
             <TabItem 
-                Background="LightGreen"
+                Background="#FFE699"
                 Header="DETAILS (99)">
                 <local:InventoryDetailsView />
             </TabItem>

@@ -18,7 +18,7 @@
     xmlns:classes="clr-namespace:BDC_V1.Classes"
     xmlns:viewModels="clr-namespace:BDC_V1.ViewModels"
     mc:Ignorable="d"
-    Height="640" Width="850"
+    d:DesignHeight="640" d:DesignWidth="850"
     >
 
   <UserControl.DataContext>

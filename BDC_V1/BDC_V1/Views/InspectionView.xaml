@@ -14,7 +14,7 @@
     xmlns:classes="clr-namespace:BDC_V1.Classes"
     xmlns:local="clr-namespace:BDC_V1.Enumerations"
     mc:Ignorable="d"
-    Height="640" Width="850">
+    d:DesignHeight="640" d:DesignWidth="850">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -279,8 +279,9 @@
         
     </UserControl.Resources>
 
-    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                VerticalScrollBarVisibility="Auto">
+    <ScrollViewer 
+        HorizontalScrollBarVisibility="Auto"
+        VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"   /> <!--  0 - Component -->
