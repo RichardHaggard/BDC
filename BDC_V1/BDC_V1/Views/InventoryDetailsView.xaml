@@ -10,7 +10,7 @@
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
     xmlns:local="clr-namespace:BDC_V1.Views"
     mc:Ignorable="d" 
-    d:DesignHeight="590" d:DesignWidth="850">
+    d:DesignHeight="570" d:DesignWidth="850">
 
     <UserControl.Resources>
         <!--TextBox with no wrap and suitable for tight conditions.-->
@@ -50,10 +50,9 @@
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
-                <RowDefinition Height="60" />
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -251,17 +250,20 @@
                 Grid.Row="6" Grid.Column="0" 
                 Content="Date Manufactured:"
                 Style="{StaticResource LabelRJ}"/>
+
+            <StackPanel
+                Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4"
+                Orientation="Horizontal"
+                >
             <DatePicker
-                Grid.Row="6" Grid.Column="1" 
                 Style="{StaticResource dpBaseT}"
                 Text="{Binding InventoryDetails.DateManufactured, Mode=TwoWay}"
                 />
             <Label
-                Grid.Row="6" Grid.Column="2" 
                 Content="Year Installed:"
-                Style="{StaticResource LabelRJ}"/>
+                Margin="7,2,2,2"
+                Style="{StaticResource LabelLJT}"/>
             <TextBox
-                Grid.Row="6" Grid.Column="3" 
                 HorizontalAlignment="Left" HorizontalContentAlignment="Left"
                 Width="50"
                 Style="{StaticResource TextBoxNoWrapT}"
@@ -269,55 +271,57 @@
                 />
 
             <Label
-                Grid.Row="7" Grid.Column="0" 
                 Content="Control Type/Make:"
+                Margin="10,2,3,2"
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
-                Grid.Row="7" Grid.Column="1" 
+                Width="145"
                 Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.ControlTypeMake}"
                 />
-
+            </StackPanel>
+            
             <Label
-                Grid.Row="8" Grid.Column="0" 
+                Grid.Row="7" Grid.Column="0" 
                 Content="Warranty Date:"
                 Style="{StaticResource LabelRJ}"/>
             <DatePicker
-                Grid.Row="8" Grid.Column="1" 
+                Grid.Row="7" Grid.Column="1" 
                 Style="{StaticResource dpBaseT}"
                 Text="{Binding InventoryDetails.WarrantyDate, Mode=TwoWay}"
                 />
             <Label
-                Grid.Row="8" Grid.Column="2" 
+                Grid.Row="7" Grid.Column="2" 
                 Content="Warr. Company:"
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
-                Grid.Row="8" Grid.Column="3" 
+                Grid.Row="7" Grid.Column="3" 
                 Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.WarrantyCompany}"
                 />
 
             <Label
-                Grid.Row="9" Grid.Column="0" 
+                Grid.Row="8" Grid.Column="0" 
                 Content="Warranty Date 2:"
                 Style="{StaticResource LabelRJ}"/>
             <DatePicker
-                Grid.Row="9" Grid.Column="1" 
+                Grid.Row="8" Grid.Column="1" 
                 Style="{StaticResource dpBaseT}"
                 Text="{Binding InventoryDetails.WarrantyDate2}"
                 />
             <Label
-                Grid.Row="9" Grid.Column="2" 
+                Grid.Row="8" Grid.Column="2" 
                 Content="Warr. Company 2:"
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
-                Grid.Row="9" Grid.Column="3" 
+                Grid.Row="8" Grid.Column="3" 
                 Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.WarrantyCompany2}"
                 />
 
             <Button 
-                Grid.Row="10" Grid.Column="0"
+                Grid.Row="9" Grid.Column="0"
+                Margin="5,2,2,2"
                 Command="{Binding CmdCommentDoubleClicked}"
                 CommandParameter="{Binding CommentContainer.SelectedItem}"
                 Style="{DynamicResource ImageClickBlockButtonStyle}"
@@ -334,7 +338,8 @@
             </Button>
 
             <ListBox 
-                Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3"
+                Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3"
+                Margin="5,2"
                 Name="CommentListBox"
                 Style="{StaticResource CommentBoxStyle}"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -360,7 +365,9 @@
             </ListBox>
 
             <!--Photos-->
-            <Button Grid.Row="11" Grid.Column="0"
+            <Button 
+                Grid.Row="10" Grid.Column="0"
+                Margin="5,2,2,2"
                 Style="{StaticResource ImageClickBlockButtonStyle}"
                 Command="{Binding CmdImageDoubleClicked}"  
                 CommandParameter="{Binding ImageContainer.SelectedItem}"
@@ -386,7 +393,8 @@
             </Button>
 
             <ListBox 
-                Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"
+                Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3"
+                Margin="5,2"
                 Name="ImageListBox"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -428,13 +436,14 @@
             </ListBox>
 
             <StackPanel
-                Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4"
+                Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="4"
+                Margin="5,2,2,2"
                 Orientation="Horizontal"
                 >
 
                 <Button
                     Grid.Column="0"
-                    Margin="5,5,15,5"
+                    Margin="5,0,15,0"
                     Command="{Binding CmdCancelEdit}"
                     Style="{StaticResource btnImageText}">
                     <Grid>
@@ -455,7 +464,7 @@
                     </Grid>
                 </Button>
                 <Button
-                    Margin="15,5"
+                    Margin="15,0"
                     Command="{Binding CmdDeleteDetail}"
                     Style="{StaticResource btnImageText}">
                     <Grid>
@@ -477,7 +486,7 @@
                 </Button>
 
                 <Button
-                    Margin="15,5"
+                    Margin="15,0"
                     Command="{Binding CmdAddDetail}"
                     Style="{StaticResource btnImageText}">
                     <Grid>
@@ -494,7 +503,7 @@
                 </Button>
                 
                 <Button
-                    Margin="15,5"
+                    Margin="15,0"
                     Command="{Binding CmdCopyDetail}"
                     Style="{StaticResource btnImageText}">
                     <Grid>

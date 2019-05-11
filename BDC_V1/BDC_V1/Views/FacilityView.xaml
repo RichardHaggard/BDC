@@ -12,7 +12,7 @@
              xmlns:forms="http://xamarin.com/schemas/2014/forms"
              xmlns:converters="clr-namespace:BDC_V1.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="640" d:DesignWidth="850">
+             d:DesignHeight="510" d:DesignWidth="850">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -41,22 +41,19 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" /> <!-- Identity -->
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="25" /> <!-- Address -->
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
                 <RowDefinition Height="25" /> <!-- Point of Contact -->
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="25" />
                 <RowDefinition Height="*" /> <!-- make room for the scroll bar -->
             </Grid.RowDefinitions>
 
@@ -67,167 +64,168 @@
                 Content="Identity"/>
 
             <Label 
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="Building ID:" />
             <Label 
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="1"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.BuildingId}" />
             <Label 
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="2"
                 Grid.ColumnSpan="7"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.BuildingName}" />
 
             <Label 
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="Building Use:" />
             <Label 
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="1"
                 Grid.ColumnSpan="8"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.BuildingUse}" />
 
             <Label 
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="Const. Type:" />
             <Label 
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.Column="1"
                 Grid.ColumnSpan="4"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.ConstType}" />
 
             <Label 
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="Quantity:" />
             <Label 
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="1"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.TotalArea}" 
                 ContentStringFormat="{}{0:#,#.00}" 
                 />
             <Label 
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="2"
-                Style="{StaticResource LabelLJ}"
+                Style="{StaticResource LabelLJT}"
                 Content="SF" />
             <Label 
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="3"
                 Style="{StaticResource LabelRJ}"
                 Content="Width:" />
             <TextBox 
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="4"
-                Margin="5,2"
+                Margin="2"
                 Padding="0"
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding LocalFacilityInfo.Width}" 
                 />
             <Label 
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="5"
-                Style="{StaticResource LabelLJ}"
+                Style="{StaticResource LabelLJT}"
                 Content="FT" />
             <Label 
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="6"
                 Style="{StaticResource LabelRJ}"
                 Content="No. Floors:" />
             <Label 
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="7"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.NumFloors}" />
 
             <Label 
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="Year Built:" />
             <Label 
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="1"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.YearBuilt}" />
             <Label 
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="3"
                 Style="{StaticResource LabelRJ}"
                 Content="Depth:" />
             <TextBox
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="4"
-                Margin="5,2"
+                Margin="2"
                 Padding="0"
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding LocalFacilityInfo.Depth}" 
                 />
             <Label 
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="5"
-                Style="{StaticResource LabelLJ}"
+                Style="{StaticResource LabelLJT}"
                 Content="FT" />
             <Label 
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="6"
                 Style="{StaticResource LabelRJ}"
                 Content="Floor Height:" />
             <TextBox
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="7"
-                Margin="5,2"
+                Margin="2"
                 Padding="0"
                 Style="{StaticResource TextBoxNoWrap}"
                 Text="{Binding LocalFacilityInfo.Height}" 
                 />
             <Label 
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="8"
                 Margin="0,0,5,0"
                 Style="{StaticResource LabelLJ}"
                 Content="FT" />
 
             <Label 
-                Grid.Row="6"
+                Grid.Row="5"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="Alternate ID:" />
             <Label 
-                Grid.Row="6"
+                Grid.Row="5"
                 Grid.Column="1"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.AlternateId}" />
             <Label 
-                Grid.Row="6"
+                Grid.Row="5"
                 Grid.Column="2"
                 Grid.ColumnSpan="2"
                 Style="{StaticResource LabelRJ}"
                 Content="Alternate ID Source:" />
             <Label 
-                Grid.Row="6"
+                Grid.Row="5"
                 Grid.Column="4"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.AlternateIdSource}" />
 
-            <Button Grid.Row="7" Grid.Column="0"
-                    Margin="5,2.5,5,2.5"
-                    Style="{DynamicResource ImageClickBlockButtonStyle}"
-                    Command="{Binding CmdCommentDoubleClicked}"  
-                    CommandParameter="{Binding CommentContainer.SelectedItem}"
+            <Button 
+                Grid.Row="6" Grid.Column="0"
+                Margin="5,2.5,2,2.5"
+                Style="{DynamicResource ImageClickBlockButtonStyle}"
+                Command="{Binding CmdCommentDoubleClicked}"  
+                CommandParameter="{Binding CommentContainer.SelectedItem}"
             >
                 <StackPanel Style="{StaticResource ImageClickBlockPanelStyle}">
                     <Image 
@@ -241,8 +239,8 @@
             </Button>
 
             <ListBox 
-                Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
-                Margin="5,2.5"
+                Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="8"
+                Margin="2"
                 Name="CommentListBox"
                 Style="{StaticResource CommentBoxStyle}"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -280,8 +278,8 @@
 
             <!--Photos-->
             <Button 
-                Grid.Row="8" Grid.Column="0"
-                Margin="5,2.5,5,2.5"
+                Grid.Row="7" Grid.Column="0"
+                Margin="5,2,2,2"
                 Style="{StaticResource ImageClickBlockButtonStyle}"
                 Command="{Binding CmdImageDoubleClicked}"  
                 CommandParameter="{Binding ImageContainer.SelectedItem}"
@@ -307,9 +305,9 @@
             </Button>
 
             <ListBox 
-                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+                Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
                 Name="ImageListBox"
-                Margin="5,2.5"
+                Margin="2"
                 Style="{StaticResource ImageBoxStyle}"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -360,104 +358,111 @@
             </ListBox>
 
             <Label 
-                Grid.Row="9" Grid.Column="0"
+                Grid.Row="8" Grid.Column="0"
                 Content="Address" 
                 Style="{StaticResource LabelBold}"
                 />
 
             <Label 
-                Grid.Row="10" Grid.Column="0"
+                Grid.Row="8" Grid.Column="0"
                 Content="Street:" 
                 Style="{StaticResource LabelRJ}"
                 />
             <Label 
-                Grid.Row="10" Grid.Column="1"
+                Grid.Row="8" Grid.Column="1"
                 Grid.ColumnSpan="4"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.Address.Street1}" />
 
             <Label 
-                Grid.Row="11"
+                Grid.Row="9"
                 Grid.Column="0"
                 Content="City:" 
                 Style="{StaticResource LabelRJ}"
                 />
             <Label 
-                Grid.Row="11"
+                Grid.Row="9"
                 Grid.Column="1"
                 Grid.ColumnSpan="4"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.Address.City}" />
 
             <Label 
-                Grid.Row="12"
+                Grid.Row="10"
                 Grid.Column="0"
                 Content="State/Prov:" 
                 Style="{StaticResource LabelRJ}"
                 />
             <Label 
-                Grid.Row="12"
+                Grid.Row="10"
                 Grid.Column="1"
                 Grid.ColumnSpan="1"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.Address.State}" />
             <Label 
-                Grid.Row="12"
+                Grid.Row="10"
                 Grid.Column="2" Grid.ColumnSpan="2"
                 Content="ZIP/Postal Code:" 
                 Style="{StaticResource LabelRJ}"
                 />
             <Label 
-                Grid.Row="12"
+                Grid.Row="10"
                 Grid.Column="4"
                 Grid.ColumnSpan="1"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.Address.Zipcode}">
             </Label>
 
             <Label 
-                Grid.Row="13"
+                Grid.Row="11"
                 Grid.Column="0" Grid.ColumnSpan="2"
-                Content="Point of Contact" 
+                Content="Point of" 
                 Style="{StaticResource LabelBold}"
                 />
 
             <Label 
-                Grid.Row="14"
+                Grid.Row="11"
                 Grid.Column="0"
                 Style="{StaticResource LabelRJ}"
                 Content="Name:" />
             <Label 
-                Grid.Row="14" 
+                Grid.Row="11" 
                 Grid.Column="1"
                 Grid.ColumnSpan="4"
-                Style="{StaticResource LabelRO}" 
+                Style="{StaticResource LabelROT}" 
                 Content="{Binding Path=LocalFacilityInfo.Contact.FirstLast}" />
 
             <Label 
-                Grid.Row="15"
+                Grid.Row="12"
+                Grid.Column="0" Grid.ColumnSpan="2"
+                Content="Contact" 
+                Style="{StaticResource LabelBold}"
+                />
+
+            <Label 
+                Grid.Row="12"
                 Grid.Column="0"
                 Content="Phone:" 
                 Style="{StaticResource LabelRJ}"
                 />
             <Label 
-                Grid.Row="15"
+                Grid.Row="12"
                 Grid.Column="1"
                 Grid.ColumnSpan="4"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.Contact.Phone}" />
 
             <Label 
-                Grid.Row="16"
+                Grid.Row="13"
                 Grid.Column="0"
                 Content="E-Mail:"
                 Style="{StaticResource LabelRJ}"
                 />
             <Label 
-                Grid.Row="16"
+                Grid.Row="13"
                 Grid.Column="1"
                 Grid.ColumnSpan="4"
-                Style="{StaticResource LabelRO}"
+                Style="{StaticResource LabelROT}"
                 Content="{Binding LocalFacilityInfo.Contact.EMail}" />
         </Grid>
     </ScrollViewer>

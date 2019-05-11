@@ -238,6 +238,11 @@
                 <Setter Property="Padding" Value="0" />
             </Style>
 
+            <!--Left justified Label with tight margins.-->
+            <Style TargetType="Label" x:Key="LabelLJT" BasedOn="{StaticResource LabelLJ}">
+                <Setter Property="Margin" Value="2" />
+            </Style>
+
             <!--Label that is right justified.-->
             <Style TargetType="Label" x:Key="LabelRJ" BasedOn="{StaticResource LabelBase}">
                 <Setter Property="HorizontalContentAlignment" Value="Right" />
@@ -252,6 +257,11 @@
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Margin" Value="3" />
                 <Setter Property="Padding" Value="2,0,0,0" />
+            </Style>
+
+            <!--RO Label with particularly tight margines.-->
+            <Style TargetType="Label" x:Key="LabelROT" BasedOn="{StaticResource LabelRO}">
+                <Setter Property="Margin" Value="2" />
             </Style>
 
             <!--Label that is soft yellow with a black border. Indicates to user that contents are RO

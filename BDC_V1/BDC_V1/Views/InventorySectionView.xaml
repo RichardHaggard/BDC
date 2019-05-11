@@ -39,7 +39,6 @@
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
-                <RowDefinition Height="38"/>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="100"/>
@@ -235,7 +234,7 @@
                 it detect a click event which a Label is not designed to do. Instead, make a
                 button that looks like a label and have its click event sent back to VM.-->
             <Button
-                Grid.Row="6" Grid.Column="0"
+                Grid.Row="5" Grid.Column="0"
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="0"
@@ -249,13 +248,13 @@
                 Command="{Binding CmdNotEnergyEfficient}"
                 />
             <CheckBox 
-                Grid.Row="6" Grid.Column="1" FontSize="15"
+                Grid.Row="5" Grid.Column="1" FontSize="15"
                 Foreground="Transparent"  
                 Content="NOT Energy Efficient"
                 IsChecked="{Binding NotEnergyEfficient}"
               />
             <Border
-                Grid.Row="6" Grid.RowSpan="2" Grid.Column="2"  Grid.ColumnSpan="7"
+                Grid.Row="5" Grid.RowSpan="2" Grid.Column="2"  Grid.ColumnSpan="7"
                 Background="#D9D9D9"
                 BorderBrush="Transparent"
                 Visibility="{Binding InventorySection.YearPcVisibility}"
@@ -268,7 +267,7 @@
                 it detect a click event which a Label is not designed to do. Instead, make a
                 button that looks like a label and have its click event sent back to VM.-->
             <Button
-                Grid.Row="7" Grid.Column="0"
+                Grid.Row="6" Grid.Column="0"
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="0"
@@ -281,13 +280,14 @@
                 Padding="0"
                 Command="{Binding CmdPaintedCoated}"
                 />
-            <CheckBox Grid.Row="7" Grid.Column="1"
+            <CheckBox 
+                Grid.Row="6" Grid.Column="1"
                 IsChecked="{Binding InventorySection.PaintedIsChecked}"
                 Foreground="Transparent"  
                 Content="Painted - Coated"
                 />
             <StackPanel
-                Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="7"
+                Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="7"
                 Orientation="Horizontal"
                 >
             <Label 
@@ -320,7 +320,7 @@
                 />
             </StackPanel>
 
-            <Grid Grid.Row="8" Grid.Column="0">
+            <Grid Grid.Row="7" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
                     <RowDefinition Height="Auto" />
@@ -373,11 +373,12 @@
                 </Button>
 
                 <!-- Remember -->
-                <Border Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="5,0,5,5"
-                        Height="45"
-                        Style="{StaticResource BorderBlue}">
+                <Border 
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="5,0,5,5"
+                    Height="45"
+                    Style="{StaticResource BorderBlue}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -401,7 +402,7 @@
             </Grid>
 
             <ListBox 
-                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
+                Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="8"
                 Name="CommentListBox"
                 Margin="0,5,5,0"
                 Style="{StaticResource CommentBoxStyle}"
@@ -429,7 +430,7 @@
 
             <!--Photos-->
             <Button 
-                Grid.Row="9" Grid.Column="0"
+                Grid.Row="8" Grid.Column="0"
                 Style="{StaticResource ImageClickBlockButtonStyle}"
                 Command="{Binding CmdImageDoubleClicked}"  
                 CommandParameter="{Binding ImageContainer.SelectedItem}"
@@ -455,7 +456,7 @@
             </Button>
 
             <ListBox 
-                Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="8"
+                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8"
                 Margin="0,5"
                 Name="ImageListBox"
                 Style="{StaticResource ImageBoxStyle}"
@@ -497,21 +498,20 @@
               </ListBox.ItemContainerStyle>
             </ListBox>
 
-
             <Border
-                Grid.Row="10" Grid.Column="0"  Grid.ColumnSpan="4"
+                Grid.Row="9" Grid.Column="0"  Grid.ColumnSpan="4"
                 Background="#C6E0B4"
                 BorderBrush="Transparent"
                 />
 
             <Border
-                Grid.Row="10" Grid.Column="4"  Grid.ColumnSpan="5"
+                Grid.Row="9" Grid.Column="4"  Grid.ColumnSpan="5"
                 Background="LightGray"
                 BorderBrush="Transparent"
                 />
 
             <StackPanel 
-                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="4"
+                Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="4"
                 Orientation="Horizontal">
                 <CheckBox 
                     Content="Add current inspection"
@@ -551,7 +551,7 @@
             </StackPanel>
 
             <StackPanel
-                Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="3"
+                Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="3"
                 Margin="15,0,0,0"
                 Orientation="Horizontal"
                 >
@@ -570,7 +570,7 @@
             </StackPanel>
 
             <StackPanel
-                Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
+                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
                 Orientation="Horizontal"
                 >
                 <Button 
@@ -599,7 +599,7 @@
             </Button>
 
                 <Button 
-                    Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
+                    Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
                     HorizontalAlignment="Center"
                     Margin="15,5"
                     Command="{Binding CmdDeleteSection}"
@@ -623,9 +623,8 @@
                     </Grid>
                 </Button>
 
-
                 <Button 
-                    Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="9" 
+                    Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="9" 
                     HorizontalAlignment="Right"
                     Margin="15,5"
                     Command="{Binding CmdAddSection}"
