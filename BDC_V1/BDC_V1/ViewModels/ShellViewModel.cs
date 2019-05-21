@@ -63,7 +63,7 @@ namespace BDC_V1.ViewModels
             get { return _MikeOffBg; }
             set => SetProperty(ref _MikeOffBg, value);
         }
-        private string _MikeOffBg = ConstBgInactive;
+        private string _MikeOffBg = ConstBgActive;
 
 
         public string MikeOffBorderBrush
@@ -71,7 +71,7 @@ namespace BDC_V1.ViewModels
             get { return _MikeOffBorderBrush; }
             set => SetProperty(ref _MikeOffBorderBrush, value);
         }
-        private string _MikeOffBorderBrush = ConstBgInactive;
+        private string _MikeOffBorderBrush = ConstBorderActive;
 
 
         public string MikeOnBg
@@ -79,7 +79,7 @@ namespace BDC_V1.ViewModels
             get { return _MikeOnBg; }
             set => SetProperty(ref _MikeOnBg, value);
         }
-        private string _MikeOnBg = ConstBgActive;
+        private string _MikeOnBg = ConstBgInactive;
 
 
         public string MikeOnBorderBrush
@@ -87,7 +87,7 @@ namespace BDC_V1.ViewModels
             get { return _MikeOnBorderBrush; }
             set => SetProperty(ref _MikeOnBorderBrush, value);
         }
-        private string _MikeOnBorderBrush = ConstBorderActive;
+        private string _MikeOnBorderBrush = ConstBgInactive;
 
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
@@ -260,7 +260,7 @@ namespace BDC_V1.ViewModels
                 ViewAssignedSystems = !value;
             });
         }
-        private bool _viewAllSystems = true;
+        private bool _viewAllSystems = false;
 
 
         public bool ViewAssignedSystems
@@ -271,7 +271,7 @@ namespace BDC_V1.ViewModels
                 ViewAllSystems = !value;
             });
         }
-        private bool _viewAssignedSystems;
+        private bool _viewAssignedSystems = true;
 
 
         // Used to force the Tab selection internally
