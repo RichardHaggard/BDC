@@ -79,7 +79,7 @@ namespace BDC_V1.ViewModels
             get => _filterRatingColor;
             set => SetProperty(ref _filterRatingColor, value, OnChangeFilter);
         }
-        private EnumRatingColors _filterRatingColor;
+        private EnumRatingColors _filterRatingColor = EnumRatingColors.None;
 
         public string MatchingResultsText
         {
@@ -114,21 +114,6 @@ namespace BDC_V1.ViewModels
                 {
                     ListOfFacilities.Collection.AddRange(_facilityBaseInfo.Facilities);
                     ListOfFacilities.SelectedIndex = 0;
-
-                    // TODO: remove this MOCK data
-                    UnFilteredCommentary.Add(new Commentary
-                    {
-                        FacilityId  = "11057",
-                        CodeIdText  = "C102001",
-                        Rating      = EnumRatingType.R,
-                        CommentText = "DAMAGED - All the wood doors have 70% severe moisture damage. " +
-                                      "CRACKED - All of the doors have 65% severe cracking and splintering"
-                    });
-
-                    foreach (var facility in ListOfFacilities.Collection)
-                    {
-                        FindComments(facility);
-                    }
                 }
 
                 RaisePropertyChanged(new []
@@ -154,7 +139,7 @@ namespace BDC_V1.ViewModels
 
             FilterSource      = EnumFilterSourceType.BredFilter;
             RelatedSource     = EnumFilterRelatedType.SystemFilter;
-            FilterRatingColor = EnumRatingColors.Green;
+            FilterRatingColor = EnumRatingColors.None;
             SearchTerm        = string.Empty;
 
 #if DEBUG
@@ -184,6 +169,7 @@ namespace BDC_V1.ViewModels
         // TODO: Extract actual comments to place into found comments
         private void FindComments([CanBeNull] IComponentBase component)
         {
+#if false
             switch (component)
             {
                 case null: return;
@@ -215,6 +201,7 @@ namespace BDC_V1.ViewModels
                 foreach (var child in component.Children)
                     FindComments(child);
             }
+#endif
         }
 
         private void OnCommentaryCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

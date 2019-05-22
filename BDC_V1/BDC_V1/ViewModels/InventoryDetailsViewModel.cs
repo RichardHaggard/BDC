@@ -27,14 +27,16 @@ namespace BDC_V1.ViewModels
 
         // **************** Class properties ************************************************ //
 
-        [NotNull] public ICommand CmdAddDetail          { get; }
-        [NotNull] public ICommand CmdCancelEdit         { get; }
-        [NotNull] public ICommand CmdCopyDetail         { get; }
-        [NotNull] public ICommand CmdDeleteDetail       { get; }
-        [NotNull] public ICommand CmdDetailsComment     { get; }
-        [NotNull] public ICommand CmdNextDetail         { get; }
-        [NotNull] public ICommand CmdShowBarcodeScanner { get; }
-        [NotNull] public ICommand CmdContentRendered    { get; }
+        [NotNull] public ICommand CmdAddDetail            { get; }
+        [NotNull] public ICommand CmdCancelEdit           { get; }
+        [NotNull] public ICommand CmdCopyDetail           { get; }
+        [NotNull] public ICommand CmdDeleteDetail         { get; }
+        [NotNull] public ICommand CmdDetailsComment       { get; }
+        [NotNull] public ICommand CmdNextDetail           { get; }
+        [NotNull] public ICommand CmdShowBarcodeScanner   { get; }
+        [NotNull] public ICommand CmdContentRendered      { get; }
+        // ReSharper disable once InconsistentNaming
+        [NotNull] public ICommand CmdShowBarcodeScannerID { get; }
 
         [NotNull] public IInventoryDetail InventoryDetails { get; }
 
@@ -53,7 +55,7 @@ namespace BDC_V1.ViewModels
             });
         }
         private string _equipmentMakeUserEntered = string.Empty;
-
+        
         public string ManufacturerUserEntered
         {
             get => _manufacturerUserEntered = InventoryDetails.Manufacturers.SelectedItem;
@@ -68,7 +70,6 @@ namespace BDC_V1.ViewModels
                 }
             });
         }
-        // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private string _manufacturerUserEntered = string.Empty;
 
 
@@ -115,14 +116,15 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "InventoryDetailsItemControl";
 
-            CmdAddDetail          = new DelegateCommand(OnAddDetail            );
-            CmdCancelEdit         = new DelegateCommand(OnCancelEdit           );
-            CmdCopyDetail         = new DelegateCommand(OnCopyDetail           );
-            CmdDeleteDetail       = new DelegateCommand(OnDeleteDetail         );
-            CmdDetailsComment     = new DelegateCommand(OnDetailsComment       );
-            CmdNextDetail         = new DelegateCommand(OnCmdNextDetails       );
-            CmdShowBarcodeScanner = new DelegateCommand(OnCmdShowBarcodeScanner);
-            CmdContentRendered    = new DelegateCommand(OnContentRendered      );
+            CmdAddDetail            = new DelegateCommand(OnAddDetail              );
+            CmdCancelEdit           = new DelegateCommand(OnCancelEdit             );
+            CmdCopyDetail           = new DelegateCommand(OnCopyDetail             );
+            CmdDeleteDetail         = new DelegateCommand(OnDeleteDetail           );
+            CmdDetailsComment       = new DelegateCommand(OnDetailsComment         );
+            CmdNextDetail           = new DelegateCommand(OnCmdNextDetails         );
+            CmdShowBarcodeScanner   = new DelegateCommand(OnCmdShowBarcodeScanner  );
+            CmdShowBarcodeScannerID = new DelegateCommand(OnCmdShowBarcodeScannerID);
+            CmdContentRendered      = new DelegateCommand(OnContentRendered        );
 
 #if DEBUG
 //#warning Using MOCK data for InventoryDetails
@@ -162,7 +164,12 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdShowBarcodeScanner()
         {
-            BdcMessageBoxView.Show("Barcode Reader Launches", "Barcode Reader");
+            BdcMessageBoxView.Show("Barcode Reader Launches for Serial Number", "Barcode Reader");
+        }
+
+        private void OnCmdShowBarcodeScannerID()
+        {
+            BdcMessageBoxView.Show("Barcode Reader Launches for ID", "Barcode Reader");
         }
 
         private void OnContentRendered()

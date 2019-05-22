@@ -35,6 +35,8 @@
             <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
           </ResourceDictionary.MergedDictionaries>
 
+          <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+
           <Style x:Key="TransparentBitmap" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
             <Setter Property="Height" Value="82" />
             <Setter Property="BorderThickness" Value="0" />
@@ -70,8 +72,17 @@
                 <MenuItem Header="_Bluebeam data"         Command="{Binding CmdMenuBluebeam}"/>
                 <MenuItem Header="_Calculators"           Command="{Binding CmdMenuCalculators}"/>
                 <MenuItem Header="_Switch file/inspector" Command="{Binding CmdMenuSwitchFile}"/>
-                <MenuItem Header="View _All Systems"      Command="{Binding CmdMenuViewAllSystems}"      IsCheckable="True" IsChecked="{Binding ViewAllSystems}"     />
-                <MenuItem Header="_View Assigned Systems" Command="{Binding CmdMenuViewAssignedSystems}" IsCheckable="True" IsChecked="{Binding ViewAssignedSystems}"/>
+                <MenuItem Header="View _All Systems"      Command="{Binding CmdMenuViewAllSystems}" IsCheckable="True" 
+                          IsChecked="{Binding Path=ViewAllSystems,
+                              Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                              ConverterParameter=AllSystems,
+                              Mode=TwoWay}" />
+                <MenuItem Header="_View Assigned Systems" Command="{Binding CmdMenuViewAssignedSystems}" IsCheckable="True" 
+                          IsChecked="{Binding Path=ViewAllSystems,
+                              Converter={StaticResource ResourceKey=EnumBooleanConverter},
+                              ConverterParameter=AssignedSystems,
+                              Mode=TwoWay}" />
+                          />
             </MenuItem>
 
             <MenuItem Header="Reports" >
@@ -205,6 +216,7 @@
                 BorderBrush="{Binding MikeOnBorderBrush}"
                 BorderThickness="2"
                 Command="{Binding CmdMicOn}"
+                Visibility="{Binding VisibilityMicrophoneButtons}"
                 Style="{DynamicResource TransparentBitmap}">
                 <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/MicrophoneON_75.png"/>
             </Button>
@@ -217,6 +229,7 @@
                 BorderBrush="{Binding MikeOffBorderBrush}"
                 BorderThickness="2"
                 Command="{Binding CmdMicOff}"
+                Visibility="{Binding VisibilityMicrophoneButtons}"
                 Style="{DynamicResource TransparentBitmap}">
                 <Image Width="72" Height="72" Source="/BDC_V1;component/Resources/MicrophoneOFF_75.png"/>
             </Button>

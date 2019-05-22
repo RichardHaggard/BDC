@@ -43,15 +43,6 @@ namespace BDC_V1.Mock_Data
 
             YearPc = "2007";
 
-            // TODO: Change this into an enumeration
-            PcTypes.AddRange(new[]
-            {
-                "Heat-Resist 400 degF Enml",
-                "Moderate 300 degF Enml",
-                "Extreme 1400 degF Enml"
-            });
-            PcType = PcTypes[0];
-
             SectionComments.Add(new CommentBase
             {
                 EntryUser = new Person {FirstName = "Jane", LastName = "Doe"},

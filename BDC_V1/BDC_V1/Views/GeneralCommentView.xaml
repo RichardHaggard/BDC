@@ -86,6 +86,7 @@ two line header</system:String>
                 Background="{Binding MikeOnBg}"
                 BorderBrush="{Binding MikeOnBorderBrush}"
                 BorderThickness="2"
+                ToolTip="Microphone ON"
                 Command="{Binding CmdMicOn}"
                 Style="{StaticResource bTB}">
               <Image Source="/BDC_V1;component/Resources/MicrophoneON_75.png" />
@@ -96,17 +97,31 @@ two line header</system:String>
             Background="{Binding MikeOffBg}"
             BorderBrush="{Binding MikeOffBorderBrush}"
             BorderThickness="2"
+            ToolTip="Microphone OFF"
             Command="{Binding CmdMicOff}">
           <Image Source="/BDC_V1;component/Resources/MicrophoneOFF_75.png" />
         </Button>
 
-        <Button Grid.Column="2" Style="{StaticResource bTB}"
+        <Button Grid.Column="2" 
+                IsEnabled="{Binding IsCopyEnabled, FallbackValue=True}"
+                ToolTip="Copy Inspection Comment..."
                 Command="{Binding CmdCopy}">
           <Image Source="/BDC_V1;component/Resources/Copy_75.png" />
+          <Button.Style>
+            <Style TargetType="Button" BasedOn="{StaticResource bTB}">
+              <Setter Property="Visibility" Value="Visible" />
+              <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                  <Setter Property="Visibility" Value="Collapsed" />
+                </Trigger>
+              </Style.Triggers>
+            </Style>
+          </Button.Style>
         </Button>
 
         <Button Grid.Column="3" 
                 IsEnabled="{Binding IsDistressedEnabled, FallbackValue=True}"
+                ToolTip="Distress Picklist"
                 Command="{Binding CmdDistressed}">
           <Image Source="/BDC_V1;component/Resources/Distress_Selector (1).png" />
           <Button.Style>
@@ -122,26 +137,31 @@ two line header</system:String>
         </Button>
 
         <Button Grid.Column="4" Style="{StaticResource bTB}"
+                ToolTip="Spellcheck"
                 Command="{Binding CmdSpellCheck}">
           <Image Source="/BDC_V1;component/Resources/SpellCheck.png" />
         </Button>
 
         <Button Grid.Column="5" Style="{StaticResource bTB}"
+                ToolTip="Delete Comment"
                 Command="{Binding CmdDelete}">
           <Image Source="/BDC_V1;component/Resources/Delete.png" />
         </Button>
 
         <Button Grid.Column="6" Style="{StaticResource bTB}"
+                ToolTip="Return (without saving)"
                 Command="{Binding CmdCancelUndo}">
           <Image Source="/BDC_V1;component/Resources/Cancel_Undo.png" />
         </Button>
 
         <Button Grid.Column="7" Style="{StaticResource bTB}"
+                ToolTip="Save &amp; Mark for Review"
                 Command="{Binding CmdReviewLater}">
           <Image Source="/BDC_V1;component/Resources/OK_ReviewLater (1).png" />
         </Button>
 
         <Button Grid.Column="8"  Style="{StaticResource bTB}"
+                ToolTip="Save"
                 Command="{Binding CmdOkCommand}">
           <Image Source="/BDC_V1;component/Resources/OK (1).png" />
         </Button>

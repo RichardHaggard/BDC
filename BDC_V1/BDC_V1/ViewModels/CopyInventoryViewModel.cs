@@ -27,7 +27,25 @@ namespace BDC_V1.ViewModels
         [NotNull] public ICommand CmdCopyButton   { get; }
 
         public bool IsSectionNameEnabled => 
-            (SourceFacility == TargetFacilities.SelectedItem);
+            (IsInventory == false) || (SourceFacility == TargetFacilities.SelectedItem);
+
+        public string WindowTitle => IsInventory ? "COPY INVENTORY" : "COPY SECTION(S)...";
+
+        public bool IsInventory
+        {
+            get => _isInventory;
+            set => SetProperty(ref _isInventory, value, () =>
+            {
+                OnIsInventory();
+                RaisePropertyChanged( new [] 
+                {
+                    nameof(WindowTitle),
+                    nameof(SectionName),
+                    nameof(IsSectionNameEnabled)
+                });
+            });
+        }
+        private bool _isInventory = true;
 
         // TODO: Move these into a data interface / class ???
 
@@ -147,11 +165,30 @@ namespace BDC_V1.ViewModels
         }
         private bool _isIncludeCommentsChecked;
 
+        public string UserEnteredSection
+        {
+            get => _userEnteredSection = Sections.SelectedItem;
+            set => SetProperty(ref _userEnteredSection, value, () =>
+            {
+                if (! string.IsNullOrEmpty(value))
+                {
+                    if (! Sections.Contains(value))
+                        Sections.Collection.Add(value);
+
+                    Sections.SelectedItem = value;
+                }
+            });
+        }
+        private string _userEnteredSection = string.Empty;
+
         [NotNull] public IndexedCollection<IFacilityInfoHeader> TargetFacilities { get; } =
             new IndexedCollection<IFacilityInfoHeader>(new ObservableCollection<IFacilityInfoHeader>());
 
         [NotNull] public IndexedCollection<ItemChecklist> Systems { get; } =
             new IndexedCollection<ItemChecklist>(new ObservableCollection<ItemChecklist>());
+
+        [NotNull] public IndexedCollection<string> Sections { get; } =
+            new IndexedCollection<string>(new ObservableCollection<string>());
 
         // **************** Class constructors ********************************************** //
 
@@ -194,6 +231,29 @@ namespace BDC_V1.ViewModels
         }
 
         // **************** Class members *************************************************** //
+
+        private void OnIsInventory()
+        {
+            Sections.Collection.Clear();
+
+            if (! IsInventory)
+            {
+                Sections.Collection.AddRange(new []
+                {
+                    "D201001 Waterclosets",
+                    "D201002 Urinals",
+                    "D201003 Lavatories",
+                    "D201004 Sinks",
+                    "D201005 Shower/Tubs",
+                    "D201006 Drinking Fountains and Coolers",
+                    "D201007 Bidets",
+                    "D201090 Other Plumbing Fixtures",
+                    "D201099 Emergency Fixtures",
+                });
+            }
+
+            Sections.SelectedItem = Sections.FirstOrDefault();
+        }
 
         private void OnCancelButton()
         {

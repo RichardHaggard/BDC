@@ -127,17 +127,41 @@
 
             <Label
                 Grid.Row="2" Grid.Column="0" 
-                Content="Detail ID Number:"
+                Content="ID Number:"
                 Style="{StaticResource LabelRJ}"/>
             <TextBox
                 Grid.Row="2" Grid.Column="1" 
                 Style="{StaticResource TextBoxNoWrapT}"
                 Text="{Binding InventoryDetails.DetailIdNumber}"
                 />
-            <Label
-                Grid.Row="2" Grid.Column="2" 
+            <DockPanel Grid.Row="2" Grid.Column="2" Margin="0">
+              <Button
+                DockPanel.Dock="Left" 
+                Height="30"
+                Margin="0"
+                Width="60"
+                Command="{Binding CmdShowBarcodeScannerID}"
+                Style="{StaticResource btnImageText}">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+
+                  <Image
+                    Grid.Column="0" 
+                    Height="20"
+                    Source="/BDC_V1;component/Resources/BarcodeScan2.png"
+                  />
+                </Grid>
+              </Button>
+
+              <Label
+                DockPanel.Dock="Right" 
+                VerticalAlignment="Center"
                 Content="Location:"
                 Style="{StaticResource LabelRJ}"/>
+            </DockPanel>
+
             <TextBox
                 Grid.Row="2" Grid.Column="3" 
                 Style="{StaticResource TextBoxNoWrapT}"

@@ -32,6 +32,12 @@ namespace BDC_V1.ViewModels
         private const string ConstBgInactive   = "Transparent";
         private const string ConstBorderActive = "Black";
 
+        public enum SelectedSystems
+        {
+            AssignedSystems,
+            AllSystems
+        };
+
         // **************** Class properties ************************************************ //
 
         // commands are read only to the outside world
@@ -60,34 +66,34 @@ namespace BDC_V1.ViewModels
 
         public string MikeOffBg
         {
-            get { return _MikeOffBg; }
-            set => SetProperty(ref _MikeOffBg, value);
+            get => _mikeOffBg;
+            set => SetProperty(ref _mikeOffBg, value);
         }
-        private string _MikeOffBg = ConstBgInactive;
+        private string _mikeOffBg = ConstBgInactive;
 
 
         public string MikeOffBorderBrush
         {
-            get { return _MikeOffBorderBrush; }
-            set => SetProperty(ref _MikeOffBorderBrush, value);
+            get => _mikeOffBorderBrush;
+            set => SetProperty(ref _mikeOffBorderBrush, value);
         }
-        private string _MikeOffBorderBrush = ConstBgInactive;
+        private string _mikeOffBorderBrush = ConstBgInactive;
 
 
         public string MikeOnBg
         {
-            get { return _MikeOnBg; }
-            set => SetProperty(ref _MikeOnBg, value);
+            get => _mikeOnBg;
+            set => SetProperty(ref _mikeOnBg, value);
         }
-        private string _MikeOnBg = ConstBgActive;
+        private string _mikeOnBg = ConstBgActive;
 
 
         public string MikeOnBorderBrush
         {
-            get { return _MikeOnBorderBrush; }
-            set => SetProperty(ref _MikeOnBorderBrush, value);
+            get => _mikeOnBorderBrush;
+            set => SetProperty(ref _mikeOnBorderBrush, value);
         }
-        private string _MikeOnBorderBrush = ConstBorderActive;
+        private string _mikeOnBorderBrush = ConstBorderActive;
 
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
@@ -250,29 +256,12 @@ namespace BDC_V1.ViewModels
 
         private ICommentInspection _inspectedByUser;
 
-
-        // TODO: are these always set as opposites ?? Perhaps this could be combined ???
-        public bool ViewAllSystems
+        public SelectedSystems ViewAllSystems
         {
             get => _viewAllSystems;
-            set => SetProperty(ref _viewAllSystems, value, () =>
-            {
-                ViewAssignedSystems = !value;
-            });
+            set => SetProperty(ref _viewAllSystems, value);
         }
-        private bool _viewAllSystems = true;
-
-
-        public bool ViewAssignedSystems
-        {
-            get => _viewAssignedSystems;
-            set => SetProperty(ref _viewAssignedSystems, value, () =>
-            {
-                ViewAllSystems = !value;
-            });
-        }
-        private bool _viewAssignedSystems;
-
+        private SelectedSystems _viewAllSystems = SelectedSystems.AssignedSystems;
 
         // Used to force the Tab selection internally
         public int ViewTabIndex
@@ -356,6 +345,14 @@ namespace BDC_V1.ViewModels
             set => SetProperty(ref _visibilityInspectionButton, value);
         }
         private Visibility _visibilityInspectionButton = Visibility.Collapsed;
+
+        public Visibility VisibilityMicrophoneButtons
+        {
+            get => _visibilityMicrophoneButtons;
+            set => SetProperty(ref _visibilityMicrophoneButtons, value);
+        }
+        private Visibility _visibilityMicrophoneButtons = Visibility.Collapsed;
+
 
         // DON'T USE INTERFACES AS ITEM SOURCE - It breaks the Hierarchical templating
         public ObservableCollection<ComponentBase> TreeItemsViewSource
@@ -608,7 +605,16 @@ namespace BDC_V1.ViewModels
 
         private void OnSwitchFile()
         {
-            BdcMessageBoxView.Show("Switch File", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Warning);
+            switch (App.LoginUser())
+            {
+                case true:
+                case false:
+                    WindowVisibility = Visibility.Visible;
+                    return;
+
+                default:
+                    throw new ApplicationException("Cannot obtain necessary models");
+            }
         }
 
         private void OnViewAllSystems()
@@ -654,9 +660,11 @@ namespace BDC_V1.ViewModels
 
         private void OnCopySections()
         {
-            var view = new CopySectionView();
-            if (!(view.DataContext is CopySectionViewModel model))        
+            var view = new CopyInventoryView();
+            if (!(view.DataContext is CopyInventoryViewModel model))        
                 throw new InvalidCastException("Invalid View Model");
+
+            model.IsInventory = false;
 
             //if (view.ShowDialog() != true) return;
             if (view.ShowDialogInParent(true) != true) return;
@@ -682,6 +690,8 @@ namespace BDC_V1.ViewModels
             var view = new CopyInventoryView();
             if (!(view.DataContext is CopyInventoryViewModel model))        
                 throw new InvalidCastException("Invalid View Model");
+
+            model.IsInventory = true;
 
             //if (view.ShowDialog() != true) return;
             if (view.ShowDialogInParent(true) != true) return;
@@ -745,6 +755,7 @@ namespace BDC_V1.ViewModels
             {
                 Predicate<IComponentBase> filter = (arg) => true;;
 
+                VisibilityMicrophoneButtons    =
                 VisibilityAddComponentButton   =
                 VisibilityAddSectionButton     =
                 VisibilityAddSystemButton      = 
@@ -754,7 +765,6 @@ namespace BDC_V1.ViewModels
                 VisibilityDeleteSystemButton   = Visibility.Collapsed;
 
                 // Filter (hide) items that shouldn't be displayed
-                // TODO: Filters aren't working... They set the internal IsActive state but the tree view doesn't update.
                 switch (tabItem.Name)
                 {
                     case "Facility":
@@ -763,6 +773,7 @@ namespace BDC_V1.ViewModels
                         break;
 
                     case "Inventory":
+                        VisibilityMicrophoneButtons   =     // TODO: This needs to be set only when the Details sub-tab is selected
                         VisibilityAddComponentButton  =
                         VisibilityAddSectionButton    =
                         VisibilityCopyInventoryButton =
@@ -774,7 +785,7 @@ namespace BDC_V1.ViewModels
                         break;
 
                     case "Inspection":
-                        VisibilityCopyInspectionButton = Visibility.Visible;
+                        //VisibilityCopyInspectionButton = Visibility.Visible;
 
                         filter = (arg) => ((arg.ComponentType == EnumComponentTypes.FacilityType) ||
                                            (arg.ComponentType == EnumComponentTypes.SystemType  ) ||
@@ -793,8 +804,6 @@ namespace BDC_V1.ViewModels
                 }
 
                 // Filter the tree
-                // TODO: This will leave tree items that all the children are collapsed showing
-                //       expand arrows that don't work
                 FilterComponentTree(TreeItemsViewSource, filter);
             }
         }
@@ -821,7 +830,7 @@ namespace BDC_V1.ViewModels
                 FilterComponentTree(component.Children, filter);
         }
 
-        public void SetToolbarMenuItems([NotNull] TabItem tabItem)
+        protected void SetToolbarMenuItems([NotNull] TabItem tabItem)
         {
             ToolbarMenuItems.Clear();
 
@@ -835,7 +844,7 @@ namespace BDC_V1.ViewModels
             }
         }
 
-        public void SetUpToolbarMenuItems()
+        protected void SetUpToolbarMenuItems()
         {
             var sepStyle = Application.Current.FindResource("MenuSeparatorStyle") as Style;
 

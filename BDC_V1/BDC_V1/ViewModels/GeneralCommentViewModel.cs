@@ -31,7 +31,14 @@ namespace BDC_V1.ViewModels
             get => _windowTitle;
             set => SetProperty(ref _windowTitle, value);
         }
-        private string _windowTitle = "INSPECTION COMMENTS";
+        private string _windowTitle = "INSPECTION COMMENT";
+
+        public bool IsCopyEnabled
+        {
+            get => _isCopyEnabled;
+            set => SetProperty(ref _isCopyEnabled, value);
+        }
+        private bool _isCopyEnabled;
 
         public bool IsDistressedEnabled
         {
@@ -39,7 +46,6 @@ namespace BDC_V1.ViewModels
             set => SetProperty(ref _isDistressedEnabled, value);
         }
         private bool _isDistressedEnabled = true;
-
 
         public EnumRepairType RepairType
         {
@@ -53,19 +59,17 @@ namespace BDC_V1.ViewModels
         public GeneralCommentViewModel()
         {
             CmdDistressed = new DelegateCommand(OnDistressed);
-
-            HeaderText = WindowTitle + "\n" +
-                         "This is a two-line auto-wrap text field";
+            HeaderText = "Inspection Comment on 11507 - FL1 - D302001 BOILERS - <Inspection Date>";
         }
 
         // **************** Class members *************************************************** //
 
-        protected override List<ICommentary> CommentaryList
+        public override IList<ICommentary> CommentaryList
         {
             get => _commentaryList ?? (_commentaryList = new List<ICommentary>());
             set => SetProperty(ref _commentaryList, value);
         }
-        private List<ICommentary> _commentaryList;
+        private IList<ICommentary> _commentaryList;
 
         protected override string CopyWindowTitle => "COPY INSPECTION COMMENT";
 

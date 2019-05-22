@@ -66,20 +66,35 @@ namespace BDC_V1
         {
             base.OnInitialized();
 
-            if (MainWindow?.DataContext is ShellViewModel shellViewModel)
+            switch (LoginUser())
+            {
+                case true: 
+                    // this is a hack to get the toolbar menu to display at first showing
+                    if (MainWindow is ShellView shellView)
+                        shellView.ViewTabControl.SelectedIndex = 0;
+
+                    return;
+
+                case false:
+                    Current.Shutdown(-1);
+                    return;
+
+                default:
+                    throw new ApplicationException("Cannot obtain necessary models");
+            }
+        }
+
+        public static bool? LoginUser()
+        {
+            if (Current.MainWindow?.DataContext is ShellViewModel shellViewModel)
             {
                 shellViewModel.WindowVisibility = Visibility.Collapsed;
 
                 var loginView = new LoginView(new LoginViewModel());
-                loginView.ShowDialog();
-
                 if (loginView.DataContext is LoginViewModel loginViewModel)
                 {
-                    if (loginViewModel.DialogResultEx != true)
-                    {
-                        Current.Shutdown(-1);
-                        return;
-                    }
+                    loginView.ShowDialog();
+                    if (loginViewModel.DialogResultEx != true) return false;
 
                     // Publish event to make the shell window visible
                     shellViewModel.ConfigurationFilename = loginViewModel.ConfigurationFilename;
@@ -88,21 +103,14 @@ namespace BDC_V1
 
                     // Use the extension method in the WindowPlace class to retrieve this 
                     // window's previous position and display state, if any.
-                    MainWindow.SetPlacement(Settings.Default.PlacementShell, false);
+                    Current.MainWindow.SetPlacement(Settings.Default.PlacementShell, false);
 
                     shellViewModel.WindowVisibility = Visibility.Visible;
-
-                    // this is a hack to get the toolbar menu to display at first showing
-                    if (MainWindow is ShellView shellView)
-                    {
-                        shellView.ViewTabControl.SelectedIndex = 0;
-                    }
-                    return;
+                    return true;
                 }
             }
 
-            MessageBox.Show("Cannot obtain necessary models", "System Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            Current.Shutdown(-1);
+            return null;
         }
     }
 

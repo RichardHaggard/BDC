@@ -1,4 +1,4 @@
-﻿<Window Title="COPY INVENTORY"
+﻿<Window Title="{Binding WindowTitle, FallbackValue='COPY INVENTORY'}"
         x:Class="BDC_V1.Views.CopyInventoryView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,6 +14,7 @@
         xmlns:classes="clr-namespace:BDC_V1.Classes"
         xmlns:interfaces="clr-namespace:BDC_V1.Interfaces"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -28,6 +29,7 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
       </ResourceDictionary.MergedDictionaries>
+
       <converters:MultiBoolToObjectConverter x:Key="MultiBoolToObjectConverter" />
 
       <!--CheckBox base-->
@@ -124,27 +126,63 @@
                Grid.Column="0"
                VerticalAlignment="Top"
                Style="{StaticResource LabelBase}"
-               Content="Section Name:" 
-               />
-        <TextBox Grid.Row="2"
-                 Grid.Column="1"
-                 Margin="5,2.5,5,2.5"
-                 IsEnabled="{Binding IsSectionNameEnabled,
-                    FallbackValue=False}"
-                 Text="{Binding SectionName}"
-                 FontSize="15"
-                 Background="LightGray"
-                 VerticalContentAlignment="Center"
-                 IsReadOnly="True" 
-                 />
+               >
+          <Label.Resources>
+            <system:String x:Key="InventoryLabel">Section Name:</system:String>
+            <system:String x:Key="SectionLabel">New Section Name:</system:String>
+          </Label.Resources>
+          <Label.Content>
+            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}" FallbackValue="{StaticResource InventoryLabel}" >
+              <Binding Path="IsInventory" UpdateSourceTrigger="PropertyChanged" FallbackValue="true" />
+              <Binding Source="{StaticResource InventoryLabel}" />
+              <Binding Source="{StaticResource SectionLabel  }" />
+            </MultiBinding>
+          </Label.Content>
+        </Label>
+        <ComboBox Grid.Row="2"
+                  Grid.Column="1"
+                  Margin="5,2.5,5,2.5"
+                  IsEnabled="{Binding IsSectionNameEnabled, FallbackValue=False}"
+                  ItemsSource="{Binding Sections}"
+                  SelectedItem="{Binding Sections.SelectedItem}"
+                  Text="{Binding UserEnteredSection, UpdateSourceTrigger=LostFocus}"
+                  FontSize="15"
+                  VerticalContentAlignment="Center"
+                  IsEditable="True"
+                  IsReadOnly="False" 
+                  >
+          <ComboBox.Resources>
+            <SolidColorBrush x:Key="InventoryBrush">LightGray</SolidColorBrush>
+            <SolidColorBrush x:Key="SectionBrush">White</SolidColorBrush>
+          </ComboBox.Resources>
+          <ComboBox.Background>
+            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}" FallbackValue="{StaticResource InventoryBrush}" >
+              <Binding Path="IsInventory" UpdateSourceTrigger="PropertyChanged" FallbackValue="true" />
+              <Binding Source="{StaticResource InventoryBrush}" />
+              <Binding Source="{StaticResource SectionBrush  }" />
+            </MultiBinding>
+          </ComboBox.Background>
+
+        </ComboBox>
 
         <!-- Systems -->
         <Label Grid.Row="3"
                Grid.Column="0"
                VerticalAlignment="Top"
                Style="{StaticResource LabelBase}"
-               Content="Systems to copy:" 
-               />
+               >
+          <Label.Resources>
+            <system:String x:Key="InventoryLabel">Systems to copy:</system:String>
+            <system:String x:Key="SectionLabel">Section(s) to copy:</system:String>
+          </Label.Resources>
+          <Label.Content>
+            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}" FallbackValue="{StaticResource InventoryLabel}" >
+              <Binding Path="IsInventory" UpdateSourceTrigger="PropertyChanged" FallbackValue="true" />
+              <Binding Source="{StaticResource InventoryLabel}" />
+              <Binding Source="{StaticResource SectionLabel  }" />
+            </MultiBinding>
+          </Label.Content>
+        </Label>
         <Border Grid.Row="3"
                 Grid.Column="1"
                 Margin="5"

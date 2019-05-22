@@ -124,10 +124,10 @@ namespace BDC_V1.ViewModels
             InspectionInfo.IsPainted = !InspectionInfo.IsPainted;
         }
 
-        protected override void OnSelectedComment(ICommentBase comment, bool isInspection=false)
-        {
-            base.OnSelectedComment(comment, true);
-        }
+        protected override void OnSelectedComment(ICommentBase comment, bool isInspection=false, bool isFacility=false) => 
+            // ReSharper disable once BaseMethodCallWithDefaultParameter
+            // ReSharper disable once ArgumentsStyleLiteral
+            base.OnSelectedComment(comment, isInspection:true);
 
         private void OnDeleteInspection()
         {

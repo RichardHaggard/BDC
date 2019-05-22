@@ -46,5 +46,9 @@ namespace BDC_V1.ViewModels
         }
 
         // **************** Class members *************************************************** //
+
+        protected override void OnSelectedComment(ICommentBase comment, bool isInspection=false, bool isFacility=false) => 
+            // ReSharper disable once BaseMethodCallWithDefaultParameter
+            base.OnSelectedComment(comment, isFacility:true);
     }
 }

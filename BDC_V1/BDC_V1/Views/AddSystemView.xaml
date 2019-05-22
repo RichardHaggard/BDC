@@ -33,7 +33,7 @@
         BorderThickness="0"
         Margin="5,10,5,5"
         IsReadOnly="True"
-        Text="Please choose the type of the new system you would like to add from the list below."
+        Text="Select system to add to {BUILDING ID} from picklist:"
         Style="{StaticResource TextBoxWrap}"
         />
 

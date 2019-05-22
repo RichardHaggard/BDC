@@ -134,8 +134,8 @@ namespace BDC_V1.Classes
             }
         }
 
-        [NotNull]   protected abstract List<ICommentary> CommentaryList  { get; set; }
-        [CanBeNull] protected abstract string            CopyWindowTitle { get; }
+        [NotNull]   public abstract IList<ICommentary> CommentaryList  { get; set; }
+        [CanBeNull] protected abstract string          CopyWindowTitle { get; }
         protected virtual void OnCopy()
         {
             var view = new CopyCommentView

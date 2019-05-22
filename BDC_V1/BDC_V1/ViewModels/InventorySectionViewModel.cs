@@ -46,7 +46,6 @@ namespace BDC_V1.ViewModels
         }
         private bool _estimated;
 
-
         public bool IsRemembered
         {
             get => _isRemembered;
@@ -54,16 +53,21 @@ namespace BDC_V1.ViewModels
         }
         private bool _isRemembered;
 
-        [NotNull] public IInventorySection InventorySection { get; }
-
+        public bool IsAllPaintedChecked
+        {
+            get => _isAllPaintedChecked;
+            set => SetProperty(ref _isAllPaintedChecked, value, OnAllPainted);
+        }
+        private bool _isAllPaintedChecked;
 
         public bool NotEnergyEfficient
         {
-            get { return _NotEnergyEfficient; }
-            set { SetProperty(ref _NotEnergyEfficient, value); }
+            get => _notEnergyEfficient;
+            set => SetProperty(ref _notEnergyEfficient, value);
         }
-        private bool _NotEnergyEfficient = false;
+        private bool _notEnergyEfficient;
 
+        [NotNull] public IInventorySection InventorySection { get; }
 
         // **************** Class data members ********************************************** //
 
@@ -132,9 +136,81 @@ namespace BDC_V1.ViewModels
                 InventorySection.ComponentType = InventorySection.ComponentTypes[0];
                 InventorySection.SectionName   = InventorySection.SectionNames  [0];
             }
+
+            OnAllPainted();
         }
 
         // **************** Class members *************************************************** //
+
+        private void OnAllPainted()
+        {
+            InventorySection.PcTypes.Clear();
+
+            // When the All checkbox is not checked (default) present these most-common options:
+            if (!IsAllPaintedChecked)
+            {
+                InventorySection.PcTypes.AddRange(new[]
+                {
+                    "Alkyd Paint",
+                    "Latex Paint",
+                    "Latex Stain",
+                    "Varnish Surface Sealer"
+                });
+            }
+
+            // When the All checkbox is checked, please present this full list of choices:
+            else
+            {
+                InventorySection.PcTypes.AddRange(new[]
+                {
+                    "PAINT_TYPE_DESC",
+                    "Alkyd Gloss Enamel", 
+                    "Alkyd Glss Enl-Low in VOC",
+                    "Alkyd High Gloss Enamel", 
+                    "Alkyd Modified Oil Paint",
+                    "Alkyd Paint",
+                    "Alkyd Primer-Enl-Undercoat",
+                    "Alkyd Resin Paint",
+                    "Alkyd Semigloss Enamel",
+                    "Alkyd-Resin Varnish",
+                    "Alumin Hear Resist 1200 F",
+                    "Aluminum Paint",
+                    "Asphalt Varnish",
+                    "Chlorin Rubber Intermedia",
+                    "Enamel: Floor and Deck",
+                    "Gen Purpose Wax, Solvent", 
+                    "Gloss & Semigloss Latex",
+                    "Heat-Resist 400 degF Enml",
+                    "Iron-Oxide Oil Paint",
+                    "Latex Acrylic Emulsion",
+                    "Latex High Traffic",
+                    "Latex Paint",
+                    "Latex Primer Coating",
+                    "Latex Stain",
+                    "Latex Surface Sealer",
+                    "Low Sheen Oil Varnish",
+                    "Moist Curing Polyurethane",
+                    "Oil Stain",
+                    "Phenolic-Resin Spar Varnish",
+                    "Iron/ZincOx,Lnsd Oil/Alkd",
+                    "Rubber Paint (Swim Pools)",
+                    "Rubber-Base Paint",
+                    "Rubbing Oil Varnish",
+                    "Semi-Transparent Oil Stain",
+                    "Semigloss Enamel",
+                    "Silicone Alkyd Paint",
+                    "Textured Coating",
+                    "Two-Part Epoxy Coating",
+                    "Varnish Surface Sealer",
+                    "Water-Emulsion Floor Wax",
+                    "Water-Resist Spar Varnish",
+                    "Zinc Rich Phenolic Varnish",
+                    "Zinc-Molybdate Alkyd Prim"
+                });
+            }
+
+            InventorySection.PcType = InventorySection.PcTypes.First();
+        }
 
         private void OnCancelEdit() { Debug.WriteLine("OnCancelEdit is not implemented"); }
 

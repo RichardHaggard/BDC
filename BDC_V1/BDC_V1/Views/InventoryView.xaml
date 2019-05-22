@@ -24,7 +24,6 @@
                 Header="DETAILS (99)">
                 <local:InventoryDetailsView />
             </TabItem>
-                
         </TabControl>
     </Grid>
 </UserControl>
