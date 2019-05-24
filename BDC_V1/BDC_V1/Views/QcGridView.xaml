@@ -237,7 +237,7 @@
                 </Grid>
             </Button>
 
-            <TextBox Height="75" MinWidth="200" MaxWidth="300"
+            <TextBox Height="75" MinWidth="200" MaxWidth="460"
                      DockPanel.Dock="Left"
                      Background="LightYellow"
                      HorizontalAlignment="Left"
