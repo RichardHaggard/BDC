@@ -71,6 +71,9 @@ namespace BDC_V1.ViewModels
         protected override ObservableCollection<ImageSource> ImageContainerSource =>
             InspectionInfo.Images;
 
+        protected override GeneralCommentViewModel.CommentTypes CommentType =>
+            GeneralCommentViewModel.CommentTypes.Inspection;
+
         public override string TabName       => "INSPECTION";
         public override string PhotoTypeText => "Inspection photos";
         public override string DetailHeaderText => 
@@ -84,11 +87,10 @@ namespace BDC_V1.ViewModels
         {
             RegionManagerName = "InspectionItemControl";
 
-            //CmdCondRating        = new DelegateCommand<object>(OnConditionRating);
-            CmdCancelEdit        = new DelegateCommand(OnCancelEdit             );
-            CmdDeleteInspection  = new DelegateCommand(OnDeleteInspection       );
-            CmdInspectionComment = new DelegateCommand(OnCmdInspectionComment   );
-            CmdPaintedCoated     = new DelegateCommand(OnCmdPaintedCoated       );
+            CmdCancelEdit        = new DelegateCommand(OnCancelEdit          );
+            CmdDeleteInspection  = new DelegateCommand(OnDeleteInspection    );
+            CmdInspectionComment = new DelegateCommand(OnCmdInspectionComment);
+            CmdPaintedCoated     = new DelegateCommand(OnCmdPaintedCoated    );
 
             IsRemembered = false;
 #if DEBUG
@@ -101,18 +103,12 @@ namespace BDC_V1.ViewModels
 
         protected override bool GetRegionManager()
         {
-            if (!base.GetRegionManager() || (RegionManager == null)) return false;
-            return true;
-        }
-
-        private void OnCancelEdit()
-        {
-            Debug.WriteLine("OnCancelEdit not implemented");
+            return base.GetRegionManager() && (RegionManager != null);
         }
 
         private void OnCmdInspectionComment()
         {
-            OnSelectedComment(CommentContainer?.FirstOrDefault(), true);
+            OnSelectedComment(CommentContainer.FirstOrDefault());
         }
 
         private void OnCmdPaintedCoated()
@@ -124,14 +120,14 @@ namespace BDC_V1.ViewModels
             InspectionInfo.IsPainted = !InspectionInfo.IsPainted;
         }
 
-        protected override void OnSelectedComment(ICommentBase comment, bool isInspection=false, bool isFacility=false) => 
-            // ReSharper disable once BaseMethodCallWithDefaultParameter
-            // ReSharper disable once ArgumentsStyleLiteral
-            base.OnSelectedComment(comment, isInspection:true);
-
         private void OnDeleteInspection()
         {
             Debug.WriteLine("OnDeleteInspection not implemented");
+        }
+
+        private void OnCancelEdit()
+        {
+            Debug.WriteLine("OnCancelEdit not implemented");
         }
     }
 }

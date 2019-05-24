@@ -12,14 +12,23 @@
         xmlns:utils="clr-namespace:BDC_V1.Utils"
         xmlns:converters="clr-namespace:BDC_V1.Converters"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
+        xmlns:viewModels="clr-namespace:BDC_V1.ViewModels"
         mc:Ignorable="d"
+        d:DataContext="{viewModels:GeneralCommentViewModel}"
+        utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Height="450" Width="680">
+        Height="450" 
+        Width="680" >
 
   <Window.Resources>
     <converters:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+
+    <Style x:Key="StockBoxStyle" TargetType="ListBox">
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+      <Setter Property="VerticalContentAlignment" Value="Top" />
+      <Setter Property="SelectionMode" Value="Single" />
+    </Style>
 
     <Style x:Key="bTB"
            TargetType="Button"
@@ -43,6 +52,7 @@ two line header</system:String>
   <Grid>
 
     <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
@@ -112,7 +122,7 @@ two line header</system:String>
               <Setter Property="Visibility" Value="Visible" />
               <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
-                  <Setter Property="Visibility" Value="Collapsed" />
+                  <Setter Property="Visibility" Value="Hidden" />
                 </Trigger>
               </Style.Triggers>
             </Style>
@@ -129,7 +139,7 @@ two line header</system:String>
               <Setter Property="Visibility" Value="Visible" />
               <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
-                  <Setter Property="Visibility" Value="Collapsed" />
+                  <Setter Property="Visibility" Value="Hidden" />
                 </Trigger>
               </Style.Triggers>
             </Style>
@@ -169,7 +179,7 @@ two line header</system:String>
     </Border>
 
     <StackPanel Grid.Row="2" Orientation="Horizontal" MinWidth="480"
-                IsEnabled="{Binding IsDistressedEnabled, FallbackValue=True}">
+                IsEnabled="{Binding IsDistressedEnabled}">
       <StackPanel.Style>
         <Style TargetType="StackPanel" >
           <Setter Property="Visibility" Value="Visible" />
@@ -207,7 +217,50 @@ two line header</system:String>
                                 Mode=TwoWay}" />
     </StackPanel>
 
-    <TextBox Grid.Row="3"
+    <StackPanel Grid.Row="3" Width="665" Margin="5,0"
+                Orientation="Horizontal" 
+                HorizontalAlignment="Stretch"
+                IsEnabled="{Binding IsStockEnabled}"
+                >
+      <StackPanel.Style>
+        <Style TargetType="StackPanel" >
+          <Setter Property="Visibility" Value="Visible" />
+          <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </StackPanel.Style>
+
+      <Expander HorizontalAlignment="Stretch"
+                IsExpanded="{Binding ExpanderIsExpanded}"
+                Header="Stock Comments..."
+                Width="{Binding Path=ActualWidth,RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}"
+                >
+        <ListBox MinHeight="80" 
+                 Margin="0"
+                 HorizontalAlignment="Stretch"
+                 ItemsSource="{Binding StockCollection, Mode=OneTime}"
+                 SelectedItem="{Binding StockCollection.SelectedItem, Mode=TwoWay}"
+                 Style="{StaticResource StockBoxStyle}"
+                 Width="{Binding Path=ActualWidth,RelativeSource={RelativeSource AncestorType={x:Type Expander}}}"
+                 >
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Width="640"
+                         HorizontalAlignment="Stretch"
+                         TextWrapping="Wrap"  
+                         Text="{Binding Path=.}"
+                         />
+              <!-- Width="{Binding Path=ActualWidth,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" -->
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Expander>
+    </StackPanel>
+
+    <TextBox Grid.Row="4"
              IsReadOnly="False"
              BorderThickness ="4"
              BorderBrush="Gray" 

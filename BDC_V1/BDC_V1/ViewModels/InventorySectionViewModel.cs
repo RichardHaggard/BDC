@@ -103,6 +103,9 @@ namespace BDC_V1.ViewModels
 
         public IndexedCollection<string> FunctionalArea { get; } = new IndexedCollection<string>();
 
+        protected override GeneralCommentViewModel.CommentTypes CommentType =>
+            GeneralCommentViewModel.CommentTypes.InventorySection;
+
         public override string TabName       => "INVENTORY SECTION";
         public override string PhotoTypeText => "Section photos";
         public override string DetailHeaderText => 

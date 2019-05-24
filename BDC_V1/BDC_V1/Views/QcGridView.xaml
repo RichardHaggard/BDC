@@ -31,6 +31,11 @@
     <converters:DataFilterBooleanConverter x:Key="DataFilterBooleanConverter" />
     <converters:BoolToVisibilityConverter  x:Key="BoolToVisibilityConverter"  />
 
+    <Style x:Key="RefreshButtonStyle" TargetType="Button"
+      BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
+      <!-- TODO: Prevent the mouse over from changing background color -->
+    </Style>
+
     <Style x:Key="ToggleButtonBase" TargetType="RadioButton"
            BasedOn="{StaticResource {x:Type ToggleButton}}">
       <Setter Property="Background"  Value="Transparent" />
@@ -202,7 +207,7 @@
             <Button ToolTip="Refresh"
               Height="75" Width="100" Margin="0,0,10,0"
               Command="{Binding CmdRefresh}"
-              Style="{StaticResource MaterialDesignRaisedLightButton}">
+              Style="{StaticResource RefreshButtonStyle}">
                 <Image Source="/BDC_V1;component/Resources/Refresh.png"/>
             </Button>
 

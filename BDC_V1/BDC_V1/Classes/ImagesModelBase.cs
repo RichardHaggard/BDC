@@ -98,10 +98,9 @@ namespace BDC_V1.Classes
 
         protected abstract IFacilityBase FacilityBaseInfo { get; }
 
-        protected virtual void OnSelectedComment(
-            [CanBeNull] ICommentBase comment, 
-            bool isInspection = false,
-            bool isFacility   = false)
+        protected abstract GeneralCommentViewModel.CommentTypes CommentType { get; }
+
+        protected virtual void OnSelectedComment([CanBeNull] ICommentBase comment)
         {
             var view = new GeneralCommentView();
             if (!(view.DataContext is GeneralCommentViewModel model)) 
@@ -111,87 +110,93 @@ namespace BDC_V1.Classes
             model.CommentText = comment?.CommentText;
             model.WindowTitle = $@"{TabName} COMMENT";
             model.HeaderText  = DetailHeaderText;
-            model.IsDistressedEnabled = isInspection;
-            model.IsCopyEnabled       = !isFacility;
+            model.CommentType = CommentType;
 
             // TODO: remove this MOCK data
             model.CommentaryList.Clear();
 
-            if (!isInspection)
+            if (CommentType == GeneralCommentViewModel.CommentTypes.Inspection)
+            {
+                model.CommentaryList.AddRange(new[]
+                {
+                    new Commentary
+                    {
+                        FacilityId = "11507",
+                        CodeIdText = "X####1",
+                        Rating = EnumRatingType.RMinus,
+                        CommentText =
+                            "OPERATIONALLY IMPAIRED - The hot water pump is severely operationally impaired, as the pump housing cover has been removed. " +
+                            "CORRODED - There is mild corrosion on more than thirty percent of the surface of the pump housing cover."
+                    },
+                    new Commentary
+                    {
+                        FacilityId = "11507",
+                        CodeIdText = "X####1",
+                        Rating = EnumRatingType.AMinus,
+                        CommentText =
+                            "MOISTURE/DEBRIS CONTAMINATED- There is mild moisture/debris contamination along 10 percent along the bottom of the east wall."
+                    },
+                    new Commentary
+                    {
+                        FacilityId = "11507",
+                        CodeIdText = "X####1",
+                        Rating = EnumRatingType.A,
+                        CommentText =
+                            "DAMAGED- Twenty percent of the wall has minor damage from dents and scratches along the bottom."
+                    },
+                    new Commentary
+                    {
+                        FacilityId = "11507",
+                        CodeIdText = "X####1",
+                        Rating = EnumRatingType.A,
+                        CommentText =
+                            "DAMAGED - There are major scratches, peeling, and chipping of 90 percent of the floor sealant."
+                    },
+                    new Commentary
+                    {
+                        FacilityId = "11507",
+                        CodeIdText = "X####1",
+                        Rating = EnumRatingType.R,
+                        CommentText =
+                            "OPERATIONALLY IMPAIRED - The fire alarm control panel is significantly operationally impaired due to security trouble " +
+                            "light and beeping alarm sound."
+                    },
+                    new Commentary
+                    {
+                        FacilityId = "11507",
+                        CodeIdText = "X####1",
+                        Rating = EnumRatingType.RMinus,
+                        CommentText =
+                            "The enclosed breaker is approaching the end of its design life. Repair recommended."
+                    },
+                    new Commentary
+                    {
+                        FacilityId = "11507",
+                        CodeIdText = "X####1",
+                        Rating = EnumRatingType.RPlus,
+                        CommentText =
+                            "The exhaust fan located in the Mech room has significant surface corrosion. Recommend replace."
+                    },
+                    new Commentary
+                    {
+                        FacilityId = "11507",
+                        CodeIdText = "X####1",
+                        Rating = EnumRatingType.YMinus,
+                        CommentText =
+                            "Sink in men's room has no handle or faucet and moderate rust around handle opening. " +
+                            "Sink in woman's room has no handle."
+                    },
+                });
+            }
+            else
             {
                 model.CommentaryList.Add(new Commentary
                 {
-                    FacilityId  = "11057",
-                    CodeIdText  = "C102001",
-                    Rating      = EnumRatingType.R,
+                    FacilityId = "11057",
+                    CodeIdText = "C102001",
+                    Rating = EnumRatingType.R,
                     CommentText = "DAMAGED - All the wood doors have 70% severe moisture damage. " +
                                   "CRACKED - All of the doors have 65% severe cracking and splintering"
-                });
-            }
-
-            else
-            {
-                model.CommentaryList.AddRange(new []
-                {
-                    new Commentary
-                    {
-                        FacilityId  = "11507",
-                        CodeIdText  = "X####1",
-                        Rating      = EnumRatingType.RMinus,
-                        CommentText = "OPERATIONALLY IMPAIRED - The hot water pump is severely operationally impaired, as the pump housing cover has been removed. " +
-                                      "CORRODED - There is mild corrosion on more than thirty percent of the surface of the pump housing cover."
-                    },
-                    new Commentary
-                    {
-                        FacilityId  = "11507",
-                        CodeIdText  = "X####1",
-                        Rating      = EnumRatingType.AMinus,
-                        CommentText = "MOISTURE/DEBRIS CONTAMINATED- There is mild moisture/debris contamination along 10 percent along the bottom of the east wall."
-                    },
-                    new Commentary
-                    {
-                        FacilityId  = "11507",
-                        CodeIdText  = "X####1",
-                        Rating      = EnumRatingType.A,
-                        CommentText = "DAMAGED- Twenty percent of the wall has minor damage from dents and scratches along the bottom."
-                    },
-                    new Commentary
-                    {
-                        FacilityId  = "11507",
-                        CodeIdText  = "X####1",
-                        Rating      = EnumRatingType.A,
-                        CommentText = "DAMAGED - There are major scratches, peeling, and chipping of 90 percent of the floor sealant."
-                    },
-                    new Commentary
-                    {
-                        FacilityId  = "11507",
-                        CodeIdText  = "X####1",
-                        Rating      = EnumRatingType.R,
-                        CommentText = "OPERATIONALLY IMPAIRED - The fire alarm control panel is significantly operationally impaired due to security trouble " +
-                                      "light and beeping alarm sound."
-                    },
-                    new Commentary
-                    {
-                        FacilityId  = "11507",
-                        CodeIdText  = "X####1",
-                        Rating      = EnumRatingType.RMinus,
-                        CommentText = "The enclosed breaker is approaching the end of its design life. Repair recommended."
-                    },
-                    new Commentary
-                    {
-                        FacilityId  = "11507",
-                        CodeIdText  = "X####1",
-                        Rating      = EnumRatingType.RPlus,
-                        CommentText = "The exhaust fan located in the Mech room has significant surface corrosion. Recommend replace."
-                    },
-                    new Commentary
-                    {
-                        FacilityId  = "11507",
-                        CodeIdText  = "X####1",
-                        Rating      = EnumRatingType.YMinus,
-                        CommentText = "Sink in men's room has no handle or faucet and moderate rust around handle opening. " +
-                                      "Sink in woman's room has no handle."
-                    },
                 });
             }
 

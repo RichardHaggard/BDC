@@ -32,6 +32,9 @@ namespace BDC_V1.ViewModels
         protected override ObservableCollection<ImageSource> ImageContainerSource =>
             LocalFacilityInfo?.Images;
 
+        protected override GeneralCommentViewModel.CommentTypes CommentType =>
+            GeneralCommentViewModel.CommentTypes.Facility;
+
         public override string TabName       => "FACILITY";
         public override string PhotoTypeText => "Facility photos";
         public override string DetailHeaderText => LocalFacilityInfo != null 
@@ -47,8 +50,5 @@ namespace BDC_V1.ViewModels
 
         // **************** Class members *************************************************** //
 
-        protected override void OnSelectedComment(ICommentBase comment, bool isInspection=false, bool isFacility=false) => 
-            // ReSharper disable once BaseMethodCallWithDefaultParameter
-            base.OnSelectedComment(comment, isFacility:true);
     }
 }

@@ -105,6 +105,9 @@ namespace BDC_V1.ViewModels
         protected override ObservableCollection<ImageSource> ImageContainerSource =>
             InventoryDetails.Images;
 
+        protected override GeneralCommentViewModel.CommentTypes CommentType =>
+            GeneralCommentViewModel.CommentTypes.InventoryDetails;
+
         public override string TabName       => "INVENTORY DETAILS";
         public override string PhotoTypeText => "Inventory detail photos";
         public override string DetailHeaderText => 
