@@ -328,7 +328,7 @@
                               Orientation="Horizontal"
                               CanVerticallyScroll="False"
                               CanHorizontallyScroll="True"
-                              Margin="2,0"
+                              Margin="0"
                               >
                     <StackPanel.Resources>
                       <Style TargetType="{x:Type Image}">
@@ -343,10 +343,12 @@
               <ListBox.ItemTemplate>
                 <DataTemplate>
                   <WrapPanel>
-                    <Image Stretch="UniformToFill" 
-                           Source="{Binding Path=.}"
-                           Height="{Binding Path=Height,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
-                           />
+                    <Image 
+                        Margin="5,0"
+                        Stretch="UniformToFill" 
+                        Source="{Binding Path=.}"
+                        Height="{Binding Path=Height,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                        />
                   </WrapPanel>
                 </DataTemplate>
               </ListBox.ItemTemplate>

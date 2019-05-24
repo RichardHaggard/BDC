@@ -69,7 +69,7 @@ namespace BDC_V1.ViewModels
             get => _mikeOffBg;
             set => SetProperty(ref _mikeOffBg, value);
         }
-        private string _mikeOffBg = ConstBgInactive;
+        private string _mikeOffBg = ConstBgActive;
 
 
         public string MikeOffBorderBrush
@@ -77,7 +77,7 @@ namespace BDC_V1.ViewModels
             get => _mikeOffBorderBrush;
             set => SetProperty(ref _mikeOffBorderBrush, value);
         }
-        private string _mikeOffBorderBrush = ConstBgInactive;
+        private string _mikeOffBorderBrush = ConstBorderActive;
 
 
         public string MikeOnBg
@@ -85,7 +85,7 @@ namespace BDC_V1.ViewModels
             get => _mikeOnBg;
             set => SetProperty(ref _mikeOnBg, value);
         }
-        private string _mikeOnBg = ConstBgActive;
+        private string _mikeOnBg = ConstBgInactive;
 
 
         public string MikeOnBorderBrush
@@ -93,7 +93,7 @@ namespace BDC_V1.ViewModels
             get => _mikeOnBorderBrush;
             set => SetProperty(ref _mikeOnBorderBrush, value);
         }
-        private string _mikeOnBorderBrush = ConstBorderActive;
+        private string _mikeOnBorderBrush = ConstBgInactive;
 
 
         // these properties are combinatorial, the components need to raise the property changed for each of these
