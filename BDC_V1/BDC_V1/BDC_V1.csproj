@@ -239,6 +239,7 @@
     <Compile Include="ViewModels\CameraViewModel.cs" />
     <Compile Include="Classes\CloseableResultsWindow.cs" />
     <Compile Include="ViewModels\BdcMessageBoxViewModel.cs" />
+    <Compile Include="ViewModels\DistressPopupViewModel.cs" />
     <Compile Include="ViewModels\GeneralCommentViewModel.cs" />
     <Compile Include="Classes\CommentWindows.cs" />
     <Compile Include="ViewModels\CopyCommentViewModel.cs" />
@@ -271,6 +272,9 @@
     </Compile>
     <Compile Include="Views\BdcMessageBoxView.xaml.cs">
       <DependentUpon>BdcMessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DistressPopupView.xaml.cs">
+      <DependentUpon>DistressPopupView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GeneralCommentView.xaml.cs">
       <DependentUpon>GeneralCommentView.xaml</DependentUpon>
@@ -369,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BdcMessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DistressPopupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

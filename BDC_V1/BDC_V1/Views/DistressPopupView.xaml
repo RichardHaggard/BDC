@@ -1,0 +1,87 @@
+﻿<Window Title="DistressPopupView" 
+        x:Class="BDC_V1.Views.DistressPopupView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+        xmlns:local="clr-namespace:BDC_V1.Views"
+        xmlns:utils="clr-namespace:BDC_V1.Utils"
+        xmlns:viewModels="clr-namespace:BDC_V1.ViewModels"
+        utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
+        mc:Ignorable="d"
+        d:DataContext="{viewModels:DistressPopupViewModel}"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Height="700" 
+        Width="360"
+        >
+
+  <Grid Margin="5">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <Label Grid.Row="0" 
+             Style="{StaticResource LabelLJ}"
+             Content="Select Distress:"
+             />
+
+      <ListBox Grid.Row="1"
+               ItemsSource="{Binding Path=DistressCollection, Mode=OneTime}"
+               SelectedItem="{Binding Path=DistressCollection.SelectedItem, Mode=TwoWay}"
+               VerticalAlignment="Stretch"
+               Height="Auto"
+               MinHeight="100"
+               Padding="0"
+               Margin="20,0,0,0"
+        >
+        <ListBox.ItemContainerStyle>
+          <Style TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="3.45"/>
+          </Style>
+        </ListBox.ItemContainerStyle>
+      </ListBox>
+
+      <StackPanel Grid.Row="2" 
+                  Margin="5"
+                  Orientation="Horizontal" 
+                  HorizontalAlignment="Center"
+                  >
+        <Button Margin="0,0,25,0" 
+                Height="40"
+                Width="120"
+                Command="{Binding CmdOkCommand}" 
+                Foreground="Black"
+                FontSize="16"
+                Content="OK"/>
+
+        <Button Margin="25,0,0,0" 
+                Height="40"
+                Width="120"
+                Command="{Binding CmdCancelUndo}">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="25" />
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="65" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0"
+                   Source="/BDC_V1;component/Resources/Cancel_Undo (1).png" 
+            />
+            <Label Grid.Column="2" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="CANCEL" 
+            />
+          </Grid>
+        </Button>
+      </StackPanel>
+    </Grid>
+</Window>

@@ -35,45 +35,18 @@ namespace BDC_V1.Classes
         /// </summary>
         protected readonly PropertyBaseHelper PBase;
 
-        ///// <summary>
-        ///// prevent control initialization from resetting the index
-        ///// </summary>
-        //public bool FreezeIndex
-        //{
-        //    get => _freezeIndex;
-        //    set
-        //    {
-        //        PBase.SetProperty(ref _freezeIndex, value, nameof(FreezeIndex));
-
-        //        // try raising these each time Freeze is set
-        //        PBase.RaisePropertyChanged(new[]
-        //        {
-        //            nameof(SelectedIndex),
-        //            nameof(SelectedItem)
-        //        });
-        //    }
-        //}
-        //private bool _freezeIndex;
-
         public int SelectedIndex
         {
             get => _selectedIndex;
-            set
-            {
-                // prevent control initialization from resetting the index
-                //if (!FreezeIndex)
-                if (true)
-                {
-                    PBase.SetProperty(
-                        ref _selectedIndex,
-                        Math.Max(-1, Math.Min(base.Count - 1, value)),
-                        new[]
-                        {
-                            nameof(SelectedIndex),
-                            nameof(SelectedItem)
-                        });
-                }
-            }
+            set =>
+                PBase.SetProperty(
+                    ref _selectedIndex,
+                    Math.Max(-1, Math.Min(base.Count - 1, value)),
+                    new[]
+                    {
+                        nameof(SelectedIndex),
+                        nameof(SelectedItem)
+                    });
         }
         private int _selectedIndex = -1;
 
@@ -86,33 +59,28 @@ namespace BDC_V1.Classes
 
             set
             {
-                //if (!FreezeIndex)
-                if (true)
-                {
-                    var index = ((value != null) && Contains(value))
-                        ? IndexOf(value)
-                        : -1;
+                var index = ((value != null) && Contains(value))
+                    ? IndexOf(value)
+                    : -1;
 
-                    PBase.SetProperty(
-                        ref _selectedIndex,
-                        Math.Max(-1, Math.Min(base.Count - 1, index)),
-                        new[]
-                        {
-                            nameof(SelectedIndex),
-                            nameof(SelectedItem)
-                        });
-                }
+                PBase.SetProperty(
+                    ref _selectedIndex,
+                    Math.Max(-1, Math.Min(base.Count - 1, index)),
+                    new[]
+                    {
+                        nameof(SelectedIndex),
+                        nameof(SelectedItem)
+                    });
             }
         }
 
-        public IndexedCollection([NotNull] IList items)
-            : base(items)
+        public IndexedCollection([CanBeNull] IList items = null)
+            : base(items ?? new ObservableCollection<T>())
         {
             PBase = new PropertyBaseHelper(this);
         }
 
-        public IndexedCollection([NotNull] IndexedCollection<T> srcItems)
-            // ReSharper disable once AssignNullToNotNullAttribute
+        public IndexedCollection([NotNull] ICollectionView srcItems)
             : this(srcItems.SourceCollection as IList)
         {
         }

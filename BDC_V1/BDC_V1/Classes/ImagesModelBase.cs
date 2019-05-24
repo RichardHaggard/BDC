@@ -47,8 +47,7 @@ namespace BDC_V1.Classes
                     _commentContainer.SelectedIndex = _commentContainer.Count > 0 ? 0 : -1;
                 }
 
-                return _commentContainer ?? 
-                       new IndexedCollection<ICommentBase>(new ObservableCollection<ICommentBase>());
+                return _commentContainer ?? new IndexedCollection<ICommentBase>();
             }
         }
 
@@ -64,8 +63,7 @@ namespace BDC_V1.Classes
                     _imageContainer.SelectedIndex = _imageContainer.Count > 0 ? 0 : -1;
                 }
 
-                return _imageContainer ?? 
-                       new IndexedCollection<ImageSource>(new ObservableCollection<ImageSource>());
+                return _imageContainer ?? new IndexedCollection<ImageSource>();
             }
         }
 

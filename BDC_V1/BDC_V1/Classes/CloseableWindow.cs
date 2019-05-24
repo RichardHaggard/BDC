@@ -7,10 +7,10 @@ using BDC_V1.Interfaces;
 
 namespace BDC_V1.Classes
 {
-    public class CloseableWindow : ViewModelBase, ICloseableWindow
+    public abstract class CloseableWindow : ViewModelBase, ICloseableWindow
     {
         /// <inheritdoc/>
-        public bool? DialogResultEx
+        public virtual bool? DialogResultEx
         {
             get => _dialogResultEx;
             set
@@ -24,7 +24,7 @@ namespace BDC_V1.Classes
         private bool? _dialogResultEx;
 
         /// <inheritdoc/>
-        public bool CanClose
+        public virtual bool CanClose
         {
             get => _canClose;
             set => SetProperty(ref _canClose, value);

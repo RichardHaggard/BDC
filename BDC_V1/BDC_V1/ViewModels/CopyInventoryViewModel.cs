@@ -182,13 +182,10 @@ namespace BDC_V1.ViewModels
         private string _userEnteredSection = string.Empty;
 
         [NotNull] public IndexedCollection<IFacilityInfoHeader> TargetFacilities { get; } =
-            new IndexedCollection<IFacilityInfoHeader>(new ObservableCollection<IFacilityInfoHeader>());
+            new IndexedCollection<IFacilityInfoHeader>();
 
-        [NotNull] public IndexedCollection<ItemChecklist> Systems { get; } =
-            new IndexedCollection<ItemChecklist>(new ObservableCollection<ItemChecklist>());
-
-        [NotNull] public IndexedCollection<string> Sections { get; } =
-            new IndexedCollection<string>(new ObservableCollection<string>());
+        [NotNull] public IndexedCollection<ItemChecklist> Systems  { get; } = new IndexedCollection<ItemChecklist>();
+        [NotNull] public IndexedCollection<string>        Sections { get; } = new IndexedCollection<string>();
 
         // **************** Class constructors ********************************************** //
 

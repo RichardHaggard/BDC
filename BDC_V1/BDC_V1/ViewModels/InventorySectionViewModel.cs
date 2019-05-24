@@ -101,8 +101,7 @@ namespace BDC_V1.ViewModels
         protected override ObservableCollection<ImageSource> ImageContainerSource =>
             InventorySection.Images;
 
-        public IndexedCollection<string> FunctionalArea { get; } =
-            new IndexedCollection<string>(new ObservableCollection<string>());
+        public IndexedCollection<string> FunctionalArea { get; } = new IndexedCollection<string>();
 
         public override string TabName       => "INVENTORY SECTION";
         public override string PhotoTypeText => "Section photos";

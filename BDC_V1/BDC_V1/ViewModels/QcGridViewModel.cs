@@ -68,8 +68,7 @@ namespace BDC_V1.ViewModels
             ? EnumSortingFilter.InspectionIssue
             : EnumSortingFilter.InventoryIssue;
 
-        public IndexedCollection<IQcIssueBase> GridItemsView { get; } =
-           new IndexedCollection<IQcIssueBase>(new ObservableCollection<IQcIssueBase>());
+        public IndexedCollection<IQcIssueBase> GridItemsView { get; } = new IndexedCollection<IQcIssueBase>();
 
         // **************** Class data members ********************************************** //
 

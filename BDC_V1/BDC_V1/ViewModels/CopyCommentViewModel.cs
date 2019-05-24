@@ -89,7 +89,7 @@ namespace BDC_V1.ViewModels
         private string _matchingResultsText;
 
         public IndexedCollection<IComponentFacilityHeader> ListOfFacilities { get; } =
-            new IndexedCollection<IComponentFacilityHeader>(new ObservableCollection<IComponentFacilityHeader>());
+            new IndexedCollection<IComponentFacilityHeader>();
 
         private IndexedCollection<ICommentary> _filteredCommentary;
         public IndexedCollection<ICommentary> FilteredCommentary => _filteredCommentary ??

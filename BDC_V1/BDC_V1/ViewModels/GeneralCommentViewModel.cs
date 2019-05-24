@@ -77,7 +77,27 @@ namespace BDC_V1.ViewModels
         {
             if (! IsDistressedEnabled) return;
 
-            Debug.WriteLine("OnDistressed not implemented");
+            var view = new DistressPopupView();
+            if (! (view.DataContext is DistressPopupViewModel model))
+                throw new ApplicationException("view model is not DistressPopupViewModel");
+
+            if (view.ShowDialog() == true)
+            {
+                switch (model.Result)
+                {
+                    case EnumControlResult.ResultDeleteItem:
+                    case EnumControlResult.ResultDeferred:
+                    case EnumControlResult.ResultCancelled:
+                        break;
+
+                    case EnumControlResult.ResultSaveNow:
+                        break;
+#if DEBUG
+                    default:
+                        throw new ArgumentOutOfRangeException();
+#endif
+                }
+            }
         }
 
     }

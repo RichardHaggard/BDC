@@ -180,28 +180,16 @@ namespace BDC_V1.Classes
         }
         private string _inventoryDetails;
 
-
-        public ObservableCollection<string> DetailSelectors { get; } = 
-            new ObservableCollection<string>();
-
-        public IndexedCollection<string> EquipmentMakes { get; } = 
-            new IndexedCollection<string>(new ObservableCollection<string>());
-
-        public IndexedCollection<string> Manufacturers { get; } = 
-            new IndexedCollection<string>(new ObservableCollection<string>());
-
-
         public virtual bool HasDetailComments    => DetailComments.Any();
         public virtual bool HasAnyDetailComments => HasDetailComments;
+        public virtual bool HasImages            => Images.Any();
 
-        public ObservableCollection<ICommentBase> DetailComments { get; } =
-            new ObservableCollection<ICommentBase>();
+        public ObservableCollection<ImageSource>  Images          { get; } = new ObservableCollection<ImageSource>();
+        public ObservableCollection<ICommentBase> DetailComments  { get; } = new ObservableCollection<ICommentBase>();
+        public ObservableCollection<string>       DetailSelectors { get; } = new ObservableCollection<string>();
+        public IndexedCollection<string>          EquipmentMakes  { get; } = new IndexedCollection<string>();
+        public IndexedCollection<string>          Manufacturers   { get; } = new IndexedCollection<string>();
 
-
-        public virtual bool HasImages => Images.Any();
-
-        public ObservableCollection<ImageSource> Images { get; } =
-            new ObservableCollection<ImageSource>();
 
         // **************** Class data members ********************************************** //
 
