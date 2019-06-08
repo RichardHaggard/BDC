@@ -1,0 +1,34 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: Telerik.WinControls.UI.TimeHeaderArrow
+// Assembly: BuilderRED, Version=3.5.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: C1B998B6-FDC9-4BE9-BF3E-DE300E192916
+// Assembly location: C:\Program Files (x86)\ERDC-CERL\SMS BUILDER RED\BuilderRED.exe
+
+using System;
+using Telerik.WinControls.Styles;
+
+namespace Telerik.WinControls.UI
+{
+  public class TimeHeaderArrow : LightVisualElement
+  {
+    static TimeHeaderArrow()
+    {
+      ItemStateManagerFactoryRegistry.AddStateManagerFactory((ItemStateManagerFactoryBase) new ItemStateManagerFactory(), typeof (TimeHeaderArrow));
+    }
+
+    public TimeHeaderArrow()
+    {
+      this.MouseLeave += new EventHandler(this.TimeHeaderArrow_MouseLeave);
+    }
+
+    protected override void DisposeManagedResources()
+    {
+      this.MouseLeave -= new EventHandler(this.TimeHeaderArrow_MouseLeave);
+    }
+
+    private void TimeHeaderArrow_MouseLeave(object sender, EventArgs e)
+    {
+      this.IsMouseDown = false;
+    }
+  }
+}

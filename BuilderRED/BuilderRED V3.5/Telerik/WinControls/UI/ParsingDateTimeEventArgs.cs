@@ -1,0 +1,43 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: Telerik.WinControls.UI.ParsingDateTimeEventArgs
+// Assembly: BuilderRED, Version=3.5.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: C1B998B6-FDC9-4BE9-BF3E-DE300E192916
+// Assembly location: C:\Program Files (x86)\ERDC-CERL\SMS BUILDER RED\BuilderRED.exe
+
+using System;
+using System.ComponentModel;
+
+namespace Telerik.WinControls.UI
+{
+  public class ParsingDateTimeEventArgs : CancelEventArgs
+  {
+    private string inputString;
+    private DateTime? result;
+
+    public ParsingDateTimeEventArgs(string inputString, DateTime? result)
+    {
+      this.inputString = inputString;
+      this.result = result;
+    }
+
+    public string InputString
+    {
+      get
+      {
+        return this.inputString;
+      }
+    }
+
+    public DateTime? Result
+    {
+      get
+      {
+        return this.result;
+      }
+      set
+      {
+        this.result = value;
+      }
+    }
+  }
+}
