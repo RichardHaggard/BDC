@@ -35,23 +35,23 @@ namespace BDC_V1.Classes
         public bool ValidateUser(Person person, string password)
         {
             return ValidUserDictionary.TryGetValue(person, out var validPass) && 
-                   (validPass == password);
+                   (string.IsNullOrEmpty(validPass) || (validPass == password));
         }
 
-        protected bool Add([NotNull] Person person, [CanBeNull] string password)
+        public bool Add(Person person, string password)
         {
             // Don't attempt to overwrite an existing user
             if (ValidUserDictionary.ContainsKey(person)) 
                 return false;
 
-            ValidUserDictionary.Add(person, password);
+            ValidUserDictionary.Add(person, password ?? string.Empty);
 
             _users = null;
             RaisePropertyChanged(nameof(Users));
             return true;
         }
 
-        protected bool Remove(Person person, string password)
+        public bool Remove(Person person, string password)
         {
             if (! ValidateUser(person, password))
                 return false;
@@ -63,7 +63,7 @@ namespace BDC_V1.Classes
             return true;
         }
 
-        protected bool Clear(Person person, string password)
+        public bool Clear()
         {
             if (! ValidUserDictionary.Any()) 
                 return false;

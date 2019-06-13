@@ -138,6 +138,9 @@
     <Compile Include="Converters\RatingColorToColorConverter.cs" />
     <Compile Include="Converters\RatingToBrushConverter.cs" />
     <Compile Include="Converters\RatingToRatingColorConverter.cs" />
+    <Compile Include="Databases\BredDatabase.cs" />
+    <Compile Include="Databases\Database.cs" />
+    <Compile Include="Databases\IDatabase.cs" />
     <Compile Include="Enumerations\EnumSortingFilter.cs" />
     <Compile Include="Interfaces\ICloseableResultsWindow.cs" />
     <Compile Include="Interfaces\IComment.cs" />

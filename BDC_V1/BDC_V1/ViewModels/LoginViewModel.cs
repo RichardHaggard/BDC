@@ -5,12 +5,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
+using BDC_V1.Databases;
 using BDC_V1.Interfaces;
 using BDC_V1.Mock_Data;
 using BDC_V1.Services;
@@ -77,6 +82,7 @@ namespace BDC_V1.ViewModels
         }
         private string _bredFilename;
 
+        [CanBeNull] public BredDatabase BredData { get; private set; }
         
         public bool LoginButtonEnabled => (!string.IsNullOrEmpty(ConfigurationFilename) &&
                                            !string.IsNullOrEmpty(BredFilename) &&
@@ -150,13 +156,27 @@ namespace BDC_V1.ViewModels
             //Build the company logo, make the background color (White) transparent
             //CompanyLogo = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/CardnoLogo.bmp");
 
-#if DEBUG
+#if false
 #warning Using MOCK data for LoginViewModel
             GetConfigInfo(@"This_is_a_fake_config_file.mdb");
             GetBredInfo(@"My Documents\ProjectName\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb");
 #endif
             ConfigurationFilename = Properties.Settings.Default.ConfigurationFilename;
             BredFilename          = Properties.Settings.Default.BredFilename;
+
+            if (string.IsNullOrEmpty(ConfigurationFilename) ||
+                !File.Exists(ConfigurationFilename) ||
+                !GetConfigInfo(ConfigurationFilename))
+            {
+                ConfigurationFilename = string.Empty;
+            }
+
+            if (string.IsNullOrEmpty(BredFilename) ||
+                !File.Exists(BredFilename) ||
+                !GetBredInfo(BredFilename))
+            {
+                BredFilename = string.Empty;
+            }
         }
 
         // **************** Class members *************************************************** //
@@ -167,21 +187,57 @@ namespace BDC_V1.ViewModels
         }
 
         // here is where we read in the global config info containing the list of valid users
-        private static void GetConfigInfo(string fileName)
+        private bool GetConfigInfo(string fileName)
         {
             var container = ServiceLocator.Current.TryResolve<ConfigInfoContainer>();
             Debug.Assert(container != null);
 
-            container.GlobalValue = new MockConfigInfo {FileName = fileName};
+            // for now load mock info and overwrite it with the real data
+            LocalConfigInfo = new MockConfigInfo {FileName = fileName};
+            
+            container.GlobalValue = LocalConfigInfo;
+            return true;
         }
 
         // here is where we read in the global BRED info
-        private static void GetBredInfo(string fileName)
+        private bool GetBredInfo(string fileName)
         {
             var container = ServiceLocator.Current.TryResolve<BredInfoContainer>();
             Debug.Assert(container != null);
 
-            container.GlobalValue = new MockBredInfo {FileName = fileName};
+            // for now load mock info and overwrite it with the real data
+            LocalBredInfo = new MockBredInfo {FileName = fileName};
+
+            BredData = new BredDatabase(fileName);
+            var inspectors = BredData.GetInspectors();
+
+            if (inspectors.Rows.Count > 0)
+            {
+                if (LocalConfigInfo == null)
+                {
+                    var configContainer = ServiceLocator.Current.TryResolve<ConfigInfoContainer>();
+                    Debug.Assert(configContainer != null);
+
+                    LocalConfigInfo = configContainer.GlobalValue ?? new ConfigInfo();
+                }
+                Debug.Assert(LocalConfigInfo != null);
+
+                LocalConfigInfo.ValidUsers.Clear();
+
+                foreach (DataRow row in inspectors.Rows)
+                {
+                    var firstName = row["Firstname"].ToString();
+                    var lastName  = row["Lastname" ].ToString();
+
+                    if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
+                        LocalConfigInfo.ValidUsers.Add(new Person(firstName, lastName), null);
+                }
+
+                RaisePropertyChanged(nameof(LoginUserList));
+            }
+
+            container.GlobalValue = LocalBredInfo;
+            return true;
         }
 
         private void OnCmdCancel()
@@ -266,7 +322,13 @@ namespace BDC_V1.ViewModels
             if (openFileDlg.ShowDialog() == true)
             {
                 ConfigurationFilename = openFileDlg.FileName;
-                GetConfigInfo(ConfigurationFilename);
+
+                if (string.IsNullOrEmpty(ConfigurationFilename) ||
+                    !File.Exists(ConfigurationFilename) ||
+                    !GetConfigInfo(ConfigurationFilename))
+                {
+                    ConfigurationFilename = string.Empty;
+                }
             }
         }
 
@@ -294,7 +356,13 @@ namespace BDC_V1.ViewModels
             if (openFileDlg.ShowDialog() == true)
             {
                 BredFilename = openFileDlg.FileName;
-                GetBredInfo(BredFilename);
+
+                if (string.IsNullOrEmpty(BredFilename) ||
+                    !File.Exists(BredFilename) ||
+                    !GetBredInfo(BredFilename))
+                {
+                    BredFilename = string.Empty;
+                }
             }
         }
         

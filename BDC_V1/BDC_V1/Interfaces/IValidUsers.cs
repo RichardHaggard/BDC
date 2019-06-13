@@ -13,5 +13,9 @@ namespace BDC_V1.Interfaces
     {
         [NotNull] ReadOnlyObservableCollection<Person> Users { get; }
         bool ValidateUser([NotNull] Person person, [CanBeNull] string password);
+
+        bool Add   ([NotNull] Person person, [CanBeNull] string password);
+        bool Remove([NotNull] Person person, [CanBeNull] string password);
+        bool Clear ();
     }
 }
