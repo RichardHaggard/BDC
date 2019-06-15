@@ -259,6 +259,7 @@
     <Compile Include="ViewModels\PasswordViewModel.cs" />
     <Compile Include="ViewModels\PhotoManagementViewModel.cs" />
     <Compile Include="ViewModels\QcGridViewModel.cs" />
+    <Compile Include="ViewModels\SelectUserViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Classes\ViewModelBase.cs" />
     <Compile Include="Views\AboutBdcView.xaml.cs">
@@ -320,6 +321,9 @@
     </Compile>
     <Compile Include="Views\QcInspectionView.cs" />
     <Compile Include="Views\QcInventoryView.cs" />
+    <Compile Include="Views\SelectUserView.xaml.cs">
+      <DependentUpon>SelectUserView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -432,6 +436,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\QcGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

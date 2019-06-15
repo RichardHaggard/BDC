@@ -89,6 +89,13 @@ namespace BDC_V1.ViewModels
                                            (SelectedLoginUser != null) && (LoginUserList != null) &&
                                            LoginUserList.Contains(SelectedLoginUser));
 
+        public bool IsMoreEnabled
+        {
+            get => _isMoreEnabled;
+            set => SetProperty(ref _isMoreEnabled, value);
+        }
+        private bool _isMoreEnabled;
+
         // **************** Class data members ********************************************** //
 
         // this causes exceptions within the XamlParser
@@ -211,6 +218,8 @@ namespace BDC_V1.ViewModels
             BredData = new BredDatabase(fileName);
             var inspectors = BredData.GetInspectors();
 
+            IsMoreEnabled = inspectors.Rows.Count > 0;
+
             if (inspectors.Rows.Count > 0)
             {
                 if (LocalConfigInfo == null)
@@ -230,7 +239,12 @@ namespace BDC_V1.ViewModels
                     var lastName  = row["Lastname" ].ToString();
 
                     if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
-                        LocalConfigInfo.ValidUsers.Add(new Person(firstName, lastName), null);
+                    {
+                        var user = new Person(firstName, lastName);
+
+                        if (! LocalConfigInfo.ValidUsers.Users.Contains(user))
+                            LocalConfigInfo.ValidUsers.Add(user, null);
+                    }
                 }
 
                 RaisePropertyChanged(nameof(LoginUserList));
@@ -296,7 +310,6 @@ namespace BDC_V1.ViewModels
         #endif
         #endif
         }
-
 
         private void OnConfigFile()
         {
@@ -370,6 +383,5 @@ namespace BDC_V1.ViewModels
         {
             BdcMessageBoxView.Show("To be implemented", "NOT IMPLEMENTED");
         }
-
     }
 }

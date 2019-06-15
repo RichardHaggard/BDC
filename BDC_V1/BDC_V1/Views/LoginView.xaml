@@ -258,6 +258,7 @@
                       Margin="10 0 0 0"
                       Width="90"
                       Style="{StaticResource MaterialDesignRaisedLightButton}"
+                      IsEnabled="{Binding IsMoreEnabled}"
                       Command="{Binding CmdSelectInspector}" />
 
             </materialDesign:Badged>
