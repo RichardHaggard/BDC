@@ -230,24 +230,14 @@
                       BorderBrush="Black"
                       Margin="0"
                       HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
                       materialDesign:HintAssist.Hint="&lt; Select your name from the pull-down list (or click More) &gt;"
                       materialDesign:HintAssist.Foreground="Black"
                       materialDesign:HintAssist.HintOpacity="1"
-                      VerticalAlignment="Stretch"
-                      ItemsSource="{Binding LoginUserList}" >
-              <ComboBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                  <VirtualizingStackPanel />
-                </ItemsPanelTemplate>
-              </ComboBox.ItemsPanel>
-              <ComboBox.SelectedValue>
-                <Binding Path="SelectedLoginUser"
-                         UpdateSourceTrigger="PropertyChanged"
-                         ValidatesOnDataErrors="True"
-                         NotifyOnValidationError="True">
-                </Binding>
-              </ComboBox.SelectedValue>
-            </ComboBox>
+                      ItemsSource="{Binding LoginUserList, Mode=OneWay}" 
+                      SelectedItem="{Binding LoginUserList.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsReadOnly="True"
+                      />
 
             <materialDesign:Badged Grid.Column="2"
                                    x:Name="SelectInspectorMore"

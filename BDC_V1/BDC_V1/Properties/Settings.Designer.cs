@@ -26,24 +26,24 @@ namespace BDC_V1.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
-        public string ConfigurationFilename {
+        public string FileConfigData {
             get {
-                return ((string)(this["ConfigurationFilename"]));
+                return ((string)(this["FileConfigData"]));
             }
             set {
-                this["ConfigurationFilename"] = value;
+                this["FileConfigData"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
-        public string BredFilename {
+        public string FileBredData {
             get {
-                return ((string)(this["BredFilename"]));
+                return ((string)(this["FileBredData"]));
             }
             set {
-                this["BredFilename"] = value;
+                this["FileBredData"] = value;
             }
         }
         

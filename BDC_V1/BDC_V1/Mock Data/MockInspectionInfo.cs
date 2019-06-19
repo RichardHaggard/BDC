@@ -27,7 +27,7 @@ namespace BDC_V1.Mock_Data
             InspectionComments.Add(
                 new CommentInspection
                 {
-                    EntryUser = new Person("Darrell", "Setser"),
+                    EntryUser = new Person {FirstName = "Darrell", LastName = "Setser"},
                     EntryTime = new DateTime(2018, 1, 18, 18, 19, 55),
                     CommentText = @"DAMAGED - All the wood doors have 70% severe moisture damage.  CRACKED - All of the doors have 65% severe cracking and splintering. " +
                                   @"Replacement is recommended."

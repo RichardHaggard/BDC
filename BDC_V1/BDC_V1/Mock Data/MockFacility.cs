@@ -303,7 +303,7 @@ namespace BDC_V1.Mock_Data
 
             facility1.FacilityComments.Add(new CommentFacility()
             {
-                EntryUser = new Person("Brian", "Rupert"),
+                EntryUser = new Person {FirstName = "Brian", LastName = "Rupert"},
                 EntryTime = new DateTime(2019, 1, 8, 11, 38, 0),
                 CommentText = "No A20 and D10 systems present. Could not gain access to Supply RM C342." +
                               "\nLine 2" +
@@ -350,7 +350,7 @@ namespace BDC_V1.Mock_Data
 
             facility1.Inspections[0].InspectionComments.Add(new CommentInspection
             {
-                EntryUser = new Person("Jane", "Doe"),
+                EntryUser = new Person {FirstName = "Jane", LastName = "Doe"},
                 EntryTime = new DateTime(2018, 1, 18, 18, 19, 55),
                 CommentText = "This unit was in a locked room and not visible"
             });
@@ -460,7 +460,7 @@ namespace BDC_V1.Mock_Data
                     InspectionComment =
                         new CommentInspection
                         {
-                            EntryUser = new Person("Darrell", "Setser"),
+                            EntryUser = new Person {FirstName = "Darrell", LastName = "Setser"},
                             EntryTime = new DateTime(2018, 1, 18, 18, 19, 55),
                             CommentText = "DAMAGED - All the wood doors have 70% severe structure damage. " +
                                           "CRACKED - All of the doors have 65% severe cracking and splintering. " +
@@ -500,7 +500,7 @@ namespace BDC_V1.Mock_Data
                         InventoryComment = 
                             new CommentInventory()
                             {
-                                EntryUser = new Person("George", "Jetson"),
+                                EntryUser = new Person {FirstName = "George", LastName = "Jetson"},
                                 EntryTime = new DateTime(2014, 11, 1, 17, 13, 15),
                                 CommentText = "Toilet paper was strewn all about the facility by halloween \"trick or treat\" hooligans."
                             }
@@ -522,7 +522,7 @@ namespace BDC_V1.Mock_Data
                         InventoryComment =
                             new CommentInventory()
                             {
-                                EntryUser = new Person("Kurt", "Benson"),
+                                EntryUser = new Person {FirstName = "Kurt", LastName = "Benson"},
                                 EntryTime = new DateTime(2019, 1, 17, 10, 13, 3),
                                 CommentText = "The nameplate on the component was missing certain Section Detail fields. " +
                                               "Section Detail fields have been populated and fields with NA representing data not found."
@@ -553,7 +553,7 @@ namespace BDC_V1.Mock_Data
 
             facility2.FacilityComments.Add(new CommentFacility
             {
-                EntryUser = new Person("Leroy", "Brown"),
+                EntryUser = new Person {FirstName = "Leroy", LastName = "Brown"},
                 EntryTime = new DateTime(2017, 8, 18, 13, 54, 0),
                 CommentText = "Birthday cake is spread over all of the counters."
             });
@@ -609,13 +609,13 @@ namespace BDC_V1.Mock_Data
             {
                 new CommentInspection()
                 {
-                    EntryUser = new Person("Rolling", "Stones"),
+                    EntryUser = new Person {FirstName = "Rolling", LastName = "Stones"},
                     EntryTime = new DateTime(2014, 7, 4, 8, 0, 0),
                     CommentText = "Too old to rock n roll, too young to die"
                 },
                 new CommentInspection()
                 {
-                    EntryUser = new Person("Tina", "Turner"),
+                    EntryUser = new Person {FirstName = "Tina", LastName = "Turner"},
                     EntryTime = new DateTime(2018, 1, 18, 18, 19, 55),
                     CommentText = "Love in the ThunderDome"
                 },
@@ -625,13 +625,13 @@ namespace BDC_V1.Mock_Data
             {
                 new CommentInspection()
                 {
-                    EntryUser = new Person("CSN", "and Young"),
+                    EntryUser = new Person {FirstName = "CSN", LastName = "and Young"},
                     EntryTime = new DateTime(2014, 7, 4, 8, 0, 0),
                     CommentText = "Stop everybody, what's that sound"
                 },
                 new CommentInspection()
                 {
-                    EntryUser = new Person("Harry", "Chapman"),
+                    EntryUser = new Person {FirstName = "Harry", LastName = "Chapman"},
                     EntryTime = new DateTime(2018, 1, 18, 18, 19, 55),
                     CommentText = "Cats in the cradle and a silver spoon"
                 },

@@ -1,9 +1,12 @@
-﻿using BDC_V1.Interfaces;
+﻿using System;
+using BDC_V1.Interfaces;
 
 namespace BDC_V1.Classes
 {
+    /// <inheritdoc cref="IPerson"/>
     public class Person : PropertyBase, IPerson
     {
+        /// <inheritdoc />
         public string FirstName
         {
             get => _firstName;
@@ -15,6 +18,7 @@ namespace BDC_V1.Classes
         }
         private string _firstName;
 
+        /// <inheritdoc />
         public string LastName
         {
             get => _lastName;
@@ -26,20 +30,22 @@ namespace BDC_V1.Classes
         }
         private string _lastName;
 
+        /// <inheritdoc />
         public string FirstLast => FirstName + " "  + LastName;
+
+        /// <inheritdoc />
         public string LastFirst => LastName  + ", " + FirstName;
 
-        public Person()
+        /// <inheritdoc />
+        public int CompareTo(IPerson other)
         {
+            var last = string.Compare(LastName, other.LastName, StringComparison.Ordinal);
+            if (last != 0) return last;
+
+            return string.Compare(FirstName, other.FirstName, StringComparison.Ordinal);
         }
 
-        public Person(string firstName, string lastName)
-            : this()
-        {
-            FirstName = firstName;
-            LastName  = lastName;
-        }
-
+        /// <inheritdoc />
         public override string ToString() => LastFirst;
     }
 }

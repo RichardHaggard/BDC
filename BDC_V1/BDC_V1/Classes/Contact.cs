@@ -29,13 +29,13 @@ namespace BDC_V1.Classes
         // **************** Class constructors ********************************************** //
 
         public Contact() 
-            : base()
         {
         }
 
         public Contact(string firstName, string lastName)
-            : base(firstName, lastName)
         {
+            FirstName = firstName;
+            LastName  = lastName;
         }
 
 

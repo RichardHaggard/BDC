@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using BDC_V1.Classes;
 using BDC_V1.Databases;
+using BDC_V1.Enumerations;
 using BDC_V1.Interfaces;
 using BDC_V1.Mock_Data;
 using BDC_V1.Services;
@@ -40,22 +41,9 @@ namespace BDC_V1.ViewModels
         [NotNull] public ICommand CmdSelectConfigFile { get; }
         [NotNull] public ICommand CmdSelectQcFile     { get; }
         [NotNull] public ICommand CmdSelectInspector  { get; }
-        
-        [CanBeNull]
-        public IReadOnlyCollection<IPerson> LoginUserList => LocalValidUsers?.Users;
-        
-        [CanBeNull]
-        public IPerson SelectedLoginUser
-        {
-            get => _selectedLoginUser;
-            set
-            {
-                if ((value == null) || ((LoginUserList == null) || LoginUserList.Contains(value)))
-                    SetPropertyFlagged(ref _selectedLoginUser, value, nameof(LoginButtonEnabled));
-            }
-        }
-        private IPerson _selectedLoginUser;
 
+        [NotNull] public IndexedCollection<IInspector> LoginUserList { get; } = 
+            new IndexedCollection<IInspector>();
         
         public string ConfigurationFilename
         {
@@ -63,7 +51,7 @@ namespace BDC_V1.ViewModels
             set => SetProperty(ref _configurationFilename, value, () =>
             {
                 RaisePropertyChanged(nameof(LoginButtonEnabled));
-                Properties.Settings.Default.ConfigurationFilename = value;
+                Properties.Settings.Default.FileConfigData = value;
                 Properties.Settings.Default.Save();
             });
         }
@@ -76,18 +64,15 @@ namespace BDC_V1.ViewModels
             set => SetProperty(ref _bredFilename, value, () =>
             {
                 RaisePropertyChanged(nameof(LoginButtonEnabled));
-                Properties.Settings.Default.BredFilename = value;
+                Properties.Settings.Default.FileBredData = value;
                 Properties.Settings.Default.Save();
             });
         }
         private string _bredFilename;
 
-        [CanBeNull] public BredDatabase BredData { get; private set; }
-        
         public bool LoginButtonEnabled => (!string.IsNullOrEmpty(ConfigurationFilename) &&
                                            !string.IsNullOrEmpty(BredFilename) &&
-                                           (SelectedLoginUser != null) && (LoginUserList != null) &&
-                                           LoginUserList.Contains(SelectedLoginUser));
+                                           (LoginUserList.SelectedItem != null));
 
         public bool IsMoreEnabled
         {
@@ -98,51 +83,6 @@ namespace BDC_V1.ViewModels
 
         // **************** Class data members ********************************************** //
 
-        // this causes exceptions within the XamlParser
-        //private readonly IValidUsers _localValidUsers;
-
-        [CanBeNull]
-        protected IValidUsers LocalValidUsers
-        {
-            get => _localValidUsers;
-            set
-            {
-                if (_localValidUsers != value)
-                {
-                    Debug.Assert(value != null);
-                    _localValidUsers = value;
-
-                    // make sure the current user is still valid
-                    if ((SelectedLoginUser == null) || !_localValidUsers.Users.Contains(SelectedLoginUser))
-                        SelectedLoginUser = new Person();
-
-                    RaisePropertyChanged(nameof(LoginUserList));
-                    RaisePropertyChanged(nameof(LoginButtonEnabled));
-                }
-            }
-        }
-        private IValidUsers _localValidUsers;
-
-        protected override IConfigInfo LocalConfigInfo
-        {
-            get => base.LocalConfigInfo;
-            set
-            {
-                base.LocalConfigInfo = value;
-                ConfigurationFilename = base.LocalConfigInfo?.FileName;
-                LocalValidUsers       = base.LocalConfigInfo?.ValidUsers;
-            }
-        }
-
-        protected override IBredInfo LocalBredInfo
-        {
-            get => base.LocalBredInfo;
-            set
-            {
-                base.LocalBredInfo = value;
-                BredFilename = base.LocalBredInfo?.FileName;
-            }
-        }
 
         // **************** Class constructors ********************************************** //
 
@@ -163,27 +103,14 @@ namespace BDC_V1.ViewModels
             //Build the company logo, make the background color (White) transparent
             //CompanyLogo = MakeBitmapTransparent.MakeTransparent(@"pack://application:,,,/Resources/CardnoLogo.bmp");
 
-#if false
-#warning Using MOCK data for LoginViewModel
-            GetConfigInfo(@"This_is_a_fake_config_file.mdb");
-            GetBredInfo(@"My Documents\ProjectName\Subfolder\BRED_HOOD_ABRAMS_E_11057.mdb");
-#endif
-            ConfigurationFilename = Properties.Settings.Default.ConfigurationFilename;
-            BredFilename          = Properties.Settings.Default.BredFilename;
+            GetConfigInfo(Properties.Settings.Default.FileConfigData, true);
+            GetBredInfo  (Properties.Settings.Default.FileBredData         , true);
 
-            if (string.IsNullOrEmpty(ConfigurationFilename) ||
-                !File.Exists(ConfigurationFilename) ||
-                !GetConfigInfo(ConfigurationFilename))
+            LoginUserList.PropertyChanged += (e, i) =>
             {
-                ConfigurationFilename = string.Empty;
-            }
-
-            if (string.IsNullOrEmpty(BredFilename) ||
-                !File.Exists(BredFilename) ||
-                !GetBredInfo(BredFilename))
-            {
-                BredFilename = string.Empty;
-            }
+                if (i.PropertyName == nameof(LoginUserList.SelectedItem))
+                    RaisePropertyChanged(nameof(LoginButtonEnabled));
+            };
         }
 
         // **************** Class members *************************************************** //
@@ -194,63 +121,77 @@ namespace BDC_V1.ViewModels
         }
 
         // here is where we read in the global config info containing the list of valid users
-        private bool GetConfigInfo(string fileName)
+        private bool GetConfigInfo(string fileName, bool isSilent = false)
         {
-            var container = ServiceLocator.Current.TryResolve<ConfigInfoContainer>();
-            Debug.Assert(container != null);
+            // validate the BRED database file
+            if (! ConfigDatabase.IsValidDatabase(fileName))
+            {
+                if (! isSilent)
+                {
+                    BdcMessageBoxView.Show(
+                    "File \"" + fileName + "\" is not a valid Configuration file",
+                    "INVALID CONFIGURATION FILE",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                }
 
-            // for now load mock info and overwrite it with the real data
-            LocalConfigInfo = new MockConfigInfo {FileName = fileName};
-            
-            container.GlobalValue = LocalConfigInfo;
+                return false;
+            }
+
+            var inspectors = GetConfigInspectors(fileName)
+                .Where(user => !user.Disabled)
+                .OrderBy(item => item.LastFirst)
+                .ToList();
+
+            if (inspectors.Any())
+            {
+                LoginUserList.SelectedIndex = -1;
+                LoginUserList.Collection.Clear();
+                LoginUserList.Collection.AddRange(inspectors);
+            }
+
+            ConfigurationFilename = fileName;
             return true;
         }
 
         // here is where we read in the global BRED info
-        private bool GetBredInfo(string fileName)
+        private bool GetBredInfo(string fileName, bool isSilent = false)
         {
-            var container = ServiceLocator.Current.TryResolve<BredInfoContainer>();
-            Debug.Assert(container != null);
-
-            // for now load mock info and overwrite it with the real data
-            LocalBredInfo = new MockBredInfo {FileName = fileName};
-
-            BredData = new BredDatabase(fileName);
-            var inspectors = BredData.GetInspectors();
-
-            IsMoreEnabled = inspectors.Rows.Count > 0;
-
-            if (inspectors.Rows.Count > 0)
+            // validate the BRED database file
+            if (! BredDatabase.IsValidDatabase(fileName))
             {
-                if (LocalConfigInfo == null)
+                if (!isSilent)
                 {
-                    var configContainer = ServiceLocator.Current.TryResolve<ConfigInfoContainer>();
-                    Debug.Assert(configContainer != null);
-
-                    LocalConfigInfo = configContainer.GlobalValue ?? new ConfigInfo();
-                }
-                Debug.Assert(LocalConfigInfo != null);
-
-                LocalConfigInfo.ValidUsers.Clear();
-
-                foreach (DataRow row in inspectors.Rows)
-                {
-                    var firstName = row["Firstname"].ToString();
-                    var lastName  = row["Lastname" ].ToString();
-
-                    if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
-                    {
-                        var user = new Person(firstName, lastName);
-
-                        if (! LocalConfigInfo.ValidUsers.Users.Contains(user))
-                            LocalConfigInfo.ValidUsers.Add(user, null);
-                    }
+                    BdcMessageBoxView.Show(
+                        "File \"" + fileName + "\" is not a valid BRED QC file",
+                        "INVALID BRED QC FILE",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
                 }
 
-                RaisePropertyChanged(nameof(LoginUserList));
+                return false;
             }
 
-            container.GlobalValue = LocalBredInfo;
+            // see if there are valid users
+            var inspectors = GetBredInspectors(fileName)
+                .Where(user => !user.Disabled)
+                .OrderBy(item => item.LastFirst)
+                .ToList();
+
+            if (inspectors.Any())
+            {
+                IsMoreEnabled = true;
+
+                // if there isn't any local config info, initially build the user list from the BRED users
+                if (string.IsNullOrEmpty(ConfigurationFilename) || !LoginUserList.Collection.Any())
+                {
+                    LoginUserList.SelectedIndex = -1;
+                    LoginUserList.Collection.Clear();
+                    LoginUserList.Collection.AddRange(inspectors);
+                }
+            }
+
+            BredFilename = fileName;
             return true;
         }
 
@@ -262,53 +203,55 @@ namespace BDC_V1.ViewModels
 
         private void OnCmdLogin()
         {
-            // Insert a string literal into the Login button clicked event.
-            // Normally, the PubSubEvent would be a derived class and the thing being
-            // published would be an instantiation of an object with various properties
-            // filled out. This simple short but is a proof of concept and should be replaced
-            // in the real code.
-            //EventTypeAggregator.GetEvent<PubSubEvent<string>>().Publish("Login clicked");
+            //var view = new PasswordView(new PasswordViewModel());
+            ////view.ShowDialog();
+            //view.ShowDialogInParent(true);
 
-#if USE_PASSWORD
-            var view = new PasswordView(new PasswordViewModel());
-            //view.ShowDialog();
-            view.ShowDialogInParent(true);
+            //if (!(view.DataContext is PasswordViewModel viewModel))       
+            //    throw new InvalidCastException("Invalid View Model");
 
-            if (!(view.DataContext is PasswordViewModel viewModel))       
-                throw new InvalidCastException("Invalid View Model");
+            //if (viewModel.DialogResultEx != true) return;
 
-            if (viewModel.DialogResultEx != true) return;
+            //if (_localValidUsers.ValidateUser(SelectedLoginUser, viewModel.UserPass))
+            //{
+            //    //LoginSuccessful = true;
+            //    DialogResultEx  = true;
 
-            if (_localValidUsers.ValidateUser(SelectedLoginUser, viewModel.UserPass))
-            {
-                //LoginSuccessful = true;
-                DialogResultEx  = true;
+            //    //Publish event to close this window
+            //    EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+            //        .Publish(new CloseWindowEvent(typeof(LoginView).Name));
+            //}
 
-                //Publish event to close this window
-                EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
-                    .Publish(new CloseWindowEvent(typeof(LoginView).Name));
-            }
+            //else if (MessageBox.Show("Invalid User / Password combination", "Cannot Validate",
+            //             MessageBoxButton.OKCancel, MessageBoxImage.Hand)
+            //         == MessageBoxResult.Cancel)
+            //{
+            //    //LoginSuccessful = false;
+            //    DialogResultEx  = false;
 
-            else if (MessageBox.Show("Invalid User / Password combination", "Cannot Validate",
-                         MessageBoxButton.OKCancel, MessageBoxImage.Hand)
-                     == MessageBoxResult.Cancel)
-            {
-                //LoginSuccessful = false;
-                DialogResultEx  = false;
+            //    //Publish event to close this window
+            //    EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
+            //        .Publish(new CloseWindowEvent(typeof(LoginView).Name));
+            //}
 
-                //Publish event to close this window
-                EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
-                    .Publish(new CloseWindowEvent(typeof(LoginView).Name));
-            }
-#else
+            var configContainer = ServiceLocator.Current.TryResolve<ConfigInfoContainer>();
+            Debug.Assert(configContainer != null);
+
+            // for now load mock info and overwrite it with the real data
+            var configInfo = new ConfigInfo {FileName = ConfigurationFilename};
+            foreach (var inspector in LoginUserList.Collection)
+                configInfo.ValidUsers.Add(inspector, inspector.Password);
+
+            configContainer.GlobalValue = configInfo;
+
+            var bredContainer = ServiceLocator.Current.TryResolve<BredInfoContainer>();
+            Debug.Assert(bredContainer != null);
+
+            // for now load mock info and overwrite it with the real data
+            var bredInfo = new MockBredInfo {FileName = BredFilename};
+            bredContainer.GlobalValue = bredInfo;
+
             DialogResultEx = true;
-
-        #if false
-            //Publish event to close this window
-            EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
-                .Publish(new CloseWindowEvent(typeof(LoginView).Name));
-        #endif
-        #endif
         }
 
         private void OnConfigFile()
@@ -334,14 +277,7 @@ namespace BDC_V1.ViewModels
 
             if (openFileDlg.ShowDialog() == true)
             {
-                ConfigurationFilename = openFileDlg.FileName;
-
-                if (string.IsNullOrEmpty(ConfigurationFilename) ||
-                    !File.Exists(ConfigurationFilename) ||
-                    !GetConfigInfo(ConfigurationFilename))
-                {
-                    ConfigurationFilename = string.Empty;
-                }
+                GetConfigInfo(openFileDlg.FileName);
             }
         }
 
@@ -368,20 +304,113 @@ namespace BDC_V1.ViewModels
 
             if (openFileDlg.ShowDialog() == true)
             {
-                BredFilename = openFileDlg.FileName;
-
-                if (string.IsNullOrEmpty(BredFilename) ||
-                    !File.Exists(BredFilename) ||
-                    !GetBredInfo(BredFilename))
-                {
-                    BredFilename = string.Empty;
-                }
+                GetBredInfo(openFileDlg.FileName);
             }
         }
         
         private void OnInspector()
         {
-            BdcMessageBoxView.Show("To be implemented", "NOT IMPLEMENTED");
+            var inspectorList = GetBredInspectors(BredFilename)
+                .Where(user => !user.Disabled)
+                .OrderBy(user => user.LastFirst)
+                .ToList();
+            if (! inspectorList.Any()) return;
+
+            var view = new SelectUserView();
+            if (!(view.DataContext is SelectUserViewModel model))
+                throw new InvalidCastException("DataContext is not the proper model");
+
+            model.Users.Collection.AddRange(inspectorList);
+            if (view.ShowDialog() != true) return;
+
+            var selectedInspector = model.Users.SelectedItem;
+            if (selectedInspector == null) return;
+
+            switch (model.Result)
+            {
+                case EnumControlResult.ResultDeleteItem:
+                case EnumControlResult.ResultCancelled:
+                case EnumControlResult.ResultDeferred:
+                    break;
+
+                case EnumControlResult.ResultSaveNow:
+                    if (! LoginUserList.Collection.Contains(selectedInspector))
+                        LoginUserList.Collection.Add(selectedInspector);
+
+                    LoginUserList.SelectedItem = selectedInspector;
+                    break;
+#if DEBUG
+                default:
+                    throw new ArgumentOutOfRangeException();
+#endif
+            }
         }
+
+        private IEnumerable<IInspector> GetConfigInspectors([NotNull] string configFilename)
+        {
+            var inspectors = ConfigDatabase.GetInspectors(configFilename);
+            return GetInspectors(inspectors);
+        }
+
+        private IEnumerable<IInspector> GetBredInspectors([NotNull] string bredFilename)
+        {
+            var inspectors = BredDatabase.GetInspectors(bredFilename);
+            return GetInspectors(inspectors);
+        }
+
+        private IEnumerable<IInspector> GetInspectors([NotNull] DataTable inspectorsTable)
+        {
+            var inspectors = new List<IInspector>();
+
+            if (inspectorsTable == null) throw new ArgumentNullException(nameof(inspectorsTable));
+            if (inspectorsTable.Rows.Count > 0)
+            {
+                foreach (DataRow row in inspectorsTable.Rows)
+                {
+                    try
+                    {
+                        var firstName = row["Firstname"].ToString();
+                        var lastName  = row["Lastname" ].ToString();
+
+                        if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
+                        {
+                            var password = row["PasswordHashed"].ToString();
+
+                            var strUserId = row["User_ID"].ToString();
+                            if (! Guid.TryParse(strUserId, out var userId))
+                                userId = new Guid();
+
+                            var strPsdChgDate = row["PasswordChanged"].ToString();
+                            if (! DateTime.TryParse(strPsdChgDate, out var psdChgDate))
+                                psdChgDate = DateTime.Now;
+
+                            var strDisabled = row["Disabled"].ToString();
+                            if (! bool.TryParse(strDisabled, out var disabled))
+                                disabled = false;
+
+                            var inspector = new Inspector
+                            {
+                                UserId    = userId,
+                                LastName  = lastName,
+                                FirstName = firstName,
+                                Password  = password,
+                                Disabled  = disabled,
+                                PasswordChanged = psdChgDate
+                            };
+
+                            if (!inspectors.Contains(inspector)) inspectors.Add(inspector);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        // ignore all exceptions
+                        Debug.WriteLine(e);
+                    }
+                }
+            }
+
+            return inspectors;
+        }
+
     }
 }

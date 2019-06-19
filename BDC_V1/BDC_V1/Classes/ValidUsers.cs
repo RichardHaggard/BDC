@@ -10,56 +10,54 @@ namespace BDC_V1.Classes
     public class ValidUsers : BindableBase, IValidUsers
     {
         [NotNull] 
-        protected readonly Dictionary<Person, string> ValidUserDictionary =
-            new Dictionary<Person, string>();
+        protected readonly Dictionary<IInspector, string> ValidUserDictionary =
+            new Dictionary<IInspector, string>();
 
         [NotNull] 
-        protected IReadOnlyDictionary<Person, string> ReadOnlyUserDictionary => 
+        protected IReadOnlyDictionary<IInspector, string> ReadOnlyUserDictionary => 
             ValidUserDictionary;
 
-        public ReadOnlyObservableCollection<Person> Users
+        public ReadOnlyObservableCollection<IInspector> Users
         {
             get
             {
                 if (_users != null) return _users;
 
-                var baseObject = new ObservableCollection<Person>();
+                var baseObject = new ObservableCollection<IInspector>();
                 baseObject.AddRange(ReadOnlyUserDictionary.Keys);
 
-                return _users = new ReadOnlyObservableCollection<Person>(baseObject);
+                return _users = new ReadOnlyObservableCollection<IInspector>(baseObject);
             }
         }
 
-        [CanBeNull] private ReadOnlyObservableCollection<Person> _users;
+        [CanBeNull] private ReadOnlyObservableCollection<IInspector> _users;
             
-        public bool ValidateUser(Person person, string password)
+        public bool ValidateUser(IInspector inspector, string password)
         {
-            return ValidUserDictionary.TryGetValue(person, out var validPass) && 
+            return ValidUserDictionary.TryGetValue(inspector, out var validPass) && 
                    (string.IsNullOrEmpty(validPass) || (validPass == password));
         }
 
-        public bool Add(Person person, string password)
+        public bool Add(IInspector inspector, string password)
         {
             // Don't attempt to overwrite an existing user
-            if (ValidUserDictionary.ContainsKey(person)) 
+            if (ValidUserDictionary.ContainsKey(inspector)) 
                 return false;
 
-            ValidUserDictionary.Add(person, password ?? string.Empty);
+            ValidUserDictionary.Add(inspector, password ?? string.Empty);
 
-            _users = null;
-            RaisePropertyChanged(nameof(Users));
+            SetProperty(ref _users, null, nameof(Users));
             return true;
         }
 
-        public bool Remove(Person person, string password)
+        public bool Remove(IInspector inspector, string password)
         {
-            if (! ValidateUser(person, password))
+            if (! ValidateUser(inspector, password))
                 return false;
 
-            ValidUserDictionary.Remove(person);
+            ValidUserDictionary.Remove(inspector);
 
-            _users = null;
-            RaisePropertyChanged(nameof(Users));
+            SetProperty(ref _users, null, nameof(Users));
             return true;
         }
 
@@ -70,8 +68,7 @@ namespace BDC_V1.Classes
 
             ValidUserDictionary.Clear();
 
-            _users = null;
-            RaisePropertyChanged(nameof(Users));
+            SetProperty(ref _users, null, nameof(Users));
             return true;
         }
     }

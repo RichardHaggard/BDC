@@ -110,6 +110,7 @@
     <Compile Include="Classes\FacilityInfoHeader.cs" />
     <Compile Include="Classes\IndexedCollection.cs" />
     <Compile Include="Classes\InspectionInfo.cs" />
+    <Compile Include="Classes\Inspector.cs" />
     <Compile Include="Classes\IssueInspection.cs" />
     <Compile Include="Classes\CommentInspection.cs" />
     <Compile Include="Classes\InventoryDetail.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Converters\RatingToBrushConverter.cs" />
     <Compile Include="Converters\RatingToRatingColorConverter.cs" />
     <Compile Include="Databases\BredDatabase.cs" />
+    <Compile Include="Databases\ConfigDatabase.cs" />
     <Compile Include="Databases\Database.cs" />
     <Compile Include="Databases\IDatabase.cs" />
     <Compile Include="Enumerations\EnumSortingFilter.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="Interfaces\IFacilityInfo.cs" />
     <Compile Include="Interfaces\IFacilityInfoHeader.cs" />
     <Compile Include="Interfaces\IImageCollection.cs" />
+    <Compile Include="Interfaces\IInspector.cs" />
     <Compile Include="Interfaces\IPropertyBaseHelper.cs" />
     <Compile Include="Interfaces\IQcIssueBase.cs" />
     <Compile Include="Interfaces\ISectionInfo.cs" />

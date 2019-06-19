@@ -12,15 +12,16 @@
         xmlns:utils="clr-namespace:BDC_V1.Utils"
         xmlns:classes="clr-namespace:BDC_V1.Classes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         utils:DialogCloserExtension.DialogResult="{Binding DialogResultEx}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         SizeToContent="Height"
-        MinWidth="600"  MaxWidth="800"
-        MinHeight="200" MaxHeight="400"
-        d:DesignHeight="400"
-        d:DesignWidth="800">
+        MinWidth="300"  MaxWidth="500"
+        MinHeight="200" MaxHeight="300"
+        d:DesignHeight="300"
+        d:DesignWidth="500">
 
     <!-- 
       SizeToContent="WidthAndHeight" has a bug that causes a thick black border on Bottom and Right until 
@@ -39,6 +40,14 @@
 
     <Window.Resources>
         <ResourceDictionary>
+          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Slider.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+            <!-- <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" /> -->
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
+            <!-- <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Purple.xaml" /> -->
+          </ResourceDictionary.MergedDictionaries>
 
       <!-- CLOSE BUTTON -->
       <Style x:Key="ButtonWindowClose" TargetType="{x:Type ToggleButton}">
@@ -222,8 +231,6 @@
         </Setter>
       </Style>
 
-        <ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
     </Window.Resources>
 
@@ -307,7 +314,7 @@
           </ToggleButton.ContextMenu>
         </ToggleButton>
 
-        <TextBlock Text="{Binding WindowTitle, FallbackValue='SELECT USER'}" 
+        <TextBlock Text="{Binding WindowTitle, FallbackValue='SELECT INSPECTOR'}" 
                    FontFamily="Calibri" 
                    FontWeight="Bold" 
                    FontSize="26" 
@@ -332,30 +339,26 @@
       <Grid Grid.Row="1"  
             Margin="5"
             VerticalAlignment="Top"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Stretch"
             >
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="Auto" />
-          <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <Image Grid.Column="0" 
-               Width="50" 
-               Source="{Binding MessageIcon, UpdateSourceTrigger=PropertyChanged}" 
-               />
+        <Label Grid.Row="0"
+               Style="{StaticResource LabelBold}"
+               Content="Select Inspector:" />
 
-        <TextBox Grid.Column="1" Margin="5" FontSize="24"
-                 HorizontalScrollBarVisibility="Hidden" 
-                 VerticalScrollBarVisibility="Auto" 
-                 VerticalAlignment="Stretch"
-                 HorizontalAlignment="Stretch"
-                 Background="Transparent"
-                 BorderThickness="0"
-                 TextWrapping="Wrap"
-                 IsReadOnly="True"
-                 Text="{Binding MessageText, 
-                    FallbackValue='This is a message which can grow in size.'}"
-                 />
+        <ComboBox Grid.Row="1"
+          HorizontalAlignment="Stretch"
+          Style="{StaticResource ComboBase}"
+          ItemsSource="{Binding Users, Mode=OneTime}"
+          SelectedItem="{Binding Users.SelectedItem, Mode=TwoWay}"
+          materialDesign:HintAssist.Hint="&lt; Select your name from the pull-down list (or click More) &gt;"
+          materialDesign:HintAssist.Foreground="Black"
+          materialDesign:HintAssist.HintOpacity="1"
+          />
       </Grid>
 
       <Grid Grid.Row="2" HorizontalAlignment="Right" >

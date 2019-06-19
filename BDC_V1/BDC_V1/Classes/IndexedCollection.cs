@@ -95,6 +95,20 @@ namespace BDC_V1.Classes
                 : default(T);
         }
 
+        //public void Sort()
+        //{
+        //    var selected = SelectedItem;
+
+        //    var sorting = new SortedList<T,T>();
+        //    foreach (var item in Collection)
+        //        sorting.Add(item, item);
+
+        //    Collection.Clear();
+        //    Collection.AddRange(sorting.Keys);
+
+        //    SelectedItem = selected;
+        //}
+
         public new void OnPropertyChanged(PropertyChangedEventArgs args) =>
             this.PropertyChanged?.Invoke(this, args);
     }
