@@ -67,24 +67,24 @@ namespace BDC_V1.Databases
         [NotNull]
         public static DataTable GetInspectors([NotNull] string configFilename)
         {
-            //if (IsValidDatabase(configFilename))
-            //{
-            //    try
-            //    {
-            //        var configDatabase = new Database(configFilename);
-            //        return GetInspectors(configDatabase);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        // ignore all exceptions
-            //        Debug.WriteLine(e);
-            //    }
-            //}
+            if (IsValidDatabase(configFilename))
+            {
+                try
+                {
+                    var configDatabase = new Database(configFilename);
+                    return GetInspectors(configDatabase);
+                }
+                catch (Exception e)
+                {
+                    // ignore all exceptions
+                    Debug.WriteLine(e);
+                }
+            }
 
-            //return new DataTable();
+            return new DataTable();
 
             // ReSharper disable once AssignNullToNotNullAttribute
-            return ConfigDatabase.GetInspectors((Database) null);
+            //return ConfigDatabase.GetInspectors((Database) null);
         }
 
         [NotNull]
@@ -151,23 +151,23 @@ namespace BDC_V1.Databases
         /// <returns>true = valid database</returns>
         public new static bool IsValidDatabase([NotNull] string configFilename)
         {
-            //if (Database.IsValidDatabase(configFilename))
-            //{
-            //    try
-            //    {
-            //        var configDatabase = new Database(configFilename);
-            //        return IsValidDatabase(configDatabase);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        // ignore all exceptions
-            //        Debug.WriteLine(e);
-            //    }
-            //}
+            if (Database.IsValidDatabase(configFilename))
+            {
+                try
+                {
+                    var configDatabase = new Database(configFilename);
+                    return IsValidDatabase(configDatabase);
+                }
+                catch (Exception e)
+                {
+                    // ignore all exceptions
+                    Debug.WriteLine(e);
+                }
+            }
 
-            //return false;
+            return false;
 
-            return true;
+            //return true;
         }
 
         private static bool IsValidDatabase([NotNull] Database database)

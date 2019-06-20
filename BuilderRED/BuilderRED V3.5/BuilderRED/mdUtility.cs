@@ -121,7 +121,7 @@ namespace BuilderRED
 
     public static void Errorhandler(Exception ex, string strModuleName, string strProcName)
     {
-      StreamWriter streamWriter;
+      StreamWriter streamWriter = null;
       try
       {
         if (!Directory.Exists(mdUtility.UserApplicationDataDirectory))
