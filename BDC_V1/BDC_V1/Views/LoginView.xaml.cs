@@ -7,20 +7,24 @@ namespace BDC_V1.Views
     /// </summary>
     public partial class LoginView
     {
-        public LoginView(LoginViewModel viewModel)
+        public LoginView()
         {
-            DataContext = viewModel;
-
             InitializeComponent();
 
-    #if false
+#if false
             EventTypeAggregator.GetEvent<PubSubEvent<CloseWindowEvent>>()
                 .Subscribe((item) =>
                 {
                     if (item?.WindowName==this.GetType().Name)
                         Close();
                 });
-    #endif
+#endif
+        }
+
+        public LoginView(LoginViewModel viewModel)
+            : this()
+        {
+            DataContext = viewModel;
         }
     }
 }

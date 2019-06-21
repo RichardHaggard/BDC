@@ -196,7 +196,8 @@ namespace BDC_V1
             {
                 shellViewModel.WindowVisibility = Visibility.Collapsed;
 
-                var loginView = new LoginView(new LoginViewModel());
+                //var loginView = new LoginView(new LoginViewModel());
+                var loginView = new LoginView();
                 if (loginView.DataContext is LoginViewModel loginViewModel)
                 {
                     loginView.ShowDialog();

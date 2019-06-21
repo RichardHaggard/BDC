@@ -91,6 +91,7 @@ namespace BuilderRED
       base.Dispose(Disposing);
     }
 
+        private MenuItem _miFileImport;
     public virtual MenuItem miFileImport
     {
       get
@@ -113,6 +114,7 @@ namespace BuilderRED
 
     public virtual MenuItem miFileBar0 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private MenuItem _miFileInspector;
     public virtual MenuItem miFileInspector
     {
       get
@@ -142,6 +144,7 @@ namespace BuilderRED
 
     public virtual MenuItem miFile { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private MenuItem _miInventoryMode;
     public virtual MenuItem miInventoryMode
     {
       get
@@ -167,6 +170,7 @@ namespace BuilderRED
       }
     }
 
+        private MenuItem _miViewRefresh;
     public virtual MenuItem miViewRefresh
     {
       get
@@ -189,6 +193,7 @@ namespace BuilderRED
 
     public virtual MenuItem miViewBar2 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private MenuItem _miUnits;
     public virtual MenuItem miUnits
     {
       get
@@ -216,6 +221,7 @@ namespace BuilderRED
 
     public virtual MenuItem miView { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private MenuItem _miToolsCopyInventory;
     public virtual MenuItem miToolsCopyInventory
     {
       get
@@ -241,6 +247,7 @@ namespace BuilderRED
       }
     }
 
+        private MenuItem _miToolsInspectSections;
     public virtual MenuItem miToolsInspectSections
     {
       get
@@ -263,6 +270,7 @@ namespace BuilderRED
 
     public virtual MenuItem miTools { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private MenuItem _miHelpContents;
     public virtual MenuItem miHelpContents
     {
       get
@@ -285,6 +293,7 @@ namespace BuilderRED
 
     public virtual MenuItem miHelpBar0 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private MenuItem _miHelpAbout;
     public virtual MenuItem miHelpAbout
     {
       get
@@ -311,6 +320,7 @@ namespace BuilderRED
 
     public virtual System.Windows.Forms.Label lblLocationInfo { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private CheckBox _chkYearEstimated;
     public virtual CheckBox chkYearEstimated
     {
       get
@@ -331,6 +341,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _dtPainted;
     public virtual System.Windows.Forms.TextBox dtPainted
     {
       get
@@ -351,6 +362,7 @@ namespace BuilderRED
       }
     }
 
+        private CheckBox _chkPainted;
     public virtual CheckBox chkPainted
     {
       get
@@ -371,6 +383,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtSectionAmount;
     public virtual System.Windows.Forms.TextBox txtSectionAmount
     {
       get
@@ -399,6 +412,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtSectionYearBuilt;
     public virtual System.Windows.Forms.TextBox txtSectionYearBuilt
     {
       get
@@ -440,6 +454,7 @@ namespace BuilderRED
 
     public virtual System.Windows.Forms.Label lblSectionName { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.TextBox _txtBldgArea;
     public virtual System.Windows.Forms.TextBox txtBldgArea
     {
       get
@@ -462,6 +477,7 @@ namespace BuilderRED
 
     public virtual GroupBox frmBuildingPOC { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.TextBox _txtPOCEmail;
     public virtual System.Windows.Forms.TextBox txtPOCEmail
     {
       get
@@ -482,6 +498,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtPOCPhone;
     public virtual System.Windows.Forms.TextBox txtPOCPhone
     {
       get
@@ -502,6 +519,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtPOC;
     public virtual System.Windows.Forms.TextBox txtPOC
     {
       get
@@ -530,6 +548,7 @@ namespace BuilderRED
 
     public virtual GroupBox frmBuildingAddress { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.TextBox _txtZipCode;
     public virtual System.Windows.Forms.TextBox txtZipCode
     {
       get
@@ -550,6 +569,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtState;
     public virtual System.Windows.Forms.TextBox txtState
     {
       get
@@ -570,6 +590,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtCity;
     public virtual System.Windows.Forms.TextBox txtCity
     {
       get
@@ -590,6 +611,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtAddress;
     public virtual System.Windows.Forms.TextBox txtAddress
     {
       get
@@ -618,6 +640,7 @@ namespace BuilderRED
 
     public virtual System.Windows.Forms.Label lblAddress { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.TextBox _txtNoFloors;
     public virtual System.Windows.Forms.TextBox txtNoFloors
     {
       get
@@ -638,6 +661,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtYearBuilt;
     public virtual System.Windows.Forms.TextBox txtYearBuilt
     {
       get
@@ -658,6 +682,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtBuildingName;
     public virtual System.Windows.Forms.TextBox txtBuildingName
     {
       get
@@ -678,6 +703,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtBuildingNumber;
     public virtual System.Windows.Forms.TextBox txtBuildingNumber
     {
       get
@@ -714,6 +740,7 @@ namespace BuilderRED
 
     public virtual Panel frmLocation { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private Button _cmdSampComment;
     public virtual Button cmdSampComment
     {
       get
@@ -734,6 +761,7 @@ namespace BuilderRED
       }
     }
 
+        private Button _cmdEditSample;
     public virtual Button cmdEditSample
     {
       get
@@ -754,6 +782,7 @@ namespace BuilderRED
       }
     }
 
+        private Button _cmdDeleteSample;
     public virtual Button cmdDeleteSample
     {
       get
@@ -774,6 +803,7 @@ namespace BuilderRED
       }
     }
 
+        private CheckBox _chkSampNonRep;
     public virtual CheckBox chkSampNonRep
     {
       get
@@ -794,6 +824,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.TextBox _txtSQuantity;
     public virtual System.Windows.Forms.TextBox txtSQuantity
     {
       get
@@ -822,6 +853,7 @@ namespace BuilderRED
       }
     }
 
+        private Button _cmdNewSample;
     public virtual Button cmdNewSample
     {
       get
@@ -852,6 +884,7 @@ namespace BuilderRED
 
     public virtual GroupBox frmMethod { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private RadioButton _optMethod_0;
     public virtual RadioButton optMethod_0
     {
       get
@@ -872,6 +905,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optMethod_1;
     public virtual RadioButton optMethod_1
     {
       get
@@ -894,6 +928,7 @@ namespace BuilderRED
 
     public virtual GroupBox frmRatingType { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private RadioButton _optRatingType_1;
     public virtual RadioButton optRatingType_1
     {
       get
@@ -919,6 +954,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optRatingType_2;
     public virtual RadioButton optRatingType_2
     {
       get
@@ -944,6 +980,7 @@ namespace BuilderRED
       }
     }
 
+        private GroupBox _frmDistressSurvey;
     public virtual GroupBox frmDistressSurvey
     {
       get
@@ -964,6 +1001,7 @@ namespace BuilderRED
       }
     }
 
+        private CheckBox _chkPaintDefFree;
     public virtual CheckBox chkPaintDefFree
     {
       get
@@ -984,6 +1022,7 @@ namespace BuilderRED
       }
     }
 
+        private CheckBox _chkDefFree;
     public virtual CheckBox chkDefFree
     {
       get
@@ -1026,6 +1065,7 @@ namespace BuilderRED
 
     public virtual System.Windows.Forms.Label lblSystemText { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        System.Windows.Forms.ComboBox _cboConstructionType;
     internal virtual System.Windows.Forms.ComboBox cboConstructionType
     {
       get
@@ -1051,6 +1091,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.ComboBox _cboSectionMaterial;
     internal virtual System.Windows.Forms.ComboBox cboSectionMaterial
     {
       get
@@ -1076,6 +1117,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.ComboBox _cboSectionComponentType;
     internal virtual System.Windows.Forms.ComboBox cboSectionComponentType
     {
       get
@@ -1103,6 +1145,7 @@ namespace BuilderRED
 
     internal virtual System.Windows.Forms.ComboBox cboSectionPaintType { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.ComboBox _cboSectionName;
     internal virtual System.Windows.Forms.ComboBox cboSectionName
     {
       get
@@ -1131,6 +1174,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.ComboBox _cboCatCode;
     internal virtual System.Windows.Forms.ComboBox cboCatCode
     {
       get
@@ -1159,6 +1203,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.ComboBox _cboLocation;
     internal virtual System.Windows.Forms.ComboBox cboLocation
     {
       get
@@ -1179,6 +1224,7 @@ namespace BuilderRED
       }
     }
 
+        private System.Windows.Forms.Timer _Timer1;
     internal virtual System.Windows.Forms.Timer Timer1
     {
       get
@@ -1203,6 +1249,7 @@ namespace BuilderRED
 
     internal virtual System.Windows.Forms.Label lblPCInspValue { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.Label _lblSecQtyValue;
     internal virtual System.Windows.Forms.Label lblSecQtyValue
     {
       get
@@ -1225,6 +1272,7 @@ namespace BuilderRED
 
     public virtual MenuItem miViewBar1 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private CheckBox _chkSampPainted;
     public virtual CheckBox chkSampPainted
     {
       get
@@ -1249,6 +1297,7 @@ namespace BuilderRED
 
     internal virtual MenuItem miToolsOptions { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private MenuItem _miOpenLastFile;
     internal virtual MenuItem miOpenLastFile
     {
       get
@@ -1271,6 +1320,7 @@ namespace BuilderRED
 
     internal virtual System.Windows.Forms.Label lblEnergyAuditRequired { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private CheckBox _chkEnergyAuditRequired;
     internal virtual CheckBox chkEnergyAuditRequired
     {
       get
@@ -4212,6 +4262,8 @@ namespace BuilderRED
 
     internal virtual System.Windows.Forms.Label lblAlternateID { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+
+        private System.Windows.Forms.TextBox _txtAlternateID;
     internal virtual System.Windows.Forms.TextBox txtAlternateID
     {
       get
@@ -4239,6 +4291,7 @@ namespace BuilderRED
 
     internal virtual System.Windows.Forms.Label lblAlternateIDSource { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.TextBox _txtAlternateIDSource;
     internal virtual System.Windows.Forms.TextBox txtAlternateIDSource
     {
       get
@@ -4263,6 +4316,7 @@ namespace BuilderRED
 
     public virtual System.Windows.Forms.Label lblUOM { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private Button _cmdIncrease;
     internal virtual Button cmdIncrease
     {
       get
@@ -4288,6 +4342,7 @@ namespace BuilderRED
       }
     }
 
+        private Button _cmdDecrease;
     internal virtual Button cmdDecrease
     {
       get
@@ -4313,6 +4368,7 @@ namespace BuilderRED
       }
     }
 
+        private Button _cmdCalc;
     internal virtual Button cmdCalc
     {
       get
@@ -4340,6 +4396,7 @@ namespace BuilderRED
 
     internal virtual LinkLabel lnkFunctionality { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private MenuItem _miToolsReports;
     internal virtual MenuItem miToolsReports
     {
       get
@@ -4360,6 +4417,7 @@ namespace BuilderRED
       }
     }
 
+        private MenuItem _miFileClose;
     public virtual MenuItem miFileClose
     {
       get
@@ -4384,6 +4442,7 @@ namespace BuilderRED
 
     internal virtual System.Windows.Forms.Label lblFunctionalArea { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.ComboBox _cboFunctionalArea;
     internal virtual System.Windows.Forms.ComboBox cboFunctionalArea
     {
       get
@@ -4406,6 +4465,7 @@ namespace BuilderRED
 
     public virtual System.Windows.Forms.Label lblInspectionDate { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private Button _cmdDeleteInspection;
     public virtual Button cmdDeleteInspection
     {
       get
@@ -4426,6 +4486,7 @@ namespace BuilderRED
       }
     }
 
+        private Button _cmdCopyInspection;
     public virtual Button cmdCopyInspection
     {
       get
@@ -4446,6 +4507,7 @@ namespace BuilderRED
       }
     }
 
+        private Button _cmdNewInspection;
     public virtual Button cmdNewInspection
     {
       get
@@ -4472,6 +4534,7 @@ namespace BuilderRED
 
     internal virtual Panel pnlTrees { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private SplitContainer _SplitContainerMain;
     internal virtual SplitContainer SplitContainerMain
     {
       get
@@ -4492,9 +4555,10 @@ namespace BuilderRED
       }
     }
 
-    private virtual RadDesktopAlert alertFormsUpdate { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
+        protected virtual RadDesktopAlert alertFormsUpdate { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
-    private virtual RadMenuItem alertFormsHide
+        private RadMenuItem _alertFormsHide;
+    protected virtual RadMenuItem alertFormsHide
     {
       get
       {
@@ -4514,9 +4578,9 @@ namespace BuilderRED
       }
     }
 
-    private virtual RadCommandBar RadCommandBar1 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
+    protected virtual RadCommandBar RadCommandBar1 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
-    private virtual CommandBarRowElement CommandBarRowElement1 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
+        protected virtual CommandBarRowElement CommandBarRowElement1 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
     public virtual GroupBox frmDirectRating { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
@@ -4524,6 +4588,7 @@ namespace BuilderRED
 
     internal virtual TableLayoutPanel tlpPaintRating { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private RadioButton _optPaintRating_9;
     public virtual RadioButton optPaintRating_9
     {
       get
@@ -4544,6 +4609,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optPaintRating_1;
     public virtual RadioButton optPaintRating_1
     {
       get
@@ -4564,6 +4630,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optPaintRating_6;
     public virtual RadioButton optPaintRating_6
     {
       get
@@ -4584,6 +4651,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optPaintRating_8;
     public virtual RadioButton optPaintRating_8
     {
       get
@@ -4604,6 +4672,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optPaintRating_3;
     public virtual RadioButton optPaintRating_3
     {
       get
@@ -4624,6 +4693,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optPaintRating_4;
     public virtual RadioButton optPaintRating_4
     {
       get
@@ -4644,6 +4714,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optPaintRating_7;
     public virtual RadioButton optPaintRating_7
     {
       get
@@ -4664,6 +4735,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optPaintRating_5;
     public virtual RadioButton optPaintRating_5
     {
       get
@@ -4684,6 +4756,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optPaintRating_2;
     public virtual RadioButton optPaintRating_2
     {
       get
@@ -4708,6 +4781,7 @@ namespace BuilderRED
 
     internal virtual TableLayoutPanel tlpDirectRating { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private RadioButton _optCompRating_9;
     public virtual RadioButton optCompRating_9
     {
       get
@@ -4728,6 +4802,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optCompRating_5;
     public virtual RadioButton optCompRating_5
     {
       get
@@ -4748,6 +4823,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optCompRating_6;
     public virtual RadioButton optCompRating_6
     {
       get
@@ -4768,6 +4844,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optCompRating_8;
     public virtual RadioButton optCompRating_8
     {
       get
@@ -4788,6 +4865,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optCompRating_7;
     public virtual RadioButton optCompRating_7
     {
       get
@@ -4808,6 +4886,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optCompRating_4;
     public virtual RadioButton optCompRating_4
     {
       get
@@ -4828,6 +4907,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optCompRating_2;
     public virtual RadioButton optCompRating_2
     {
       get
@@ -4848,6 +4928,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optCompRating_1;
     public virtual RadioButton optCompRating_1
     {
       get
@@ -4868,6 +4949,7 @@ namespace BuilderRED
       }
     }
 
+        private RadioButton _optCompRating_3;
     public virtual RadioButton optCompRating_3
     {
       get
@@ -4888,6 +4970,7 @@ namespace BuilderRED
       }
     }
 
+        private UltraTree _tvInventory;
     public virtual UltraTree tvInventory
     {
       get
@@ -4922,6 +5005,7 @@ namespace BuilderRED
       }
     }
 
+        private UltraTree _tvInspection;
     public virtual UltraTree tvInspection
     {
       get
@@ -4953,6 +5037,7 @@ namespace BuilderRED
       }
     }
 
+        private UltraGrid _ugSubcomponents;
     public virtual UltraGrid ugSubcomponents
     {
       get
@@ -4987,6 +5072,7 @@ namespace BuilderRED
       }
     }
 
+        private UltraTree _tvFunctionality;
     internal virtual UltraTree tvFunctionality
     {
       get
@@ -5026,20 +5112,21 @@ namespace BuilderRED
 
     internal virtual System.Windows.Forms.Label lblFuncArea { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
-    private virtual RadGridView rgDetails { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
+    protected virtual RadGridView rgDetails { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
-    private virtual CommandBarStripElement CommandBarStripElement1 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
+        protected virtual CommandBarStripElement CommandBarStripElement1 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
-    private virtual CommandBarButton cmdNewDetail { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
+        protected virtual CommandBarButton cmdNewDetail { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
-    private virtual RadPageView tbSection { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
+        protected virtual RadPageView tbSection { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
-    private virtual RadPageViewPage tpSection { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
+        protected virtual RadPageViewPage tpSection { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
-    private virtual RadPageViewPage tpDetails { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
+        protected virtual RadPageViewPage tpDetails { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
     internal virtual ElementHost ElementHost1 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private MenuItem _miInspectionMode;
     internal virtual MenuItem miInspectionMode
     {
       get
@@ -5060,6 +5147,7 @@ namespace BuilderRED
       }
     }
 
+        private MenuItem _miFunctionalityMode;
     internal virtual MenuItem miFunctionalityMode
     {
       get
@@ -5082,6 +5170,7 @@ namespace BuilderRED
 
     internal virtual FlowLayoutPanel flpInspectionDate { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.ComboBox _cboInspectionDates;
     internal virtual System.Windows.Forms.ComboBox cboInspectionDates
     {
       get
@@ -5126,6 +5215,7 @@ namespace BuilderRED
 
     internal virtual ToolStripSeparator tss1 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private ToolStripButton _tsbTally;
     internal virtual ToolStripButton tsbTally
     {
       get
@@ -5146,6 +5236,7 @@ namespace BuilderRED
       }
     }
 
+        private ToolStripButton _tsbNew1;
     internal virtual ToolStripButton tsbNew1
     {
       get
@@ -5166,7 +5257,8 @@ namespace BuilderRED
       }
     }
 
-    internal virtual ToolStripButton tsbNew2
+        private ToolStripButton tsbNew2;
+    internal virtual ToolStripButton _tsbNew2
     {
       get
       {
@@ -5186,6 +5278,7 @@ namespace BuilderRED
       }
     }
 
+        private ToolStripButton _tsbDelete;
     internal virtual ToolStripButton tsbDelete
     {
       get
@@ -5208,6 +5301,7 @@ namespace BuilderRED
 
     internal virtual ToolStripSeparator tss2 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private ToolStripButton _tsbEdit;
     internal virtual ToolStripButton tsbEdit
     {
       get
@@ -5228,6 +5322,7 @@ namespace BuilderRED
       }
     }
 
+        private ToolStripButton _tsbSave;
     internal virtual ToolStripButton tsbSave
     {
       get
@@ -5248,6 +5343,7 @@ namespace BuilderRED
       }
     }
 
+        private ToolStripButton _tsbCancel;
     internal virtual ToolStripButton tsbCancel
     {
       get
@@ -5270,6 +5366,7 @@ namespace BuilderRED
 
     internal virtual ToolStripSeparator tss3 { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private ToolStripButton _tsbComment;
     internal virtual ToolStripButton tsbComment
     {
       get
@@ -5290,6 +5387,7 @@ namespace BuilderRED
       }
     }
 
+        private ToolStripButton _tsbImages;
     internal virtual ToolStripButton tsbImages
     {
       get
@@ -5310,6 +5408,7 @@ namespace BuilderRED
       }
     }
 
+        private ToolStripButton _tsbWorkItems;
     internal virtual ToolStripButton tsbWorkItems
     {
       get
@@ -5330,6 +5429,7 @@ namespace BuilderRED
       }
     }
 
+        private ToolStripMenuItem _InventoryToolStripMenuItem;
     internal virtual ToolStripMenuItem InventoryToolStripMenuItem
     {
       get
@@ -5350,6 +5450,7 @@ namespace BuilderRED
       }
     }
 
+        private ToolStripMenuItem _InspectionsToolStripMenuItem;
     internal virtual ToolStripMenuItem InspectionsToolStripMenuItem
     {
       get
@@ -5370,6 +5471,7 @@ namespace BuilderRED
       }
     }
 
+        private ToolStripMenuItem _FunctionalityToolStripMenuItem;
     internal virtual ToolStripMenuItem FunctionalityToolStripMenuItem
     {
       get
@@ -5394,6 +5496,7 @@ namespace BuilderRED
 
     internal virtual FlowLayoutPanel flpSubCompData { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private RadioButton _optRatingType_3;
     public virtual RadioButton optRatingType_3
     {
       get
@@ -5416,6 +5519,7 @@ namespace BuilderRED
 
     internal virtual Panel pnlTaskList { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private Button _ShowTasksButton;
     internal virtual Button ShowTasksButton
     {
       get
@@ -5438,6 +5542,7 @@ namespace BuilderRED
 
     internal virtual System.Windows.Forms.Label lblYearRenovated { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.TextBox _txtYearRenovated;
     internal virtual System.Windows.Forms.TextBox txtYearRenovated
     {
       get
@@ -5467,6 +5572,7 @@ namespace BuilderRED
 
     internal virtual System.Windows.Forms.Label lblUnableToInspect { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.ComboBox _rcbInspIssue;
     internal virtual System.Windows.Forms.ComboBox rcbInspIssue
     {
       get
@@ -5487,6 +5593,7 @@ namespace BuilderRED
       }
     }
 
+        private Button _btnDoesNotContain;
     internal virtual Button btnDoesNotContain
     {
       get
@@ -5509,6 +5616,7 @@ namespace BuilderRED
 
     internal virtual System.Windows.Forms.Label lblSectionStatus { get; [MethodImpl(MethodImplOptions.Synchronized)] set; }
 
+        private System.Windows.Forms.ComboBox _cboSectionStatus;
     internal virtual System.Windows.Forms.ComboBox cboSectionStatus
     {
       get
@@ -6164,7 +6272,7 @@ namespace BuilderRED
         string str1 = Interaction.InputBox("Please enter the name for the new location", "Add Location", "", -1, -1);
         if ((uint) Microsoft.VisualBasic.CompilerServices.Operators.CompareString(str1, "", false) <= 0U)
           return;
-        bool bNew;
+        bool bNew = false;
         string str2 = Sample.SampleLocationID(str1, ref bNew);
         if (bNew & (uint) Microsoft.VisualBasic.CompilerServices.Operators.CompareString(str2, "", false) > 0U)
         {
@@ -6246,11 +6354,11 @@ namespace BuilderRED
 
     public string AttachComponent(string LocationID, string ComponentID, string ComponentLabel)
     {
-      string str;
+      string str = "";
       try
       {
         UltraTreeNode nodeByKey = this.tvInspection.GetNodeByKey(LocationID);
-        string key;
+        string key = "";
         UltraTreeNode nd;
         if (nodeByKey != null)
         {
@@ -6362,7 +6470,7 @@ namespace BuilderRED
     {
       DataTable dataTable1 = (DataTable) null;
       mdUtility.ClearMstrSetTables();
-      frmLoadBuildings frmLoadBuildings;
+      frmLoadBuildings frmLoadBuildings = null;
       try
       {
         mdUtility.DatabasePath = DatabasePath;
@@ -6472,7 +6580,7 @@ namespace BuilderRED
           }
           finally
           {
-            IEnumerator enumerator;
+            IEnumerator enumerator = null;
             if (enumerator is IDisposable)
               (enumerator as IDisposable).Dispose();
           }
@@ -8609,7 +8717,7 @@ label_14:
             if (this.optRatingType_1.Checked | this.optRatingType_3.Checked)
             {
               UltraGrid ugSubcomponents = this.ugSubcomponents;
-              ugSubcomponents.DisplayLayout.Bands[0].Override.AllowUpdate = (DefaultableBoolean) -(!this.CanEditInspection ? 1 : 0);
+              ugSubcomponents.DisplayLayout.Bands[0].Override.AllowUpdate = (DefaultableBoolean)(!this.CanEditInspection ? 1 : 0); // -(!this.CanEditInspection ? 1 : 0);
               if (this.chkSampPainted.CheckState == CheckState.Checked)
               {
                 ugSubcomponents.DisplayLayout.Bands[0].Columns["SAMP_SUBCOMP_PAINTNA"].Hidden = false;
