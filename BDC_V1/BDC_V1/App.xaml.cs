@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Interactivity;
 using System.Windows.Navigation;
 using BDC_V1.Classes;
+using BDC_V1.Databases;
 using BDC_V1.Events;
 using BDC_V1.Interfaces;
 using BDC_V1.Services;
@@ -22,6 +25,19 @@ using JetBrains.Annotations;
 
 namespace BDC_V1
 {
+    public enum SystemOfMeasure
+    {
+        English = 1,
+        Metric,
+    }
+
+    public class UserAccount
+    {
+        public Guid   ID        { get; set; }
+        public string FirstName { get; set; }
+        public string LastName  { get; set; }
+    }
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
@@ -93,6 +109,31 @@ namespace BDC_V1
         [NotNull] public static string ProjectIdName     { get => GetPath(); set => SetPath(value); }
         [NotNull] public static string BREDName          { get => GetPath(); set => SetPath(value); }
 
+
+        // properties that mdUtility wants
+        [NotNull] public static string CompanyName = "Cardno";
+        [NotNull] public static string Title       = "BuilderDC";
+
+        internal static string UserApplicationDataDirectory => 
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\" + 
+            App.CompanyName + @"\" + 
+            App.Title;
+
+        internal static string CommonApplicationDataDirectory => 
+            Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\" + 
+            App.CompanyName + @"\" + 
+            App.Title;
+
+        public static UserAccount User        { get; set; }
+
+        public static string PackageFileName  { get; set; }
+
+        public static string CurrentInspector { get; set; }
+
+        public static bool   LoggedIn         { get; set; }
+
+        public static SystemOfMeasure Units   { get; set; }
+
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Previous to Prism version 7, this happened automatically. Not anymore.
@@ -124,6 +165,7 @@ namespace BDC_V1
 
             // C:\Program Files (x86)\Cardno\BuilderDC
             PathApplication = System.IO.Path.GetDirectoryName(szApplication) ?? string.Empty;
+            PathApplication = PathApplication.Replace(@"file:\", "");
             Debug.Assert(System.IO.Directory.Exists(PathApplication));
 
             // set the name of the program folder
@@ -168,6 +210,8 @@ namespace BDC_V1
             base.OnStartup(e);
         }
 
+        internal static mdUtility MdUtility;
+
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -179,6 +223,7 @@ namespace BDC_V1
                     if (MainWindow is ShellView shellView)
                         shellView.ViewTabControl.SelectedIndex = 0;
 
+                    MdUtility = new mdUtility();
                     return;
 
                 case false:
