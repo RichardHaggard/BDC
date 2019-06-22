@@ -12,7 +12,7 @@ using JetBrains.Annotations;
 
 namespace BDC_V1.Databases
 {
-    public class ConfigDatabase : Database
+    public class ConfigDatabase : BuilderDatabase
     {
         private static readonly List<IInspector> MockUsers;
 
@@ -40,7 +40,7 @@ namespace BDC_V1.Databases
         }
 
         /// <summary>
-        /// Returns just the Inspectors from a BRED database
+        /// Returns just the Inspectors from a BRED builderDatabase
         /// </summary>
         /// <returns>A DataTable with the query results, an empty DataTable on errors</returns>
         [NotNull]
@@ -60,9 +60,9 @@ namespace BDC_V1.Databases
         }
 
         /// <summary>
-        /// Returns just the Inspectors from a BRED database
+        /// Returns just the Inspectors from a BRED builderDatabase
         /// </summary>
-        /// <param name="configFilename">Database filename</param>
+        /// <param name="configFilename">BuilderDatabase filename</param>
         /// <returns>A DataTable with the query results, an empty DataTable on errors</returns>
         [NotNull]
         public static DataTable GetInspectors([NotNull] string configFilename)
@@ -71,7 +71,7 @@ namespace BDC_V1.Databases
             {
                 try
                 {
-                    var configDatabase = new Database(configFilename);
+                    var configDatabase = new BuilderDatabase(configFilename);
                     return GetInspectors(configDatabase);
                 }
                 catch (Exception e)
@@ -84,15 +84,15 @@ namespace BDC_V1.Databases
             return new DataTable();
 
             // ReSharper disable once AssignNullToNotNullAttribute
-            //return ConfigDatabase.GetInspectors((Database) null);
+            //return ConfigDatabase.GetInspectors((BuilderDatabase) null);
         }
 
         [NotNull]
-        private static DataTable GetInspectors([NotNull] Database database)
+        private static DataTable GetInspectors([NotNull] BuilderDatabase builderDatabase)
         {
-            //if (database == null) throw new ArgumentNullException(nameof(database));
+            //if (builderDatabase == null) throw new ArgumentNullException(nameof(builderDatabase));
 
-            //return database.GetTableFromQuery(
+            //return builderDatabase.GetTableFromQuery(
             //    "SELECT * FROM [UserAccount] ORDER BY LastName, FirstName",
             //    null,
             //    CommandType.Text);
@@ -124,9 +124,9 @@ namespace BDC_V1.Databases
         }
 
         /// <summary>
-        /// Validates the BRED database
+        /// Validates the BRED builderDatabase
         /// </summary>
-        /// <returns>true = valid database</returns>
+        /// <returns>true = valid builderDatabase</returns>
         public override bool IsValidDatabase()
         {
             //try
@@ -145,17 +145,17 @@ namespace BDC_V1.Databases
         }
 
         /// <summary>
-        /// Validates the BRED database
+        /// Validates the BRED builderDatabase
         /// </summary>
-        /// <param name="configFilename">filename of the database to validate</param>
-        /// <returns>true = valid database</returns>
+        /// <param name="configFilename">filename of the builderDatabase to validate</param>
+        /// <returns>true = valid builderDatabase</returns>
         public new static bool IsValidDatabase([NotNull] string configFilename)
         {
-            if (Database.IsValidDatabase(configFilename))
+            if (BuilderDatabase.IsValidDatabase(configFilename))
             {
                 try
                 {
-                    var configDatabase = new Database(configFilename);
+                    var configDatabase = new BuilderDatabase(configFilename);
                     return IsValidDatabase(configDatabase);
                 }
                 catch (Exception e)
@@ -170,12 +170,12 @@ namespace BDC_V1.Databases
             //return true;
         }
 
-        private static bool IsValidDatabase([NotNull] Database database)
+        private static bool IsValidDatabase([NotNull] BuilderDatabase builderDatabase)
         {
-            //if (database == null) throw new ArgumentNullException(nameof(database));
+            //if (builderDatabase == null) throw new ArgumentNullException(nameof(builderDatabase));
 
-            //// TODO: Validate database file
-            //return database.IsValidDatabase();
+            //// TODO: Validate builderDatabase file
+            //return builderDatabase.IsValidDatabase();
 
             return true;
         }

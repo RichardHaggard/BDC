@@ -59,6 +59,12 @@
     <ApplicationIcon>Resources\BDC.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.interop.access.dao, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -141,8 +147,8 @@
     <Compile Include="Converters\RatingToRatingColorConverter.cs" />
     <Compile Include="Databases\BredDatabase.cs" />
     <Compile Include="Databases\ConfigDatabase.cs" />
-    <Compile Include="Databases\Database.cs" />
-    <Compile Include="Databases\IDatabase.cs" />
+    <Compile Include="Databases\BuilderDatabase.cs" />
+    <Compile Include="Databases\IBuilderDatabase.cs" />
     <Compile Include="Databases\mdUtility.cs" />
     <Compile Include="Enumerations\EnumSortingFilter.cs" />
     <Compile Include="Interfaces\ICloseableResultsWindow.cs" />

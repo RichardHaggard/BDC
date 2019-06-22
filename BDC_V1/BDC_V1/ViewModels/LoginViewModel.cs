@@ -123,7 +123,7 @@ namespace BDC_V1.ViewModels
         // here is where we read in the global config info containing the list of valid users
         private bool GetConfigInfo(string fileName, bool isSilent = false)
         {
-            // validate the BRED database file
+            // validate the BRED builderDatabase file
             if (! ConfigDatabase.IsValidDatabase(fileName))
             {
                 if (! isSilent)
@@ -157,7 +157,7 @@ namespace BDC_V1.ViewModels
         // here is where we read in the global BRED info
         private bool GetBredInfo(string fileName, bool isSilent = false)
         {
-            // validate the BRED database file
+            // validate the BRED builderDatabase file
             if (! BredDatabase.IsValidDatabase(fileName))
             {
                 if (!isSilent)
